@@ -1,5 +1,6 @@
 require 'ruby2d'
-# require 'pry'
+require 'pry'
+
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -11,6 +12,8 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # PROFIDE DEFAULT FONT?
 # SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
 # YIELD TICK NUMBER TO AN UPDATE?
+# USE SPRITE? OR BIGGER PICTURE?
+# ADD EXITING ON ESCAPE
 
 set({
   title: "The Game Continues",
@@ -18,10 +21,16 @@ set({
   height: HEIGHT
 })
 
-SQUARES_WIDTH.times do |x|
-  SQUARES_HEIGHT.times do |y|
-    Image.new(PIXELS_PER_SQUARE * x, PIXELS_PER_SQUARE * y, "assets/ground.png")
+def draw_background
+  SQUARES_WIDTH.times do |x|
+    SQUARES_HEIGHT.times do |y|
+      Image.new(PIXELS_PER_SQUARE * x, PIXELS_PER_SQUARE * y, "assets/nature/ground.png")
+    end
   end
+end
+
+def draw_character
+  Image.new(WIDTH / 2, HEIGHT / 2, "assets/characters/woodcutter.png")
 end
 
 def draw_fps
@@ -42,44 +51,12 @@ def update_with_tick(&block)
   end
 end
 
+
+draw_background
+draw_character
+
 update_with_tick do |tick|
   draw_fps if tick & 30 == 0
 end
-
-
-# Square.new(0, 0, 16, "red")
-# Square.new(16, 16, 16, "blue")
-
-# Square.new(50, 50, 125)
-
-# start_time = Time.now
-# time       = Time.now
-# third_color = 1
-# # color = Color.new([0, 0, 1, 1])
-
-# Triangle.new(
-#   320,  50,
-#   540, 430,
-#   100, 430,
-#   ['red', 'green', [0, 0, third_color, 1]]
-# )
-
-# update do
-#   time_passed = Time.now - start_time
-#   third_color = Math.sin(3 * time_passed).abs
-
-#   # Triangle.new(
-#   #   320,  50,
-#   #   540, 430,
-#   #   100, 430,
-#   #   ['red', 'green', [0, 0, third_color, 1]]
-#   # )
-
-#   # # puts "FPS: #{(Time.now - time).round(2)}"
-#   # time        = Time.now
-
-#   # sleep 0.01
-
-# end
 
 show
