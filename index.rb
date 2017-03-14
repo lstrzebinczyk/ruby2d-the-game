@@ -18,7 +18,8 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 set({
   title: "The Game Continues",
   width: WIDTH,
-  height: HEIGHT
+  height: HEIGHT,
+  diagnostics: true
 })
 
 def draw_background
@@ -43,6 +44,19 @@ def draw_fps
   Text.new(15, 15, "fps: #{fps}", 40, "fonts/arial.ttf")
 end
 
+@old_mouse_background_x = 0
+@old_mouse_background_y = 0
+@mouse_background_image = Square.new(100, 100, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+
+def draw_mouse_background
+  x = (get(:mouse_x) / PIXELS_PER_SQUARE) * PIXELS_PER_SQUARE
+  y = (get(:mouse_y) / PIXELS_PER_SQUARE) * PIXELS_PER_SQUARE
+  @mouse_background_image.remove
+  @mouse_background_image.x = x
+  @mouse_background_image.y = y
+  @mouse_background_image.add
+end
+
 @tick = 0
 def update_with_tick(&block)
   update do
@@ -57,6 +71,7 @@ draw_character
 
 update_with_tick do |tick|
   draw_fps if tick & 30 == 0
+  draw_mouse_background
 end
 
 show
