@@ -1,5 +1,5 @@
 require 'ruby2d'
-require 'pry'
+# require 'pry'
 
 
 # http://www.ruby2d.com/learn/reference/
@@ -36,10 +36,7 @@ end
 
 @fps_text = Text.new(15, 15, "fps: 0", 40, "fonts/arial.ttf")
 def draw_fps
-  fps = get(:fps).round(1).to_s
-  if fps.length < 4
-    fps += "0"
-  end
+  fps            = get(:fps).to_i
   @fps_text.remove
   @fps_text.text = "fps: #{fps}"
   @fps_text.add
@@ -66,13 +63,13 @@ def update_with_tick(&block)
   end
 end
 
-
-draw_background
-draw_character
-
 update_with_tick do |tick|
   draw_fps if tick & 30 == 0
   draw_mouse_background
 end
+
+draw_background
+draw_character
+
 
 show
