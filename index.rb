@@ -34,14 +34,15 @@ def draw_character
   Image.new(WIDTH / 2, HEIGHT / 2, "assets/characters/woodcutter.png")
 end
 
+@fps_text = Text.new(15, 15, "fps: 0", 40, "fonts/arial.ttf")
 def draw_fps
   fps = get(:fps).round(1).to_s
   if fps.length < 4
     fps += "0"
   end
-
-  Rectangle.new(0, 0, 210, 80, "black")
-  Text.new(15, 15, "fps: #{fps}", 40, "fonts/arial.ttf")
+  @fps_text.remove
+  @fps_text.text = "fps: #{fps}"
+  @fps_text.add
 end
 
 @old_mouse_background_x = 0
