@@ -72,9 +72,24 @@ end
 
 @map = Map.new
 
-Point = Struct.new(:x, :y)
+class ActionPoint
+  def initialize
+    @x = 0
+    @y = 0
+    @rendered = Square.new(0, 0, PIXELS_PER_SQUARE, [56.0 / 255, 25.0 / 255, 4.0 / 255, 0.6])
+  end
 
-@point_to_go = Point.new(0, 0)
+  def update_position(x, y)
+    @rendered.remove
+    @x = x
+    @y = y
+    @rendered.x = x
+    @rendered.y = y
+    @rendered.add
+  end
+end
+
+@action_point = ActionPoint.new
 
 @tick = 0
 def update_with_tick(&block)
@@ -89,12 +104,25 @@ update_with_tick do |tick|
   draw_mouse_background
 end
 
+def mouse_clicked_on(x, y)
+  x_position = PIXELS_PER_SQUARE * (x / PIXELS_PER_SQUARE)
+  y_position = PIXELS_PER_SQUARE * (y / PIXELS_PER_SQUARE)
+
+  @action_point.update_position(x_position, y_position)
+end
+
+on(mouse: 'any') do |x, y|
+  mouse_clicked_on(x, y)
+end
 
 on_key do |key|
   if key == "escape"
     close
   end
+
+  puts "pressed key: #{key}"
 end
+
 
 
 draw_background
