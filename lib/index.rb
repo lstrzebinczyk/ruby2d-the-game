@@ -1,5 +1,11 @@
 require 'ruby2d'
 require_relative "./utils/pathfinder"
+require_relative "./utils/map"
+require_relative "./utils/character"
+require_relative "./utils/path"
+require_relative "./utils/tree"
+require_relative "./utils/background"
+
 
 
 # http://www.ruby2d.com/learn/reference/
@@ -36,7 +42,7 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 
 # SET GLOBAL VARIABLES WITH $!
 # BUG, CHARACTER SHOULD NOT BE ABLE TO FINISH ON TREE
-
+# BUG, IF STEP IS TRIED INTO IMPOSSIBLE PLACE, GAME HANGS
 
 set({
   title: "The Game Continues",
@@ -44,10 +50,6 @@ set({
   height: HEIGHT,
   diagnostics: true
 })
-
-def draw_background
-  Image.new(0, 0, "assets/nature/background.png")
-end
 
 class Position
   attr_accessor :x, :y
@@ -58,38 +60,9 @@ class Position
   end
 end
 
-
-class Character
-  def initialize(x, y)
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/characters/woodcutter.png")
-  end
-
-  def x
-    @image.x / PIXELS_PER_SQUARE
-  end
-
-  def y
-    @image.y / PIXELS_PER_SQUARE
-  end
-
-  def update(x, y)
-    @image.remove
-    @image.x = x * PIXELS_PER_SQUARE
-    @image.y = y * PIXELS_PER_SQUARE
-    @image.add
-  end
-
-  def rerender
-    @image.remove
-    @image.add
-  end
-end
-
+$background = Background.new
 $character = Character.new(30, 20)
 
-def draw_character
-  $character.rerender
-end
 
 @fps_text = Text.new(15, 15, "fps: 0", 40, "fonts/arial.ttf")
 def draw_fps
@@ -99,7 +72,6 @@ def draw_fps
   @fps_text.add
 end
 
-@to_go_position = Position.new(0, 0)
 @old_mouse_background_x = 0
 @old_mouse_background_y = 0
 @mouse_background_image = Square.new(100, 100, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
@@ -108,131 +80,10 @@ def draw_mouse_background
   x = (get(:mouse_x) / PIXELS_PER_SQUARE)
   y = (get(:mouse_y) / PIXELS_PER_SQUARE)
 
-  @to_go_position.x = x
-  @to_go_position.y = y
-
   @mouse_background_image.remove
   @mouse_background_image.x = x * PIXELS_PER_SQUARE
   @mouse_background_image.y = y * PIXELS_PER_SQUARE
   @mouse_background_image.add
-end
-
-class Path
-  def initialize
-    @nodes            = []
-    @shapes_to_render = []
-  end
-
-  def any?
-    @nodes.any?
-  end
-
-  def update(nodes)
-    @nodes = nodes
-    rerender
-  end
-
-  def shift_node
-    remove
-    node_to_shift = @nodes.shift
-    render
-    node_to_shift
-  end
-
-  private
-
-  def remove
-    @shapes_to_render.each(&:remove)
-  end
-
-  def rerender
-    remove
-    render
-  end
-
-  def render
-    @shapes_to_render = []
-
-    @nodes.each do |node|
-      x = node.x * PIXELS_PER_SQUARE + PIXELS_PER_SQUARE / 4
-      y = node.y * PIXELS_PER_SQUARE + PIXELS_PER_SQUARE / 4
-      shape = Square.new(x, y, PIXELS_PER_SQUARE / 2, 'red')
-      @shapes_to_render << shape
-    end
-
-    draw_character
-  end
-end
-
-class Tree
-  def initialize(x, y)
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/pinetree.png")
-  end
-
-  def rerender
-    @image.remove
-    @image.add
-  end
-end
-
-class Grid
-  def initialize
-    @grid_data = {}
-  end
-
-  def []=(x, y, value)
-    @grid_data[x] ||= {}
-    @grid_data[x][y] ||= {}
-    @grid_data[x][y] = value
-  end
-
-  def [](x, y)
-    @grid_data[x] && @grid_data[x][y]
-  end
-
-  def each
-    @grid_data.each do |key, value|
-      value.each do |key, value|
-        yield(value)
-      end
-    end
-  end
-end
-
-class Map
-  def initialize(opts)
-    @width  = opts[:width]
-    @height = opts[:height]
-    @grid   = Grid.new
-
-    fill_grid_with_trees
-  end
-
-  def passable?(x, y)
-    @grid[x, y].nil?
-  end
-
-  def rerender
-    @grid.each do |elem|
-      elem.rerender
-    end
-  end
-
-  private
-
-  def set_tree?
-    rand < 0.20
-  end
-
-  def fill_grid_with_trees
-    (0..@width).each do |x|
-      (0..@height).each do |y|
-        if set_tree?
-          @grid[x, y] = Tree.new(x, y)
-        end
-      end
-    end
-  end
 end
 
 @map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
@@ -313,8 +164,8 @@ end
 
 
 
-draw_background
-draw_character
+$background.rerender
+$character.rerender
 draw_map_things
 
 show
