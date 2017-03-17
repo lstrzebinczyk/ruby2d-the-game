@@ -67,6 +67,15 @@ def draw_mouse_background
   @mouse_background_image.add
 end
 
+class Map
+end
+
+@map = Map.new
+
+Point = Struct.new(:x, :y)
+
+@point_to_go = Point.new(0, 0)
+
 @tick = 0
 def update_with_tick(&block)
   update do
@@ -79,6 +88,14 @@ update_with_tick do |tick|
   draw_fps if tick & 30 == 0
   draw_mouse_background
 end
+
+
+on_key do |key|
+  if key == "escape"
+    close
+  end
+end
+
 
 draw_background
 draw_character
