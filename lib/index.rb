@@ -6,6 +6,8 @@ require_relative "./utils/path"
 require_relative "./utils/tree"
 require_relative "./utils/background"
 require_relative "./utils/action_point"
+require_relative "./utils/fps_drawer"
+require_relative "./utils/mouse_background_drawer"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -39,7 +41,6 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # ONLY RENDERING METHODS SHOULD BE CONCERNED WITH PIXELS PER SQUARE
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
-# SET GLOBAL VARIABLES WITH $!
 # BUG, CHARACTER SHOULD NOT BE ABLE TO FINISH ON TREE
 # BUG, IF STEP IS TRIED INTO IMPOSSIBLE PLACE, GAME HANGS
 
@@ -54,28 +55,9 @@ $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 $background = Background.new
 $character = Character.new(30, 20)
 
+$fps_drawer = FpsDrawer.new
+$mouse_background_drawer = MouseBackgroundDrawer.new
 
-@fps_text = Text.new(15, 15, "fps: 0", 40, "fonts/arial.ttf")
-def draw_fps
-  fps = get(:fps).to_i
-  @fps_text.remove
-  @fps_text.text = "fps: #{fps}"
-  @fps_text.add
-end
-
-@old_mouse_background_x = 0
-@old_mouse_background_y = 0
-@mouse_background_image = Square.new(100, 100, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
-
-def draw_mouse_background
-  x = (get(:mouse_x) / PIXELS_PER_SQUARE)
-  y = (get(:mouse_y) / PIXELS_PER_SQUARE)
-
-  @mouse_background_image.remove
-  @mouse_background_image.x = x * PIXELS_PER_SQUARE
-  @mouse_background_image.y = y * PIXELS_PER_SQUARE
-  @mouse_background_image.add
-end
 
 @tick = 0
 def update_with_tick(&block)
@@ -86,8 +68,16 @@ def update_with_tick(&block)
 end
 
 update_with_tick do |tick|
-  draw_fps if tick % 30 == 0
-  draw_mouse_background
+  mouse_x = (get(:mouse_x) / PIXELS_PER_SQUARE)
+  mouse_y = (get(:mouse_y) / PIXELS_PER_SQUARE)
+
+  $mouse_background_drawer.rerender(mouse_x, mouse_y)
+
+  if tick % 30 == 0
+    fps = get(:fps)
+    $fps_drawer.rerender(fps)
+  end
+
   $character.move if tick % 4 == 0
 end
 
