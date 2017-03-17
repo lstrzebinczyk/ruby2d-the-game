@@ -1,7 +1,7 @@
 class Character
   def initialize(x, y)
     @image         = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/characters/woodcutter.png")
-    @move_to_point = nil      # Point to which the character is trying to get
+    # @move_to_point = nil      # Point to which the character is trying to get
     @path          = Path.new # Path that leads him to it
   end
 
@@ -26,7 +26,7 @@ class Character
   end
 
   def move_to(x, y)
-    @move_to_point = ActionPoint.new(x, y)
+    # @move_to_point = ActionPoint.new(x, y)
     calculate_path_to(x, y)
   end
 

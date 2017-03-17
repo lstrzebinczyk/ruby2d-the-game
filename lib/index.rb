@@ -87,10 +87,9 @@ end
 
 on_key do |key|
   if key == "escape"
+    puts "pressed key: #{key}"
     close
   end
-
-  puts "pressed key: #{key}"
 end
 
 $background.rerender
