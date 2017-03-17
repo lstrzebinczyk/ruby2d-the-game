@@ -41,7 +41,6 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # ONLY RENDERING METHODS SHOULD BE CONCERNED WITH PIXELS PER SQUARE
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
-# BUG, CHARACTER SHOULD NOT BE ABLE TO FINISH ON TREE
 # BUG, IF STEP IS TRIED INTO IMPOSSIBLE PLACE, GAME HANGS
 
 set({
@@ -82,7 +81,12 @@ update_with_tick do |tick|
 end
 
 on(mouse: 'any') do |x, y|
-  $character.move_to(x / PIXELS_PER_SQUARE, y / PIXELS_PER_SQUARE)
+  in_game_x = x / PIXELS_PER_SQUARE
+  in_game_y = y / PIXELS_PER_SQUARE
+
+  if $map.passable?(in_game_x, in_game_y)
+    $character.move_to(in_game_x, in_game_y)
+  end
 end
 
 on_key do |key|
