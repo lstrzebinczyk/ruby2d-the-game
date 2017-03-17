@@ -5,8 +5,7 @@ require_relative "./utils/character"
 require_relative "./utils/path"
 require_relative "./utils/tree"
 require_relative "./utils/background"
-
-
+require_relative "./utils/action_point"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -48,18 +47,10 @@ set({
   title: "The Game Continues",
   width: WIDTH,
   height: HEIGHT,
-  diagnostics: true
+  # diagnostics: true
 })
 
-class Position
-  attr_accessor :x, :y
-
-  def initialize(x, y)
-    @x = x
-    @y = y
-  end
-end
-
+$map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 $background = Background.new
 $character = Character.new(30, 20)
 
@@ -86,48 +77,6 @@ def draw_mouse_background
   @mouse_background_image.add
 end
 
-@map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
-@path = Path.new
-
-def draw_map_things
-  @map.rerender
-end
-
-def move_character
-  if @path.any?
-    next_step = @path.shift_node
-    $character.update(next_step.x, next_step.y)
-  end
-end
-
-def calculate_path_to(x, y)
-  # puts "Looking path from (#{@character_position.x}, #{@character_position.y}) to  (#{x}, #{y})"
-  start       = { 'x' => $character.x, 'y' => $character.y }
-  destination = { 'x' => x, 'y' => y }
-  result      = PathFinder.new(start, destination, @map).search
-  @path.update(result)
-end
-
-
-class ActionPoint
-  def initialize
-    @x = 0
-    @y = 0
-    @rendered = Square.new(0, 0, PIXELS_PER_SQUARE, [56.0 / 255, 25.0 / 255, 4.0 / 255, 0.6])
-  end
-
-  def update_position(x, y)
-    @rendered.remove
-    @x = x
-    @y = y
-    @rendered.x = x
-    @rendered.y = y
-    @rendered.add
-  end
-end
-
-@action_point = ActionPoint.new
-
 @tick = 0
 def update_with_tick(&block)
   update do
@@ -139,19 +88,11 @@ end
 update_with_tick do |tick|
   draw_fps if tick % 30 == 0
   draw_mouse_background
-  move_character if tick % 4 == 0
-end
-
-def mouse_clicked_on(x, y)
-  x_position = PIXELS_PER_SQUARE * (x / PIXELS_PER_SQUARE)
-  y_position = PIXELS_PER_SQUARE * (y / PIXELS_PER_SQUARE)
-
-  @action_point.update_position(x_position, y_position)
-  calculate_path_to(x / PIXELS_PER_SQUARE, y / PIXELS_PER_SQUARE)
+  $character.move if tick % 4 == 0
 end
 
 on(mouse: 'any') do |x, y|
-  mouse_clicked_on(x, y)
+  $character.move_to(x / PIXELS_PER_SQUARE, y / PIXELS_PER_SQUARE)
 end
 
 on_key do |key|
@@ -162,10 +103,8 @@ on_key do |key|
   puts "pressed key: #{key}"
 end
 
-
-
 $background.rerender
 $character.rerender
-draw_map_things
+$map.rerender
 
 show
