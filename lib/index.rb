@@ -1,6 +1,5 @@
 require 'ruby2d'
-require_relative "./lib/a_star"
-# require 'pry'
+require_relative "./utils/pathfinder"
 
 
 # http://www.ruby2d.com/learn/reference/
@@ -36,6 +35,8 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
 # SET GLOBAL VARIABLES WITH $!
+# BUG, CHARACTER SHOULD NOT BE ABLE TO FINISH ON TREE
+
 
 set({
   title: "The Game Continues",
@@ -118,22 +119,22 @@ end
 
 class Path
   def initialize
-    @astar_result     = []
+    @nodes            = []
     @shapes_to_render = []
   end
 
   def any?
-    @astar_result.any?
+    @nodes.any?
   end
 
-  def update(astar_result)
-    @astar_result = astar_result
+  def update(nodes)
+    @nodes = nodes
     rerender
   end
 
   def shift_node
     remove
-    node_to_shift = @astar_result.shift
+    node_to_shift = @nodes.shift
     render
     node_to_shift
   end
@@ -152,7 +153,7 @@ class Path
   def render
     @shapes_to_render = []
 
-    @astar_result.each do |node|
+    @nodes.each do |node|
       x = node.x * PIXELS_PER_SQUARE + PIXELS_PER_SQUARE / 4
       y = node.y * PIXELS_PER_SQUARE + PIXELS_PER_SQUARE / 4
       shape = Square.new(x, y, PIXELS_PER_SQUARE / 2, 'red')
@@ -252,19 +253,9 @@ def calculate_path_to(x, y)
   # puts "Looking path from (#{@character_position.x}, #{@character_position.y}) to  (#{x}, #{y})"
   start       = { 'x' => $character.x, 'y' => $character.y }
   destination = { 'x' => x, 'y' => y }
-  astar       = Astar.new(start, destination, @map)
-  result      = astar.search # returns Array
+  result      = PathFinder.new(start, destination, @map).search
   @path.update(result)
 end
-
-# start       = { 'x' => 10, 'y' => 20 }
-# destination = { 'x' => 23, 'y' => 15 }
-
-# if (result.size > 0)
-#   result.each{|node| # Astar_Node
-#     # your code ...
-#   }
-# end
 
 
 class ActionPoint

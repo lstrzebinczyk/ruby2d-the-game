@@ -1,9 +1,40 @@
-class Astar
+# A* IMPLEMENTATION
+
+class PathFinder
+  class Node
+    attr_reader :x, :y, :i, :g, :h, :f
+    # x = x-position
+    # y = y-position
+    # i = parent index
+    # g = cost from start to current node
+    # h = cost from current node to destination
+    # f = cost from start to destination going through the current node
+    def initialize(x, y, i, g, h, f)
+      @x = x
+      @y = y
+      @i = i
+      @g = g
+      @h = h
+      @f = f
+    end
+
+    def set_g g
+      @g = g
+    end
+
+    def set_h h
+      @h = h
+    end
+
+    def set_f f
+      @f = f
+    end
+  end
 
   def initialize(start, destination, map)
     # create start and destination nodes
-    @start_node = Astar_Node.new(start['x'],   start['y'],           -1, -1, -1, -1)
-    @dest_node  = Astar_Node.new(destination['x'], destination['y'], -1, -1, -1, -1)
+    @start_node = Node.new(start['x'],   start['y'],           -1, -1, -1, -1)
+    @dest_node  = Node.new(destination['x'], destination['y'], -1, -1, -1, -1)
 
     @map = map
 
@@ -123,7 +154,7 @@ class Astar
           end
 
           unless in_open then
-            new_node = Astar_Node.new(nx, ny, @closed_nodes.size-1, -1, -1, -1)
+            new_node = Node.new(nx, ny, @closed_nodes.size-1, -1, -1, -1)
 
             # setup costs
             new_node.set_g(current_node.g + cost(current_node, new_node))
@@ -138,37 +169,4 @@ class Astar
 
     return [] # return empty path
   end
-
-end
-
-# Astar node representation
-class Astar_Node
-  attr_reader :x, :y, :i, :g, :h, :f
-  # x = x-position
-  # y = y-position
-  # i = parent index
-  # g = cost from start to current node
-  # h = cost from current node to destination
-  # f = cost from start to destination going through the current node
-  def initialize(x, y, i, g, h, f)
-    @x = x
-    @y = y
-    @i = i
-    @g = g
-    @h = h
-    @f = f
-  end
-
-  def set_g g
-    @g = g
-  end
-
-  def set_h h
-    @h = h
-  end
-
-  def set_f f
-    @f = f
-  end
-
 end
