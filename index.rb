@@ -126,9 +126,9 @@ class Path
     @shapes_to_render = []
 
     @astar_result.each do |node|
-      x = node.x * PIXELS_PER_SQUARE
-      y = node.y * PIXELS_PER_SQUARE
-      shape = Square.new(x, y, PIXELS_PER_SQUARE, 'red')
+      x = node.x * PIXELS_PER_SQUARE + PIXELS_PER_SQUARE / 4
+      y = node.y * PIXELS_PER_SQUARE + PIXELS_PER_SQUARE / 4
+      shape = Square.new(x, y, PIXELS_PER_SQUARE / 2, 'red')
       @shapes_to_render << shape
     end
 
