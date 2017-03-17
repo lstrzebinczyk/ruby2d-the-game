@@ -91,6 +91,12 @@ class PathFinder
 
   def search
     while @open_nodes.size > 0 do
+      # Map for now is infinite, so if search gets too big, we decide
+      # That there is no good path
+      if @open_nodes.size > 50
+        return []
+      end
+
       # grab the lowest f(x)
       low_i = 0
       for i in 0..@open_nodes.size-1
