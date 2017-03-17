@@ -14,6 +14,22 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # YIELD TICK NUMBER TO AN UPDATE?
 # USE SPRITE? OR BIGGER PICTURE?
 # ADD EXITING ON ESCAPE
+# CREATE AN ISSUE ABOUT IMAGES NOT WORKING IN WEB VERSION
+# LAY DOWN TREES AND BUSHES (OF LOVE)
+
+# http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+# ANDREJ KARPATHY LSTM
+
+# LOOK CAREFULLY AT TENSORFLOW
+
+# Look into neural networks to implement AI, what person wants to do ans so on
+
+# LET THE SYSTEM USE SYSTEMS ARIAL BY DEFAULT?
+# LET THE SYSTEM SHOW WHAT FONTS ARE AVAILABLE?
+
+# RENDER WHAT PERSON HAS IN RIGHT AND LEFT HAND?
+# ANIMATION WHEN THOSE TOOLS ARE USED? LIKE CHOPPING WOOD?
+# ONLY ALLOW HAVING LEFT HAND AND RIGHT HAND FOR NOW
 
 set({
   title: "The Game Continues",
@@ -23,11 +39,7 @@ set({
 })
 
 def draw_background
-  SQUARES_WIDTH.times do |x|
-    SQUARES_HEIGHT.times do |y|
-      Image.new(PIXELS_PER_SQUARE * x, PIXELS_PER_SQUARE * y, "assets/nature/ground.png")
-    end
-  end
+  Image.new(0, 0, "assets/nature/background.png")
 end
 
 def draw_character
@@ -36,7 +48,7 @@ end
 
 @fps_text = Text.new(15, 15, "fps: 0", 40, "fonts/arial.ttf")
 def draw_fps
-  fps            = get(:fps).to_i
+  fps = get(:fps).to_i
   @fps_text.remove
   @fps_text.text = "fps: #{fps}"
   @fps_text.add
@@ -70,6 +82,5 @@ end
 
 draw_background
 draw_character
-
 
 show
