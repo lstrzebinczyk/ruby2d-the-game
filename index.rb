@@ -32,14 +32,10 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # ANIMATION WHEN THOSE TOOLS ARE USED? LIKE CHOPPING WOOD?
 # ONLY ALLOW HAVING LEFT HAND AND RIGHT HAND FOR NOW
 
-# IMPLEMENT A* (COPY FROM?)
-# https://github.com/Pommespanzer/astar-ruby/blob/master/astar.rb
-
 # ONLY RENDERING METHODS SHOULD BE CONCERNED WITH PIXELS PER SQUARE
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
 # SET GLOBAL VARIABLES WITH $!
-# OPTIMISE ASTAR MORE!
 
 set({
   title: "The Game Continues",
@@ -61,11 +57,25 @@ class Position
   end
 end
 
-@character_position = Position.new(30, 20)
 
 class Character
   def initialize(x, y)
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/characters/woodcutter.png")
+  end
+
+  def x
+    @image.x / PIXELS_PER_SQUARE
+  end
+
+  def y
+    @image.y / PIXELS_PER_SQUARE
+  end
+
+  def update(x, y)
+    @image.remove
+    @image.x = x * PIXELS_PER_SQUARE
+    @image.y = y * PIXELS_PER_SQUARE
+    @image.add
   end
 
   def rerender
@@ -74,7 +84,7 @@ class Character
   end
 end
 
-$character = Character.new(@character_position.x, @character_position.y)
+$character = Character.new(30, 20)
 
 def draw_character
   $character.rerender
@@ -108,21 +118,38 @@ end
 
 class Path
   def initialize
+    @astar_result     = []
     @shapes_to_render = []
+  end
+
+  def any?
+    @astar_result.any?
   end
 
   def update(astar_result)
     @astar_result = astar_result
+    rerender
+  end
+
+  def shift_node
+    remove
+    node_to_shift = @astar_result.shift
     render
+    node_to_shift
   end
 
   private
 
-  def render
-    # require 'pry'
-    # binding.pry
-
+  def remove
     @shapes_to_render.each(&:remove)
+  end
+
+  def rerender
+    remove
+    render
+  end
+
+  def render
     @shapes_to_render = []
 
     @astar_result.each do |node|
@@ -214,9 +241,16 @@ def draw_map_things
   @map.rerender
 end
 
+def move_character
+  if @path.any?
+    next_step = @path.shift_node
+    $character.update(next_step.x, next_step.y)
+  end
+end
+
 def calculate_path_to(x, y)
   # puts "Looking path from (#{@character_position.x}, #{@character_position.y}) to  (#{x}, #{y})"
-  start       = { 'x' => @character_position.x, 'y' => @character_position.y }
+  start       = { 'x' => $character.x, 'y' => $character.y }
   destination = { 'x' => x, 'y' => y }
   astar       = Astar.new(start, destination, @map)
   result      = astar.search # returns Array
@@ -261,8 +295,9 @@ def update_with_tick(&block)
 end
 
 update_with_tick do |tick|
-  draw_fps if tick & 30 == 0
+  draw_fps if tick % 30 == 0
   draw_mouse_background
+  move_character if tick % 4 == 0
 end
 
 def mouse_clicked_on(x, y)
