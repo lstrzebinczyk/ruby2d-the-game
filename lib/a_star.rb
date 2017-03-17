@@ -138,7 +138,7 @@ end
 
 # Astar node representation
 class Astar_Node
-
+  attr_reader :x, :y, :i, :g, :h, :f
   # x = x-position
   # y = y-position
   # i = parent index
@@ -152,30 +152,6 @@ class Astar_Node
     @g = g
     @h = h
     @f = f
-  end
-
-  def x
-    return @x
-  end
-
-  def y
-    return @y
-  end
-
-  def i
-    return @i
-  end
-
-  def g
-    return @g
-  end
-
-  def h
-    return @h
-  end
-
-  def f
-    return @f
   end
 
   def set_g g
