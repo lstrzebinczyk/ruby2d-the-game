@@ -1,9 +1,11 @@
 class Astar
 
-  def initialize(start, destination)
+  def initialize(start, destination, map)
     # create start and destination nodes
     @start_node = Astar_Node.new(start['x'],   start['y'],           -1, -1, -1, -1)
     @dest_node  = Astar_Node.new(destination['x'], destination['y'], -1, -1, -1, -1)
+
+    @map = map
 
     @open_nodes   = [] # conatins all open nodes (nodes to be inspected)
     @closed_nodes = [] # contains all closed nodes (node we've already inspected)
@@ -12,8 +14,11 @@ class Astar
   end
 
   # calc heuristic
+  # Euclidean distance between points without sqrt and floor for speed
+  # plus some randoms to make the paths bit more wacky and unpredicrable
+  # this way they looks much nicer and less mechanical
   def heuristic(current_node, destination_node)
-    return ( Math.sqrt( ((current_node.x - destination_node.x) ** 2) + ((current_node.y - destination_node.y) ** 2) ) ).floor
+    ((current_node.x - destination_node.x + rand) ** 2) + ((current_node.y - destination_node.y + rand) ** 2)
   end
 
   # calc cost
@@ -39,7 +44,7 @@ class Astar
 
   # field passable?
   def passable?(x, y)
-    return true
+    @map.passable?(x, y)
   end
 
   # expand node in all 4 directions

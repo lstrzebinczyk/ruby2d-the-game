@@ -1,0 +1,1348 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <style media="all" type="text/css">
+    table {
+      border-collapse: collapse;
+      border: 1px solid #CCC;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 9pt;
+      line-height: normal;
+      width: 100%;
+    }
+
+    th {
+      text-align: center;
+      border-top: 1px solid #FB7A31;
+      border-bottom: 1px solid #FB7A31;
+      background: #FFC;
+      padding: 0.3em;
+      border-left: 1px solid silver;
+    }
+
+    tr.break td {
+      border: 0;
+      border-top: 1px solid #FB7A31;
+      padding: 0;
+      margin: 0;
+    }
+
+    tr.method td {
+      font-weight: bold;
+    }
+
+    td {
+      padding: 0.3em;
+    }
+
+    td:first-child {
+      width: 190px;
+      }
+
+    td {
+      border-left: 1px solid #CCC;
+      text-align: center;
+    }
+
+    .method_name {
+      text-align: left;
+    }
+
+    tfoot td {
+      text-align: left;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Profile Report: wall_time</h1>
+    <!-- Threads Table -->
+    <table>
+      <tr>
+        <th>Thread ID</th>
+        <th>Fiber ID</th>
+        <th>Total Time</th>
+      </tr>
+
+      <tr>
+        <td>8288620</td>
+        <td><a href="#11911660">11911660</a></td>
+        <td>5.4758241176605225</td>
+      </tr>
+
+    </table>
+    <!-- Methods Tables -->
+
+      <h2><a name="11911660">Thread 8288620, Fiber: 11911660</a></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>%Total</th>
+            <th>%Self</th>
+            <th>Total</th>
+            <th>Self</th>
+            <th>Wait</th>
+            <th>Child</th>
+            <th>Calls</th>
+            <th class="method_name">Name</th>
+            <th>Line</th>
+          </tr>
+        </thead>
+        <tbody>
+
+               <!-- Parents -->
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>5.48</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5.48</td>
+                 <td>1</td>
+                 <td class="method_name">
+                   <a name="Global_[No method]_11911660">
+                      Global#[No method]
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#22" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:22">22</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.48</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5.48</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Object_check_11911660">Object#check</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#24" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:24">24</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.48</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5.48</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Global_[No method]_11911660">Global#[No method]</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#24" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:24">24</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.00%</td>
+                 <td>5.48</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5.48</td>
+                 <td>3</td>
+                 <td class="method_name">
+                   <a name="Object_check_11911660">
+                      Object#check
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#11" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:11">11</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.48</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>5.46</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Astar_search_11911660">Astar#search</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#15" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:15">15</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>6/5061</td>
+                   <td class="method_name"><a href="#Class_new_11911660">Class#new</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#14" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:14">14</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.48</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>5.46</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Object_check_11911660">Object#check</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#15" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:15">15</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>100.00%</td>
+                 <td>0.21%</td>
+                 <td>5.48</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>5.46</td>
+                 <td>3</td>
+                 <td class="method_name">
+                   <a name="Astar_search_11911660">
+                      Astar#search
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#59" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:59">59</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.45</td>
+                   <td>0.13</td>
+                   <td>0.00</td>
+                   <td>5.32</td>
+                   <td>9433/38042</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#63" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:63">63</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4715/4715</td>
+                   <td class="method_name"><a href="#Astar_expand_11911660">Astar#expand</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#93" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:93">93</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4715/9767</td>
+                   <td class="method_name"><a href="#Array_push_11911660">Array#push</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#90" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:90">90</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4715/4715</td>
+                   <td class="method_name"><a href="#Array_delete_at_11911660">Array#delete_at</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#87" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:87">87</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>89/89</td>
+                   <td class="method_name"><a href="#Array_unshift_11911660">Array#unshift</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#80" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:80">80</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.26</td>
+                   <td>5.26</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>28609/38042</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.45</td>
+                   <td>0.13</td>
+                   <td>0.00</td>
+                   <td>5.32</td>
+                   <td>9433/38042</td>
+                   <td class="method_name"><a href="#Astar_search_11911660">Astar#search</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#63" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:63">63</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>99.56%</td>
+                 <td>2.42%</td>
+                 <td>5.45</td>
+                 <td>0.13</td>
+                 <td>0.00</td>
+                 <td>5.32</td>
+                 <td>38042</td>
+                 <td class="method_name">
+                   <a name="Range_each_11911660">
+                     *Range#each
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>5.26</td>
+                   <td>5.26</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>28609/38042</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_heuristic_11911660">Astar#heuristic</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>18860/18860</td>
+                   <td class="method_name"><a href="#Astar_passable__11911660">Astar#passable?</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>5049/5061</td>
+                   <td class="method_name"><a href="#Class_new_11911660">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_cost_11911660">Astar#cost</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/9767</td>
+                   <td class="method_name"><a href="#Array_push_11911660">Array#push</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_Node_set_g_11911660">Astar_Node#set_g</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_Node_set_h_11911660">Astar_Node#set_h</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_Node_set_f_11911660">Astar_Node#set_f</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.27%</td>
+                 <td>0.09%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.01</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Astar_heuristic_11911660">
+                      Astar#heuristic
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#17" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:17">17</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#_Module__Math__sqrt_11911660">&lt;Module::Math&gt;#sqrt</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#19" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:19">19</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10098/10098</td>
+                   <td class="method_name"><a href="#Fixnum_**_11911660">Fixnum#**</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#19" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:19">19</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Float_floor_11911660">Float#floor</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#19" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:19">19</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>18860/18860</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.23%</td>
+                 <td>0.15%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>18860</td>
+                 <td class="method_name">
+                   <a name="Astar_passable__11911660">
+                      Astar#passable?
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#44" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:44">44</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>18860/18860</td>
+                   <td class="method_name"><a href="#Map_passable__11911660">Map#passable?</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#45" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:45">45</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>6/5061</td>
+                   <td class="method_name"><a href="#Astar_initialize_11911660">Astar#initialize</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#6" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:6">6</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>6/5061</td>
+                   <td class="method_name"><a href="#Object_check_11911660">Object#check</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#14" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:14">14</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>5049/5061</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.23%</td>
+                 <td>0.08%</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.01</td>
+                 <td>5061</td>
+                 <td class="method_name">
+                   <a name="Class_new_11911660">
+                     *Class#new
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5055/5055</td>
+                   <td class="method_name"><a href="#Astar_Node_initialize_11911660">Astar_Node#initialize</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Astar_initialize_11911660">Astar#initialize</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#BasicObject_initialize_11911660">BasicObject#initialize</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.01</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.20%</td>
+                 <td>0.09%</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.01</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Astar_cost_11911660">
+                      Astar#cost
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#23" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:23">23</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_direction_11911660">Astar#direction</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#24" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:24">24</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Array_include__11911660">Array#include?</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#26" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:26">26</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4715/4715</td>
+                   <td class="method_name"><a href="#Astar_search_11911660">Astar#search</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#93" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:93">93</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.16%</td>
+                 <td>0.16%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>4715</td>
+                 <td class="method_name">
+                   <a name="Astar_expand_11911660">
+                      Astar#expand
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#49" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:49">49</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5055/5055</td>
+                   <td class="method_name"><a href="#Class_new_11911660">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.15%</td>
+                 <td>0.15%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5055</td>
+                 <td class="method_name">
+                   <a name="Astar_Node_initialize_11911660">
+                      Astar_Node#initialize
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#151" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:151">151</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.01</td>
+                   <td>0.01</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_heuristic_11911660">Astar#heuristic</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#19" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:19">19</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.12%</td>
+                 <td>0.10%</td>
+                 <td>0.01</td>
+                 <td>0.01</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="_Module__Math__sqrt_11911660">
+                      &lt;Module::Math&gt;#sqrt
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Fixnum_to_f_11911660">Fixnum#to_f</a></td>
+                   <td></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_cost_11911660">Astar#cost</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#24" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:24">24</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.09%</td>
+                 <td>0.09%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Astar_direction_11911660">
+                      Astar#direction
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#31" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:31">31</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>18860/18860</td>
+                   <td class="method_name"><a href="#Astar_passable__11911660">Astar#passable?</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#45" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:45">45</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.07%</td>
+                 <td>0.07%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>18860</td>
+                 <td class="method_name">
+                   <a name="Map_passable__11911660">
+                      Map#passable?
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/profiles/astar/index.rb#6" title="/home/killa/workspace/ruby2d-game/profiles/astar/index.rb:6">6</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/9767</td>
+                   <td class="method_name"><a href="#Astar_initialize_11911660">Astar#initialize</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#13" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:13">13</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/9767</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4715/9767</td>
+                   <td class="method_name"><a href="#Astar_search_11911660">Astar#search</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#90" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:90">90</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.07%</td>
+                 <td>0.07%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>9767</td>
+                 <td class="method_name">
+                   <a name="Array_push_11911660">
+                      Array#push
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>10098/10098</td>
+                   <td class="method_name"><a href="#Astar_heuristic_11911660">Astar#heuristic</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#19" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:19">19</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.03%</td>
+                 <td>0.03%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>10098</td>
+                 <td class="method_name">
+                   <a name="Fixnum_**_11911660">
+                      Fixnum#**
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>4715/4715</td>
+                   <td class="method_name"><a href="#Astar_search_11911660">Astar#search</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#87" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:87">87</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.03%</td>
+                 <td>0.03%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>4715</td>
+                 <td class="method_name">
+                   <a name="Array_delete_at_11911660">
+                      Array#delete_at
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Astar_Node_set_g_11911660">
+                      Astar_Node#set_g
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#160" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:160">160</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Astar_Node_set_h_11911660">
+                      Astar_Node#set_h
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#164" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:164">164</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Range_each_11911660">Range#each</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Astar_Node_set_f_11911660">
+                      Astar_Node#set_f
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#168" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:168">168</a></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_cost_11911660">Astar#cost</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#26" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:26">26</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Array_include__11911660">
+                      Array#include?
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#Astar_heuristic_11911660">Astar#heuristic</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#19" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:19">19</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Float_floor_11911660">
+                      Float#floor
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>5049/5049</td>
+                   <td class="method_name"><a href="#_Module__Math__sqrt_11911660">&lt;Module::Math&gt;#sqrt</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.02%</td>
+                 <td>0.02%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>5049</td>
+                 <td class="method_name">
+                   <a name="Fixnum_to_f_11911660">
+                      Fixnum#to_f
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>89/89</td>
+                   <td class="method_name"><a href="#Astar_search_11911660">Astar#search</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#80" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:80">80</a></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>89</td>
+                 <td class="method_name">
+                   <a name="Array_unshift_11911660">
+                      Array#unshift
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Class_new_11911660">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>3</td>
+                 <td class="method_name">
+                   <a name="Astar_initialize_11911660">
+                      Astar#initialize
+                   </a>
+                 </td>
+                 <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#3" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:3">3</a></td>
+               </tr>
+               <!-- Children -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>6/5061</td>
+                   <td class="method_name"><a href="#Class_new_11911660">Class#new</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#6" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:6">6</a></td>
+                 </tr>
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/9767</td>
+                   <td class="method_name"><a href="#Array_push_11911660">Array#push</a></td>
+                   <td><a href="file:///home/killa/workspace/ruby2d-game/lib/a_star.rb#13" title="/home/killa/workspace/ruby2d-game/lib/a_star.rb:13">13</a></td>
+                 </tr>
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+               <!-- Parents -->
+
+                 <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>0.00</td>
+                   <td>3/3</td>
+                   <td class="method_name"><a href="#Class_new_11911660">Class#new</a></td>
+                   <td></td>
+                 </tr>
+
+               <tr class="method">
+                 <td>0.00%</td>
+                 <td>0.00%</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>0.00</td>
+                 <td>3</td>
+                 <td class="method_name">
+                   <a name="BasicObject_initialize_11911660">
+                      BasicObject#initialize
+                   </a>
+                 </td>
+                 <td></td>
+               </tr>
+               <!-- Children -->
+
+               <!-- Create divider row -->
+               <tr class="break"><td colspan="9"></td></tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">* indicates recursively called methods</td>
+          </tr>
+        </tfoot>
+      </table>
+
+  </body>
+</html>

@@ -39,7 +39,7 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
 # SET GLOBAL VARIABLES WITH $!
-
+# OPTIMISE ASTAR MORE!
 
 set({
   title: "The Game Continues",
@@ -136,20 +136,20 @@ class Path
   end
 end
 
-# class Map
-#   def find_path(point_a, point_b)
-#     Path.new
-#   end
-# end
+class Map
+  def passable?(x, y)
+    true
+  end
+end
 
-# @map = Map.new
+@map = Map.new
 @path = Path.new
 
 def calculate_path_to(x, y)
   # puts "Looking path from (#{@character_position.x}, #{@character_position.y}) to  (#{x}, #{y})"
   start       = { 'x' => @character_position.x, 'y' => @character_position.y }
   destination = { 'x' => x, 'y' => y }
-  astar       = Astar.new(start, destination)
+  astar       = Astar.new(start, destination, @map)
   result      = astar.search # returns Array
   @path.update(result)
 end
@@ -220,46 +220,5 @@ end
 
 draw_background
 draw_character
-
-
-# start       = { 'x' => 10, 'y' => 20 }
-# destination = { 'x' => 23, 'y' => 15 }
-# astar       = Astar.new(start, destination)
-# result      = astar.search # returns Array
-
-# if (result.size > 0)
-#   result.each{|node| # Astar_Node
-#     # your code ...
-#   }
-# end
-
-# FUCKING NICE!
-
-# [1] pry(main)> result
-# => [#<Astar_Node:0x00000001a47f80 @f=-1, @g=-1, @h=-1, @i=-1, @x=10, @y=20>,
-#  #<Astar_Node:0x00000001a473f0 @f=22, @g=9, @h=13, @i=0, @x=11, @y=20>,
-#  #<Astar_Node:0x00000001a450f0 @f=31, @g=19, @h=12, @i=2, @x=12, @y=20>,
-#  #<Astar_Node:0x00000001a3f010 @f=40, @g=29, @h=11, @i=6, @x=13, @y=20>,
-#  #<Astar_Node:0x000000019b8f10 @f=49, @g=39, @h=10, @i=14, @x=14, @y=20>,
-#  #<Astar_Node:0x00000001a7d6f8 @f=58, @g=49, @h=9, @i=26, @x=15, @y=20>,
-#  #<Astar_Node:0x00000001afc908 @f=67, @g=59, @h=8, @i=42, @x=16, @y=20>,
-#  #<Astar_Node:0x00000001aa41e0 @f=76, @g=69, @h=7, @i=62, @x=17, @y=20>,
-#  #<Astar_Node:0x00000001b31978 @f=86, @g=79, @h=7, @i=81, @x=17, @y=19>,
-#  #<Astar_Node:0x00000001f575e8 @f=95, @g=89, @h=6, @i=105, @x=17, @y=18>,
-#  #<Astar_Node:0x00000001d9e4b8 @f=104, @g=99, @h=5, @i=132, @x=18, @y=18>,
-#  #<Astar_Node:0x00000001da1690 @f=114, @g=109, @h=5, @i=163, @x=18, @y=17>,
-#  #<Astar_Node:0x00000001b3ed30 @f=123, @g=119, @h=4, @i=201, @x=19, @y=17>,
-#  #<Astar_Node:0x00000001b30ff0 @f=132, @g=129, @h=3, @i=240, @x=20, @y=17>,
-#  #<Astar_Node:0x00000001db1450 @f=141, @g=139, @h=2, @i=282, @x=21, @y=17>,
-#  #<Astar_Node:0x00000001dbad20 @f=151, @g=149, @h=2, @i=325, @x=21, @y=16>,
-#  #<Astar_Node:0x00000001dc2ed0 @f=160, @g=159, @h=1, @i=374, @x=22, @y=16>,
-#  #<Astar_Node:0x00000001af6238 @f=170, @g=169, @h=1, @i=419, @x=22, @y=15>,
-#  #<Astar_Node:0x00000001a47f58 @f=-1, @g=-1, @h=-1, @i=-1, @x=23, @y=15>]
-
-
-
-# require 'pry'
-
-# binding.pry
 
 show
