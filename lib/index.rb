@@ -41,6 +41,8 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # ONLY RENDERING METHODS SHOULD BE CONCERNED WITH PIXELS PER SQUARE
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
+# BUG, CHARACTER SOMETIMES APPEARES ON THE SAME POSITION THAT A TREE IS
+
 set({
   title: "The Game Continues",
   width: WIDTH,
@@ -77,6 +79,60 @@ update_with_tick do |tick|
 
   $character.move if tick % 4 == 0
 end
+
+# pre-calculate where passable areas are with flooding the map from characters position
+# Use that information to help with maps passable information
+
+
+# Implement Action responsible for getting to a given point.
+# It should have 4 ticks per one changing of coordinates
+# Then implement action responsible for cutting trees
+# It should do one hit each N ticks, tree should fell after K hits
+# And be changed to pile of logs
+# When tree is hit that tile should be covered by red with high opacity for somewhere
+# between 2 to 5 ticks, to indicate that it was being hit
+
+# Then figure out logistics of building a house
+
+# Maybe have queue of actions per person? Like: My main goal for now is to build a house
+# But from time to time I have to stop it to sleep and eat
+# But when I wake up, I want to get back to it
+
+# Have a fireplace that will require adding wood to it
+# The more the fireplace has ticks left, the brighter it shines
+# and more tiles around is being light
+# With the light think about day/night cycle: 60 ticks == 1 hour, implement shading based on sine of time
+# Where darkest will be at midnight, lightest at noon ?
+
+# With that introduce config file with all the informations that need to be setup
+# like how long does it take to move, how fast do people get hungry and so on
+
+# When creating buildings is ready, look into feeding people.
+# When that is done, look into having a settlement that is sentient
+# And gives jobs to make itself functional
+
+# Introduce carrying by people
+# Introduce drinking
+# Introduce cooking
+# Introduce people types, accepting various jobs, or prioritising varous jobs
+# Introduce berry bush gathering
+# Maybe have the settlement require a stockpile, and in that stockpile a specific amount of food and wood?
+# With that stockpile have barrels, boxes and saxes for things?
+
+
+# Have items like axes, fishing rods, waterskins and so on
+# Organised crafting?
+# Logging of various decisions people made/settlement requires?
+
+# class Action
+# end
+
+# class Move < Action
+#   def initialize(x, y)
+#     @x = x
+#     @y = y
+#     @ticks_left = 4
+# end
 
 on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
