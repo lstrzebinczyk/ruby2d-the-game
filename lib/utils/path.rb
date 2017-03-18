@@ -20,11 +20,11 @@ class Path
     node_to_shift
   end
 
-  private
-
   def remove
     @shapes_to_render.each(&:remove)
   end
+
+  private
 
   def rerender
     remove

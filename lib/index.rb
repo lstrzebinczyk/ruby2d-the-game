@@ -1,4 +1,7 @@
 require 'ruby2d'
+
+require_relative "./actions/move_action"
+
 require_relative "./utils/pathfinder"
 require_relative "./utils/map"
 require_relative "./utils/character"
@@ -80,7 +83,7 @@ update_with_tick do |tick|
     $fps_drawer.rerender(fps)
   end
 
-  $character.move if tick % (4 / $game_speed.value) == 0
+  $character.update
   $day_and_night_cycle.update
 end
 
@@ -128,16 +131,6 @@ end
 # Have items like axes, fishing rods, waterskins and so on
 # Organised crafting?
 # Logging of various decisions people made/settlement requires?
-
-# class Action
-# end
-
-# class Move < Action
-#   def initialize(x, y)
-#     @x = x
-#     @y = y
-#     @ticks_left = 4
-# end
 
 on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
