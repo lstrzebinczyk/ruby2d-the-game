@@ -33,8 +33,8 @@ class PathFinder
 
   def initialize(start, destination, map)
     # create start and destination nodes
-    @start_node = Node.new(start['x'],   start['y'],           -1, -1, -1, -1)
-    @dest_node  = Node.new(destination['x'], destination['y'], -1, -1, -1, -1)
+    @start_node = Node.new(start.x,       start.y,       -1, -1, -1, -1)
+    @dest_node  = Node.new(destination.x, destination.y, -1, -1, -1, -1)
 
     @map = map
 
@@ -94,7 +94,7 @@ class PathFinder
       # Map for now is infinite, so if search gets too big, we decide
       # That there is no good path
       if @closed_nodes.size > 1000
-        return []
+        return Path.new([])
       end
 
       # grab the lowest f(x)
@@ -119,7 +119,7 @@ class PathFinder
           path.unshift(current_node)
         end
 
-        return path
+        return Path.new(path)
       end
 
       # remove the current node from open node list
@@ -173,6 +173,6 @@ class PathFinder
       end
     end
 
-    return [] # return empty path
+    return Path.new([]) # return empty path
   end
 end

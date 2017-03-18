@@ -27,11 +27,6 @@ class MoveAction
   private
 
   def calculate_path
-    start       = { 'x' => @from.x, 'y' => @from.y }
-    destination = { 'x' => @to.x, 'y' => @to.y }
-    result      = PathFinder.new(start, destination, $map).search
-    @path = Path.new
-    @path.update(result)
-    @path
+    PathFinder.new(@from, @to, $map).search
   end
 end

@@ -1,16 +1,11 @@
 class Path
-  def initialize
-    @nodes            = []
+  def initialize(nodes)
+    @nodes            = nodes
     @shapes_to_render = []
   end
 
   def any?
     @nodes.any?
-  end
-
-  def update(nodes)
-    @nodes = nodes
-    rerender
   end
 
   def shift_node

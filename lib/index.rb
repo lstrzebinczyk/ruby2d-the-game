@@ -130,6 +130,8 @@ end
 # Organised crafting?
 # Logging of various decisions people made/settlement requires?
 
+# BUG: CRASH ON ATTEMPT TO GO TO CLOSED AREA
+
 on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
   in_game_y = y / PIXELS_PER_SQUARE
