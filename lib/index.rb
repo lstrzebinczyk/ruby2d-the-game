@@ -90,8 +90,6 @@ end
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
 
-
-# Implement Action responsible for getting to a given point.
 # It should have 4 ticks per one changing of coordinates
 # Then implement action responsible for cutting trees
 # It should do one hit each N ticks, tree should fell after K hits
