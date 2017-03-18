@@ -9,6 +9,7 @@ require_relative "./utils/action_point"
 require_relative "./utils/fps_drawer"
 require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
+require_relative "./utils/game_speed"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -58,23 +59,6 @@ $character = Character.new(30, 20)
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
 $day_and_night_cycle = DayAndNightCycle.new
-
-class GameSpeed
-  attr_reader :value
-
-  def initialize
-    @value = 1
-  end
-
-  def set(number)
-    @value = number
-    @text && @text.remove
-    unless number == 1
-      @text = Text.new(630, 52, "Game speed: x#{number}", 40, "fonts/arial.ttf")
-    end
-  end
-end
-
 $game_speed = GameSpeed.new
 
 @tick = 0
