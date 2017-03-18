@@ -57,10 +57,25 @@ $character = Character.new(30, 20)
 
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
-
-
 $day_and_night_cycle = DayAndNightCycle.new
 
+class GameSpeed
+  attr_reader :value
+
+  def initialize
+    @value = 1
+  end
+
+  def set(number)
+    @value = number
+    @text && @text.remove
+    unless number == 1
+      @text = Text.new(630, 52, "Game speed: x#{number}", 40, "fonts/arial.ttf")
+    end
+  end
+end
+
+$game_speed = GameSpeed.new
 
 @tick = 0
 def update_with_tick(&block)
@@ -81,7 +96,7 @@ update_with_tick do |tick|
     $fps_drawer.rerender(fps)
   end
 
-  $character.move if tick % 4 == 0
+  $character.move if tick % (4 / $game_speed.value) == 0
   $day_and_night_cycle.update
 end
 
@@ -155,7 +170,15 @@ on_key do |key|
     close
   end
 
-  puts "keypress: #{key}"
+  if key == "1"
+    $game_speed.set(1)
+  end
+  if key == "2"
+    $game_speed.set(2)
+  end
+  if key == "3"
+    $game_speed.set(4)
+  end
 end
 
 $background.rerender
