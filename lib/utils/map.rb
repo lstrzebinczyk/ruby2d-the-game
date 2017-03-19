@@ -49,7 +49,11 @@ class Map
   end
 
   def passable?(x, y)
-    @grid[x, y].nil?
+    if @grid[x, y]
+      @grid[x, y].passable?
+    else
+      true
+    end
   end
 
   # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM

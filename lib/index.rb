@@ -152,6 +152,9 @@ end
 
 # TALK ABOUT INTRODUCING EXPLICIT Z-INDEX TO RENDERED THINGS?
 
+# ONMAP module, that makes sure element implements #passable?
+# RUN TESTS, MAKE SURE ALL REQUIRED METHODS ARE THERE
+
 on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
   in_game_y = y / PIXELS_PER_SQUARE

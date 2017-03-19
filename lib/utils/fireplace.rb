@@ -3,6 +3,7 @@
 class Fireplace
   def initialize
     @position = $map.find_free_spot_near($character)
+    $map[@position.x, @position.y] = self
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE
     @image_burning  = Image.new(x, y, "assets/structures/campfire.png")
@@ -20,6 +21,10 @@ class Fireplace
     outer_x = (@position.x - 2) * PIXELS_PER_SQUARE
     outer_y = (@position.y - 2) * PIXELS_PER_SQUARE
     @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
+  end
+
+  def passable?
+    false
   end
 
   def rerender
