@@ -39,19 +39,22 @@ class Character
     @action = action
   end
 
+  # TODO
+  # We want to do
+
+  # action.then do
+  #   second_action
+  # end.then do
+  #   third_action
+  # end
+
+  # and have them being executed serially
   def cut_tree(tree)
     target_position = $map.find_free_spot_near(tree)
 
-    move_to_action  = move_to_action(target_position.x, target_position.y)
-    cut_tree_action = CutTreeAction.new(tree, self)
-    move_to_action.next = cut_tree_action
-
-    @action = move_to_action
-
-    # move_to(target_position.x, target_position.y)
-    # Find a spot near that tree and go there with MoveAction
-    # Then start cutting the tree
-    # puts "will cut tree"
+    @action = move_to_action(target_position.x, target_position.y).then do
+      CutTreeAction.new(tree, self)
+    end
   end
 
   def finish

@@ -7,8 +7,9 @@ class MoveAction
     @ticks_left = 4
   end
 
-  def next=(next_action)
-    @next_action = next_action
+  def then
+    @next_action = yield
+    self
   end
 
   def update

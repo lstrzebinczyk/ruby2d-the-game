@@ -92,13 +92,6 @@ end
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
 
-# It should have 4 ticks per one changing of coordinates
-# Then implement action responsible for cutting trees
-# It should do one hit each N ticks, tree should fell after K hits
-# And be changed to pile of logs
-# When tree is hit that tile should be covered by red with high opacity for somewhere
-# between 2 to 5 ticks, to indicate that it was being hit
-
 # Then figure out logistics of building a house
 
 # Maybe have queue of actions per person? Like: My main goal for now is to build a house
