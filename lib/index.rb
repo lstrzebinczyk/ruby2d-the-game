@@ -66,6 +66,77 @@ $mouse_background_drawer = MouseBackgroundDrawer.new
 $day_and_night_cycle = DayAndNightCycle.new
 $game_speed = GameSpeed.new
 
+# TODO: Have the fireplace require fuel to be burned
+# And have the fire of the light depend on the amount of fuel present
+class Fireplace
+  def initialize(position)
+    @position = position
+    x = @position.x * PIXELS_PER_SQUARE
+    y = @position.y * PIXELS_PER_SQUARE
+    @image_burning  = Image.new(x, y, "assets/structures/campfire.png")
+    @image_extinguished  = Image.new(x, y, "assets/structures/campfireextunguished.png")
+    @image_extinguished.remove
+    @burning = true
+
+    @opacity = 0.1
+
+    color = 'yellow'
+    inner_x = (position.x - 1) * PIXELS_PER_SQUARE
+    inner_y = (position.y - 1) * PIXELS_PER_SQUARE
+    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
+
+    outer_x = (position.x - 2) * PIXELS_PER_SQUARE
+    outer_y = (position.y - 2) * PIXELS_PER_SQUARE
+    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
+
+  end
+
+  def rerender
+    @image_burning.remove
+    @image_burning.add
+
+    @inner_square.remove
+    @inner_square.add
+
+    @outer_square.remove
+    @outer_square.add
+  end
+
+  # TODO: IMPLEMENT Time#day?
+  def update(current_time)
+    if current_time.hour > 6 && current_time.hour < 18
+      if @burning
+        @image_burning.remove
+        @inner_square.remove
+        @outer_square.remove
+
+        @image_extinguished.add
+        @burning = false
+      end
+    else
+      if @burning
+        if rand < 0.2
+          @inner_square.color = [1, 1, 0, @opacity * 2 + rand / 15 ]
+        end
+        if rand < 0.2
+          @outer_square.color = [1, 1, 0, @opacity     + rand / 20 ]
+        end
+        rerender
+      else
+        @image_burning.add
+        @inner_square.add
+        @outer_square.add
+
+        @image_extinguished.remove
+        @burning = true
+      end
+    end
+  end
+end
+
+fireplace_position = $map.find_free_spot_near($character)
+$fireplace = Fireplace.new(fireplace_position)
+
 @tick = 0
 def update_with_tick(&block)
   update do
@@ -89,6 +160,8 @@ update_with_tick do |tick|
     $character.update
     $day_and_night_cycle.update
   end
+
+  $fireplace.update($day_and_night_cycle.time)
 end
 
 # pre-calculate where passable areas are with flooding the map from characters position
@@ -103,8 +176,6 @@ end
 # Have a fireplace that will require adding wood to it
 # The more the fireplace has ticks left, the brighter it shines
 # and more tiles around is being light
-# With the light think about day/night cycle: 60 ticks == 1 hour, implement shading based on sine of time
-# Where darkest will be at midnight, lightest at noon ?
 
 # With that introduce config file with all the informations that need to be setup
 # like how long does it take to move, how fast do people get hungry and so on
@@ -131,6 +202,10 @@ end
 
 # REMOVABLE MODULE TO UNIFY MAP BEHAVIOR? ADDING AND REMOVING TO RENDER BEHAVIOR?
 # RENDERABLE MODULE?
+
+# FIRST OF ALL INTRODUCE BUILDING A STORAGE
+
+# TALK ABOUT INTRODUCING EXPLICIT Z-INDEX TO RENDERED THINGS?
 
 on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
@@ -162,5 +237,6 @@ end
 $background.rerender
 $character.rerender
 $map.rerender
+$fireplace.rerender
 
 show

@@ -1,13 +1,15 @@
 
 # Maybe change the night smoothly with minutes instead of discretely by hours?
 class DayAndNightCycle
+  attr_reader :time
+
   def initialize
     @time = Time.new(1, 1, 1, 12, 0) # start at 12:00 of the first day ever in history
     @text = Text.new(820, 12, "12:00", 40, "fonts/arial.ttf")
     @sun_shining_mask = Rectangle.new(0, 0, WIDTH, HEIGHT, sun_mask_color)
   end
 
-  def time
+  def to_s
     @time.strftime("%H:%M")
   end
 
@@ -29,7 +31,7 @@ class DayAndNightCycle
     @time += n
 
     @text.remove
-    @text.text = time
+    @text.text = to_s
     @text.add
 
     @sun_shining_mask.remove

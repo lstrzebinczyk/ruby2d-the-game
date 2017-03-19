@@ -50,6 +50,8 @@ class Character
 
   # and have them being executed serially
   def cut_tree(tree)
+    @action && @action.close
+
     target_position = $map.find_free_spot_near(tree)
 
     @action = move_to_action(target_position.x, target_position.y).then do
