@@ -15,6 +15,7 @@ require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/game_speed"
 require_relative "./utils/logs_pile"
+require_relative "./utils/fireplace"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -66,74 +67,6 @@ $mouse_background_drawer = MouseBackgroundDrawer.new
 $day_and_night_cycle = DayAndNightCycle.new
 $game_speed = GameSpeed.new
 
-# TODO: Have the fireplace require fuel to be burned
-# And have the fire of the light depend on the amount of fuel present
-class Fireplace
-  def initialize(position)
-    @position = position
-    x = @position.x * PIXELS_PER_SQUARE
-    y = @position.y * PIXELS_PER_SQUARE
-    @image_burning  = Image.new(x, y, "assets/structures/campfire.png")
-    @image_extinguished  = Image.new(x, y, "assets/structures/campfireextunguished.png")
-    @image_extinguished.remove
-    @burning = true
-
-    @opacity = 0.1
-
-    color = 'yellow'
-    inner_x = (position.x - 1) * PIXELS_PER_SQUARE
-    inner_y = (position.y - 1) * PIXELS_PER_SQUARE
-    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
-
-    outer_x = (position.x - 2) * PIXELS_PER_SQUARE
-    outer_y = (position.y - 2) * PIXELS_PER_SQUARE
-    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
-
-  end
-
-  def rerender
-    @image_burning.remove
-    @image_burning.add
-
-    @inner_square.remove
-    @inner_square.add
-
-    @outer_square.remove
-    @outer_square.add
-  end
-
-  # TODO: IMPLEMENT Time#day?
-  def update(current_time)
-    if current_time.hour > 6 && current_time.hour < 18
-      if @burning
-        @image_burning.remove
-        @inner_square.remove
-        @outer_square.remove
-
-        @image_extinguished.add
-        @burning = false
-      end
-    else
-      if @burning
-        if rand < 0.2
-          @inner_square.color = [1, 1, 0, @opacity * 2 + rand / 15 ]
-        end
-        if rand < 0.2
-          @outer_square.color = [1, 1, 0, @opacity     + rand / 20 ]
-        end
-        rerender
-      else
-        @image_burning.add
-        @inner_square.add
-        @outer_square.add
-
-        @image_extinguished.remove
-        @burning = true
-      end
-    end
-  end
-end
-
 fireplace_position = $map.find_free_spot_near($character)
 $fireplace = Fireplace.new(fireplace_position)
 
@@ -164,6 +97,14 @@ update_with_tick do |tick|
   $fireplace.update($day_and_night_cycle.time)
 end
 
+# # change the premise of steering
+# 1. No longer be allowed to specifically show where character has to go
+# 2. Add trees to list of being removed with clicking/unclicking
+# 3. Have that add/remove tasks to global queue
+# 4. Have the character either do a task or look for a task in global queue
+
+#   When those are done we can talk about building storages
+
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
 
@@ -172,10 +113,6 @@ end
 # Maybe have queue of actions per person? Like: My main goal for now is to build a house
 # But from time to time I have to stop it to sleep and eat
 # But when I wake up, I want to get back to it
-
-# Have a fireplace that will require adding wood to it
-# The more the fireplace has ticks left, the brighter it shines
-# and more tiles around is being light
 
 # With that introduce config file with all the informations that need to be setup
 # like how long does it take to move, how fast do people get hungry and so on
