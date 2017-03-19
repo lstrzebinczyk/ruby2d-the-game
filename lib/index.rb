@@ -63,6 +63,8 @@ set({
 
 $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 $background = Background.new
+
+$map.clear(30, 20) # Make sure there is nothing but the character at this position
 $character = Character.new(30, 20)
 
 $fps_drawer = FpsDrawer.new

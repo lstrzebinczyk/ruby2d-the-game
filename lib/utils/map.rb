@@ -71,8 +71,14 @@ class Map
 
   def rerender
     @grid.each do |elem|
-      elem.rerender
+      elem && elem.rerender
     end
+  end
+
+  def clear(x, y)
+    elem = self[x, y]
+    elem && elem.remove
+    self[x, y] = nil
   end
 
   private
