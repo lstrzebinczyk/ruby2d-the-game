@@ -85,7 +85,10 @@ update_with_tick do |tick|
     $fps_drawer.rerender(fps)
   end
 
-  $character.update
+  $game_speed.value.times do
+    $character.update
+  end
+
   $day_and_night_cycle.update
 end
 
@@ -159,6 +162,9 @@ on_key do |key|
   end
   if key == "3"
     $game_speed.set(4)
+  end
+  if key == "4"
+    $game_speed.set(8)
   end
 end
 

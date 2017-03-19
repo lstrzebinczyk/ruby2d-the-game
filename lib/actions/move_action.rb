@@ -13,7 +13,7 @@ class MoveAction
   end
 
   def update
-    @ticks_left -= $game_speed.value
+    @ticks_left -= 1
     if @ticks_left == 0
       @ticks_left = 4
       next_step = @path.shift_node
