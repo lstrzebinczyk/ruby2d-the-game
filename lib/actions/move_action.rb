@@ -17,15 +17,15 @@ class MoveAction
     if @ticks_left == 0
       @ticks_left = 4
       next_step = @path.shift_node
-      @parent.update_position(next_step.x, next_step.y)
+      if next_step
+        @parent.update_position(next_step.x, next_step.y)
+      else
+        end_action
+      end
     end
 
     if @from.x == @to.x and @from.y == @to.y
-      if @next_action
-        @parent.action = @next_action
-      else
-        @parent.finish
-      end
+      end_action
     end
   end
 
@@ -34,6 +34,14 @@ class MoveAction
   end
 
   private
+
+  def end_action
+    if @next_action
+      @parent.action = @next_action
+    else
+      @parent.finish
+    end
+  end
 
   def calculate_path
     PathFinder.new(@from, @to, $map).search

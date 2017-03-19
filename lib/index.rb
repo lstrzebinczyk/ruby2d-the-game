@@ -111,7 +111,7 @@ end
 
 # introduce ability to unqueue jobs
 
-#   When those are done we can talk about building storages
+# When those are done we can talk about building storages
 
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
