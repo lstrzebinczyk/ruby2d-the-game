@@ -3,6 +3,8 @@ require 'ruby2d'
 require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
 
+require_relative "./jobs/cut_tree_job"
+
 require_relative "./utils/pathfinder"
 require_relative "./utils/map"
 require_relative "./utils/character"
@@ -16,6 +18,7 @@ require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/game_speed"
 require_relative "./utils/logs_pile"
 require_relative "./utils/fireplace"
+require_relative "./utils/job_list"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -66,9 +69,9 @@ $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
 $day_and_night_cycle = DayAndNightCycle.new
 $game_speed = GameSpeed.new
+$fireplace = Fireplace.new
 
-fireplace_position = $map.find_free_spot_near($character)
-$fireplace = Fireplace.new(fireplace_position)
+$job_list = JobList.new
 
 @tick = 0
 def update_with_tick(&block)
@@ -90,18 +93,23 @@ update_with_tick do |tick|
   end
 
   $game_speed.value.times do
-    $character.update
+    if $character.has_action?
+      $character.update
+    else
+      job = $job_list.get_job
+      if job
+        action = job.action_for($character)
+        $character.action = action
+      end
+    end
+
     $day_and_night_cycle.update
   end
 
   $fireplace.update($day_and_night_cycle.time)
 end
 
-# # change the premise of steering
-# 1. No longer be allowed to specifically show where character has to go
-# 2. Add trees to list of being removed with clicking/unclicking
-# 3. Have that add/remove tasks to global queue
-# 4. Have the character either do a task or look for a task in global queue
+# introduce ability to unqueue jobs
 
 #   When those are done we can talk about building storages
 
@@ -148,14 +156,10 @@ on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
   in_game_y = y / PIXELS_PER_SQUARE
 
-  if $map.passable?(in_game_x, in_game_y)
-    $character.move_to(in_game_x, in_game_y)
-  end
-
   map_object = $map[in_game_x, in_game_y]
   if map_object.is_a? Tree
-    $character.cut_tree(map_object)
-    puts "click: #{$map[in_game_x, in_game_y]}"
+    new_job = CutTreeJob.new(map_object)
+    $job_list.add(new_job)
   end
 end
 

@@ -1,8 +1,8 @@
 # TODO: Have the fireplace require fuel to be burned
 # And have the fire of the light depend on the amount of fuel present
 class Fireplace
-  def initialize(position)
-    @position = position
+  def initialize
+    @position = $map.find_free_spot_near($character)
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE
     @image_burning  = Image.new(x, y, "assets/structures/campfire.png")
@@ -13,12 +13,12 @@ class Fireplace
     @opacity = 0.08
 
     color = 'yellow'
-    inner_x = (position.x - 1) * PIXELS_PER_SQUARE
-    inner_y = (position.y - 1) * PIXELS_PER_SQUARE
+    inner_x = (@position.x - 1) * PIXELS_PER_SQUARE
+    inner_y = (@position.y - 1) * PIXELS_PER_SQUARE
     @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
 
-    outer_x = (position.x - 2) * PIXELS_PER_SQUARE
-    outer_y = (position.y - 2) * PIXELS_PER_SQUARE
+    outer_x = (@position.x - 2) * PIXELS_PER_SQUARE
+    outer_y = (@position.y - 2) * PIXELS_PER_SQUARE
     @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
   end
 

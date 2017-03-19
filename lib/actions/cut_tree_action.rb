@@ -18,6 +18,10 @@ class CutTreeAction
     @parent = parent
   end
 
+  def job=(job)
+    @job = job
+  end
+
   def update
     @ticks_left_to_hit -= 1
 
@@ -39,6 +43,7 @@ class CutTreeAction
       @mask.remove
       @parent.finish
       @tree.remove
+      @job.remove
       $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
     end
   end
