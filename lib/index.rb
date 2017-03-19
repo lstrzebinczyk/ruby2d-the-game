@@ -153,17 +153,9 @@ on_key do |key|
     close
   end
 
-  if key == "1"
-    $game_speed.set(1)
-  end
-  if key == "2"
-    $game_speed.set(2)
-  end
-  if key == "3"
-    $game_speed.set(4)
-  end
-  if key == "4"
-    $game_speed.set(8)
+  if key == key.to_i.to_s
+    game_speed = 2 ** (key.to_i - 1)
+    $game_speed.set(game_speed)
   end
 end
 
