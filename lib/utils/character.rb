@@ -34,35 +34,10 @@ class Character
     @image.add
   end
 
-  # def move_to(in_game_x, in_game_y)
-  #   @action && @action.close
-  #   @action = move_to_action(in_game_x, in_game_y)
-  # end
-
   def action=(action)
     @action && @action.close
     @action = action
   end
-
-  # TODO
-  # We want to do
-
-  # action.then do
-  #   second_action
-  # end.then do
-  #   third_action
-  # end
-
-  # and have them being executed serially
-  # def cut_tree(tree)
-  #   @action && @action.close
-
-  #   target_position = $map.find_free_spot_near(tree)
-
-  #   @action = move_to_action(target_position.x, target_position.y).then do
-  #     CutTreeAction.new(tree, self)
-  #   end
-  # end
 
   def finish
     @action = nil

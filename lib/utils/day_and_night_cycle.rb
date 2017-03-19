@@ -1,4 +1,3 @@
-
 # Maybe change the night smoothly with minutes instead of discretely by hours?
 class DayAndNightCycle
   attr_reader :time

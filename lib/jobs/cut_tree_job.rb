@@ -1,3 +1,14 @@
+# TODO
+# We want to do
+
+# action.then do
+#   second_action
+# end.then do
+#   third_action
+# end
+
+# and have them being executed serially
+
 class CutTreeJob
   def initialize(tree)
     @tree = tree
