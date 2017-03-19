@@ -1,6 +1,7 @@
 require 'ruby2d'
 
 require_relative "./actions/move_action"
+require_relative "./actions/cut_tree_action"
 
 require_relative "./utils/pathfinder"
 require_relative "./utils/map"
@@ -13,6 +14,7 @@ require_relative "./utils/fps_drawer"
 require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/game_speed"
+require_relative "./utils/logs_pile"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -132,12 +134,21 @@ end
 
 # BUG: CRASH ON ATTEMPT TO GO TO CLOSED AREA
 
+# REMOVABLE MODULE TO UNIFY MAP BEHAVIOR? ADDING AND REMOVING TO RENDER BEHAVIOR?
+# RENDERABLE MODULE?
+
 on(mouse: 'any') do |x, y|
   in_game_x = x / PIXELS_PER_SQUARE
   in_game_y = y / PIXELS_PER_SQUARE
 
   if $map.passable?(in_game_x, in_game_y)
     $character.move_to(in_game_x, in_game_y)
+  end
+
+  map_object = $map[in_game_x, in_game_y]
+  if map_object.is_a? Tree
+    $character.cut_tree(map_object)
+    puts "click: #{$map[in_game_x, in_game_y]}"
   end
 end
 

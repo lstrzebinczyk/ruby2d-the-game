@@ -7,6 +7,10 @@ class MoveAction
     @ticks_left = 4
   end
 
+  def next=(next_action)
+    @next_action = next_action
+  end
+
   def update
     @ticks_left -= $game_speed.value
     if @ticks_left == 0
@@ -16,7 +20,11 @@ class MoveAction
     end
 
     if @from.x == @to.x and @from.y == @to.y
-      @parent.finish
+      if @next_action
+        @parent.action = @next_action
+      else
+        @parent.finish
+      end
     end
   end
 
