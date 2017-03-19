@@ -26,7 +26,7 @@ class DayAndNightCycle
   # implicitly assume 1 tick means n seconds
   def update
     n = 15
-    @time += n * $game_speed.value
+    @time += n
 
     @text.remove
     @text.text = time

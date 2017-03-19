@@ -87,9 +87,8 @@ update_with_tick do |tick|
 
   $game_speed.value.times do
     $character.update
+    $day_and_night_cycle.update
   end
-
-  $day_and_night_cycle.update
 end
 
 # pre-calculate where passable areas are with flooding the map from characters position
