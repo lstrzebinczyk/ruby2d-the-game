@@ -1,5 +1,7 @@
 require 'ruby2d'
 
+require_relative "./core_ext/time"
+
 require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
 
@@ -75,7 +77,6 @@ $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
 $job_list = JobList.new
 
-
 class Menu
   def initialize
     @menu_tiles_height = 5
@@ -143,6 +144,15 @@ update_with_tick do |tick|
   $job_list.cleanup if tick % 300 == 0
 end
 
+# Have menu options to choose between
+  # - i want to set trees to be removed
+  # - i want to build
+  #   - storage
+  #   - dormitory ? next step, we need sleeping for that
+
+
+
+
 # introduce ability to unqueue jobs
 
 # When those are done we can talk about building storages
@@ -190,6 +200,17 @@ end
 # RUN TESTS, MAKE SURE ALL REQUIRED METHODS ARE THERE
 
 # Start writing tests for those corner cases we are starting to pile up
+
+# Have access to a list of rendered elements
+# For debugging purposes?
+# I want to know if I am leaking elements!
+
+# **********************************
+# You have many things now!
+# Start working on giving back to community!
+# You stared issues on github, help solving them!
+# ***********************************
+
 
 on(mouse: 'any') do |x, y|
   # Only take consider user action if it clicks on map

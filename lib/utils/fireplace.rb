@@ -38,9 +38,8 @@ class Fireplace
     @outer_square.add
   end
 
-  # TODO: IMPLEMENT Time#day?
   def update(current_time)
-    if current_time.hour > 6 && current_time.hour < 18
+    if current_time.day?
       if @burning
         @image_burning.remove
         @inner_square.remove
