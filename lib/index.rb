@@ -142,6 +142,16 @@ update_with_tick do |tick|
   $fireplace.update($day_and_night_cycle.time)
 
   $job_list.cleanup if tick % 300 == 0
+
+
+  # TODO
+  # Menu should be on top of everything
+  # and should not be covered by other things
+  # like night-mask
+
+  # currently menu is covered by mask for night and
+  # we want it not to be
+  # $menu.rerender
 end
 
 # Have menu options to choose between
@@ -241,7 +251,11 @@ on_key do |key|
   end
 
   if key == key.to_i.to_s
-    game_speed = 2 ** (key.to_i - 1)
+    if key == "0"
+      game_speed = 0
+    else
+      game_speed = 2 ** (key.to_i - 1)
+    end
     $game_speed.set(game_speed)
   end
 end
