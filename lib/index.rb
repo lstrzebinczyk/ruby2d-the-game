@@ -70,7 +70,6 @@ $mouse_background_drawer = MouseBackgroundDrawer.new
 $day_and_night_cycle = DayAndNightCycle.new
 $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
-
 $job_list = JobList.new
 
 @tick = 0
@@ -108,6 +107,8 @@ update_with_tick do |tick|
   end
 
   $fireplace.update($day_and_night_cycle.time)
+
+  $job_list.cleanup if tick % 300 == 0
 end
 
 # introduce ability to unqueue jobs
