@@ -52,6 +52,9 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # ONLY RENDERING METHODS SHOULD BE CONCERNED WITH PIXELS PER SQUARE
 # REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
 
+# ALLOW ME, A USER, TO INSPECT A LIST OF ALL RENDERED ITEMS
+# FOR DEBUGGING REASONS AT LEAST?
+
 set({
   title: "The Game Continues",
   width: WIDTH,
@@ -72,6 +75,30 @@ $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
 $job_list = JobList.new
 
+
+class Menu
+  def initialize
+    @menu_tiles_height = 5
+
+    @y_start = HEIGHT - @menu_tiles_height * PIXELS_PER_SQUARE
+    @menu_background = Rectangle.new(0, @y_start, WIDTH, @menu_tiles_height * PIXELS_PER_SQUARE, "black")
+  end
+
+  # those x and y are not in-game x, y
+  # they are windows x, y
+  # basically for now if y > menus height from bottom, return true
+  def contains?(x, y)
+    y > @y_start
+  end
+
+  def rerender
+    @menu_background.remove
+    @menu_background.add
+  end
+end
+
+$menu = Menu.new
+
 @tick = 0
 def update_with_tick(&block)
   update do
@@ -84,7 +111,12 @@ update_with_tick do |tick|
   mouse_x = (get(:mouse_x) / PIXELS_PER_SQUARE)
   mouse_y = (get(:mouse_y) / PIXELS_PER_SQUARE)
 
-  $mouse_background_drawer.rerender(mouse_x, mouse_y)
+  # Only show mouse button if it's on map
+  # don't show anything if it's on menu
+  $mouse_background_drawer.remove
+  unless $menu.contains?(get(:mouse_x), get(:mouse_y))
+    $mouse_background_drawer.render(mouse_x, mouse_y)
+  end
 
   if tick % 30 == 0
     fps = get(:fps)
@@ -160,19 +192,23 @@ end
 # Start writing tests for those corner cases we are starting to pile up
 
 on(mouse: 'any') do |x, y|
-  in_game_x = x / PIXELS_PER_SQUARE
-  in_game_y = y / PIXELS_PER_SQUARE
+  # Only take consider user action if it clicks on map
+  # not if it clicks on menu
+  unless $menu.contains?(x, y)
+    in_game_x = x / PIXELS_PER_SQUARE
+    in_game_y = y / PIXELS_PER_SQUARE
 
-  map_object = $map[in_game_x, in_game_y]
-  if map_object.is_a? Tree
-    new_job = CutTreeJob.new(map_object)
+    map_object = $map[in_game_x, in_game_y]
+    if map_object.is_a? Tree
+      new_job = CutTreeJob.new(map_object)
 
-    # Do not queue this same job multiple times, for example do not add
-    # the same tree to be cut 2 times
-    if $job_list.has?(new_job)
-      new_job.remove
-    else
-      $job_list.add(new_job)
+      # Do not queue this same job multiple times, for example do not add
+      # the same tree to be cut 2 times
+      if $job_list.has?(new_job)
+        new_job.remove
+      else
+        $job_list.add(new_job)
+      end
     end
   end
 end
@@ -189,9 +225,17 @@ on_key do |key|
   end
 end
 
+# TODO: This is a problem
+# ensure that once rendered elements are in proper Z-INDEX
+# and that they dont need to be rerendered in order
+# to be seen at all
+
+# think of better system to work with this
+
 $background.rerender
 $character.rerender
 $map.rerender
 $fireplace.rerender
+$menu.rerender
 
 show
