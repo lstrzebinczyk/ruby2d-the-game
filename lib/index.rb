@@ -82,6 +82,48 @@ class Rectangle
 end
 
 class Menu
+  class Button
+    FONT_SIZE = 36
+    def initialize(text)
+      @text = text
+    end
+
+    def remove
+      @text.remove 
+      @background.remove
+    end
+
+    def add
+      @background.add 
+      @text.add
+    end
+
+    def contains?(x, y)
+      @background.contains?(x, y)
+    end
+
+    def background_color=(color)
+      @background.color = color
+    end
+
+    def render(x, y)
+      menu_element_tiles_height = 3
+      @background = Rectangle.new(
+        x, 
+        y, 
+        FONT_SIZE * @text.length * 0.5, # TWEAK IT 
+        menu_element_tiles_height * PIXELS_PER_SQUARE, 
+        "red"
+      )
+
+      @text = Text.new(
+        x + 4, 
+        y + 4, 
+        "Cut trees", FONT_SIZE, "fonts/arial.ttf"
+      )
+    end
+  end
+
   def initialize
     @game_mode = :cut_trees # later this should be something like :give_orders, something more generic
     @menu_y_start = HEIGHT - height
@@ -101,7 +143,7 @@ class Menu
   end
 
   def rerender
-    [@menu_background, @render_cut_trees_element, @cut_trees_text].each do |elem|
+    [@menu_background, @cut_trees_button].each do |elem|
       elem.remove
       elem.add
     end
@@ -113,33 +155,20 @@ class Menu
   end
 
   def unhover
-    @render_cut_trees_element.color = "red"
+    @cut_trees_button.background_color = "red"
   end
 
   def hover(window_x, window_y)
-    if @render_cut_trees_element.contains?(window_x, window_y)
-      @render_cut_trees_element.color = [1, 0, 0, 0.8]
+    if @cut_trees_button.contains?(window_x, window_y)
+      @cut_trees_button.background_color = [1, 0, 0, 0.8]
     end
   end
 
   private
 
   def render_cut_trees_element
-    menu_element_tiles_height = 3
-    element_y_start = @menu_y_start + PIXELS_PER_SQUARE
-    @render_cut_trees_element = Rectangle.new(
-      PIXELS_PER_SQUARE, 
-      element_y_start, 
-      10 * PIXELS_PER_SQUARE, 
-      menu_element_tiles_height * PIXELS_PER_SQUARE, 
-      "red"
-    )
-
-    @cut_trees_text = Text.new(
-      PIXELS_PER_SQUARE + 4, 
-      element_y_start + 4, 
-      "Cut trees", 36, "fonts/arial.ttf"
-    )
+    @cut_trees_button = Button.new("Cut trees")
+    @cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
   end
 
   def render_menu_background
