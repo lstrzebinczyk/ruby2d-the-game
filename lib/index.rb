@@ -81,22 +81,54 @@ $job_list = JobList.new
 
 class Menu
   def initialize
+    @game_mode = :cut_trees # later this should be something like :give_orders, something more generic
     @menu_tiles_height = 5
+    @menu_y_start = HEIGHT - @menu_tiles_height * PIXELS_PER_SQUARE
 
-    @y_start = HEIGHT - @menu_tiles_height * PIXELS_PER_SQUARE
-    @menu_background = Rectangle.new(0, @y_start, WIDTH, @menu_tiles_height * PIXELS_PER_SQUARE, "black")
+    render
   end
 
   # those x and y are not in-game x, y
   # they are windows x, y
   # basically for now if y > menus height from bottom, return true
   def contains?(x, y)
-    y > @y_start
+    y > @menu_y_start
   end
 
   def rerender
-    @menu_background.remove
-    @menu_background.add
+    [@menu_background, @render_cut_trees_element, @cut_trees_text].each do |elem|
+      elem.remove
+      elem.add
+    end
+  end
+
+  def render
+    render_menu_background
+    render_cut_trees_element
+  end
+
+  private
+
+  def render_cut_trees_element
+    menu_element_tiles_height = 3
+    element_y_start = @menu_y_start + PIXELS_PER_SQUARE
+    @render_cut_trees_element = Rectangle.new(
+      PIXELS_PER_SQUARE, 
+      element_y_start, 
+      10 * PIXELS_PER_SQUARE, 
+      menu_element_tiles_height * PIXELS_PER_SQUARE, 
+      "red"
+    )
+
+    @cut_trees_text = Text.new(
+      PIXELS_PER_SQUARE + 4, 
+      element_y_start + 4, 
+      "Cut trees", 36, "fonts/arial.ttf"
+    )
+  end
+
+  def render_menu_background
+    @menu_background = Rectangle.new(0, @menu_y_start, WIDTH, @menu_tiles_height * PIXELS_PER_SQUARE, "black")
   end
 end
 
@@ -232,6 +264,9 @@ end
 
 # FONT IN WEB VERSION DOES NOT RENDER IN PROPER SIZE
 
+# GET WIDTH FROM TEXT?
+# To build something around it?
+
 on(mouse: 'any') do |x, y|
   # Only take consider user action if it clicks on map
   # not if it clicks on menu
@@ -284,3 +319,8 @@ $fireplace.rerender
 $menu.rerender
 
 show
+
+
+
+# IMPLEMENT WRAPPER OVER RENDERING WITH Z-INDEX FEATURE
+# THAN SUGGEST IT TO THE GUY
