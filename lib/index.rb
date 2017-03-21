@@ -32,10 +32,8 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 # PROFIDE DEFAULT FONT?
 # SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
 # YIELD TICK NUMBER TO AN UPDATE?
-# USE SPRITE? OR BIGGER PICTURE?
-# ADD EXITING ON ESCAPE
 # CREATE AN ISSUE ABOUT IMAGES NOT WORKING IN WEB VERSION
-# LAY DOWN TREES AND BUSHES (OF LOVE)
+# LAY DOWN BUSHES (OF LOVE)
 
 # http://karpathy.github.io/2015/05/21/rnn-effectiveness/
 # ANDREJ KARPATHY LSTM
@@ -56,6 +54,10 @@ HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 
 # ALLOW ME, A USER, TO INSPECT A LIST OF ALL RENDERED ITEMS
 # FOR DEBUGGING REASONS AT LEAST?
+
+def rendered_objects
+  (get :window).objects
+end
 
 set({
   title: "The Game Continues",
@@ -197,8 +199,6 @@ end
 # Organised crafting?
 # Logging of various decisions people made/settlement requires?
 
-# BUG: CRASH ON ATTEMPT TO GO TO CLOSED AREA
-
 # REMOVABLE MODULE TO UNIFY MAP BEHAVIOR? ADDING AND REMOVING TO RENDER BEHAVIOR?
 # RENDERABLE MODULE?
 
@@ -211,16 +211,26 @@ end
 
 # Start writing tests for those corner cases we are starting to pile up
 
-# Have access to a list of rendered elements
-# For debugging purposes?
-# I want to know if I am leaking elements!
-
 # **********************************
 # You have many things now!
 # Start working on giving back to community!
 # You stared issues on github, help solving them!
 # ***********************************
 
+# TODO
+# Introduce realistic time passing?
+# Make gametime events be as realistic as possible ?
+
+# Prepare srug presentation?
+# About all of this?
+
+# Have color allow to set opacity with setter?
+# Implement Color#opacity=
+# Alias of  Color#a=
+
+# introduce sleeping
+
+# FONT IN WEB VERSION DOES NOT RENDER IN PROPER SIZE
 
 on(mouse: 'any') do |x, y|
   # Only take consider user action if it clicks on map
