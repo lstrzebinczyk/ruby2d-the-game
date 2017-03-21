@@ -21,7 +21,7 @@ class DayAndNightCycle
   # At midnight is maximum
   def sun_mask_opacity
     time_to_sinus_argument = (@time.hour - 6) * 3.14 / 12.0 + 3.14 / 2
-    [0, Math.cos(time_to_sinus_argument)].max * 0.225
+    [0, Math.cos(time_to_sinus_argument) * 0.225].max
   end
 
   # implicitly assume 1 tick means n seconds
