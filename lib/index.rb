@@ -74,18 +74,17 @@ $character = Character.new(30, 20)
 
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
-$day_and_night_cycle = DayAndNightCycle.new
-$game_speed = GameSpeed.new
-$fireplace = Fireplace.new
-$job_list = JobList.new
 
 class Menu
   def initialize
     @game_mode = :cut_trees # later this should be something like :give_orders, something more generic
-    @menu_tiles_height = 5
-    @menu_y_start = HEIGHT - @menu_tiles_height * PIXELS_PER_SQUARE
+    @menu_y_start = HEIGHT - height
 
     render
+  end
+
+  def height
+    5 * PIXELS_PER_SQUARE
   end
 
   # those x and y are not in-game x, y
@@ -128,11 +127,17 @@ class Menu
   end
 
   def render_menu_background
-    @menu_background = Rectangle.new(0, @menu_y_start, WIDTH, @menu_tiles_height * PIXELS_PER_SQUARE, "black")
+    @menu_background = Rectangle.new(0, @menu_y_start, WIDTH, height, "black")
   end
 end
 
 $menu = Menu.new
+
+
+$day_and_night_cycle = DayAndNightCycle.new(HEIGHT - $menu.height)
+$game_speed = GameSpeed.new
+$fireplace = Fireplace.new
+$job_list = JobList.new
 
 @tick = 0
 def update_with_tick(&block)
