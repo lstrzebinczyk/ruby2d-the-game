@@ -75,6 +75,12 @@ $character = Character.new(30, 20)
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
 
+class Rectangle
+  def contains?(x, y)
+    (@x..(@x + @width)).include?(x) && (@y..(@y + @height)).include?(y)
+  end
+end
+
 class Menu
   def initialize
     @game_mode = :cut_trees # later this should be something like :give_orders, something more generic
@@ -111,12 +117,8 @@ class Menu
   end
 
   def hover(window_x, window_y)
-    elem_x = @render_cut_trees_element.x
-    if (elem_x..(elem_x + @render_cut_trees_element.width)).include?(window_x)
-      elem_y = @render_cut_trees_element.y
-      if (elem_y..(elem_y + @render_cut_trees_element.height)).include?(window_y)
-        @render_cut_trees_element.color = [1, 0, 0, 0.8]
-      end
+    if @render_cut_trees_element.contains?(window_x, window_y)
+      @render_cut_trees_element.color = [1, 0, 0, 0.8]
     end
   end
 
