@@ -106,6 +106,20 @@ class Menu
     render_cut_trees_element
   end
 
+  def unhover
+    @render_cut_trees_element.color = "red"
+  end
+
+  def hover(window_x, window_y)
+    elem_x = @render_cut_trees_element.x
+    if (elem_x..(elem_x + @render_cut_trees_element.width)).include?(window_x)
+      elem_y = @render_cut_trees_element.y
+      if (elem_y..(elem_y + @render_cut_trees_element.height)).include?(window_y)
+        @render_cut_trees_element.color = [1, 0, 0, 0.8]
+      end
+    end
+  end
+
   private
 
   def render_cut_trees_element
@@ -154,7 +168,10 @@ update_with_tick do |tick|
   # Only show mouse button if it's on map
   # don't show anything if it's on menu
   $mouse_background_drawer.remove
-  unless $menu.contains?(get(:mouse_x), get(:mouse_y))
+  $menu.unhover
+  if $menu.contains?(get(:mouse_x), get(:mouse_y))
+    $menu.hover(get(:mouse_x), get(:mouse_y))
+  else
     $mouse_background_drawer.render(mouse_x, mouse_y)
   end
 
@@ -181,16 +198,6 @@ update_with_tick do |tick|
   $fireplace.update($day_and_night_cycle.time)
 
   $job_list.cleanup if tick % 300 == 0
-
-
-  # TODO
-  # Menu should be on top of everything
-  # and should not be covered by other things
-  # like night-mask
-
-  # currently menu is covered by mask for night and
-  # we want it not to be
-  # $menu.rerender
 end
 
 # Have menu options to choose between
@@ -271,6 +278,9 @@ end
 
 # GET WIDTH FROM TEXT?
 # To build something around it?
+
+# Implement #include? method for drawed shapes
+# to allow checking if a mouse is over them
 
 on(mouse: 'any') do |x, y|
   # Only take consider user action if it clicks on map
