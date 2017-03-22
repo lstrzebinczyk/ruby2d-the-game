@@ -84,25 +84,58 @@ end
 class Menu
   class Button
     FONT_SIZE = 36
-    def initialize(text)
-      @text = text
+    def initialize(text, opts = {})
+      @text   = text
+      @active = opts[:active] || false
+      @hover  = false
+    end
+
+    def rerender
+      remove 
+      add
     end
 
     def remove
-      @text.remove 
+      @text_element.remove 
       @background.remove
     end
 
     def add
       @background.add 
-      @text.add
+      @text_element.add
     end
 
     def contains?(x, y)
       @background.contains?(x, y)
     end
 
-    def background_color=(color)
+    def width
+      FONT_SIZE * @text.length * 0.5
+    end
+
+    def color
+      if @active
+        [1, 0, 0, opacity]
+      else
+        [0, 0, 1, opacity]
+      end
+    end
+
+    def opacity
+      if @hover
+        0.6
+      else
+        1
+      end
+    end
+
+    def hover
+      @hover = true
+      @background.color = color
+    end
+
+    def unhover
+      @hover = false
       @background.color = color
     end
 
@@ -111,15 +144,15 @@ class Menu
       @background = Rectangle.new(
         x, 
         y, 
-        FONT_SIZE * @text.length * 0.5, # TWEAK IT 
+        width, # TWEAK IT 
         menu_element_tiles_height * PIXELS_PER_SQUARE, 
-        "red"
+        color
       )
 
-      @text = Text.new(
+      @text_element = Text.new(
         x + 4, 
         y + 4, 
-        "Cut trees", FONT_SIZE, "fonts/arial.ttf"
+        @text, FONT_SIZE, "fonts/arial.ttf"
       )
     end
   end
@@ -143,7 +176,7 @@ class Menu
   end
 
   def rerender
-    [@menu_background, @cut_trees_button].each do |elem|
+    [@menu_background, @cut_trees_button, @do_nothing_button].each do |elem|
       elem.remove
       elem.add
     end
@@ -152,23 +185,36 @@ class Menu
   def render
     render_menu_background
     render_cut_trees_element
+    render_nothing_element
   end
 
   def unhover
-    @cut_trees_button.background_color = "red"
+    @cut_trees_button.unhover
+    @do_nothing_button.unhover
   end
 
   def hover(window_x, window_y)
     if @cut_trees_button.contains?(window_x, window_y)
-      @cut_trees_button.background_color = [1, 0, 0, 0.8]
+      @cut_trees_button.hover
+    end
+
+    if @do_nothing_button.contains?(window_x, window_y)
+      @do_nothing_button.hover
     end
   end
 
   private
 
   def render_cut_trees_element
-    @cut_trees_button = Button.new("Cut trees")
+    @cut_trees_button = Button.new("Cut trees", active: true)
     @cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
+  end
+
+  def render_nothing_element
+    @do_nothing_button = Button.new("Do nothing")
+    left = 2 * PIXELS_PER_SQUARE + @cut_trees_button.width
+
+    @do_nothing_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
   end
 
   def render_menu_background
