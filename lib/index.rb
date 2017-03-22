@@ -90,11 +90,6 @@ class Menu
       @hover  = false
     end
 
-    def rerender
-      remove 
-      add
-    end
-
     def remove
       @text_element.remove 
       @background.remove
@@ -167,6 +162,8 @@ class Menu
     end
   end
 
+  attr_reader :game_mode
+
   def initialize
     @game_mode = :cut_trees # later this should be something like :give_orders, something more generic
     @menu_y_start = HEIGHT - height
@@ -176,11 +173,13 @@ class Menu
 
   def click(x, y)
     if @cut_trees_button.contains?(x, y)
+      @game_mode = :cut_trees
       deactivate_all_buttons
       @cut_trees_button.activate
     end
 
     if @do_nothing_button.contains?(x, y)
+      @game_mode = :do_nothing
       deactivate_all_buttons
       @do_nothing_button.activate
     end
@@ -390,19 +389,24 @@ on(mouse: 'any') do |x, y|
   # Only take consider user action if it clicks on map
   # not if it clicks on menu
   unless $menu.contains?(x, y)
-    in_game_x = x / PIXELS_PER_SQUARE
-    in_game_y = y / PIXELS_PER_SQUARE
+    # do something like
+    # $menu.game_mode.click(x, y)
+    # And all that logic should be encapsulated in game_mode class
+    if $menu.game_mode == :cut_trees
+      in_game_x = x / PIXELS_PER_SQUARE
+      in_game_y = y / PIXELS_PER_SQUARE
 
-    map_object = $map[in_game_x, in_game_y]
-    if map_object.is_a? Tree
-      new_job = CutTreeJob.new(map_object)
+      map_object = $map[in_game_x, in_game_y]
+      if map_object.is_a? Tree
+        new_job = CutTreeJob.new(map_object)
 
-      # Do not queue this same job multiple times, for example do not add
-      # the same tree to be cut 2 times
-      if $job_list.has?(new_job)
-        new_job.remove
-      else
-        $job_list.add(new_job)
+        # Do not queue this same job multiple times, for example do not add
+        # the same tree to be cut 2 times
+        if $job_list.has?(new_job)
+          new_job.remove
+        else
+          $job_list.add(new_job)
+        end
       end
     end
   else
