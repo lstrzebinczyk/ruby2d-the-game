@@ -129,6 +129,16 @@ class Menu
       end
     end
 
+    def activate
+      @active = true
+      @background.color = color
+    end
+
+    def deactivate
+      @active = false
+      @background.color = color
+    end
+
     def hover
       @hover = true
       @background.color = color
@@ -162,6 +172,23 @@ class Menu
     @menu_y_start = HEIGHT - height
 
     render
+  end
+
+  def click(x, y)
+    if @cut_trees_button.contains?(x, y)
+      deactivate_all_buttons
+      @cut_trees_button.activate
+    end
+
+    if @do_nothing_button.contains?(x, y)
+      deactivate_all_buttons
+      @do_nothing_button.activate
+    end
+  end
+
+  def deactivate_all_buttons
+    @cut_trees_button.deactivate 
+    @do_nothing_button.deactivate
   end
 
   def height
@@ -378,6 +405,8 @@ on(mouse: 'any') do |x, y|
         $job_list.add(new_job)
       end
     end
+  else
+    $menu.click(x, y)
   end
 end
 
