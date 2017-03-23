@@ -136,18 +136,12 @@ update_with_tick do |tick|
   $fireplace.update($day_and_night_cycle.time)
 end
 
+# CLEANUP
+
 # Have menu options to choose between
-  # - i want to set trees to be removed
-  # - i want to build
-  #   - storage
   #   - dormitory ? next step, we need sleeping for that
 
-
-
-
 # introduce ability to unqueue jobs
-
-# When those are done we can talk about building storages
 
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
