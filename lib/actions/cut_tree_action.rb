@@ -52,18 +52,8 @@ class CutTreeAction < Action::Base
     $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
 
     6.times do 
-      # available_zone = $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? LogsPile }
-      # if available_zone
-      
-      new_job = CarryLogJob.new(from: @tree)#, to: available_zone)
+      new_job = CarryLogJob.new(from: @tree)
       $job_list.add(new_job)
-      # new_job = CutTreeJob.new(map_object)
-
-
-
-
-        # puts available_zone
-      # end
     end
   end
 end

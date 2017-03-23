@@ -1,7 +1,6 @@
 require 'ruby2d'
 
 require_relative "./core_ext/time"
-require_relative "./core_ext/rectangle"
 
 require_relative "./actions/action_base"
 require_relative "./actions/move_action"
@@ -28,6 +27,9 @@ require_relative "./utils/logs_pile"
 require_relative "./utils/fireplace"
 require_relative "./utils/job_list"
 require_relative "./utils/menu"
+require_relative "./utils/zones_list"
+
+require_relative "./zones/storage_zone"
 
 require_relative "./game_modes/cut_trees_game_mode"
 require_relative "./game_modes/do_nothing_game_mode"
@@ -90,6 +92,7 @@ $day_and_night_cycle = DayAndNightCycle.new(HEIGHT - $menu.height)
 $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
 $job_list = JobList.new
+$zones = ZonesList.new
 
 @tick = 0
 def update_with_tick(&block)
@@ -212,6 +215,8 @@ end
 # Implement #include? method for drawed shapes
 # to allow checking if a mouse is over them
 
+# INTRODUCE N CHARACTERS
+
 on(mouse: 'any') do |x, y, thing|
   puts "#{x} #{y} #{thing}"
   # Only take consider user action if it clicks on map
@@ -236,6 +241,10 @@ on_key do |key|
       game_speed = 2 ** (key.to_i - 1)
     end
     $game_speed.set(game_speed)
+  end
+
+  if key == "q"
+    p $job_list
   end
 end
 

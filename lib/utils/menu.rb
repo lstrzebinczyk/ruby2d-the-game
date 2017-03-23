@@ -1,4 +1,3 @@
-
 class Menu
   class Button
     attr_accessor :game_mode
@@ -20,8 +19,12 @@ class Menu
       @text_element.add
     end
 
-    def contains?(x, y)
-      @background.contains?(x, y)
+    def contains?(mouse_x, mouse_y)
+      x      = @background.x
+      y      = @background.y 
+      width  = @background.width 
+      height = @background.height
+      (x..(x + width)).include?(mouse_x) && (y..(y + height)).include?(mouse_y)
     end
 
     def width
