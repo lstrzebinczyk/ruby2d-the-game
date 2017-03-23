@@ -129,7 +129,7 @@ update_with_tick do |tick|
 
   $fireplace.update($day_and_night_cycle.time)
 
-  $job_list.cleanup if tick % 300 == 0
+  $job_list.cleanup if tick % 30000 == 0
 end
 
 # Have menu options to choose between
@@ -214,7 +214,8 @@ end
 # Implement #include? method for drawed shapes
 # to allow checking if a mouse is over them
 
-on(mouse: 'any') do |x, y|
+on(mouse: 'any') do |x, y, thing|
+  puts "#{x} #{y} #{thing}"
   # Only take consider user action if it clicks on map
   # not if it clicks on menu
   if $menu.contains?(x, y)

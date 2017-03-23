@@ -23,8 +23,16 @@ class CutTreeJob
     @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
   end
 
+  def inspect
+    "#<CutTreeJob @y=#{@tree.y}, @x=#{@tree.x}, @taken=#{@taken}, @finished=#{@finished}>"
+  end
+
   def free?
-    !@taken && !@finished
+    !@taken and !@finished
+  end
+
+  def unfinished?
+    !@finished
   end
 
   def target
@@ -42,6 +50,7 @@ class CutTreeJob
 
   def remove
     @mask.remove
+    @taken    = true
     @finished = true
   end
 end

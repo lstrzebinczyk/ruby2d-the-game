@@ -18,7 +18,7 @@ class JobList
   end
 
   def cleanup
-    @jobs.keep_if(&:free?)
+    @jobs.keep_if(&:unfinished?)
   end
 
   def has?(new_job)
