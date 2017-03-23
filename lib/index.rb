@@ -128,8 +128,6 @@ update_with_tick do |tick|
   end
 
   $fireplace.update($day_and_night_cycle.time)
-
-  # $job_list.cleanup if tick % 30000 == 0
 end
 
 # Have menu options to choose between
