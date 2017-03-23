@@ -42,11 +42,4 @@ class Character
   def finish
     @action = nil
   end
-
-  private
-
-  def move_to_action(x, y)
-    target  = Point.new(x, y)
-    MoveAction.new(self, target, self)
-  end
 end

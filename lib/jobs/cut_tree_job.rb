@@ -28,11 +28,7 @@ class CutTreeJob
   end
 
   def free?
-    !@taken and !@finished
-  end
-
-  def unfinished?
-    !@finished
+    !@taken
   end
 
   def target
@@ -51,6 +47,7 @@ class CutTreeJob
   def remove
     @mask.remove
     @taken    = true
-    @finished = true
+
+    $job_list.delete(self)
   end
 end

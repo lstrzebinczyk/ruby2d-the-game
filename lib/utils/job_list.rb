@@ -17,8 +17,8 @@ class JobList
     @jobs.count
   end
 
-  def cleanup
-    @jobs.keep_if(&:unfinished?)
+  def delete(job)
+    @jobs.delete(job)
   end
 
   def has?(new_job)
