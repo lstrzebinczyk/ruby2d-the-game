@@ -1,6 +1,8 @@
 
 class Menu
   class Button
+    attr_accessor :game_mode
+
     FONT_SIZE = 36
     def initialize(text, opts = {})
       @text   = text
@@ -83,29 +85,25 @@ class Menu
   attr_reader :game_mode
 
   def initialize
-    @game_mode = CutTreesGameMode.new
+    @game_mode    = CutTreesGameMode.new
     @menu_y_start = HEIGHT - height
+    @buttons      = []
 
     render
   end
 
   def click(x, y)
-    if @cut_trees_button.contains?(x, y)
-      @game_mode = CutTreesGameMode.new
-      deactivate_all_buttons
-      @cut_trees_button.activate
-    end
-
-    if @do_nothing_button.contains?(x, y)
-      @game_mode = DoNothingGameMode.new
-      deactivate_all_buttons
-      @do_nothing_button.activate
+    @buttons.each do |button|
+      if button.contains?(x, y)
+        @game_mode = button.game_mode
+        deactivate_all_buttons
+        button.activate
+      end
     end
   end
 
   def deactivate_all_buttons
-    @cut_trees_button.deactivate 
-    @do_nothing_button.deactivate
+    @buttons.each(&:deactivate)
   end
 
   def height
@@ -120,9 +118,12 @@ class Menu
   end
 
   def rerender
-    [@menu_background, @cut_trees_button, @do_nothing_button].each do |elem|
-      elem.remove
-      elem.add
+    @menu_background.remove 
+    @menu_background.add 
+
+    @buttons.each do |button|
+      button.remove
+      button.add
     end
   end
 
@@ -133,32 +134,35 @@ class Menu
   end
 
   def unhover
-    @cut_trees_button.unhover
-    @do_nothing_button.unhover
+    @buttons.each(&:unhover)
   end
 
   def hover(window_x, window_y)
-    if @cut_trees_button.contains?(window_x, window_y)
-      @cut_trees_button.hover
-    end
-
-    if @do_nothing_button.contains?(window_x, window_y)
-      @do_nothing_button.hover
+    @buttons.each do |button|
+      if button.contains?(window_x, window_y)
+        button.hover
+      end
     end
   end
 
   private
 
   def render_cut_trees_element
-    @cut_trees_button = Button.new("Cut trees", active: true)
-    @cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
+    cut_trees_button = Button.new("Cut trees", active: true)
+    cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
+    cut_trees_button.game_mode = CutTreesGameMode.new
+
+    @buttons << cut_trees_button
   end
 
   def render_nothing_element
-    @do_nothing_button = Button.new("Do nothing")
-    left = 2 * PIXELS_PER_SQUARE + @cut_trees_button.width
+    do_nothing_button = Button.new("Do nothing")
+    left = 2 * PIXELS_PER_SQUARE + @buttons.last.width
 
-    @do_nothing_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
+    do_nothing_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
+    do_nothing_button.game_mode = DoNothingGameMode.new
+
+    @buttons << do_nothing_button
   end
 
   def render_menu_background
