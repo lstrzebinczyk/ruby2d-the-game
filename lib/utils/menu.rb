@@ -83,7 +83,7 @@ class Menu
 
   def initialize
     @game_mode    = CutTreesGameMode.new
-    @menu_y_start = HEIGHT - height
+    @menu_y_start = WORLD_HEIGHT
     @buttons      = []
 
     render

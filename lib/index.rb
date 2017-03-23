@@ -40,7 +40,8 @@ PIXELS_PER_SQUARE = 16
 SQUARES_WIDTH     = 60
 SQUARES_HEIGHT    = 40
 WIDTH  = PIXELS_PER_SQUARE * SQUARES_WIDTH
-HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
+WORLD_HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
+MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
 
 # PROFIDE DEFAULT FONT?
 # SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
@@ -75,7 +76,7 @@ end
 set({
   title: "The Game Continues",
   width: WIDTH,
-  height: HEIGHT,
+  height: WORLD_HEIGHT + MENU_HEIGHT,
   # diagnostics: true
 })
 
@@ -88,7 +89,7 @@ $character = Character.new(30, 20)
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
 $menu = Menu.new
-$day_and_night_cycle = DayAndNightCycle.new(HEIGHT - $menu.height)
+$day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT)
 $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
 $job_list = JobList.new
