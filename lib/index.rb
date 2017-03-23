@@ -1,6 +1,10 @@
 require 'ruby2d'
 
 require_relative "./core_ext/time"
+require_relative "./core_ext/rectangle"
+
+require_relative "./game_modes/cut_trees_game_mode"
+require_relative "./game_modes/do_nothing_game_mode"
 
 require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
@@ -213,29 +217,10 @@ end
 on(mouse: 'any') do |x, y|
   # Only take consider user action if it clicks on map
   # not if it clicks on menu
-  unless $menu.contains?(x, y)
-    # do something like
-    # $menu.game_mode.click(x, y)
-    # And all that logic should be encapsulated in game_mode class
-    if $menu.game_mode == :cut_trees
-      in_game_x = x / PIXELS_PER_SQUARE
-      in_game_y = y / PIXELS_PER_SQUARE
-
-      map_object = $map[in_game_x, in_game_y]
-      if map_object.is_a? Tree
-        new_job = CutTreeJob.new(map_object)
-
-        # Do not queue this same job multiple times, for example do not add
-        # the same tree to be cut 2 times
-        if $job_list.has?(new_job)
-          new_job.remove
-        else
-          $job_list.add(new_job)
-        end
-      end
-    end
-  else
+  if $menu.contains?(x, y)
     $menu.click(x, y)
+  else
+    $menu.game_mode.click(x, y)
   end
 end
 

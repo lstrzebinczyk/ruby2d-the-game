@@ -83,7 +83,7 @@ class Menu
   attr_reader :game_mode
 
   def initialize
-    @game_mode = :cut_trees # later this should be something like :give_orders, something more generic
+    @game_mode = CutTreesGameMode.new
     @menu_y_start = HEIGHT - height
 
     render
@@ -91,13 +91,13 @@ class Menu
 
   def click(x, y)
     if @cut_trees_button.contains?(x, y)
-      @game_mode = :cut_trees
+      @game_mode = CutTreesGameMode.new
       deactivate_all_buttons
       @cut_trees_button.activate
     end
 
     if @do_nothing_button.contains?(x, y)
-      @game_mode = :do_nothing
+      @game_mode = DoNothingGameMode.new
       deactivate_all_buttons
       @do_nothing_button.activate
     end
