@@ -10,6 +10,16 @@ class Character
     !!@action
   end
 
+  def carry=(item)
+    @carried_item = item 
+  end
+
+  def get_item
+    item = @carried_item
+    @carried_item = nil
+    item
+  end
+
   def x
     @image.x / PIXELS_PER_SQUARE
   end

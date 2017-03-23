@@ -1,15 +1,10 @@
-class MoveAction
-  def initialize(from, to, parent)
+class MoveAction < Action::Base
+  def initialize(from, to, character)
     @from       = from
     @to         = to
-    @parent     = parent
+    @character  = character
     @path       = calculate_path
     @ticks_left = 4
-  end
-
-  def then
-    @next_action = yield
-    self
   end
 
   def update
@@ -18,7 +13,7 @@ class MoveAction
       @ticks_left = 4
       next_step = @path.shift_node
       if next_step
-        @parent.update_position(next_step.x, next_step.y)
+        @character.update_position(next_step.x, next_step.y)
       else
         end_action
       end
@@ -31,16 +26,6 @@ class MoveAction
 
   def close
     @path.remove
-  end
-
-  private
-
-  def end_action
-    if @next_action
-      @parent.action = @next_action
-    else
-      @parent.finish
-    end
   end
 
   def calculate_path

@@ -1,4 +1,4 @@
-class CutTreeAction
+class CutTreeAction < Action::Base
   HIT_EVERY_TICKS = 40
   NUMBER_OF_HITS  = 6
   ANIMATION_TIME  = 10
@@ -50,5 +50,20 @@ class CutTreeAction
     @tree.remove
     @job.remove
     $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
+
+    6.times do 
+      # available_zone = $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? LogsPile }
+      # if available_zone
+      
+      new_job = CarryLogJob.new(from: @tree)#, to: available_zone)
+      $job_list.add(new_job)
+      # new_job = CutTreeJob.new(map_object)
+
+
+
+
+        # puts available_zone
+      # end
+    end
   end
 end

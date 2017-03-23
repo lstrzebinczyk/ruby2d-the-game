@@ -18,17 +18,20 @@ class CutTreeJob
     y = tree.y * PIXELS_PER_SQUARE
 
     @taken = false
-    @finished = false
 
     @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
   end
 
   def inspect
-    "#<CutTreeJob @y=#{@tree.y}, @x=#{@tree.x}, @taken=#{@taken}, @finished=#{@finished}>"
+    "#<CutTreeJob @y=#{@tree.y}, @x=#{@tree.x}, @taken=#{@taken}>"
   end
 
   def free?
     !@taken
+  end
+
+  def available?
+    true
   end
 
   def target
@@ -46,8 +49,6 @@ class CutTreeJob
 
   def remove
     @mask.remove
-    @taken    = true
-
     $job_list.delete(self)
   end
 end

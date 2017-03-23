@@ -9,7 +9,7 @@ class JobList
 
   def get_job
     @jobs.find do |job|
-      job.free?
+      job.free? and job.available?
     end
   end
 

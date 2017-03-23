@@ -3,10 +3,14 @@ require 'ruby2d'
 require_relative "./core_ext/time"
 require_relative "./core_ext/rectangle"
 
+require_relative "./actions/action_base"
 require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
+require_relative "./actions/pick_action"
+require_relative "./actions/put_action"
 
 require_relative "./jobs/cut_tree_job"
+require_relative "./jobs/carry_log_job"
 
 require_relative "./utils/pathfinder"
 require_relative "./utils/grid"

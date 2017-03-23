@@ -32,6 +32,18 @@ class Map
     end
   end
 
+  def put_item(x, y, item)
+    if item.is_a? LogsPile::Log
+      if self[x, y].is_a? LogsPile
+        self[x, y].put(item)
+      else
+        self[x, y] = LogsPile.new(x, y, 1)
+      end
+    else
+      raise "You need to handle this better"
+    end
+  end
+
   # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM
   def find_free_spot_near(position)
     positions = []
