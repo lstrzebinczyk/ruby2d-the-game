@@ -40,11 +40,15 @@ class CutTreeAction
     end
 
     if @hits_left == 0
-      @mask.remove
-      @parent.finish
-      @tree.remove
-      @job.remove
-      $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
+      finish
     end
+  end
+
+  def finish
+    @mask.remove
+    @parent.finish
+    @tree.remove
+    @job.remove
+    $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
   end
 end

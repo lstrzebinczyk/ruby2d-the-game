@@ -1,7 +1,7 @@
 class StorageZone
   def initialize(x, y)
-    x_coord = (x / PIXELS_PER_SQUARE) * PIXELS_PER_SQUARE
-    y_coord = (y / PIXELS_PER_SQUARE) * PIXELS_PER_SQUARE
+    x_coord = x * PIXELS_PER_SQUARE
+    y_coord = y * PIXELS_PER_SQUARE
 
     @image = Square.new(x_coord, y_coord, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
     @image.remove
@@ -28,6 +28,9 @@ class ZonesList
 end
 
 
+# TODO: Have people carry stuff to storage if the storage was build earlier and tree cut later
+# and also if the tree was cut earlier and storage was build later
+
 $zones = ZonesList.new
 
 class BuildStorageMode
@@ -35,10 +38,13 @@ class BuildStorageMode
     in_game_x = x / PIXELS_PER_SQUARE
     in_game_y = y / PIXELS_PER_SQUARE
 
-    
+
     if $zones[in_game_x, in_game_y].nil?
     # $zones[x, y] && $zones[x, y].remove
-      $zones[in_game_x, in_game_y] = StorageZone.new(x, y)
+      $zones[in_game_x, in_game_y] = StorageZone.new(in_game_x, in_game_y)
+      if $map[in_game_x, in_game_y]
+        $map[in_game_x, in_game_y].rerender
+      end
     end
   end
 end
