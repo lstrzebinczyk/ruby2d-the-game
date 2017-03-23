@@ -54,6 +54,10 @@ class Menu
       @background.color = color
     end
 
+    def right
+      @background.x2.to_i
+    end
+
     def render(x, y)
       menu_element_tiles_height = 3
       @background = Rectangle.new(
@@ -123,6 +127,7 @@ class Menu
     render_menu_background
     render_cut_trees_element
     render_nothing_element
+    render_build_storage_element
   end
 
   def unhover
@@ -151,12 +156,22 @@ class Menu
 
   def render_nothing_element
     do_nothing_button = Button.new("Do nothing")
-    left = 2 * PIXELS_PER_SQUARE + @buttons.last.width
+    left = @buttons.last.right + PIXELS_PER_SQUARE
 
     do_nothing_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
     do_nothing_button.game_mode = DoNothingGameMode.new
 
     @buttons << do_nothing_button
+  end
+
+  def render_build_storage_element
+    build_storage_button = Button.new("Build storage")
+    left = @buttons.last.right + PIXELS_PER_SQUARE
+
+    build_storage_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
+    build_storage_button.game_mode = BuildStorageMode.new
+
+    @buttons << build_storage_button
   end
 
   def render_menu_background

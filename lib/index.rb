@@ -3,15 +3,13 @@ require 'ruby2d'
 require_relative "./core_ext/time"
 require_relative "./core_ext/rectangle"
 
-require_relative "./game_modes/cut_trees_game_mode"
-require_relative "./game_modes/do_nothing_game_mode"
-
 require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
 
 require_relative "./jobs/cut_tree_job"
 
 require_relative "./utils/pathfinder"
+require_relative "./utils/grid"
 require_relative "./utils/map"
 require_relative "./utils/character"
 require_relative "./utils/path"
@@ -26,6 +24,10 @@ require_relative "./utils/logs_pile"
 require_relative "./utils/fireplace"
 require_relative "./utils/job_list"
 require_relative "./utils/menu"
+
+require_relative "./game_modes/cut_trees_game_mode"
+require_relative "./game_modes/do_nothing_game_mode"
+require_relative "./game_modes/build_storage_mode"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
