@@ -44,23 +44,13 @@ class Menu
       end
     end
 
-    def activate
-      @active = true
+    def active=(active)
+      @active = active
       @background.color = color
     end
 
-    def deactivate
-      @active = false
-      @background.color = color
-    end
-
-    def hover
-      @hover = true
-      @background.color = color
-    end
-
-    def unhover
-      @hover = false
+    def hover=(hover)
+      @hover = hover
       @background.color = color
     end
 
@@ -97,13 +87,15 @@ class Menu
       if button.contains?(x, y)
         @game_mode = button.game_mode
         deactivate_all_buttons
-        button.activate
+        button.active = true
       end
     end
   end
 
   def deactivate_all_buttons
-    @buttons.each(&:deactivate)
+    @buttons.each do |button|
+      button.active = false
+    end
   end
 
   def height
@@ -134,13 +126,15 @@ class Menu
   end
 
   def unhover
-    @buttons.each(&:unhover)
+    @buttons.each do |button|
+      button.hover = false
+    end
   end
 
   def hover(window_x, window_y)
     @buttons.each do |button|
       if button.contains?(window_x, window_y)
-        button.hover
+        button.hover = true
       end
     end
   end
