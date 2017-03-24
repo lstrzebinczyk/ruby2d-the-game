@@ -1,4 +1,6 @@
 class LogsPile
+  # Log is thought of as a 3 meter piece of wood from cut tree
+  # New tree is 18m height. Those are big trees.
   class Log
   end
 
