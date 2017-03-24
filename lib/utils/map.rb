@@ -33,7 +33,7 @@ class Map
   end
 
   def put_item(x, y, item)
-    if item.is_a? LogsPile::Log
+    if item.is_a? Log
       if self[x, y].is_a? LogsPile
         self[x, y].put(item)
       else

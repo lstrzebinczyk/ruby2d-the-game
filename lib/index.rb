@@ -1,6 +1,11 @@
 require 'ruby2d'
 require 'perlin_noise'
 
+require_relative "./items/log"
+
+require_relative "./map_elements/tree"
+require_relative "./map_elements/logs_pile"
+
 require_relative "./core_ext/time"
 
 require_relative "./actions/action_base"
@@ -18,13 +23,11 @@ require_relative "./utils/random_noise_generator"
 require_relative "./utils/map"
 require_relative "./utils/character"
 require_relative "./utils/path"
-require_relative "./utils/tree"
 require_relative "./utils/background"
 require_relative "./utils/fps_drawer"
 require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/game_speed"
-require_relative "./utils/logs_pile"
 require_relative "./utils/fireplace"
 require_relative "./utils/job_list"
 require_relative "./utils/menu"
@@ -239,8 +242,10 @@ end
 # Check The Sims on statistics for how peoples needs change in time
 # Like sleeping, eating and so on
 
+# Write documentation? For myself and others, to inform what various concepts are?
+
 on(mouse: 'any') do |x, y, thing|
-  puts "#{x} #{y} #{thing}"
+  # puts "#{x} #{y} #{thing}"
   # Only take consider user action if it clicks on map
   # not if it clicks on menu
   if $menu.contains?(x, y)

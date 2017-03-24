@@ -1,9 +1,8 @@
-class LogsPile
-  # Log is thought of as a 3 meter piece of wood from cut tree
-  # New tree is 18m height. Those are big trees.
-  class Log
-  end
+# TODO: Reorganise to be a regular Pile 
+# TODO: That will just accept items from outside
+# Not connected only to pile
 
+class LogsPile
   def initialize(x, y, count = 6)
     @x          = x
     @y          = y
