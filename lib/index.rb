@@ -237,6 +237,9 @@ end
 # later there should be various kind of cities with various
 # interesting things
 
+# Check The Sims on statistics for how peoples needs change in time
+# Like sleeping, eating and so on
+
 on(mouse: 'any') do |x, y, thing|
   puts "#{x} #{y} #{thing}"
   # Only take consider user action if it clicks on map
