@@ -24,10 +24,8 @@ require_relative "./utils/map"
 require_relative "./utils/character"
 require_relative "./utils/path"
 require_relative "./utils/background"
-require_relative "./utils/fps_drawer"
 require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
-require_relative "./utils/game_speed"
 require_relative "./utils/fireplace"
 require_relative "./utils/job_list"
 require_relative "./utils/menu"
@@ -38,6 +36,9 @@ require_relative "./zones/storage_zone"
 require_relative "./game_modes/cut_trees_game_mode"
 require_relative "./game_modes/do_nothing_game_mode"
 require_relative "./game_modes/build_storage_mode"
+
+require_relative "./gui/fps_drawer"
+require_relative "./gui/game_speed"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
