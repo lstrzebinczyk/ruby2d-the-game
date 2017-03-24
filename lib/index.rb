@@ -166,7 +166,6 @@ end
 # When that is done, look into having a settlement that is sentient
 # And gives jobs to make itself functional
 
-# Introduce carrying by people
 # Introduce drinking
 # Introduce cooking
 # Introduce people types, accepting various jobs, or prioritising varous jobs
@@ -215,9 +214,6 @@ end
 
 # GET WIDTH FROM TEXT?
 # To build something around it?
-
-# Implement #include? method for drawed shapes
-# to allow checking if a mouse is over them
 
 # INTRODUCE N CHARACTERS
 
