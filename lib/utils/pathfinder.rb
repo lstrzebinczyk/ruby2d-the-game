@@ -94,7 +94,7 @@ class PathFinder
       # Map for now is infinite, so if search gets too big, we decide
       # That there is no good path
       if @closed_nodes.size > 1000
-        return Path.new([])
+        return []
       end
 
       # grab the lowest f(x)
@@ -119,7 +119,7 @@ class PathFinder
           path.unshift(current_node)
         end
 
-        return Path.new(path)
+        return path
       end
 
       # remove the current node from open node list
@@ -173,6 +173,6 @@ class PathFinder
       end
     end
 
-    return Path.new([]) # return empty path
+    return [] # return empty path
   end
 end

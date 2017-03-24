@@ -11,7 +11,7 @@ class MoveAction < Action::Base
     @ticks_left -= 1
     if @ticks_left == 0
       @ticks_left = 4 * @character.speed_multiplier
-      next_step = @path.shift_node
+      next_step = @path.shift
       if next_step
         @character.update_position(next_step.x, next_step.y)
       else
@@ -25,7 +25,6 @@ class MoveAction < Action::Base
   end
 
   def close
-    @path.remove
   end
 
   def calculate_path
