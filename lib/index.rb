@@ -150,8 +150,6 @@ end
 # Have menu options to choose between
   #   - dormitory ? next step, we need sleeping for that
 
-# introduce ability to unqueue jobs
-
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
 

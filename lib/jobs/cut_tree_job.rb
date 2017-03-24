@@ -1,5 +1,5 @@
 class CutTreeJob
-  attr_writer :taken
+  attr_accessor :taken
 
   def initialize(tree)
     @tree = tree

@@ -17,13 +17,17 @@ class JobList
     @jobs.count
   end
 
+  def find(job_class, job_target)
+    @jobs.find{|j| j.class == job_class and j.target == job_target }
+  end
+
   def delete(job)
     @jobs.delete(job)
   end
 
-  def has?(new_job)
+  def has?(job_class, job_target)
     @jobs.any? do |job|
-      new_job.class == job.class and new_job.target == job.target
+      job.class == job_class and job.target == job_target
     end
   end
 end
