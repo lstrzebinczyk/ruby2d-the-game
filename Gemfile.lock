@@ -8,6 +8,7 @@ GEM
       sourcemap (~> 0.1.0)
       sprockets (~> 3.1)
       tilt (>= 1.4)
+    perlin_noise (0.1.2)
     rack (2.0.1)
     ruby2d (0.3.0)
       opal (~> 0.10)
@@ -21,6 +22,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  perlin_noise
   ruby2d
 
 BUNDLED WITH

@@ -1,4 +1,5 @@
 require 'ruby2d'
+require 'perlin_noise'
 
 require_relative "./core_ext/time"
 
@@ -218,6 +219,25 @@ end
 
 # INTRODUCE N CHARACTERS
 
+# Introduce roads
+# when person goes to road it's noted
+# and when there is enough of those 
+# road (in steps) is created
+# it should be easier to walk on road 
+# (smaller cost)
+# thus reinforcing roads creation
+
+# Random visitors should visit city 
+# and want to eat something and stay for a night 
+# and want to leave money
+# later this should be only near trade routes
+# or on crossing of trade routes
+
+# later there should be various kind of cities with various
+# interesting things
+
+# Use 2d spatial noise function to determine forestery
+
 on(mouse: 'any') do |x, y, thing|
   puts "#{x} #{y} #{thing}"
   # Only take consider user action if it clicks on map
@@ -268,3 +288,7 @@ show
 
 # IMPLEMENT WRAPPER OVER RENDERING WITH Z-INDEX FEATURE
 # THAN SUGGEST IT TO THE GUY
+
+
+# INTRODUCE SET OF UNIFIED SCENARIOS FOR PERFORMANCE BENCHMARKING
+# INTRODUCE SOME TESTS?

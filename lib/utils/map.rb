@@ -75,14 +75,31 @@ class Map
 
   private
 
-  def set_tree?
-    rand < 0.20
+
+
+  def noise
+    @noise ||= Perlin::Noise.new(2)
+  end
+
+  def contrast
+    @contrast ||= Perlin::Curve.contrast(Perlin::Curve::CUBIC, 4)
+  end
+
+  def divider
+    @divider ||= 2 + rand
+  end
+
+  def set_tree?(x, y)
+    n = noise[x.to_f / 30, y.to_f / 30]
+    n = contrast.call(n)
+    n = n / divider
+    rand < n
   end
 
   def fill_grid_with_trees
     (0..@width).each do |x|
       (0..@height).each do |y|
-        if set_tree?
+        if set_tree?(x, y)
           @grid[x, y] = Tree.new(x, y)
         end
       end
