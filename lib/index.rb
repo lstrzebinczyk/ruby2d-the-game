@@ -204,10 +204,6 @@ end
 # Prepare srug presentation?
 # About all of this?
 
-# Have color allow to set opacity with setter?
-# Implement Color#opacity=
-# Alias of  Color#a=
-
 # introduce sleeping
 
 # FONT IN WEB VERSION DOES NOT RENDER IN PROPER SIZE
@@ -238,6 +234,9 @@ end
 # Like sleeping, eating and so on
 
 # Write documentation? For myself and others, to inform what various concepts are?
+# Add right menu with tabs:
+  # - show jobs list 
+  # - show characters
 
 on(mouse: 'any') do |x, y, thing|
   # puts "#{x} #{y} #{thing}"
