@@ -4,13 +4,13 @@ class MoveAction < Action::Base
     @to         = to
     @character  = character
     @path       = calculate_path
-    @ticks_left = 4
+    @ticks_left = 4 * @character.speed_multiplier
   end
 
   def update
     @ticks_left -= 1
     if @ticks_left == 0
-      @ticks_left = 4
+      @ticks_left = 4 * @character.speed_multiplier
       next_step = @path.shift_node
       if next_step
         @character.update_position(next_step.x, next_step.y)

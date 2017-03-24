@@ -230,11 +230,16 @@ end
 
 # Check The Sims on statistics for how peoples needs change in time
 # Like sleeping, eating and so on
+# Aw man, there is a lot of good stuff in sims wiki pages
 
 # Write documentation? For myself and others, to inform what various concepts are?
 # Add right menu with tabs:
   # - show jobs list 
   # - show characters
+
+  # Introduce speed
+  # I want character to walk in normal case 4 meters/spots per second
+  # And if he carries a log of wood, 1
 
 on(mouse: 'any') do |x, y, thing|
   # puts "#{x} #{y} #{thing}"

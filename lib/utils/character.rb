@@ -14,6 +14,16 @@ class Character
     @carried_item = item 
   end
 
+  # poor mans implementation of the fact, that carrying big piece of wood makes you slower
+  # Exactly 3 times slower, in here
+  def speed_multiplier
+    if @carried_item and @carried_item.is_a?(Log)
+      3
+    else
+      1
+    end
+  end
+
   def get_item
     item = @carried_item
     @carried_item = nil
