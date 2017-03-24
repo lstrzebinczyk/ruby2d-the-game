@@ -14,6 +14,7 @@ require_relative "./jobs/carry_log_job"
 
 require_relative "./utils/pathfinder"
 require_relative "./utils/grid"
+require_relative "./utils/random_noise_generator"
 require_relative "./utils/map"
 require_relative "./utils/character"
 require_relative "./utils/path"
@@ -235,8 +236,6 @@ end
 
 # later there should be various kind of cities with various
 # interesting things
-
-# Use 2d spatial noise function to determine forestery
 
 on(mouse: 'any') do |x, y, thing|
   puts "#{x} #{y} #{thing}"

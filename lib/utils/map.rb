@@ -75,25 +75,12 @@ class Map
 
   private
 
-
-
-  def noise
-    @noise ||= Perlin::Noise.new(2)
-  end
-
-  def contrast
-    @contrast ||= Perlin::Curve.contrast(Perlin::Curve::CUBIC, 4)
-  end
-
-  def divider
-    @divider ||= 2 + rand
+  def noise_generator
+    @noise ||= RandomNoiseGenerator.new
   end
 
   def set_tree?(x, y)
-    n = noise[x.to_f / 30, y.to_f / 30]
-    n = contrast.call(n)
-    n = n / divider
-    rand < n
+    rand < noise_generator.get(x, y)
   end
 
   def fill_grid_with_trees
