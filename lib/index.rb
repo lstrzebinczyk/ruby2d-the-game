@@ -110,9 +110,6 @@ end
 $previous_mouse_over = :game_window
 
 update_with_tick do |tick|
-  mouse_x = (get(:mouse_x) / PIXELS_PER_SQUARE)
-  mouse_y = (get(:mouse_y) / PIXELS_PER_SQUARE)
-
   # Only show mouse button if it's on map
   # don't show anything if it's on menu
   # $mouse_background_drawer.remove
@@ -131,6 +128,8 @@ update_with_tick do |tick|
     elsif $previous_mouse_over == :game_window
       $mouse_background_drawer.remove
     end
+    mouse_x = (get(:mouse_x) / PIXELS_PER_SQUARE)
+    mouse_y = (get(:mouse_y) / PIXELS_PER_SQUARE)
     $mouse_background_drawer.render(mouse_x, mouse_y)
   end
 
