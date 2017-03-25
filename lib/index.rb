@@ -107,17 +107,30 @@ def update_with_tick(&block)
   end
 end
 
+$previous_mouse_over = :game_window
+
 update_with_tick do |tick|
   mouse_x = (get(:mouse_x) / PIXELS_PER_SQUARE)
   mouse_y = (get(:mouse_y) / PIXELS_PER_SQUARE)
 
   # Only show mouse button if it's on map
   # don't show anything if it's on menu
-  $mouse_background_drawer.remove
-  $menu.unhover
+  # $mouse_background_drawer.remove
   if $menu.contains?(get(:mouse_x), get(:mouse_y))
+    if $previous_mouse_over == :menu
+      $menu.unhover
+    elsif $previous_mouse_over == :game_window
+      $mouse_background_drawer.remove
+      $previous_mouse_over = :menu
+    end
     $menu.hover(get(:mouse_x), get(:mouse_y))
   else
+    if $previous_mouse_over == :menu
+      $menu.unhover
+      $previous_mouse_over = :game_window
+    elsif $previous_mouse_over == :game_window
+      $mouse_background_drawer.remove
+    end
     $mouse_background_drawer.render(mouse_x, mouse_y)
   end
 
@@ -236,9 +249,11 @@ end
   # - show jobs list 
   # - show characters
 
-  # Introduce speed
-  # I want character to walk in normal case 4 meters/spots per second
-  # And if he carries a log of wood, 1
+# I want one my second to be 4 seconds of world time
+# DO I???
+
+# BUG WHEN JOB IS GIVEN TO CUT TREE TO WHICH THERE IS NO PATH
+# THE PATH IS ABANDONED, BUT TREE IS STILL CUT
 
 on(mouse: 'any') do |x, y, thing|
   # puts "#{x} #{y} #{thing}"
@@ -268,6 +283,24 @@ on_key do |key|
 
   if key == "q"
     p $job_list
+  end
+
+  if key == "p"
+    if @profiling
+      result = RubyProf.stop
+      printer = RubyProf::GraphHtmlPrinter.new(result)
+
+      Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
+        printer.print(file, {})
+      end
+      close
+    else
+      require "ruby-prof"
+      require "pathname"
+
+      RubyProf.start
+      @profiling = true
+    end
   end
 end
 

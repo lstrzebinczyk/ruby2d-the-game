@@ -1,6 +1,7 @@
 class Menu
   class Button
     attr_accessor :game_mode
+    attr_reader :hover
 
     FONT_SIZE = 36
     def initialize(text, opts = {})
@@ -135,7 +136,9 @@ class Menu
 
   def unhover
     @buttons.each do |button|
-      button.hover = false
+      if button.hover
+        button.hover = false
+      end
     end
   end
 

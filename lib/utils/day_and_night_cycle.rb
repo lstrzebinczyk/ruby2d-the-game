@@ -29,12 +29,16 @@ class DayAndNightCycle
     n = 15
     @time += n
 
-    @text.remove
-    @text.text = to_s
-    @text.add
+    unless to_s == @text.text
+      @text.remove
+      @text.text = to_s
+      @text.add
+    end
 
-    @sun_shining_mask.remove
-    @sun_shining_mask.color = sun_mask_color
-    @sun_shining_mask.add
+    unless @time.day?
+      @sun_shining_mask.remove
+      @sun_shining_mask.color = sun_mask_color
+      @sun_shining_mask.add
+    end
   end
 end
