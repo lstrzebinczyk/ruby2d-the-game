@@ -12,11 +12,13 @@ require_relative "./core_ext/time"
 require_relative "./actions/action_base"
 require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
+require_relative "./actions/cut_berry_bush_action"
 require_relative "./actions/pick_action"
 require_relative "./actions/put_action"
 require_relative "./actions/sleep_action"
 
 require_relative "./jobs/cut_tree_job"
+require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
 
 require_relative "./utils/pathfinder"
@@ -34,7 +36,7 @@ require_relative "./utils/zones_list"
 
 require_relative "./zones/storage_zone"
 
-require_relative "./game_modes/cut_trees_game_mode"
+require_relative "./game_modes/cut_game_mode"
 require_relative "./game_modes/do_nothing_game_mode"
 require_relative "./game_modes/build_storage_mode"
 

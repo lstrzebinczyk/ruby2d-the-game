@@ -1,6 +1,6 @@
 # TODO: FEATURES FOR BERRY BUSHES
 #   - allow for cutting it 
-#     - for now it just disappears
+#     DONE - for now it just disappears
 #     - later it should produce firewood
 
 #   - allow for harvesting it
@@ -9,6 +9,8 @@
 #     - add second person
 #     - have first person only do forestry and carrying, second only for harvesting and carrying
 #     - implement eating and having to eat
+
+      # - have the bushes regrow at a reasonable, realistic rate
 
 class BerryBush
   attr_reader :x, :y

@@ -29,7 +29,7 @@ class Menu
     end
 
     def width
-      FONT_SIZE * @text.length * 0.5
+      FONT_SIZE * @text.length * 0.7
     end
 
     def color
@@ -83,7 +83,7 @@ class Menu
   attr_reader :game_mode
 
   def initialize
-    @game_mode    = CutTreesGameMode.new
+    @game_mode    = CutGameMode.new
     @menu_y_start = WORLD_HEIGHT
     @buttons      = []
 
@@ -153,9 +153,9 @@ class Menu
   private
 
   def render_cut_trees_element
-    cut_trees_button = Button.new("Cut trees", active: true)
+    cut_trees_button = Button.new("Cut", active: true)
     cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
-    cut_trees_button.game_mode = CutTreesGameMode.new
+    cut_trees_button.game_mode = CutGameMode.new
 
     @buttons << cut_trees_button
   end
