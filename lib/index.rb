@@ -100,7 +100,6 @@ $fireplace = Fireplace.new
 $job_list = JobList.new
 $zones = ZonesList.new
 
-
 $previous_mouse_over = :game_window
 
 update do 
@@ -157,7 +156,7 @@ end
 # CLEANUP
 
 # Have menu options to choose between
-  #   - dormitory ? next step, we need sleeping for that
+  #   - dormitory 
 
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
@@ -210,8 +209,6 @@ end
 
 # Prepare srug presentation?
 # About all of this?
-
-# introduce sleeping
 
 # FONT IN WEB VERSION DOES NOT RENDER IN PROPER SIZE
 
