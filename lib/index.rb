@@ -100,18 +100,9 @@ $job_list = JobList.new
 $zones = ZonesList.new
 
 
-
-@tick = 0
-def update_with_tick(&block)
-  update do
-    block.call(@tick)
-    @tick = (@tick + 1) % 60
-  end
-end
-
 $previous_mouse_over = :game_window
 
-update_with_tick do |tick|
+update do 
   # Only show mouse button if it's on map
   # don't show anything if it's on menu
   # $mouse_background_drawer.remove
@@ -135,7 +126,8 @@ update_with_tick do |tick|
     $mouse_background_drawer.render(mouse_x, mouse_y)
   end
 
-  if tick % 30 == 0
+  # APPROXIMATELY 2 times per second
+  if rand < 0.03
     fps = get(:fps)
     $fps_drawer.rerender(fps)
   end
@@ -339,3 +331,13 @@ show
 # let it return also some firewood
 # maybe have it be scattered on map instead on single piece 
 # have it last for 4 hours
+
+
+# TT.......SS
+# TT.......SS
+# TT....C..SS
+# TT.......SS
+# TT.......SS
+# UNIFIED BENCHMARK!
+# HAVE A MAP LIKE THIS
+# AND BENCHMARK TO CUT AND MOVE ALL THE TREES TO STORAGES
