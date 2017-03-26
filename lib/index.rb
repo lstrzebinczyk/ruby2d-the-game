@@ -99,6 +99,8 @@ $fireplace = Fireplace.new
 $job_list = JobList.new
 $zones = ZonesList.new
 
+
+
 @tick = 0
 def update_with_tick(&block)
   update do
@@ -326,3 +328,14 @@ show
 
 # INTRODUCE SET OF UNIFIED SCENARIOS FOR PERFORMANCE BENCHMARKING
 # INTRODUCE SOME TESTS?
+
+# Introduce Game class, to be able to run tests without visual parts, and faster
+
+# Write Autoplayer class to play the game for mey 9xx3
+
+
+# MAke tree cutting more complex
+# Let it return from 3 to 6 pieces at random 
+# let it return also some firewood
+# maybe have it be scattered on map instead on single piece 
+# have it last for 4 hours
