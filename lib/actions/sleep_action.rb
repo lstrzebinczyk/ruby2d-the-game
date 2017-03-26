@@ -2,25 +2,15 @@ class SleepAction < Action::Base
   def initialize(character)
     @character = character
     @energy_per_second = 2.3 * 0.00104167 / 60
-    @seconds_left = 8 * 60 * 60 # 8 hours sleep, always. For now.
   end
+  # Energy per second for:
+  # 2.3 * 0.00104167 / 60 # FIREPLACE
+  # 2.6 * 0.00104167 / 60 # DORMITORY
+  # 3.0 * 0.00104167 / 60 # OWN BED
+  # Currently only can sleep near fireplace
 
-  # def energy_per_minute_when_sleeping
-  #   # this will be ok for a sleep in sort-of-good conditions
-  #   # 3 * 0.00104167
-
-  #   # sleeping on floor is way less refreshing
-  # THESE ARE PER MINUTE
-  #   2.3 * 0.00104167 # FIREPLACE
-    # 2.6 * 0.00104167 # DORMITORY
-    # 3.0 * 0.00104167 # OWN BED
-  # end
-
-
-
-  # FOR NOW SLEEP STRAIGHT FOR 8 HOURS
-  # TODO: when sleeping, have the character sleep always till 6am when rested enough
-  # when not rested enough, have a chance of waking up, growing between 6 am and 9am gradually
+  # TODO: HAVE #start method for actions
+  # And call them when, duh, the action is started
 
   def update(seconds)
     unless @character.state == :sleeping
@@ -28,38 +18,17 @@ class SleepAction < Action::Base
     end
 
     @character.energy += @energy_per_second * seconds
-    @seconds_left     -= seconds
+    @character.energy = 1.0 if @character.energy > 1
 
-    puts "sleeping"
-
-    if @seconds_left <= 0
+    if done_sleeping?
       @character.state = :working
       end_action
     end
   end
+
+  private
+
+  def done_sleeping?
+    $day_and_night_cycle.time.hour >= 6 and @character.energy > 0.85
+  end
 end
-
-
-# class TheGame
-#   class Action
-#     class Sleep < Action
-#       def initialize(place)
-#         @place = place
-#         @minutes_left = 8 * 60
-#       end
-
-#       def description
-#         "sleeping in #{@place.description}"
-#       end
-
-#       def perform(person, map, time_in_minutes)
-#         person.energy += @place.energy_per_minute_when_sleeping * time_in_minutes
-#         @minutes_left -= time_in_minutes
-#       end
-
-#       def done?(person)
-#         @minutes_left == 0
-#       end
-#     end
-#   end
-# end

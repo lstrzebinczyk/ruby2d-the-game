@@ -168,8 +168,6 @@ class Character
     if @energy < 0
       @energy = 0
     end
-
-    puts "ENERGY: #{@energy}"
   end
 
   def sleepy?
