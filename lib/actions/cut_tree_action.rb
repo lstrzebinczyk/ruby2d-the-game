@@ -51,7 +51,7 @@ class CutTreeAction < Action::Base
     @job.remove
     $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
 
-    6.times do 
+    $map[@tree.x, @tree.y].count.times do 
       new_job = CarryLogJob.new(from: @tree)
       $job_list.add(new_job)
     end

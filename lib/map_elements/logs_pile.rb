@@ -3,10 +3,13 @@
 # Not connected only to pile
 
 class LogsPile
-  def initialize(x, y, count = 6)
+  def initialize(x, y, count = nil)
     @x          = x
     @y          = y
-    @logs       = Array.new(count){ Log.new } 
+    if count.nil?
+      count = 3 + rand(4) 
+    end
+    @logs = Array.new(count){ Log.new } 
 
     rerender
   end
