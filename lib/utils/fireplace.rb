@@ -28,6 +28,14 @@ class Fireplace
     @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
   end
 
+  def x
+    @position.x
+  end
+
+  def y
+    @position.y 
+  end
+
   def passable?
     false
   end

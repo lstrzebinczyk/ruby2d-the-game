@@ -13,6 +13,7 @@ require_relative "./actions/move_action"
 require_relative "./actions/cut_tree_action"
 require_relative "./actions/pick_action"
 require_relative "./actions/put_action"
+require_relative "./actions/sleep_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/carry_log_job"
@@ -134,14 +135,18 @@ update do
 
   $game_speed.value.times do
     unless $character.has_action?
-      job = $job_list.get_job
-      if job
-        action = job.action_for($character)
-        $character.action = action
-        job.taken = true
+      if $character.needs_own_action?
+        $character.set_own_action
+      else
+        job = $job_list.get_job
+        if job
+          action = job.action_for($character)
+          $character.action = action
+          job.taken = true
+        end
       end
     end
-    $character.update
+    $character.update($seconds_per_tick)
 
     $day_and_night_cycle.update
   end
@@ -340,3 +345,7 @@ show
 # UNIFIED BENCHMARK!
 # HAVE A MAP LIKE THIS
 # AND BENCHMARK TO CUT AND MOVE ALL THE TREES TO STORAGES
+
+
+# TODO: ALL ACTIONS SHOULD BE BASED ON TIME 
+#       AND UPDATE BASED ON PASSED TIME

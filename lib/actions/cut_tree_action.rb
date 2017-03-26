@@ -22,7 +22,7 @@ class CutTreeAction < Action::Base
     @job = job
   end
 
-  def update
+  def update(seconds)
     @ticks_left_to_hit -= 1
 
     if @ticks_left_to_hit == 0

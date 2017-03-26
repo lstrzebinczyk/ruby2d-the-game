@@ -7,7 +7,7 @@ class PickAction < Action::Base
     @time_left = PICKING_TIME
   end
 
-  def update
+  def update(seconds)
     @time_left -= 1
 
     if @time_left == 0

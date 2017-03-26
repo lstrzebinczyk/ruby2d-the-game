@@ -7,7 +7,7 @@ class MoveAction < Action::Base
     @ticks_left = 4 * @character.speed_multiplier
   end
 
-  def update
+  def update(seconds)
     @ticks_left -= 1
     if @ticks_left == 0
       @ticks_left = 4 * @character.speed_multiplier

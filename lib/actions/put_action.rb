@@ -7,7 +7,7 @@ class PutAction < Action::Base
     @after_callback = opts[:after]
   end
 
-  def update
+  def update(seconds)
     @time_left -= 1
 
     if @time_left == 0

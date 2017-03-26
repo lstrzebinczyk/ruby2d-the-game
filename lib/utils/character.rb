@@ -1,11 +1,40 @@
 class Character
-  Point = Struct.new(:x, :y)
+  attr_accessor :energy  
+  attr_reader   :x, :y, :state
 
   def initialize(x, y)
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/characters/woodcutter.png")
     @action = nil
 
+    @name = "Johann" # Warhammer-style german like setting is awesome
     @energy = 0.3 + rand / 2
+    @state  = :working
+  end
+
+  def state=(state)
+    unless [:working, :sleeping].include?(state)
+      raise ArgumentError, "Incorrect character state"
+    end
+
+    @state = state
+
+    if state == :sleeping 
+      indicator_x = x * PIXELS_PER_SQUARE + 11
+      indicator_y = y * PIXELS_PER_SQUARE - 7
+      @sleeping_indicator_1 = Text.new(indicator_x, indicator_y, "z", 10, "fonts/arial.ttf")
+
+      indicator_x = x * PIXELS_PER_SQUARE + 16
+      indicator_y = y * PIXELS_PER_SQUARE - 16
+      @sleeping_indicator_2 = Text.new(indicator_x, indicator_y, "z", 11, "fonts/arial.ttf")
+    end
+
+    if state == :working
+      @sleeping_indicator_1.remove
+      @sleeping_indicator_1 = nil
+
+      @sleeping_indicator_2.remove
+      @sleeping_indicator_2 = nil
+    end
   end
 
   def has_action?
@@ -40,10 +69,61 @@ class Character
     @image.y / PIXELS_PER_SQUARE
   end
 
-  def update
-    @action && @action.update
+  # TODO: LET CHARACTER ABANDON THEIR TASKS WHEN THEY REALLY NEED TO SLEEP OR EAT OR SOMETHING
+  #       AND GET TO IT LATER
 
+  # TODO: CREATE AN INSPECTION MENU
+  # TODO: WITH CHARACTERS PROGRESS BARS
+  # TODO: SHOWING THEIR ENERGY AND SO ON
+  def update(seconds)
     update_energy
+
+    @action && @action.update(seconds)
+  end
+
+  def needs_own_action?
+    sleepy?
+  end
+
+  def set_own_action
+    if sleepy?
+      if has_own_bed?
+        # TODO
+        # go to sleep to own bed
+      elsif dormitory_present?
+        # TODO
+        # go to sleep to dormitory
+      elsif fireplace_present?
+        # find a place to sleep near fireplace
+        spot = $map.find_free_spot_near($fireplace)
+        sleep_action = MoveAction.new(self, spot, self).then do 
+          SleepAction.new(self)
+        end
+
+        self.action = sleep_action
+      else
+        # TODO
+        # TODO MAKE FIREPLACE BUILDABLE INSTEAD OF HAVING IT FROM BEGINNING
+        # TODO MAKE STONES PART OF MAP
+        # TODO MAKE FIREPLACE BUILDABLE FROM STONES
+        # Go to sleep where you are standing
+        raise "NOT IMPLEMENTED"
+      end
+    else
+      raise "ERROR"
+    end
+  end
+
+  def has_own_bed?
+    false
+  end
+
+  def dormitory_present?
+    false 
+  end
+
+  def fireplace_present?
+    true
   end
 
   def update_position(x, y)
@@ -69,8 +149,8 @@ class Character
 
   private
 
-  # TODO: when sleeping, have the character sleep always till 6am when rested enough
-  # when not rested enough, have a chance of waking up, growing between 6 am and 9am gradually
+  # TODO: Character will not go to sleep until it's too early
+  #       Say, before 18
 
   # TODO: HAVE QUALITY OF WORK DEPEND ON ENERGY
   #       When person really-really needs to sleep, he works slower
@@ -86,6 +166,12 @@ class Character
     if @energy < 0
       @energy = 0
     end
+
+    puts "ENERGY: #{@energy}"
+  end
+
+  def sleepy?
+    @energy < 0.15
   end
 end
 
