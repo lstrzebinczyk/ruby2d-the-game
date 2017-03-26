@@ -13,7 +13,7 @@ class Map
     @height = opts[:height]
     @grid   = Grid.new
 
-    fill_grid_with_trees
+    fill_grid_with_objects
   end
 
   def [](x, y)
@@ -83,11 +83,17 @@ class Map
     rand < noise_generator.get(x, y)
   end
 
-  def fill_grid_with_trees
+  def set_bush?(x, y) # of love
+    rand < (noise_generator.get(x, y) / 2)
+  end
+
+  def fill_grid_with_objects
     (0..@width).each do |x|
       (0..@height).each do |y|
         if set_tree?(x, y)
           @grid[x, y] = Tree.new(x, y)
+        elsif set_bush?(x, y)
+          @grid[x, y] = BerryBush.new(x, y)
         end
       end
     end
