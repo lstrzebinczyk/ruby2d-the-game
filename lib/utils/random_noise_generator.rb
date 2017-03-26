@@ -2,7 +2,7 @@ class RandomNoiseGenerator
   def initialize
     @perlin ||= Perlin::Noise.new(2)
     @contrast ||= Perlin::Curve.contrast(Perlin::Curve::CUBIC, 4)
-    @divider ||= 5 + rand / 2
+    @divider ||= 4.2 + rand / 2
   end
 
   def get(x, y)
