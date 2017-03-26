@@ -133,9 +133,7 @@ update do
   end
 
   $game_speed.value.times do
-    if $character.has_action?
-      $character.update
-    else
+    unless $character.has_action?
       job = $job_list.get_job
       if job
         action = job.action_for($character)
@@ -143,6 +141,7 @@ update do
         job.taken = true
       end
     end
+    $character.update
 
     $day_and_night_cycle.update
   end

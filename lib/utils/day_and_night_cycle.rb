@@ -1,4 +1,5 @@
 # Maybe change the night smoothly with minutes instead of discretely by hours?
+$seconds_per_tick = 15
 class DayAndNightCycle
   attr_reader :time
 
@@ -26,7 +27,7 @@ class DayAndNightCycle
 
   # implicitly assume 1 tick means n seconds
   def update
-    n = 15
+    n = $seconds_per_tick
     @time += n
 
     unless to_s == @text.text
