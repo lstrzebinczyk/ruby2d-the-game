@@ -82,7 +82,13 @@ class Character
   end
 
   def needs_own_action?
-    sleepy?
+    if sleepy?
+      # Character will not go to sleep if it's too early
+      # And will try to do some more work
+      $day_and_night_cycle.time.hour >= 18
+    else
+      false
+    end
   end
 
   def set_own_action
@@ -148,10 +154,6 @@ class Character
   end
 
   private
-
-  # TODO: Character will not go to sleep until it's too early
-  #       Say, before 18
-
   # TODO: HAVE QUALITY OF WORK DEPEND ON ENERGY
   #       When person really-really needs to sleep, he works slower
   def update_energy

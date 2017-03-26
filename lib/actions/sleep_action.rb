@@ -36,14 +36,6 @@ class SleepAction < Action::Base
       @character.state = :working
       end_action
     end
-    # @time_left -= 1
-
-    # if @time_left == 0
-    #   item = @character.get_item
-    #   $map.put_item(@to.x, @to.y, item)
-    #   @after_callback.call
-    #   end_action
-    # end
   end
 end
 
