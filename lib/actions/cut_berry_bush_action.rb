@@ -9,7 +9,7 @@ class CutBerryBushAction < Action::Base
     @berry_bush = berry_bush
 
     @ticks_left_to_hit   = HIT_EVERY_TICKS
-    @seconds_left = 20 * 60 # 20 minutes
+    @seconds_left = 20.minutes
     @animation_time_left = 0
 
     x = berry_bush.x * PIXELS_PER_SQUARE

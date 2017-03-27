@@ -1,9 +1,8 @@
-# Make it one minute to pick something
 class PickAction < Action::Base
   def initialize(from, character)
     @from      = from
     @character = character
-    @time_left = 60
+    @time_left = 1.minute
   end
 
   def update(seconds)

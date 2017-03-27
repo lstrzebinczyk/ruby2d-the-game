@@ -1,9 +1,8 @@
-# one minute to put something doen
 class PutAction < Action::Base
   def initialize(to, character, opts = {})
     @to        = to 
     @character = character
-    @time_left = 60
+    @time_left = 1.minute
     @after_callback = opts[:after]
   end
 

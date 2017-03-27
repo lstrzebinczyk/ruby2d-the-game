@@ -8,6 +8,8 @@ require_relative "./map_elements/logs_pile"
 require_relative "./map_elements/berry_bush"
 
 require_relative "./core_ext/time"
+require_relative "./core_ext/integer"
+require_relative "./core_ext/float"
 
 require_relative "./actions/action_base"
 require_relative "./actions/move_action"
@@ -409,5 +411,3 @@ show
 
 # TODO: Implement Integer#minutes and Integer.hours
 # TODO: Maybe Float#minutes and Float.hours
-
-# TODO: Add more useful time speeds now (BIGGER!)
