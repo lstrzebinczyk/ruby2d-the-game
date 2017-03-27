@@ -383,3 +383,8 @@ show
 #       FIGURE OUT WATERING DOWN AND HOW LONG DOES IT GROW
 
 # TODO: HAVE CHICKENS, FIGURE OUT FEEDING THEM AND GETTING EGGS
+
+
+# TODO: Have people have a base of knowledge
+#       about their own belongings
+#       for example: I have this-and-that in my own drawer
