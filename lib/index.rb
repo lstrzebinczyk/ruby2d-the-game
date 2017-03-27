@@ -368,3 +368,7 @@ show
 # like tomatos, cucumbers and others
 # Make it realistic
 # Check how fast tomatos grow, how often do you need to water and so on 
+
+# TODO: MIGRATE EVERYTHING FROM THE GAME V1
+# TODO: Then replace the game v1 with current implementation 
+# TODO: And have the new version accessible in github.io as web version
