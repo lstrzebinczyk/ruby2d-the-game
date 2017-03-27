@@ -352,3 +352,19 @@ show
 
 # TODO: DOING HARD WORK USES MORE ENERGY
 # TODO: FOR EXAMPLE, PUTS YOU TO SLEEP FASTER
+
+
+# TODO: Build a system of passing informations around 
+# Instead of having all the informations in the system 
+# People will use the informations they have themselves
+# For example if there is food in the storage 
+# or basically anything
+# People go look for informations themselves
+# Or can ask questions and get informations 
+# Or people can exchange informations while just randomly talking
+
+# TODO: 
+# Implement a system of growing crops in a garden
+# like tomatos, cucumbers and others
+# Make it realistic
+# Check how fast tomatos grow, how often do you need to water and so on 
