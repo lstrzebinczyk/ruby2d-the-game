@@ -53,11 +53,8 @@ WIDTH  = PIXELS_PER_SQUARE * SQUARES_WIDTH
 WORLD_HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
 
-# PROFIDE DEFAULT FONT?
 # SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
-# YIELD TICK NUMBER TO AN UPDATE?
 # CREATE AN ISSUE ABOUT IMAGES NOT WORKING IN WEB VERSION
-# LAY DOWN BUSHES (OF LOVE)
 
 # http://karpathy.github.io/2015/05/21/rnn-effectiveness/
 # ANDREJ KARPATHY LSTM
@@ -72,12 +69,6 @@ MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
 # RENDER WHAT PERSON HAS IN RIGHT AND LEFT HAND?
 # ANIMATION WHEN THOSE TOOLS ARE USED? LIKE CHOPPING WOOD?
 # ONLY ALLOW HAVING LEFT HAND AND RIGHT HAND FOR NOW
-
-# ONLY RENDERING METHODS SHOULD BE CONCERNED WITH PIXELS PER SQUARE
-# REST SHOULD ONLY HANDLE ABOUT IN-GAME POSITION
-
-# ALLOW ME, A USER, TO INSPECT A LIST OF ALL RENDERED ITEMS
-# FOR DEBUGGING REASONS AT LEAST?
 
 def rendered_objects
   (get :window).objects
@@ -198,9 +189,6 @@ end
 
 # TALK ABOUT INTRODUCING EXPLICIT Z-INDEX TO RENDERED THINGS?
 
-# ONMAP module, that makes sure element implements #passable?
-# RUN TESTS, MAKE SURE ALL REQUIRED METHODS ARE THERE
-
 # Start writing tests for those corner cases we are starting to pile up
 
 # **********************************
@@ -208,10 +196,6 @@ end
 # Start working on giving back to community!
 # You stared issues on github, help solving them!
 # ***********************************
-
-# TODO
-# Introduce realistic time passing?
-# Make gametime events be as realistic as possible ?
 
 # Prepare srug presentation?
 # About all of this?
@@ -362,13 +346,8 @@ show
 # HAVE A MAP LIKE THIS
 # AND BENCHMARK TO CUT AND MOVE ALL THE TREES TO STORAGES
 
-
-# TODO: ALL ACTIONS SHOULD BE BASED ON TIME 
-#       AND UPDATE BASED ON PASSED TIME
-
 # TODO: DOING HARD WORK USES MORE ENERGY
 # TODO: FOR EXAMPLE, PUTS YOU TO SLEEP FASTER
-
 
 # TODO: Build a system of passing informations around 
 # Instead of having all the informations in the system 
@@ -393,7 +372,6 @@ show
 #       FIGURE OUT WATERING DOWN AND HOW LONG DOES IT GROW
 
 # TODO: HAVE CHICKENS, FIGURE OUT FEEDING THEM AND GETTING EGGS
-
 
 # TODO: Have people have a base of knowledge
 #       about their own belongings
