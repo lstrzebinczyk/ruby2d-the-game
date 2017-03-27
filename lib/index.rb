@@ -52,9 +52,15 @@ require_relative "./gui/game_speed"
 PIXELS_PER_SQUARE = 16
 SQUARES_WIDTH     = 60
 SQUARES_HEIGHT    = 40
-WIDTH  = PIXELS_PER_SQUARE * SQUARES_WIDTH
+
+INSPECTION_MENU_WIDTH = 200
+
+WORLD_WIDTH = PIXELS_PER_SQUARE * SQUARES_WIDTH
+WIDTH  = WORLD_WIDTH + INSPECTION_MENU_WIDTH
 WORLD_HEIGHT = PIXELS_PER_SQUARE * SQUARES_HEIGHT
 MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
+
+INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 
 # SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
 # CREATE AN ISSUE ABOUT IMAGES NOT WORKING IN WEB VERSION
@@ -98,6 +104,24 @@ $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
 $job_list = JobList.new
 $zones = ZonesList.new
+
+class InspectionMenu
+  def initialize(width, height, x)
+    @width  = width
+    @height = height
+    @x      = x
+
+    @background = Rectangle.new(@x, 0, @width, @height, "brown")
+  end
+
+  def rerender
+    @background.remove 
+    @background.add 
+  end
+end
+
+
+$inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
@@ -316,6 +340,7 @@ fps = get(:fps)
 $fps_drawer.rerender(fps)
 
 $day_and_night_cycle.rerender
+$inspection_menu.rerender
 
 show
 
