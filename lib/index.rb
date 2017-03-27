@@ -104,9 +104,7 @@ $job_list = JobList.new
 $zones = ZonesList.new
 
 $previous_mouse_over = :game_window
-# $seconds_per_tick = 15
-$seconds_per_tick = 0.25
-
+$seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
 
 update do 
   # Only show mouse button if it's on map
