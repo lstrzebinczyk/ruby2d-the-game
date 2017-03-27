@@ -272,13 +272,24 @@ on_key do |key|
     close
   end
 
-  if key == key.to_i.to_s
-    if key == "0"
-      game_speed = 0
-    else
-      game_speed = 2 ** (key.to_i - 1)
-    end
-    $game_speed.set(game_speed)
+  if key == "1"
+    $game_speed.set(1)
+  end
+
+  if key == "2"
+    $game_speed.set(5)
+  end
+
+  if key == "3"
+    $game_speed.set(100)
+  end
+
+  if key == "4"
+    $game_speed.set(250)
+  end
+
+  if key == "5"
+    $game_speed.set(1000)
   end
 
   if key == "q"

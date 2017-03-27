@@ -10,7 +10,7 @@ class GameSpeed
     @text && @text.remove
     @text = nil
     unless number == 1
-      @text = Text.new(630, 52, "Game speed: x#{number}", 40, "fonts/arial.ttf")
+      @text = Text.new(610, 52, "Game speed: x#{number}", 40, "fonts/arial.ttf")
     end
   end
 end
