@@ -126,6 +126,12 @@ class InspectionMenu
     char_portrait_y = 10
     @char_image  = Image.new(char_portrait_x, char_portrait_y, @character.image_path)
     @char_name   = Text.new(char_portrait_x + 25, char_portrait_y, @character.name, 16, "fonts/arial.ttf")
+    @food_text   = Text.new(char_portrait_x, char_portrait_y + 25, "food:", 16, "fonts/arial.ttf")
+    @sleep_text  = Text.new(char_portrait_x, char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf")
+
+    @food_progress_bar_background = Rectangle.new(char_portrait_x + 45, char_portrait_y + 25, 120, 20, "black")
+    @sleep_progress_bar_background = Rectangle.new(char_portrait_x + 45, char_portrait_y + 50, 120, 20, "black")
+
   end
 
   def rerender
