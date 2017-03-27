@@ -1,9 +1,9 @@
 class Character
   attr_accessor :energy, :hunger
-  attr_reader   :x, :y, :state
+  attr_reader   :x, :y, :state, :name
 
   def initialize(x, y)
-    @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/characters/woodcutter.png")
+    @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
     @action = nil
 
     @name = "Johann" # Warhammer-style german like setting is awesome
@@ -11,6 +11,10 @@ class Character
     @hunger = 0.8 + rand / 10
 
     @state  = :working
+  end
+
+  def image_path
+    "assets/characters/woodcutter.png"
   end
 
   def state=(state)

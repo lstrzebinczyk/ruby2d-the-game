@@ -112,16 +112,39 @@ class InspectionMenu
     @x      = x
 
     @background = Rectangle.new(@x, 0, @width, @height, "brown")
+
+    @character = nil
+  end
+
+  def character=(character)
+    @character = character
+    render_character
+  end
+
+  def render_character
+    char_portrait_x = @x + 10
+    char_portrait_y = 10
+    @char_image  = Image.new(char_portrait_x, char_portrait_y, @character.image_path)
+    @char_name   = Text.new(char_portrait_x + 25, char_portrait_y, @character.name, 16, "fonts/arial.ttf")
   end
 
   def rerender
     @background.remove 
     @background.add 
+
+    @char_image.remove 
+    @char_image = nil 
+
+    @char_name.remove 
+    @char_name = nil 
+
+    render_character
   end
 end
 
 
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
+$inspection_menu.character = $character
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
