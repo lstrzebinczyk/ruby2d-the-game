@@ -104,6 +104,9 @@ $job_list = JobList.new
 $zones = ZonesList.new
 
 $previous_mouse_over = :game_window
+# $seconds_per_tick = 15
+$seconds_per_tick = 0.25
+
 
 update do 
   # Only show mouse button if it's on map
@@ -313,6 +316,11 @@ $character.rerender
 $map.rerender
 $fireplace.rerender
 $menu.rerender
+
+fps = get(:fps)
+$fps_drawer.rerender(fps)
+
+$day_and_night_cycle.rerender
 
 show
 
