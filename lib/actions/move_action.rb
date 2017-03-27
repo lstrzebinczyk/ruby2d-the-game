@@ -24,9 +24,6 @@ class MoveAction < Action::Base
     end
   end
 
-  def close
-  end
-
   def calculate_path
     PathFinder.new(@from, @to, $map).search
   end

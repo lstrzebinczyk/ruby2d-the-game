@@ -145,7 +145,6 @@ class Character
   end
 
   def action=(action)
-    @action && @action.close
     @action = action
   end
 

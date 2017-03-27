@@ -17,7 +17,4 @@ class PutAction < Action::Base
       end_action
     end
   end
-
-  def close
-  end
 end
