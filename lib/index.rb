@@ -372,3 +372,9 @@ show
 # TODO: MIGRATE EVERYTHING FROM THE GAME V1
 # TODO: Then replace the game v1 with current implementation 
 # TODO: And have the new version accessible in github.io as web version
+
+# TODO: normally a person can walk 4 meters per second 
+#       have the game reflect that 
+#       and based on that time for all game events should be calculated 
+# TODO: Update game speeds to be able to see at those speeds (slower than now)
+#       But also have speeds that will make it possible to play
