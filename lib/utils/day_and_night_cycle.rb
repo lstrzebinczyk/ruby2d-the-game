@@ -40,10 +40,11 @@ class DayAndNightCycle
       @text.add
     end
 
-    unless @time.day?
-      @sun_shining_mask.remove
-      @sun_shining_mask.color = sun_mask_color
-      @sun_shining_mask.add
-    end
+    # TODO: Bring back when Color#opacity= is implemented
+    # unless @time.day?
+    #   @sun_shining_mask.remove
+    #   @sun_shining_mask.color = sun_mask_color
+    #   @sun_shining_mask.add
+    # end
   end
 end

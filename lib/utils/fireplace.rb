@@ -63,10 +63,10 @@ class Fireplace
       end
     else
       if @burning
-        if rand < 0.2
+        if rand < 0.2 / $game_speed.value
           @inner_square.color = [1, 1, 0, @opacity * 2 + rand / 15 ]
         end
-        if rand < 0.2
+        if rand < 0.2 / $game_speed.value
           @outer_square.color = [1, 1, 0, @opacity     + rand / 20 ]
         end
         rerender

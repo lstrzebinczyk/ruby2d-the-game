@@ -249,9 +249,6 @@ end
   # - show jobs list 
   # - show characters
 
-# I want one my second to be 4 seconds of world time
-# DO I???
-
 # BUG WHEN JOB IS GIVEN TO CUT TREE TO WHICH THERE IS NO PATH
 # THE PATH IS ABANDONED, BUT TREE IS STILL CUT
 
@@ -391,12 +388,6 @@ show
 # TODO: MIGRATE EVERYTHING FROM THE GAME V1
 # TODO: Then replace the game v1 with current implementation 
 # TODO: And have the new version accessible in github.io as web version
-
-# TODO: normally a person can walk 4 meters per second 
-#       have the game reflect that 
-#       and based on that time for all game events should be calculated 
-# TODO: Update game speeds to be able to see at those speeds (slower than now)
-#       But also have speeds that will make it possible to play
 
 # TODO: HAVE GARDEN AND GROW BASIC GARDEN CROPS, 
 #       FIGURE OUT WATERING DOWN AND HOW LONG DOES IT GROW
