@@ -378,3 +378,8 @@ show
 #       and based on that time for all game events should be calculated 
 # TODO: Update game speeds to be able to see at those speeds (slower than now)
 #       But also have speeds that will make it possible to play
+
+# TODO: HAVE GARDEN AND GROW BASIC GARDEN CROPS, 
+#       FIGURE OUT WATERING DOWN AND HOW LONG DOES IT GROW
+
+# TODO: HAVE CHICKENS, FIGURE OUT FEEDING THEM AND GETTING EGGS
