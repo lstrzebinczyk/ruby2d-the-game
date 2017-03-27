@@ -2,6 +2,7 @@ require 'ruby2d'
 require 'perlin_noise'
 
 require_relative "./items/log"
+require_relative "./items/berries"
 
 require_relative "./map_elements/tree"
 require_relative "./map_elements/logs_pile"
@@ -18,6 +19,8 @@ require_relative "./actions/cut_berry_bush_action"
 require_relative "./actions/pick_action"
 require_relative "./actions/put_action"
 require_relative "./actions/sleep_action"
+require_relative "./actions/gather_berries_action"
+require_relative "./actions/eat_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
@@ -376,3 +379,9 @@ show
 # TODO: Have people have a base of knowledge
 #       about their own belongings
 #       for example: I have this-and-that in my own drawer
+
+
+# TODO: CREATE CLI TO ADD THINGS LIKE 
+#       - the_game create_action
+#       - the_hame create_job
+#       - etc

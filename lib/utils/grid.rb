@@ -1,4 +1,6 @@
 class Grid
+  include Enumerable
+  
   def initialize
     @grid_data = {}
   end

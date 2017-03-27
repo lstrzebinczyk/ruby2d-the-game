@@ -1,6 +1,9 @@
 # I want it to take 4 hours to cut that tree
 # and I want it to hit every 40 ticks
 
+# TODO: HAVE THE CHARACTER CHANGE PLACE FROM WHISH HE CUTS THE TREE 
+# TODO: A COUPLE TIMES
+
 class CutTreeAction < Action::Base
   HIT_EVERY_TICKS = 40
   ANIMATION_TIME  = 10

@@ -1,5 +1,5 @@
 class Character
-  attr_accessor :energy  
+  attr_accessor :energy, :hunger
   attr_reader   :x, :y, :state
 
   def initialize(x, y)
@@ -8,6 +8,8 @@ class Character
 
     @name = "Johann" # Warhammer-style german like setting is awesome
     @energy = 0.3 + rand / 2
+    @hunger = 0.8 + rand / 10
+
     @state  = :working
   end
 
@@ -39,6 +41,10 @@ class Character
 
   def has_action?
     !!@action
+  end
+
+  def carry
+    @carried_item
   end
 
   def carry=(item)
@@ -77,12 +83,19 @@ class Character
   # TODO: SHOWING THEIR ENERGY AND SO ON
   def update(seconds)
     update_energy
+    update_hunger
+
+    # puts "@energy: #{@energy}"
+    puts "@hunger: #{@hunger}"
 
     @action && @action.update(seconds)
   end
 
   def needs_own_action?
-    if sleepy?
+    if hungry?
+      # figure out what to do
+      true
+    elsif sleepy?
       # Character will not go to sleep if it's too early
       # And will try to do some more work
       $day_and_night_cycle.time.hour >= 18
@@ -92,7 +105,27 @@ class Character
   end
 
   def set_own_action
-    if sleepy?
+    if hungry?
+      if food_in_storage?
+        # TODO fetch food from storage and eat it
+      else
+        berries_spot = $map.find_closest_to(self) do |map_object|
+          map_object.is_a? BerryBush
+        end
+
+        to_go_spot = $map.find_free_spot_near(berries_spot)
+
+        # TODO: FOR NOW BERRIES HAVE UNLIMITED AMOUNTS OF BERRIES
+        # TODO: HAVE BERRIES BE LIMITED AND REFILLED WITH TIME
+        action = MoveAction.new(self, to_go_spot, self).then do
+          GatherBerriesAction.new(self, berries_spot)
+        end.then do 
+          EatAction.new(self)
+        end
+
+        self.action = action
+      end
+    elsif sleepy?
       if has_own_bed?
         # TODO
         # go to sleep to own bed
@@ -120,14 +153,22 @@ class Character
     end
   end
 
+  # TODO: this must be dynamic based on actual facts on map
+  def food_in_storage?
+    false
+  end
+
+  # TODO: this must be dynamic based on actual facts on map
   def has_own_bed?
     false
   end
 
+  # TODO: this must be dynamic based on actual facts on map
   def dormitory_present?
     false 
   end
 
+  # TODO: this must be dynamic based on actual facts on map
   def fireplace_present?
     true
   end
@@ -169,8 +210,28 @@ class Character
     end
   end
 
+  def update_hunger
+    # assume that 2 meals a day needed
+    # an hour meal should add half the bar of hunger
+    # so 60 minutes => 0.5
+    # so 1 minute   => 0.5 / 60
+    # so 1 second   => 0.5 / (60 * 60)
+
+    @hunger -= $seconds_per_tick * 0.000139
+    if @hunger < 0
+      @hunger = 0
+    end
+  end
+
   def sleepy?
     @energy < 0.15
+  end
+
+  # TODO TODO TODO
+  # REORGANISE IT TO BE BASED ON CALORIES
+  # BASE DAILY INTAKE SHOULD BE 2000 CALORIES
+  def hungry?
+    @hunger < 0.5
   end
 end
 
