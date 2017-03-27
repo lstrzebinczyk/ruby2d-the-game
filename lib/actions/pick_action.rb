@@ -1,16 +1,15 @@
+# Make it one minute to pick something
 class PickAction < Action::Base
-  PICKING_TIME = 5
-
   def initialize(from, character)
     @from      = from
     @character = character
-    @time_left = PICKING_TIME
+    @time_left = 60
   end
 
   def update(seconds)
-    @time_left -= 1
+    @time_left -= seconds
 
-    if @time_left == 0
+    if @time_left <= 0
       item = $map[@from.x, @from.y].get_item
       if $map[@from.x, @from.y].count == 0
         $map[@from.x, @from.y] = nil

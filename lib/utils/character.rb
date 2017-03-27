@@ -46,10 +46,10 @@ class Character
   end
 
   # poor mans implementation of the fact, that carrying big piece of wood makes you slower
-  # Exactly 3 times slower, in here
+  # Exactly 6 times slower, in here
   def speed_multiplier
     if @carried_item and @carried_item.is_a?(Log)
-      3
+      6
     else
       1
     end

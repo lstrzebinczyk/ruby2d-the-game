@@ -1,13 +1,15 @@
+# I want it to take 20 minutes to cut that tree
+# and I want it to hit every 30 ticks
+
 class CutBerryBushAction < Action::Base
   HIT_EVERY_TICKS = 30
-  NUMBER_OF_HITS  = 4
   ANIMATION_TIME  = 8
 
   def initialize(berry_bush, parent)
     @berry_bush = berry_bush
 
     @ticks_left_to_hit   = HIT_EVERY_TICKS
-    @hits_left           = NUMBER_OF_HITS
+    @seconds_left = 20 * 60 # 20 minutes
     @animation_time_left = 0
 
     x = berry_bush.x * PIXELS_PER_SQUARE
@@ -23,10 +25,10 @@ class CutBerryBushAction < Action::Base
   end
 
   def update(seconds)
+    @seconds_left -= seconds
     @ticks_left_to_hit -= 1
 
     if @ticks_left_to_hit == 0
-      @hits_left -= 1
       @ticks_left_to_hit = HIT_EVERY_TICKS
       @mask.add
       @animation_time_left = ANIMATION_TIME
@@ -39,7 +41,7 @@ class CutBerryBushAction < Action::Base
       end
     end
 
-    if @hits_left == 0
+    if @seconds_left <= 0
       finish
     end
   end

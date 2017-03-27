@@ -6,7 +6,8 @@ class MoveAction < Action::Base
     @path       = calculate_path
     @ticks_left = 4 * @character.speed_multiplier
   end
-
+  
+  # 4 meters per second when @character.speed_multiplier == 1
   def update(seconds)
     @ticks_left -= 1
     if @ticks_left == 0

@@ -396,3 +396,9 @@ show
 # TODO: Have people have a base of knowledge
 #       about their own belongings
 #       for example: I have this-and-that in my own drawer
+
+
+# TODO: Implement Integer#minutes and Integer.hours
+# TODO: Maybe Float#minutes and Float.hours
+
+# TODO: Add more useful time speeds now (BIGGER!)
