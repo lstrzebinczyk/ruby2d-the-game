@@ -7,7 +7,7 @@ class Character
     @action = nil
 
     @name = "Johann" # Warhammer-style german like setting is awesome
-    @energy = 0.3 + rand / 2
+    @energy = 0.6 + rand / 3
     @hunger = 0.8 + rand / 10
 
     @state  = :working
@@ -214,14 +214,9 @@ class Character
     end
   end
 
+  # TODO: MAKE IT BASED ON CALORIES
   def update_hunger
-    # assume that 2 meals a day needed
-    # an hour meal should add half the bar of hunger
-    # so 60 minutes => 0.5
-    # so 1 minute   => 0.5 / 60
-    # so 1 second   => 0.5 / (60 * 60)
-
-    @hunger -= $seconds_per_tick * 0.000139
+    @hunger -= $seconds_per_tick * 0.00004
     if @hunger < 0
       @hunger = 0
     end
@@ -235,7 +230,7 @@ class Character
   # REORGANISE IT TO BE BASED ON CALORIES
   # BASE DAILY INTAKE SHOULD BE 2000 CALORIES
   def hungry?
-    @hunger < 0.5
+    @hunger < 0.2
   end
 end
 
