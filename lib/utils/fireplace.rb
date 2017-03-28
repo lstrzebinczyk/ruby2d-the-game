@@ -7,7 +7,7 @@
 # and it should push more light to outside?
 class Fireplace
   def initialize
-    @position = $map.find_free_spot_near($character)
+    @position = $map.find_free_spot_near($characters_list.first)
     $map[@position.x, @position.y] = self
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE

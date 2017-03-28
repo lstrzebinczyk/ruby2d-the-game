@@ -94,7 +94,7 @@ $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 $background = Background.new
 
 $map.clear(30, 20) # Make sure there is nothing but the character at this position
-$character = Character.new(30, 20)
+$characters_list = [Character.new(x: 30, y: 20, name: "Johann")]
 
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
@@ -105,6 +105,8 @@ $fireplace = Fireplace.new
 $job_list = JobList.new
 $zones = ZonesList.new
 
+
+#TODO: MOVE INSPECTION MENU TO GUI
 class InspectionMenu
   def initialize(width, height, x)
     @width  = width
@@ -116,59 +118,59 @@ class InspectionMenu
     @character = nil
   end
 
-  def character=(character)
-    @character = character
-    render_character
+  def characters=(characters_list)
+    # @character = character
+    # render_character
   end
 
   def render_character
-    @char_portrait_x = @x + 10
-    @char_portrait_y = 10
-    @char_image  = Image.new(@char_portrait_x, @char_portrait_y, @character.image_path)
-    @char_name   = Text.new(@char_portrait_x + 25, @char_portrait_y, @character.name, 16, "fonts/arial.ttf")
-    @food_text   = Text.new(@char_portrait_x, @char_portrait_y + 25, "food:", 16, "fonts/arial.ttf")
-    @sleep_text  = Text.new(@char_portrait_x, @char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf")
+    # @char_portrait_x = @x + 10
+    # @char_portrait_y = 10
+    # @char_image  = Image.new(@char_portrait_x, @char_portrait_y, @character.image_path)
+    # @char_name   = Text.new(@char_portrait_x + 25, @char_portrait_y, @character.name, 16, "fonts/arial.ttf")
+    # @food_text   = Text.new(@char_portrait_x, @char_portrait_y + 25, "food:", 16, "fonts/arial.ttf")
+    # @sleep_text  = Text.new(@char_portrait_x, @char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf")
 
-    @food_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 25, 120, 20, "black")
-    @sleep_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 50, 120, 20, "black")
+    # @food_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 25, 120, 20, "black")
+    # @sleep_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 50, 120, 20, "black")
 
-    rerender_progress_bars
+    # rerender_progress_bars
   end
 
   # TODO HAVE THE PROGRESS BAR COLOR DEPEND ON AMOUNT
   # GREEN => GOOD
   # RED   => BAD
   def rerender_progress_bars
-    @food_progress_bar && @food_progress_bar.remove
-    @sleep_progress_bar && @sleep_progress_bar.remove
+    # @food_progress_bar && @food_progress_bar.remove
+    # @sleep_progress_bar && @sleep_progress_bar.remove
 
-    food_width_base = 120 - 6
-    food_width = food_width_base * @character.hunger
+    # food_width_base = 120 - 6
+    # food_width = food_width_base * @character.hunger
 
-    sleep_width_base = 120 - 6
-    sleep_width = sleep_width_base * @character.energy
+    # sleep_width_base = 120 - 6
+    # sleep_width = sleep_width_base * @character.energy
 
-    @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, food_width, 20 - 6, "red")
-    @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, sleep_width, 20 - 6, "red")
+    # @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, food_width, 20 - 6, "red")
+    # @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, sleep_width, 20 - 6, "red")
   end
 
   def rerender
-    @background.remove 
-    @background.add 
+    # @background.remove 
+    # @background.add 
 
-    @char_image.remove 
-    @char_image = nil 
+    # @char_image.remove 
+    # @char_image = nil 
 
-    @char_name.remove 
-    @char_name = nil 
+    # @char_name.remove 
+    # @char_name = nil 
 
-    render_character
+    # render_character
   end
 end
 
 
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
-$inspection_menu.character = $character
+$inspection_menu.characters = $characters_list
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
@@ -204,19 +206,21 @@ update do
   end
 
   $game_speed.value.times do
-    unless $character.has_action?
-      if $character.needs_own_action?
-        $character.set_own_action
-      else
-        job = $job_list.get_job
-        if job
-          action = job.action_for($character)
-          $character.action = action
-          job.taken = true
+    $characters_list.each do |character|
+      unless character.has_action?
+        if character.needs_own_action?
+          character.set_own_action
+        else
+          job = $job_list.get_job
+          if job
+            action = job.action_for(character)
+            character.action = action
+            job.taken = true
+          end
         end
       end
+      character.update($seconds_per_tick)
     end
-    $character.update($seconds_per_tick)
 
     $day_and_night_cycle.update
   end
@@ -380,7 +384,7 @@ end
 # think of better system to work with this
 
 $background.rerender
-$character.rerender
+$characters_list.each(&:rerender)
 $map.rerender
 $fireplace.rerender
 $menu.rerender

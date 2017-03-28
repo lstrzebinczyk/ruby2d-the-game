@@ -4,11 +4,17 @@ class Character
 
   MAX_CALORIES = 3000
 
-  def initialize(x, y)
+# $characters_list = [Character.new(x: 30, y: 20, name: "Johann")]
+
+
+  def initialize(opts)
+    x = opts[:x]
+    y = opts[:y]
+    @name = [:opts_name] # Warhammer-style german like setting is awesome
+    
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
     @action = nil
 
-    @name = "Johann" # Warhammer-style german like setting is awesome
     @energy = 0.6 + rand / 3
 
     # 4000 calories is more or less expected maximum
