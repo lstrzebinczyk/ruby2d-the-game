@@ -64,23 +64,6 @@ MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
 
 INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 
-# SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
-# CREATE AN ISSUE ABOUT IMAGES NOT WORKING IN WEB VERSION
-
-# http://karpathy.github.io/2015/05/21/rnn-effectiveness/
-# ANDREJ KARPATHY LSTM
-
-# LOOK CAREFULLY AT TENSORFLOW
-
-# Look into neural networks to implement AI, what person wants to do ans so on
-
-# LET THE SYSTEM USE SYSTEMS ARIAL BY DEFAULT?
-# LET THE SYSTEM SHOW WHAT FONTS ARE AVAILABLE?
-
-# RENDER WHAT PERSON HAS IN RIGHT AND LEFT HAND?
-# ANIMATION WHEN THOSE TOOLS ARE USED? LIKE CHOPPING WOOD?
-# ONLY ALLOW HAVING LEFT HAND AND RIGHT HAND FOR NOW
-
 def rendered_objects
   (get :window).objects
 end
@@ -174,7 +157,97 @@ update do
   $fireplace.update($day_and_night_cycle.time)
 end
 
-# CLEANUP
+on(mouse: 'any') do |x, y, thing|
+  # puts "#{x} #{y} #{thing}"
+  # Only take consider user action if it clicks on map
+  # not if it clicks on menu
+  if $menu.contains?(x, y)
+    $menu.click(x, y)
+  else
+    $menu.game_mode.click(x, y)
+  end
+end
+
+on_key do |key|
+  if key == "escape"
+    puts "pressed key: #{key}"
+    close
+  end
+
+  if key == "1"
+    $game_speed.set(1)
+  end
+
+  if key == "2"
+    $game_speed.set(5)
+  end
+
+  if key == "3"
+    $game_speed.set(100)
+  end
+
+  if key == "4"
+    $game_speed.set(250)
+  end
+
+  if key == "5"
+    $game_speed.set(1000)
+  end
+
+  if key == "q"
+    p $job_list
+  end
+
+  if key == "p"
+    if @profiling
+      result = RubyProf.stop
+      printer = RubyProf::GraphHtmlPrinter.new(result)
+
+      Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
+        printer.print(file, {})
+      end
+      close
+    else
+      require "ruby-prof"
+      require "pathname"
+
+      RubyProf.start
+      @profiling = true
+    end
+  end
+end
+
+$background.rerender
+$characters_list.each(&:rerender)
+$map.rerender
+$fireplace.rerender
+$menu.rerender
+
+fps = get(:fps)
+$fps_drawer.rerender(fps)
+
+$day_and_night_cycle.rerender
+$inspection_menu.rerender
+
+show
+
+
+# SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
+# CREATE AN ISSUE ABOUT IMAGES NOT WORKING IN WEB VERSION
+
+# http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+# ANDREJ KARPATHY LSTM
+
+# LOOK CAREFULLY AT TENSORFLOW
+
+# Look into neural networks to implement AI, what person wants to do ans so on
+
+# LET THE SYSTEM USE SYSTEMS ARIAL BY DEFAULT?
+# LET THE SYSTEM SHOW WHAT FONTS ARE AVAILABLE?
+
+# RENDER WHAT PERSON HAS IN RIGHT AND LEFT HAND?
+# ANIMATION WHEN THOSE TOOLS ARE USED? LIKE CHOPPING WOOD?
+# ONLY ALLOW HAVING LEFT HAND AND RIGHT HAND FOR NOW
 
 # Have menu options to choose between
   #   - dormitory 
@@ -260,87 +333,12 @@ end
 # BUG WHEN JOB IS GIVEN TO CUT TREE TO WHICH THERE IS NO PATH
 # THE PATH IS ABANDONED, BUT TREE IS STILL CUT
 
-on(mouse: 'any') do |x, y, thing|
-  # puts "#{x} #{y} #{thing}"
-  # Only take consider user action if it clicks on map
-  # not if it clicks on menu
-  if $menu.contains?(x, y)
-    $menu.click(x, y)
-  else
-    $menu.game_mode.click(x, y)
-  end
-end
-
-on_key do |key|
-  if key == "escape"
-    puts "pressed key: #{key}"
-    close
-  end
-
-  if key == "1"
-    $game_speed.set(1)
-  end
-
-  if key == "2"
-    $game_speed.set(5)
-  end
-
-  if key == "3"
-    $game_speed.set(100)
-  end
-
-  if key == "4"
-    $game_speed.set(250)
-  end
-
-  if key == "5"
-    $game_speed.set(1000)
-  end
-
-  if key == "q"
-    p $job_list
-  end
-
-  if key == "p"
-    if @profiling
-      result = RubyProf.stop
-      printer = RubyProf::GraphHtmlPrinter.new(result)
-
-      Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
-        printer.print(file, {})
-      end
-      close
-    else
-      require "ruby-prof"
-      require "pathname"
-
-      RubyProf.start
-      @profiling = true
-    end
-  end
-end
-
 # TODO: This is a problem
 # ensure that once rendered elements are in proper Z-INDEX
 # and that they dont need to be rerendered in order
 # to be seen at all
 
 # think of better system to work with this
-
-$background.rerender
-$characters_list.each(&:rerender)
-$map.rerender
-$fireplace.rerender
-$menu.rerender
-
-fps = get(:fps)
-$fps_drawer.rerender(fps)
-
-$day_and_night_cycle.rerender
-$inspection_menu.rerender
-
-show
-
 
 
 # IMPLEMENT WRAPPER OVER RENDERING WITH Z-INDEX FEATURE
@@ -429,11 +427,8 @@ show
 #   - 100g raw: 183 calories 
 #   - 100g cooked: 206 calories
 
-
-# TODO: When character carries something to storage 
-# The storage might be full at the spot when character gets to it 
-# Solve that problem
-#   - if there is another free spot, start whole another job with hauling
-#   - if there is no another free spot in storage, put the item to first free spot you can find
-
 # TODO: Bushed gathering!
+
+
+# TODO: JOB PRIORITISING
+# TODO: Add progress bar as progressing circle when cutting trees and gathering bushes
