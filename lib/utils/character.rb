@@ -3,10 +3,6 @@ class Character
   attr_reader   :x, :y, :state, :name
 
   MAX_CALORIES = 3000
-
-# $characters_list = [Character.new(x: 30, y: 20, name: "Johann")]
-
-
   def initialize(opts)
     x     = opts[:x]
     y     = opts[:y]
@@ -16,11 +12,7 @@ class Character
     @action = nil
 
     @energy = 0.6 + rand / 3
-
-    # 4000 calories is more or less expected maximum
-    # Assume ~2300 is expected daily intake in 2 meals
-    # So person is hungry when @calories is < 2000
-    @calories = MAX_CALORIES
+    @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 
     @state  = :working
   end
