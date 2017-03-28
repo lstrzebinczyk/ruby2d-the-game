@@ -45,16 +45,12 @@ class Map
   end
 
   def find_closest_to(spot, &block)
-    # require "pry"
-    # binding.pry
-
     @grid.find_all(&block).sort do |a, b|
       distance_a = (spot.x - a.x) ** 2 + (spot.y - a.y) ** 2
       distance_b = (spot.x - b.x) ** 2 + (spot.y - b.y) ** 2
 
       distance_a - distance_b
     end.first
-
   end
 
   # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM

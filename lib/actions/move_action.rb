@@ -3,7 +3,7 @@ class MoveAction < Action::Base
     @from       = from
     @to         = to
     @character  = character
-    @path       = calculate_path
+    @path       = calculate_path(from: @from)
     @ticks_left = 4 * @character.speed_multiplier
   end
   
@@ -14,7 +14,15 @@ class MoveAction < Action::Base
       @ticks_left = 4 * @character.speed_multiplier
       next_step = @path.shift
       if next_step
-        @character.update_position(next_step.x, next_step.y)
+        # If the place is free, go there
+        # If not, look for new path
+        if $map.passable?(next_step.x, next_step.y)
+          @character.update_position(next_step.x, next_step.y)
+        else
+          @path = calculate_path(from: @character)
+          next_step = @path.shift
+          @character.update_position(next_step.x, next_step.y)
+        end
       else
         end_action
       end
@@ -25,7 +33,8 @@ class MoveAction < Action::Base
     end
   end
 
-  def calculate_path
-    PathFinder.new(@from, @to, $map).search
+  def calculate_path(opts)
+    from = opts[:from]
+    PathFinder.new(from, @to, $map).search
   end
 end
