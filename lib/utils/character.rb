@@ -8,9 +8,9 @@ class Character
 
 
   def initialize(opts)
-    x = opts[:x]
-    y = opts[:y]
-    @name = [:opts_name] # Warhammer-style german like setting is awesome
+    x     = opts[:x]
+    y     = opts[:y]
+    @name = opts[:name] # Warhammer-style german like setting is awesome
     
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
     @action = nil
