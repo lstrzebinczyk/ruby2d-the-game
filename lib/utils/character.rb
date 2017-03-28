@@ -1,3 +1,6 @@
+# TODO: INTRODUCE CharacterState classess (sleeping, working etc)
+# TODO: INTRODUCE characterType classess (gatherer, lumberjack etc)
+
 class Character
   attr_accessor :energy
   attr_reader   :x, :y, :state, :name
@@ -15,6 +18,10 @@ class Character
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 
     @state  = :working
+  end
+
+  def passable?
+    false
   end
 
   def hunger

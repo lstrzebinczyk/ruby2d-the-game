@@ -17,7 +17,7 @@ class Map
   end
 
   def [](x, y)
-    @grid[x, y]
+    @grid[x, y] || $characters_list.find{|c| c.x == x && c.y == y}
   end
 
   def []=(x, y, value)
@@ -25,8 +25,8 @@ class Map
   end
 
   def passable?(x, y)
-    if @grid[x, y]
-      @grid[x, y].passable?
+    if self[x, y]
+      self[x, y].passable?
     else
       true
     end
@@ -103,10 +103,12 @@ class Map
   def fill_grid_with_objects
     (0..@width).each do |x|
       (0..@height).each do |y|
-        if set_tree?(x, y)
-          @grid[x, y] = Tree.new(x, y)
-        elsif set_bush?(x, y)
-          @grid[x, y] = BerryBush.new(x, y)
+        if @grid[x, y].nil?
+          if set_tree?(x, y)
+            @grid[x, y] = Tree.new(x, y)
+          elsif set_bush?(x, y)
+            @grid[x, y] = BerryBush.new(x, y)
+          end
         end
       end
     end

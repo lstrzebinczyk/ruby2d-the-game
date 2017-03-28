@@ -92,11 +92,13 @@ set({
   # diagnostics: true
 })
 
+
+$characters_list = [
+  Character.new(x: 30, y: 20, name: "Johann"),
+  Character.new(x: 31, y: 20, name: "Franz")
+]
 $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 $background = Background.new
-
-$map.clear(30, 20) # Make sure there is nothing but the character at this position
-$characters_list = [Character.new(x: 30, y: 20, name: "Johann")]
 
 $fps_drawer = FpsDrawer.new
 $mouse_background_drawer = MouseBackgroundDrawer.new
