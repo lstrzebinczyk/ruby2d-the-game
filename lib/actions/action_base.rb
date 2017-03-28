@@ -15,6 +15,10 @@ class Action
       end
     end
 
+    def replace_action(new_action)
+      @character.action = new_action
+    end
+
     private
 
     def last_action_in_chain

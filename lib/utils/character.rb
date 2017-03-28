@@ -24,6 +24,10 @@ class Character
     false
   end
 
+  def can_carry_more?
+    false
+  end
+
   def hunger
     @calories.to_f / MAX_CALORIES
   end

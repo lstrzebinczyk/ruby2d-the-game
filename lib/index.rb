@@ -424,3 +424,12 @@ show
 # ŁOSOŚ: (atlantic salmon)
 #   - 100g raw: 183 calories 
 #   - 100g cooked: 206 calories
+
+
+# TODO: When character carries something to storage 
+# The storage might be full at the spot when character gets to it 
+# Solve that problem
+#   - if there is another free spot, start whole another job with hauling
+#   - if there is no another free spot in storage, put the item to first free spot you can find
+
+# TODO: Bushed gathering!
