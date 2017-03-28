@@ -469,23 +469,6 @@ show
 # TODO: ADD FISHERMAN
 # TODO: ADD FARMER AND HIS CHICKENS
 
-
-# http://calorielab.com/foods/berries/66
-# QUESTIONS:
-#   - How much berries can a person gather in 1 hour ?
-      # I think a cup can be gathered in 6 minutes ?
-#   - How much calories does 1kg of berries have?
-      # 148g (a cup) -> 84.4 calories
-
-#   - How much calories does a person use in 1 hour of work?
-      # https://www.fitnessblender.com/blog/calories-burned-by-occupation-how-many-calories-does-my-job-burn
-
-#   - How much calories does a person use in 1 hour of sleep?
-    # http://www.livestrong.com/article/280877-about-calories-burned-during-eight-hours-of-sleep/
-#   - How fast can you eat 1kg of berries?
-    # - How many calories should a person eat per day?
-
-
 # TODO: Create map generator
 # allow choosing of map before game
 

@@ -1,6 +1,8 @@
 class Character
-  attr_accessor :energy, :hunger
+  attr_accessor :energy
   attr_reader   :x, :y, :state, :name
+
+  MAX_CALORIES = 3000
 
   def initialize(x, y)
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
@@ -8,9 +10,17 @@ class Character
 
     @name = "Johann" # Warhammer-style german like setting is awesome
     @energy = 0.6 + rand / 3
-    @hunger = 0.8 + rand / 10
+
+    # 4000 calories is more or less expected maximum
+    # Assume ~2300 is expected daily intake in 2 meals
+    # So person is hungry when @calories is < 2000
+    @calories = MAX_CALORIES
 
     @state  = :working
+  end
+
+  def hunger
+    @calories.to_f / MAX_CALORIES
   end
 
   def image_path
@@ -55,6 +65,15 @@ class Character
     @carried_item = item 
   end
 
+  def has_something_to_eat?
+    @carried_item && @carried_item.is_a?(Berries)
+  end
+
+  def eat(seconds)
+    @calories += @carried_item.calories_eaten_in(seconds)
+    @carried_item = nil if @carried_item.empty?
+  end
+
   # poor mans implementation of the fact, that carrying big piece of wood makes you slower
   # Exactly 6 times slower, in here
   def speed_multiplier
@@ -81,10 +100,9 @@ class Character
 
   # TODO: LET CHARACTER ABANDON THEIR TASKS WHEN THEY REALLY NEED TO SLEEP OR EAT OR SOMETHING
   #       AND GET TO IT LATER
-
   def update(seconds)
     update_energy
-    update_hunger
+    update_calories
 
     @action && @action.update(seconds)
   end
@@ -208,12 +226,24 @@ class Character
     end
   end
 
-  # TODO: WHEN CHARACTER SLEEPS, FOOD DROPS MUCH MUCH SLOWER
-  # TODO: MAKE IT BASED ON CALORIES
-  def update_hunger
-    @hunger -= $seconds_per_tick * 0.00004
-    if @hunger < 0
-      @hunger = 0
+  def update_calories
+    @calories -= $seconds_per_tick * calories_loss_per_second
+  end
+
+  def calories_loss_per_second
+    if state == :sleeping 
+      # 69 calories per hour 
+      # 69.0 / (60 * 60) per second 
+      0.019
+    elsif state == :working
+      # TODO
+      # https://www.fitnessblender.com/blog/calories-burned-by-occupation-how-many-calories-does-my-job-burn
+      # 102.5 cal/hour                 | calm work
+      # 127.5 calories burned per hour | moderate work
+      # 175 calories per hour          | heavy work
+      # for now only use moderate work
+      # so 127.5 / (60 * 60)
+      0.0354
     end
   end
 
@@ -221,11 +251,8 @@ class Character
     @energy < 0.15
   end
 
-  # TODO TODO TODO
-  # REORGANISE IT TO BE BASED ON CALORIES
-  # BASE DAILY INTAKE SHOULD BE 2000 CALORIES
   def hungry?
-    @hunger < 0.2
+    @calories < MAX_CALORIES * 0.5
   end
 end
 

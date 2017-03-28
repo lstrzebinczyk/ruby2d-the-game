@@ -1,13 +1,3 @@
-# TODO: MAKE IT SIMPLE FOR NOW
-# gather berries for 30 minutes
-# and eat them next 30 minutes
-# Gathered 1 kilogram of berries (lol)
-
-# this should produce good quality meal
-# for NOW
-
-# TODO: MAKE THIS REALISTIC AND BASED ON CALORIES INTAKE
-
 class GatherBerriesAction < Action::Base
   def initialize(character, berries)
     @character = character 
@@ -15,10 +5,21 @@ class GatherBerriesAction < Action::Base
     @time_left = 30.minutes
   end
 
+  def gathered_grams(seconds)
+    gathered_grams_per_second * seconds
+  end
+
+  # Gather a cup (148 grams) in 5 minutes
+  # so in second 148.0 / (5 * 60)
+  def gathered_grams_per_second
+    0.493
+  end
+
   def update(seconds)
     @time_left -= seconds
     if @time_left <= 0 
-      @character.carry = Berries.new(1000)
+      grams = gathered_grams(30.minutes)
+      @character.carry = Berries.new(grams)
       end_action
     end
   end
