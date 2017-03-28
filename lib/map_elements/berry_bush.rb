@@ -18,6 +18,24 @@ class BerryBush
   def initialize(x, y)
     @x, @y = x, y
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/berrybush.png")
+    @picked = false
+    @grams = 4500 + rand * 1000
+  end
+
+  def get_berries(seconds)
+    grams = gathered_grams(seconds)
+    @grams -= grams
+
+    if @grams <= 0
+      @picked = true
+      Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+    end
+
+    Berries.new(grams)
+  end
+
+  def picked?
+    @picked 
   end
 
   def passable?
@@ -31,5 +49,21 @@ class BerryBush
 
   def remove
     @image.remove
+  end
+
+  private
+
+  def gathered_grams(seconds)
+    if gathered_grams_per_second * seconds > @grams 
+      @grams 
+    else
+      gathered_grams_per_second * seconds
+    end
+  end
+
+  # Gather a cup (148 grams) in 5 minutes
+  # so in second 148.0 / (5 * 60)
+  def gathered_grams_per_second
+    0.493
   end
 end

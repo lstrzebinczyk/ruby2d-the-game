@@ -135,7 +135,7 @@ class Character
         # TODO fetch food from storage and eat it
       else
         berries_spot = $map.find_closest_to(self) do |map_object|
-          map_object.is_a? BerryBush
+          map_object.is_a? BerryBush and !map_object.picked?
         end
 
         to_go_spot = $map.find_free_spot_near(berries_spot)
