@@ -2,10 +2,10 @@
 class DayAndNightCycle
   attr_reader :time
 
-  def initialize(height)
+  def initialize(height, width)
     @time = Time.new(1, 1, 1, 12, 0) # start at 12:00 of the first day ever in history
     @text = Text.new(820, 12, "12:00", 40, "fonts/arial.ttf")
-    @sun_shining_mask = Rectangle.new(0, 0, WIDTH, height, sun_mask_color)
+    @sun_shining_mask = Rectangle.new(0, 0, width, height, sun_mask_color)
     @old_hour = @time.hour
   end
 
