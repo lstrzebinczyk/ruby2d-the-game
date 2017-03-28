@@ -488,3 +488,12 @@ show
 
 # TODO: Create map generator
 # allow choosing of map before game
+
+
+# TODO: MAKE THE MAP BIGGER
+# TODO: ADD RIVER
+
+# http://www.newhealthguide.org/How-Many-Calories-In-Salmon.html
+# ŁOSOŚ: (atlantic salmon)
+#   - 100g raw: 183 calories 
+#   - 100g cooked: 206 calories

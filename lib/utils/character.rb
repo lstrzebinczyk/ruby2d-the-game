@@ -89,9 +89,6 @@ class Character
     update_energy
     update_hunger
 
-    # puts "@energy: #{@energy}"
-    puts "@hunger: #{@hunger}"
-
     @action && @action.update(seconds)
   end
 
