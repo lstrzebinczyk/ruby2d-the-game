@@ -117,13 +117,13 @@ class Character
   end
 
   def needs_own_action?
-    if hungry?
-      # figure out what to do
-      true
-    elsif sleepy?
+    if sleepy?
       # Character will not go to sleep if it's too early
       # And will try to do some more work
       $day_and_night_cycle.time.hour >= 18
+    elsif hungry?
+      # figure out what to do
+      true
     else
       false
     end

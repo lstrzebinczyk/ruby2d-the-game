@@ -151,6 +151,10 @@ update do
         if character.needs_own_action?
           character.set_own_action
         else
+
+          # TODO: Character should refuse to take action
+          # TODO: If his mood is too bad, for example too sleepy and too hungry to work
+
           job = $job_list.get_job
           if job
             action = job.action_for(character)
