@@ -15,13 +15,19 @@ class MoveAction < Action::Base
       next_step = @path.shift
       if next_step
         # If the place is free, go there
-        # If not, look for new path
+        # If not, look for new path and use it
         if $map.passable?(next_step.x, next_step.y)
           @character.update_position(next_step.x, next_step.y)
         else
-          @path = calculate_path(from: @character)
-          next_step = @path.shift
-          @character.update_position(next_step.x, next_step.y)
+          # If this was the last step you meant to take
+          # Just stop where you are
+          if @path.empty?
+            end_action
+          else
+            @path = calculate_path(from: @character)
+            next_step = @path.shift
+            @character.update_position(next_step.x, next_step.y)
+          end
         end
       else
         end_action
