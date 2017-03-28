@@ -4,6 +4,8 @@
 # TODO TODO TODO: MAKE THIS MORE REAL
 
 class Berries
+  attr_reader :grams
+
   def initialize(grams)
     @grams = grams
   end
@@ -18,6 +20,14 @@ class Berries
   # thats 5 * 60 / 148 grams eaten per second
   def grams_eaten_per_second
     2.027
+  end
+
+  def +(other)
+    if other.is_a? Berries
+      Berries.new(grams + other.grams)
+    else
+      raise "Uh-uh, I did a booboo"
+    end
   end
 
   def calories_eaten_in(seconds)

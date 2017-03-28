@@ -28,7 +28,9 @@ class BerryBush
 
     if @grams <= 0
       @picked = true
-      Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+      unless @finished_mask
+        @finished_mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+      end
     end
 
     Berries.new(grams)
