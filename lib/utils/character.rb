@@ -214,6 +214,7 @@ class Character
     end
   end
 
+  # TODO: WHEN CHARACTER SLEEPS, FOOD DROPS MUCH MUCH SLOWER
   # TODO: MAKE IT BASED ON CALORIES
   def update_hunger
     @hunger -= $seconds_per_tick * 0.00004
