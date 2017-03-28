@@ -174,6 +174,19 @@ on_key do |key|
     close
   end
 
+  # TODO: Bring back then there is on key up and on key down
+  # if key == "space"
+  #   if @paused
+  #     $game_speed.set(@previous_game_speed)
+  #     @previous_game_speed = nil 
+  #     @paused = nil
+  #   else
+  #     @previous_game_speed = $game_speed.value
+  #     $game_speed.set(0)
+  #     @paused = true
+  #   end
+  # end
+
   if key == "1"
     $game_speed.set(1)
   end
