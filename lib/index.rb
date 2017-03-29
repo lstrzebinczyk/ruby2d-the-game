@@ -222,9 +222,31 @@ on_key do |key|
       end
       close
     else
+      Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
+
       require "ruby-prof"
       require "pathname"
 
+      RubyProf.start
+      @profiling = true
+    end
+  end
+
+  if key == "o"
+    if @profiling
+      result = RubyProf.stop
+      printer = RubyProf::GraphHtmlPrinter.new(result)
+
+      Pathname.new(FileUtils.pwd).join("./profiles/in-game-allocations.html").open("w+") do |file|
+        printer.print(file, {})
+      end
+      close
+    else
+      Text.new(200, 15, "PROFILING MEMORY", 40, "fonts/arial.ttf")
+      require "ruby-prof"
+      require "pathname"
+
+      RubyProf.measure_mode = RubyProf::ALLOCATIONS
       RubyProf.start
       @profiling = true
     end
@@ -451,3 +473,11 @@ show
 
 
 # http://sosweetcreative.com/2613/font-face-and-base64-data-uri
+
+
+# WE ARE PROBABLY LEAKING MEMORY
+# PROFILE IT!
+
+
+# Text#text= Leaks memory!
+# Fix it! When version is updated!

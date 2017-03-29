@@ -1,5 +1,6 @@
 class InspectionMenu
   class CharacterWindow
+    PROGRESS_BAR_BASE = (120 - 6)
     def initialize(character, y_offset, x)
       @character = character 
       @y_offset  = y_offset
@@ -14,20 +15,15 @@ class InspectionMenu
 
       @food_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 25, 120, 20, "black")
       @sleep_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 50, 120, 20, "black")
+      @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, PROGRESS_BAR_BASE, 20 - 6, "red")
+      @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, PROGRESS_BAR_BASE, 20 - 6, "red")
     end
 
     def rerender
-      @food_progress_bar && @food_progress_bar.remove
-      @sleep_progress_bar && @sleep_progress_bar.remove
-
-      food_width_base = 120 - 6
-      food_width = food_width_base * @character.hunger
-
-      sleep_width_base = 120 - 6
-      sleep_width = sleep_width_base * @character.energy
-
-      @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, food_width, 20 - 6, "red")
-      @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, sleep_width, 20 - 6, "red")
+      food_width  = PROGRESS_BAR_BASE * @character.hunger
+      sleep_width = PROGRESS_BAR_BASE * @character.energy
+      @food_progress_bar.width = food_width
+      @sleep_progress_bar.width = sleep_width
     end
   end
 

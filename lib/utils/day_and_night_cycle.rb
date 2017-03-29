@@ -36,9 +36,7 @@ class DayAndNightCycle
     @time += n
 
     unless to_s == @text.text
-      @text.remove
       @text.text = to_s
-      @text.add
     end
 
     # TODO: Bring back when Color#opacity= is implemented
