@@ -168,25 +168,23 @@ on(mouse: 'any') do |x, y, thing|
   end
 end
 
+on key_down: "space" do
+  if @paused
+    $game_speed.set(@previous_game_speed)
+    @previous_game_speed = nil
+    @paused = nil
+  else
+    @previous_game_speed = $game_speed.value
+    $game_speed.set(0)
+    @paused = true
+  end
+end
+
 on_key do |key|
   if key == "escape"
     puts "pressed key: #{key}"
     close
   end
-
-  # TODO: Bring back then there is on key up and on key down
-  # Or onkey is called once on button pressing
-  # if key == "space"
-  #   if @paused
-  #     $game_speed.set(@previous_game_speed)
-  #     @previous_game_speed = nil 
-  #     @paused = nil
-  #   else
-  #     @previous_game_speed = $game_speed.value
-  #     $game_speed.set(0)
-  #     @paused = true
-  #   end
-  # end
 
   if key == "1"
     $game_speed.set(1)
