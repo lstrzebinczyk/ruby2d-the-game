@@ -175,6 +175,7 @@ on_key do |key|
   end
 
   # TODO: Bring back then there is on key up and on key down
+  # Or onkey is called once on button pressing
   # if key == "space"
   #   if @paused
   #     $game_speed.set(@previous_game_speed)
@@ -445,3 +446,8 @@ show
 
 # TODO: JOB PRIORITISING
 # TODO: Add progress bar as progressing circle when cutting trees and gathering bushes
+
+
+
+
+# http://sosweetcreative.com/2613/font-face-and-base64-data-uri
