@@ -5,7 +5,7 @@ class DayAndNightCycle
   def initialize(height, width)
     @time = Time.new(1, 1, 1, 12, 0) # start at 12:00 of the first day ever in history
     @text = Text.new(820, 12, "12:00", 40, "fonts/arial.ttf")
-    @sun_shining_mask = Rectangle.new(0, 0, width, height, sun_mask_color)
+    @sun_shining_mask = Rectangle.new(0, 0, width, height, [0, 33.0 / 255, 115.0 / 255, 1])
     @old_hour = @time.hour
   end
 
@@ -18,16 +18,11 @@ class DayAndNightCycle
     @time.strftime("%H:%M")
   end
 
-  # Nice blue-ish night sky color
-  def sun_mask_color
-    [0, 33.0 / 255, 115.0 / 255, sun_mask_opacity]
-  end
-
   # Map in such way that at noon is minimum
   # At midnight is maximum
   def sun_mask_opacity
     time_to_sinus_argument = (@time.hour - 6) * 3.14 / 12.0 + 3.14 / 2
-    [0, Math.cos(time_to_sinus_argument) * 0.225].max
+    Math.cos(time_to_sinus_argument) * 0.225
   end
 
   # implicitly assume 1 tick means n seconds
@@ -39,10 +34,9 @@ class DayAndNightCycle
       @text.text = to_s
     end
 
-    # TODO: Bring back when Color#opacity= is implemented
     if !@time.day? and @old_hour != @time.hour
       @sun_shining_mask.remove
-      @sun_shining_mask.color = sun_mask_color
+      @sun_shining_mask.color.opacity = sun_mask_opacity
       @sun_shining_mask.add
       @old_hour = @time.hour
     end

@@ -55,7 +55,7 @@ class Menu
 
     def hover=(hover)
       @hover = hover
-      @background.color = color
+      @background.color.opacity = opacity
     end
 
     def right
