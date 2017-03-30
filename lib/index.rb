@@ -50,6 +50,9 @@ require_relative "./gui/fps_drawer"
 require_relative "./gui/game_speed"
 require_relative "./gui/inspection_menu"
 
+require_relative "./controls"
+require_relative "./update"
+
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
@@ -77,6 +80,7 @@ set({
 })
 
 
+# GAME SETUP
 $characters_list = [
   Character.new(x: 30, y: 20, name: "Johann"),
   Character.new(x: 31, y: 20, name: "Franz")
@@ -98,159 +102,6 @@ $inspection_menu.characters = $characters_list
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
-
-update do 
-  # Only show mouse button if it's on map
-  # don't show anything if it's on menu
-  # $mouse_background_drawer.remove
-  if $menu.contains?(get(:mouse_x), get(:mouse_y))
-    if $previous_mouse_over == :menu
-      $menu.unhover
-    elsif $previous_mouse_over == :game_window
-      $mouse_background_drawer.remove
-      $previous_mouse_over = :menu
-    end
-    $menu.hover(get(:mouse_x), get(:mouse_y))
-  else
-    if $previous_mouse_over == :menu
-      $menu.unhover
-      $previous_mouse_over = :game_window
-    elsif $previous_mouse_over == :game_window
-      $mouse_background_drawer.remove
-    end
-    mouse_x = (get(:mouse_x) / PIXELS_PER_SQUARE)
-    mouse_y = (get(:mouse_y) / PIXELS_PER_SQUARE)
-    $mouse_background_drawer.render(mouse_x, mouse_y)
-  end
-
-  # APPROXIMATELY 2 times per second
-  if rand < 0.03
-    fps = get(:fps)
-    $fps_drawer.rerender(fps)
-  end
-
-  $game_speed.value.times do
-    $characters_list.each do |character|
-      unless character.has_action?
-        if character.needs_own_action?
-          character.set_own_action
-        else
-
-          # TODO: Character should refuse to take action
-          # TODO: If his mood is too bad, for example too sleepy and too hungry to work
-
-          job = $job_list.get_job
-          if job
-            action = job.action_for(character)
-            character.action = action
-            job.taken = true
-          end
-        end
-      end
-      character.update($seconds_per_tick)
-    end
-
-    $day_and_night_cycle.update
-  end
-
-  $inspection_menu.rerender_progress_bars
-
-  $fireplace.update($day_and_night_cycle.time)
-end
-
-on(mouse: 'any') do |x, y, thing|
-  # puts "#{x} #{y} #{thing}"
-  # Only take consider user action if it clicks on map
-  # not if it clicks on menu
-  if $menu.contains?(x, y)
-    $menu.click(x, y)
-  else
-    $menu.game_mode.click(x, y)
-  end
-end
-
-on key_down: "space" do
-  if @paused
-    $game_speed.set(@previous_game_speed)
-    @previous_game_speed = nil
-    @paused = nil
-  else
-    @previous_game_speed = $game_speed.value
-    $game_speed.set(0)
-    @paused = true
-  end
-end
-
-on_key do |key|
-  if key == "escape"
-    puts "pressed key: #{key}"
-    close
-  end
-
-  if key == "1"
-    $game_speed.set(1)
-  end
-
-  if key == "2"
-    $game_speed.set(5)
-  end
-
-  if key == "3"
-    $game_speed.set(100)
-  end
-
-  if key == "4"
-    $game_speed.set(250)
-  end
-
-  if key == "5"
-    $game_speed.set(1000)
-  end
-
-  if key == "q"
-    p $job_list
-  end
-
-  if key == "p"
-    if @profiling
-      result = RubyProf.stop
-      printer = RubyProf::GraphHtmlPrinter.new(result)
-
-      Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
-        printer.print(file, {})
-      end
-      close
-    else
-      Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
-
-      require "ruby-prof"
-      require "pathname"
-
-      RubyProf.start
-      @profiling = true
-    end
-  end
-
-  if key == "o"
-    if @profiling
-      result = RubyProf.stop
-      printer = RubyProf::GraphHtmlPrinter.new(result)
-
-      Pathname.new(FileUtils.pwd).join("./profiles/in-game-allocations.html").open("w+") do |file|
-        printer.print(file, {})
-      end
-      close
-    else
-      Text.new(200, 15, "PROFILING MEMORY", 40, "fonts/arial.ttf")
-      require "ruby-prof"
-      require "pathname"
-
-      RubyProf.measure_mode = RubyProf::ALLOCATIONS
-      RubyProf.start
-      @profiling = true
-    end
-  end
-end
 
 $background.rerender
 $characters_list.each(&:rerender)
@@ -306,8 +157,7 @@ if designated_trees.count < trees_count
   end
 end
 
-
-
+# START!
 show
 
 
@@ -430,9 +280,6 @@ show
 
 # Introduce Game class, to be able to run tests without visual parts, and faster
 
-# Write Autoplayer class to play the game for mey 9xx3
-
-
 # MAke tree cutting more complex
 # Let it return from 3 to 6 pieces at random 
 # let it return also some firewood
@@ -530,4 +377,13 @@ show
 
 # fuck gathering berries, create shop for autogatherying and 
 
-# create autoplayer!
+# TODO: Add #start method to actions
+
+
+# write ruby2d-autorequire
+# Based on activesupport autorequiore
+# but should work in all ruby2d modes
+
+
+# Find and program some way to process berries into more caloric food
+# http://www.se.pl/styl-zycia/przepisy-kulinarne/sezon-na-jagody_196021.html
