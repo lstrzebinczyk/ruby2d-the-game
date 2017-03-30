@@ -50,6 +50,7 @@ class CutBerryBushAction < Action::Base
     @mask.remove
     @parent.finish
     @berry_bush.remove
+    $map[@berry_bush.x, @berry_bush.y] = nil
     @job.remove
   end
 end
