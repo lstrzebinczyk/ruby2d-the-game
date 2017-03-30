@@ -9,14 +9,15 @@ class SleepAction < Action::Base
   # 3.0 * 0.00104167 / 60 # OWN BED
   # Currently only can sleep near fireplace
 
-  # TODO: HAVE #start method for actions
-  # And call them when, duh, the action is started
-
-  def update(seconds)
+  def start
     unless @character.state == :sleeping
       @character.state = :sleeping
+    else
+      raise ArgumentError, "error!"
     end
+  end
 
+  def update(seconds)
     @character.energy += @energy_per_second * seconds
     @character.energy = 1.0 if @character.energy > 1
 

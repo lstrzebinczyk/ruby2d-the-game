@@ -3,13 +3,13 @@ class EatAction < Action::Base
     @character = character 
   end
 
-  def update(seconds)
-    unless @started
-      unless @character.carry.is_a? Berries
-        raise ArgumentError, "Something is no yes"
-      end
-      @started = true
+  def start
+    unless @character.carry.is_a? Berries
+      raise ArgumentError, "Something is no yes"
     end
+  end
+
+  def update(seconds)
     if @character.has_something_to_eat?
       @character.eat(seconds)
     else

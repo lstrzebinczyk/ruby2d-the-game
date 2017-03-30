@@ -203,6 +203,8 @@ class Character
 
   def action=(action)
     @action = action
+    @action.start
+    nil
   end
 
   def finish

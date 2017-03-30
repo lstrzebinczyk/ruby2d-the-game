@@ -23,6 +23,9 @@ class Action
       @character.action = new_action
     end
 
+    def start
+    end
+
     private
 
     def last_action_in_chain
