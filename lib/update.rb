@@ -53,6 +53,5 @@ update do
   end
 
   $inspection_menu.rerender_progress_bars
-
   $fireplace.update($day_and_night_cycle.time)
 end

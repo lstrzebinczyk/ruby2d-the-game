@@ -1,4 +1,4 @@
-# TODO: INTRODUCE CharacterState classess (sleeping, working etc)
+# TODO: INTRODUCE CharacterState classess (sleeping, working, slacking etc)
 # TODO: INTRODUCE characterType classess (gatherer, lumberjack etc)
 
 class Character
@@ -117,7 +117,7 @@ class Character
   end
 
   def needs_own_action?
-    hungry? || (sleepy? && $day_and_night_cycle.time.night?)
+    hungry? || sleepy?
   end
 
   def set_own_action
@@ -250,7 +250,7 @@ class Character
   end
 
   def sleepy?
-    @energy < 0.15
+    @energy < 0.15 and $day_and_night_cycle.time.night?
   end
 
   def hungry?
