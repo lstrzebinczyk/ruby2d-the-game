@@ -10,7 +10,7 @@ class PickAction < Action::Base
 
     if @time_left <= 0
       map_object = $map[@from.x, @from.y]
-      if map_object
+      if map_object and map_object.pickable?
         item = map_object.get_item
         if $map[@from.x, @from.y].count == 0
           $map[@from.x, @from.y] = nil

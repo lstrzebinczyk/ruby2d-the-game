@@ -14,6 +14,10 @@ class LogsPile
     rerender
   end
 
+  def pickable?
+    true
+  end
+
   def count
     @logs.count
   end
