@@ -110,8 +110,8 @@ class Character
   # TODO: LET CHARACTER ABANDON THEIR TASKS WHEN THEY REALLY NEED TO SLEEP OR EAT OR SOMETHING
   #       AND GET TO IT LATER
   def update(seconds)
-    update_energy
-    update_calories
+    update_energy(seconds)
+    update_calories(seconds)
 
     @action && @action.update(seconds)
   end
@@ -214,7 +214,7 @@ class Character
   private
   # TODO: HAVE QUALITY OF WORK DEPEND ON ENERGY
   #       When person really-really needs to sleep, he works slower
-  def update_energy
+  def update_energy(seconds)
     # assume that:
     # 8 hours of sleep is enough rest for 16 hours of being awake
     # therefore energy goes from 1 to 0 in 16 hours
@@ -222,14 +222,14 @@ class Character
     # during one second energy decreases by 1 / (16*60*60) 
     # when sleeping energy increases by 3 times that amount
     # TODO: MAKE REST SPEED DEPEND ON QUALITY OF BED
-    @energy -= $seconds_per_tick / 57600.0
+    @energy -= seconds / 57600.0
     if @energy < 0
       @energy = 0
     end
   end
 
-  def update_calories
-    @calories -= $seconds_per_tick * calories_loss_per_second
+  def update_calories(seconds)
+    @calories -= seconds * calories_loss_per_second
   end
 
   def calories_loss_per_second

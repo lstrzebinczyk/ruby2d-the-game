@@ -194,7 +194,6 @@ show
 # With that introduce config file with all the informations that need to be setup
 # like how long does it take to move, how fast do people get hungry and so on
 
-# When creating buildings is ready, look into feeding people.
 # When that is done, look into having a settlement that is sentient
 # And gives jobs to make itself functional
 
@@ -214,25 +213,8 @@ show
 # REMOVABLE MODULE TO UNIFY MAP BEHAVIOR? ADDING AND REMOVING TO RENDER BEHAVIOR?
 # RENDERABLE MODULE?
 
-# TALK ABOUT INTRODUCING EXPLICIT Z-INDEX TO RENDERED THINGS?
-
-# Start writing tests for those corner cases we are starting to pile up
-
-# **********************************
-# You have many things now!
-# Start working on giving back to community!
-# You stared issues on github, help solving them!
-# ***********************************
-
 # Prepare srug presentation?
 # About all of this?
-
-# FONT IN WEB VERSION DOES NOT RENDER IN PROPER SIZE
-
-# GET WIDTH FROM TEXT?
-# To build something around it?
-
-# INTRODUCE N CHARACTERS
 
 # Introduce roads
 # when person goes to road it's noted
@@ -263,29 +245,14 @@ show
 # BUG WHEN JOB IS GIVEN TO CUT TREE TO WHICH THERE IS NO PATH
 # THE PATH IS ABANDONED, BUT TREE IS STILL CUT
 
-# TODO: This is a problem
-# ensure that once rendered elements are in proper Z-INDEX
-# and that they dont need to be rerendered in order
-# to be seen at all
-
-# think of better system to work with this
-
-
-# IMPLEMENT WRAPPER OVER RENDERING WITH Z-INDEX FEATURE
-# THAN SUGGEST IT TO THE GUY
-
-
 # INTRODUCE SET OF UNIFIED SCENARIOS FOR PERFORMANCE BENCHMARKING
 # INTRODUCE SOME TESTS?
 
 # Introduce Game class, to be able to run tests without visual parts, and faster
 
-# MAke tree cutting more complex
-# Let it return from 3 to 6 pieces at random 
-# let it return also some firewood
-# maybe have it be scattered on map instead on single piece 
-# have it last for 4 hours
-
+# TODO: Introduce firewood
+# TODO: cut Tree should leave logs and firewood
+# TODO: cut bushes should leave firewood
 
 # TT.......SS
 # TT.......SS
@@ -376,9 +343,6 @@ show
 #   - for example gatherer workshop, assign gatherer and assign n kilograms of berries in storages
 
 # fuck gathering berries, create shop for autogatherying and 
-
-# TODO: Add #start method to actions
-
 
 # write ruby2d-autorequire
 # Based on activesupport autorequiore
