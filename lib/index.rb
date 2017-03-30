@@ -41,6 +41,7 @@ require_relative "./utils/zones_list"
 
 require_relative "./zones/storage_zone"
 
+require_relative "./game_modes/base"
 require_relative "./game_modes/cut_game_mode"
 require_relative "./game_modes/do_nothing_game_mode"
 require_relative "./game_modes/build_storage_mode"
