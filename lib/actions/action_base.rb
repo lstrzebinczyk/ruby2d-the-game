@@ -15,6 +15,10 @@ class Action
       end
     end
 
+    def abandon_action
+      @character.finish
+    end
+
     def replace_action(new_action)
       @character.action = new_action
     end

@@ -292,10 +292,11 @@ end
 
 # Cut 10 trees exactly, closest to the fireplace
 
-if designated_trees.count < 10
-  puts "need #{10 - designated_trees.count} more trees"
+trees_count = 20
+if designated_trees.count < trees_count
+  puts "need #{trees_count - designated_trees.count} more trees"
 
-  need_more_trees_count = 10 - designated_trees.count
+  need_more_trees_count = trees_count - designated_trees.count
 
   $map.find_all_closest_to($fireplace) do |map_element|
     map_element.is_a?(Tree) and !designated_trees.include?(map_element)

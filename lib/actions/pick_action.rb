@@ -9,13 +9,17 @@ class PickAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      item = $map[@from.x, @from.y].get_item
-      if $map[@from.x, @from.y].count == 0
-        $map[@from.x, @from.y] = nil
+      map_object = $map[@from.x, @from.y]
+      if map_object
+        item = map_object.get_item
+        if $map[@from.x, @from.y].count == 0
+          $map[@from.x, @from.y] = nil
+        end
+        @character.carry = item
+        end_action
+      else
+        abandon_action
       end
-
-      @character.carry = item
-      end_action
     end
   end
 end

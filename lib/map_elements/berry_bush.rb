@@ -36,6 +36,11 @@ class BerryBush
     Berries.new(grams)
   end
 
+  # TODO: You should never try to put something to a berry bush
+  def can_carry_more?
+    false
+  end
+
   def picked?
     @picked 
   end
@@ -50,6 +55,7 @@ class BerryBush
   end
 
   def remove
+    @finished_mask && @finished_mask.remove
     @image.remove
   end
 
