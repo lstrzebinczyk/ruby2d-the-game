@@ -263,7 +263,51 @@ $fps_drawer.rerender(fps)
 $day_and_night_cycle.rerender
 $inspection_menu.rerender
 
+# 
+# Autoplayer!
+#
+
+# Designate storage place, 5x5 in size, above and to the right of fireplace
+build_storage_mode = BuildStorageMode.new
+storage_top_left_x = $fireplace.x + 2
+storage_top_left_y = $fireplace.y - 7
+
+(storage_top_left_x..(storage_top_left_x+5)).each do |x|
+  (storage_top_left_y..(storage_top_left_y+5)).each do |y|
+    build_storage_mode.perform(x, y)
+  end
+end
+
+# Cut whatever is in place of that storage mode
+
+cut_game_mode = CutGameMode.new
+designated_trees = []
+
+$zones.each do |zone|
+  if $map[zone.x, zone.y].is_a?(Tree)
+    designated_trees.push($map[zone.x, zone.y])
+  end
+  cut_game_mode.perform(zone.x, zone.y)
+end
+
+# Cut 10 trees exactly, closest to the fireplace
+
+if designated_trees.count < 10
+  puts "need #{10 - designated_trees.count} more trees"
+
+  need_more_trees_count = 10 - designated_trees.count
+
+  $map.find_all_closest_to($fireplace) do |map_element|
+    map_element.is_a?(Tree) and !designated_trees.include?(map_element)
+  end.take(need_more_trees_count).each do |tree|
+    cut_game_mode.perform(tree.x, tree.y)
+  end
+end
+
+
+
 show
+
 
 
 # SHOW A NICE ERROR MESSAGE IF THERE IS NO FILE IN IMAGE
@@ -473,9 +517,15 @@ show
 # http://sosweetcreative.com/2613/font-face-and-base64-data-uri
 
 
-# WE ARE PROBABLY LEAKING MEMORY
-# PROFILE IT!
+
+# TODO: Bigger map 
+# TODO: Buildable fireplace
 
 
-# Text#text= Leaks memory!
-# Fix it! When version is updated!
+# Create structures, assign people to them, and setup expectancies
+#   - for example woodcutter workshop, assign woodcutter and set up to ensure n logs in storages 
+#   - for example gatherer workshop, assign gatherer and assign n kilograms of berries in storages
+
+# fuck gathering berries, create shop for autogatherying and 
+
+# create autoplayer!
