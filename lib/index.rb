@@ -27,6 +27,8 @@ require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
 
+require_relative "./structures/kitchen"
+
 require_relative "./game_modes/_index"
 
 require_relative "./utils/pathfinder"
@@ -94,6 +96,7 @@ $game_speed = GameSpeed.new
 $fireplace = Fireplace.new
 $job_list = JobList.new
 $zones = ZonesList.new
+$structures = []
 
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
 $inspection_menu.characters = $characters_list
