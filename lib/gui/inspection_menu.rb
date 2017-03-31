@@ -99,8 +99,8 @@ class InspectionMenu
                     .inject({}, :merge)
 
       items.each_with_index do |(k, v), i|
-        msg = "#{k} => #{v}"
-        t = Text.new(@x, 20, msg, 16, "fonts/arial.ttf")
+        msg = "#{k} => #{v} #{k.unit}s"
+        t = Text.new(@x + 5, 30, msg, 16, "fonts/arial.ttf")
         @texts << t
       end
     end

@@ -3,6 +3,10 @@
 # Not connected only to pile
 
 class LogsPile
+  def self.unit
+    "log"
+  end
+
   def initialize(x, y, count = nil)
     @x          = x
     @y          = y
