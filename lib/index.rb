@@ -361,3 +361,13 @@ show
 
 
 # Js version, compile with emscripten?
+
+
+# introduce global
+
+# def sc(num)
+#   num * PIXELS_PER_SQUARE
+# end
+
+
+# ??????
