@@ -100,7 +100,6 @@ $zones = ZonesList.new
 $structures = []
 
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
-$inspection_menu.characters = $characters_list
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring

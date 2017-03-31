@@ -4,6 +4,8 @@ on(mouse: 'any') do |x, y, thing|
   # not if it clicks on menu
   if $menu.contains?(x, y)
     $menu.click(x, y)
+  elsif $inspection_menu.contains?(x, y)
+    $inspection_menu.click(x, y)
   else
     $menu.game_mode.click(x, y)
   end

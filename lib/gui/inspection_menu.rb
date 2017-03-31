@@ -20,6 +20,13 @@ class InspectionMenu
         @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, PROGRESS_BAR_BASE, 20 - 6, "red")
       end
 
+      # TODO: Don't be so clever and remove them by hand
+      def remove
+        instance_variables.map{|v| instance_variable_get(v) }
+                          .keep_if{|v| v.respond_to? :remove }
+                          .each(&:remove)
+      end
+
       def rerender
         food_width  = PROGRESS_BAR_BASE * @character.hunger
         sleep_width = PROGRESS_BAR_BASE * @character.energy
@@ -33,7 +40,7 @@ class InspectionMenu
       @x                       = opts[:x]
       @margin_top              = opts[:margin_top]
       @single_character_height = 80
-      @characters              = nil
+      @characters              = $characters_list
       @character_windows       = []
     end
 
@@ -46,6 +53,10 @@ class InspectionMenu
       rerender
     end
 
+    def remove
+      @character_windows.each(&:remove)
+    end
+
     def rerender
       @character_windows.each(&:rerender)
     end
@@ -55,6 +66,15 @@ class InspectionMenu
     def initialize(opts)
       @x          = opts[:x]
       @margin_top = opts[:margin_top]
+    end
+
+    def render
+    end
+
+    def rerender
+    end
+
+    def remove
     end
   end
 
@@ -73,16 +93,24 @@ class InspectionMenu
     render_tabs
 
     @tab_buttons.first.on_click.call
+  end
 
-    # @characters_tab = CharactersTab.new(x: @x, margin_top: @tab_margin_top)
+  def click(x, y)
+    @tab_buttons.each do |button|
+      if button.contains?(x, y)
+        button.on_click.call
+      end
+    end
+  end
+
+  def deactivate_all_buttons
+    @tab_buttons.each do |button|
+      button.active = false
+    end
   end
 
   def contains?(mouse_x, mouse_y)
     mouse_x > @x
-  end
-
-  def characters=(characters_list)
-    @active_tab.characters = characters_list
   end
 
   def render_tabs
@@ -110,11 +138,13 @@ class InspectionMenu
     inspection_menu = self
 
     button.on_click = -> {
+      inspection_menu.deactivate_all_buttons
       inspection_menu.active_tab.remove if inspection_menu.active_tab
       inspection_menu.active_tab = tab_class.new(
         x: inspection_menu.x, 
         margin_top: inspection_menu.tab_margin_top
       )
+      inspection_menu.active_tab.render
       button.active = true
     }
 
