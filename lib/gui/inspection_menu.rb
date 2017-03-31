@@ -7,7 +7,7 @@ class InspectionMenu
         @y_offset  = y_offset
         @x = x
 
-        @char_portrait_x = @x + 10
+        @char_portrait_x = @x
         @char_portrait_y = @y_offset
         @char_image  = Image.new(@char_portrait_x, @char_portrait_y, @character.image_path)
         @char_name   = Text.new(@char_portrait_x + 25, @char_portrait_y, @character.name, 16, "fonts/arial.ttf")
@@ -61,7 +61,6 @@ class InspectionMenu
     @background     = Rectangle.new(@x, 0, @width, @height, "brown")
     render_tabs
 
-    # render_top_menu
     @characters_tab = CharactersTab.new(x: @x, margin_top: @tab_margin_top)
   end
 
@@ -74,19 +73,34 @@ class InspectionMenu
   end
 
   def render_tabs
-    # render_tab_button("Chars")
+    render_button("Chars", width: 50)
   end
 
-  # def render_tab_button(tab_text)
-  #   background = Rectangle.new(@x, 26, @width, 2, [0, 0, 0, 0.3])
-  # end
+  def render_button(text, opts)
+    # game_mode_class_name = text.gsub(" ", "_").camelize + "GameMode"
+    # game_mode_class      = game_mode_class_name.constantize
+    opts[:active] = true
+    opts[:text_size] = 14
+    opts[:active_color] = [1, 1, 1, 0.3]
+    opts[:height] = 26
 
-  # def render_top_menu
-  #   @chars_text = Text.new(@x + 10, 6, "Chars", 14, "fonts/arial.ttf")
+    button = Button.new(text, opts)
+    # left = if @buttons.any?
+    #   @buttons.last.right + PIXELS_PER_SQUARE
+    # else
+    #   PIXELS_PER_SQUARE
+    # end
+    button.render(@x, 0)
+    # menu = self
 
-  #   @bottom_border = Rectangle.new(@x, 26, @width, 2, [0, 0, 0, 0.3])
-  #   @right_to_chars_button_divider = Rectangle.new(@x + 60, 0, 2, 26, [0, 0, 0, 0.3])
-  # end
+    # button.on_click = -> {
+    #   menu.game_mode = game_mode_class.new 
+    #   menu.deactivate_all_buttons
+    #   button.active = true
+    # }
+
+    @tab_buttons << button
+  end
 
   def rerender_content
     @characters_tab.rerender
@@ -97,19 +111,7 @@ class InspectionMenu
     @background.add
 
     @tab_buttons.each(&:rerender)
-
-    # @chars_text.remove
-    # @chars_text.add
-
-    # @bottom_border.remove
-    # @bottom_border.add
-
-    # @right_to_chars_button_divider.remove
-    # @right_to_chars_button_divider.add
-
-
     @characters_tab.render
-
 
     rerender_content
   end

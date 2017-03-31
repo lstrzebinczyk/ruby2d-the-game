@@ -2,12 +2,14 @@ class Button
   attr_accessor :on_click
   attr_reader :hover, :width
 
-  FONT_SIZE = 36
   def initialize(text, opts = {})
-    @text   = text
-    @active = opts[:active] || false
-    @hover  = false
-    @width  = opts[:width]
+    @text           = text
+    @active         = opts[:active] || false
+    @hover          = false
+    @width          = opts[:width]
+    @height         = opts[:height] || 3 * PIXELS_PER_SQUARE
+    @text_size      = opts[:text_size] || 36
+    @active_color   = opts[:active_color]   || [1, 0, 0, 1]
   end
 
   def remove
@@ -20,6 +22,11 @@ class Button
     @text_element.add
   end
 
+  def rerender
+    remove
+    add
+  end
+
   def contains?(mouse_x, mouse_y)
     x      = @background.x
     y      = @background.y 
@@ -30,9 +37,9 @@ class Button
 
   def color
     if @active
-      [1, 0, 0, opacity]
+      @active_color
     else
-      [0, 0, 1, opacity]
+      [0, 0, 1, 1]
     end
   end
 
@@ -59,19 +66,18 @@ class Button
   end
 
   def render(x, y)
-    menu_element_tiles_height = 3
     @background = Rectangle.new(
       x, 
       y, 
-      width, # TWEAK IT 
-      menu_element_tiles_height * PIXELS_PER_SQUARE, 
+      width,
+      @height, 
       color
     )
 
     @text_element = Text.new(
       x + 4, 
       y + 4, 
-      @text, FONT_SIZE, "fonts/arial.ttf"
+      @text, @text_size, "fonts/arial.ttf"
     )
   end
 end
