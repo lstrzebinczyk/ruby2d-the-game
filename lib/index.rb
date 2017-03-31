@@ -44,7 +44,7 @@ require_relative "./zones/storage_zone"
 require_relative "./game_modes/base"
 require_relative "./game_modes/cut_game_mode"
 require_relative "./game_modes/do_nothing_game_mode"
-require_relative "./game_modes/build_storage_mode"
+require_relative "./game_modes/set_storage_game_mode"
 
 require_relative "./gui/fps_drawer"
 require_relative "./gui/game_speed"

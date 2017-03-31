@@ -1,4 +1,4 @@
-class BuildStorageMode < GameMode::Base
+class SetStorageGameMode < GameMode::Base
   def perform(in_game_x, in_game_y)
     if $zones[in_game_x, in_game_y].nil?
       $zones[in_game_x, in_game_y] = StorageZone.new(in_game_x, in_game_y)

@@ -168,13 +168,13 @@ class Menu
   end
 
   def render_build_storage_element
-    build_storage_button = Button.new("Build storage", width: 220)
+    set_storage_button = Button.new("Set storage", width: 220)
     left = @buttons.last.right + PIXELS_PER_SQUARE
 
-    build_storage_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
-    build_storage_button.game_mode = BuildStorageMode.new
+    set_storage_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
+    set_storage_button.game_mode = SetStorageGameMode.new
 
-    @buttons << build_storage_button
+    @buttons << set_storage_button
   end
 
   def render_menu_background
