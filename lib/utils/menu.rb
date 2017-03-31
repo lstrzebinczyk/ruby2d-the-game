@@ -1,13 +1,14 @@
 class Menu
   class Button
     attr_accessor :game_mode
-    attr_reader :hover
+    attr_reader :hover, :width
 
     FONT_SIZE = 36
     def initialize(text, opts = {})
       @text   = text
       @active = opts[:active] || false
       @hover  = false
+      @width  = opts[:width]
     end
 
     def remove
@@ -26,10 +27,6 @@ class Menu
       width  = @background.width 
       height = @background.height
       (x..(x + width)).include?(mouse_x) && (y..(y + height)).include?(mouse_y)
-    end
-
-    def width
-      FONT_SIZE * @text.length * 0.7
     end
 
     def color
@@ -153,7 +150,7 @@ class Menu
   private
 
   def render_cut_trees_element
-    cut_trees_button = Button.new("Cut", active: true)
+    cut_trees_button = Button.new("Cut", active: true, width: 70)
     cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
     cut_trees_button.game_mode = CutGameMode.new
 
@@ -161,7 +158,7 @@ class Menu
   end
 
   def render_nothing_element
-    do_nothing_button = Button.new("Do nothing")
+    do_nothing_button = Button.new("Do nothing", width: 190)
     left = @buttons.last.right + PIXELS_PER_SQUARE
 
     do_nothing_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
@@ -171,7 +168,7 @@ class Menu
   end
 
   def render_build_storage_element
-    build_storage_button = Button.new("Build storage")
+    build_storage_button = Button.new("Build storage", width: 220)
     left = @buttons.last.right + PIXELS_PER_SQUARE
 
     build_storage_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
