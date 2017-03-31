@@ -78,6 +78,37 @@ class InspectionMenu
     end
   end
 
+  class StoreTab
+    def initialize(opts)
+      @x          = opts[:x]
+      @margin_top = opts[:margin_top]
+      @texts = []
+    end
+
+    def render
+    end
+
+    def rerender
+      @texts.each(&:remove)
+      @texts = []
+      items = $zones.map(&:map_object)
+                    .compact
+                    .keep_if{|i| i.is_a? LogsPile}
+                    .group_by(&:class)
+                    .map{|k, v| { k => v.map(&:count).inject(&:+) } }
+                    .inject({}, :merge)
+
+      items.each_with_index do |(k, v), i|
+        msg = "#{k} => #{v}"
+        t = Text.new(@x, 20, msg, 16, "fonts/arial.ttf")
+        @texts << t
+      end
+    end
+
+    def remove
+    end
+  end
+
   attr_accessor :active_tab
   attr_reader :x, :tab_margin_top
 
@@ -116,6 +147,7 @@ class InspectionMenu
   def render_tabs
     render_button("Chars", width: 50)
     render_button("Inspect", width: 55)
+    render_button("Store", width: 55)
   end
 
   def render_button(text, opts)

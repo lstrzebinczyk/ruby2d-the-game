@@ -3,7 +3,7 @@
 # Some sort of sack or something will be needed 
 # TODO TODO TODO: MAKE THIS MORE REAL
 
-class Berries
+class Berries < Item
   attr_reader :grams
 
   def initialize(grams)

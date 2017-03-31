@@ -13,9 +13,11 @@ class StorageZone
     @image.add
   end
 
-  def has_place_for?(object_class)
-    map_object = $map[@x, @y]
+  def map_object
+    $map[@x, @y]
+  end
 
+  def has_place_for?(object_class)
     if map_object.nil?
       true
     elsif map_object.is_a? object_class

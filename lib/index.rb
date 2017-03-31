@@ -1,6 +1,7 @@
 require 'ruby2d'
 require 'perlin_noise'
 
+require_relative "./items/item"
 require_relative "./items/log"
 require_relative "./items/berries"
 
@@ -378,8 +379,21 @@ show
 
 
 
-# replace "do nothing" with "inspect"
 # inspect will open inspection tab and show all of the elements in that spot 
 #   - structures, characters, map elements, zones, EVERYTHING
 
 # add storage inspection tab, which will list count of all things in storage
+
+# Add game data inspection tab, let it have graph of rendered objects in time
+# Might help find some rendered objects leak
+
+# Do we need something like
+# World.find, that would look through map, zones, structures?
+
+# Make the fireplace no longer be a special, global object. It's a normal structure
+
+# Kitchen should require some wood to be built
+# Introduce "being built" structure state
+
+
+# Introduce pottery!
