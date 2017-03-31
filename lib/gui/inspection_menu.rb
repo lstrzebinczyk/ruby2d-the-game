@@ -51,6 +51,13 @@ class InspectionMenu
     end
   end
 
+  class InspectTab
+    def initialize(opts)
+      @x          = opts[:x]
+      @margin_top = opts[:margin_top]
+    end
+  end
+
   attr_accessor :active_tab
   attr_reader :x, :tab_margin_top
 
@@ -80,24 +87,26 @@ class InspectionMenu
 
   def render_tabs
     render_button("Chars", width: 50)
+    render_button("Inspect", width: 55)
   end
 
   def render_button(text, opts)
-    opts[:active] = true
+    opts[:active] = @tab_buttons.none?
     opts[:text_size] = 14
     opts[:active_color] = [1, 1, 1, 0.3]
+    opts[:inactive_color] = "brown"
     opts[:height] = 26
 
     tab_class_name = "InspectionMenu::" + text.gsub(" ", "_").camelize + "Tab"
     tab_class      = tab_class_name.constantize
 
     button = Button.new(text, opts)
-    # left = if @buttons.any?
-    #   @buttons.last.right + PIXELS_PER_SQUARE
-    # else
-    #   PIXELS_PER_SQUARE
-    # end
-    button.render(@x, 0)
+    left = if @tab_buttons.any?
+      @tab_buttons.last.right + 3
+    else
+      @x + 3
+    end
+    button.render(left, 0)
     inspection_menu = self
 
     button.on_click = -> {

@@ -10,6 +10,7 @@ class Button
     @height         = opts[:height] || 3 * PIXELS_PER_SQUARE
     @text_size      = opts[:text_size] || 36
     @active_color   = opts[:active_color]   || [1, 0, 0, 1]
+    @inactive_color = opts[:inactive_color]   || [0, 0, 1, 1]
   end
 
   def remove
@@ -39,7 +40,7 @@ class Button
     if @active
       @active_color
     else
-      [0, 0, 1, 1]
+      @inactive_color
     end
   end
 
