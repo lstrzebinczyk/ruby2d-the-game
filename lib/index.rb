@@ -27,6 +27,8 @@ require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
 
+require_relative "./game_modes/_index"
+
 require_relative "./utils/pathfinder"
 require_relative "./utils/grid"
 require_relative "./utils/random_noise_generator"
@@ -41,11 +43,6 @@ require_relative "./utils/menu"
 require_relative "./utils/zones_list"
 
 require_relative "./zones/storage_zone"
-
-require_relative "./game_modes/base"
-require_relative "./game_modes/cut_game_mode"
-require_relative "./game_modes/do_nothing_game_mode"
-require_relative "./game_modes/set_storage_game_mode"
 
 require_relative "./gui/fps_drawer"
 require_relative "./gui/game_speed"

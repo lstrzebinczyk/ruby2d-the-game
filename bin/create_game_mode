@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+require "pathname"
+require "fileutils"
+
+class String
+  def camelize(uppercase_first_letter = true)
+    string = self
+    if uppercase_first_letter
+      string = string.sub(/^[a-z\d]*/) { $&.capitalize }
+    else
+      string = string.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
+    end
+    string.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }.gsub('/', '::')
+  end
+end
+
+game_mode_name = ARGV[0]
+
+if game_mode_name.nil? or game_mode_name.size.zero?
+  raise ArgumentError, "You need to pass game mode name!"
+end
+
+puts "Adding game mode '#{game_mode_name}'"
+
+path = Pathname.new(FileUtils.pwd).join("./lib/game_modes/#{game_mode_name}_game_mode.rb")
+
+if path.exist?
+  raise ArgumentError, "/game_modes/#{game_mode_name}_game_mode.rb already exists"
+end
+
+template= """class #{game_mode_name.camelize}GameMode < GameMode::Base
+  def perform(in_game_x, in_game_y)
+
+  end
+end
+"""
+
+path.open("w+") do |file|
+  file << template
+end
+
+require_path = Pathname.new(FileUtils.pwd).join("./lib/game_modes/_index.rb")
+require_path.open("a") do |f|
+  f.puts("require_relative \"./#{game_mode_name}_game_mode\"")
+end
