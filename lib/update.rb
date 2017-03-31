@@ -51,6 +51,6 @@ update do
     $day_and_night_cycle.update
   end
 
-  $inspection_menu.rerender_progress_bars
+  $inspection_menu.rerender_content
   $fireplace.update($day_and_night_cycle.time)
 end
