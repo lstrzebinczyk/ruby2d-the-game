@@ -1,5 +1,5 @@
 class InspectionMenu
-  class CharactersTab
+  class CharsTab
     class CharacterWindow
       PROGRESS_BAR_BASE = (120 - 6)
       def initialize(character, y_offset, x)
@@ -51,17 +51,23 @@ class InspectionMenu
     end
   end
 
+  attr_accessor :active_tab
+  attr_reader :x, :tab_margin_top
+
   def initialize(width, height, x)
     @width          = width
     @height         = height
     @x              = x
     @tab_margin_top = 40
     @tab_buttons    = []
+    @active_tab     = nil
 
     @background     = Rectangle.new(@x, 0, @width, @height, "brown")
     render_tabs
 
-    @characters_tab = CharactersTab.new(x: @x, margin_top: @tab_margin_top)
+    @tab_buttons.first.on_click.call
+
+    # @characters_tab = CharactersTab.new(x: @x, margin_top: @tab_margin_top)
   end
 
   def contains?(mouse_x, mouse_y)
@@ -69,7 +75,7 @@ class InspectionMenu
   end
 
   def characters=(characters_list)
-    @characters_tab.characters = characters_list
+    @active_tab.characters = characters_list
   end
 
   def render_tabs
@@ -77,12 +83,13 @@ class InspectionMenu
   end
 
   def render_button(text, opts)
-    # game_mode_class_name = text.gsub(" ", "_").camelize + "GameMode"
-    # game_mode_class      = game_mode_class_name.constantize
     opts[:active] = true
     opts[:text_size] = 14
     opts[:active_color] = [1, 1, 1, 0.3]
     opts[:height] = 26
+
+    tab_class_name = "InspectionMenu::" + text.gsub(" ", "_").camelize + "Tab"
+    tab_class      = tab_class_name.constantize
 
     button = Button.new(text, opts)
     # left = if @buttons.any?
@@ -91,19 +98,22 @@ class InspectionMenu
     #   PIXELS_PER_SQUARE
     # end
     button.render(@x, 0)
-    # menu = self
+    inspection_menu = self
 
-    # button.on_click = -> {
-    #   menu.game_mode = game_mode_class.new 
-    #   menu.deactivate_all_buttons
-    #   button.active = true
-    # }
+    button.on_click = -> {
+      inspection_menu.active_tab.remove if inspection_menu.active_tab
+      inspection_menu.active_tab = tab_class.new(
+        x: inspection_menu.x, 
+        margin_top: inspection_menu.tab_margin_top
+      )
+      button.active = true
+    }
 
     @tab_buttons << button
   end
 
   def rerender_content
-    @characters_tab.rerender
+    @active_tab.rerender
   end
 
   def rerender
@@ -111,7 +121,7 @@ class InspectionMenu
     @background.add
 
     @tab_buttons.each(&:rerender)
-    @characters_tab.render
+    @active_tab.render
 
     rerender_content
   end
