@@ -15,12 +15,6 @@ class BuildKitchenGameMode < GameMode::Base
       @mask.color = "red"
     end
     @mask.color.opacity = 0.6
-    # if @mask
-    #   @mask.x = x * PIXELS_PER_SQUARE
-    #   @mask.y = y * PIXELS_PER_SQUARE
-    #   @mask.add
-    # else
-    # end
   end
 
   private
