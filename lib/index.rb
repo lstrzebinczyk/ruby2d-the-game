@@ -11,6 +11,7 @@ require_relative "./map_elements/berry_bush"
 require_relative "./core_ext/time"
 require_relative "./core_ext/integer"
 require_relative "./core_ext/float"
+require_relative "./core_ext/string"
 
 require_relative "./actions/action_base"
 require_relative "./actions/move_action"
@@ -120,7 +121,7 @@ $inspection_menu.rerender
 #
 
 # Designate storage place, 5x5 in size, above and to the right of fireplace
-build_storage_mode = BuildStorageMode.new
+build_storage_mode = SetStorageGameMode.new
 storage_top_left_x = $fireplace.x + 2
 storage_top_left_y = $fireplace.y - 7
 
@@ -141,8 +142,6 @@ $zones.each do |zone|
   end
   cut_game_mode.perform(zone.x, zone.y)
 end
-
-# Cut 10 trees exactly, closest to the fireplace
 
 trees_count = 20
 if designated_trees.count < trees_count
@@ -362,3 +361,6 @@ show
 # .......
 # in mountains?
 # .......
+
+
+# Js version, compile with emscripten?

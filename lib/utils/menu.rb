@@ -126,9 +126,10 @@ class Menu
 
   def render
     render_menu_background
-    render_cut_trees_element
-    render_nothing_element
-    render_build_storage_element
+
+    render_button("Cut",         width: 70 )
+    render_button("Do nothing",  width: 190)
+    render_button("Set storage", width: 220)
   end
 
   def unhover
@@ -149,32 +150,20 @@ class Menu
 
   private
 
-  def render_cut_trees_element
-    cut_trees_button = Button.new("Cut", active: true, width: 70)
-    cut_trees_button.render(PIXELS_PER_SQUARE, @menu_y_start + PIXELS_PER_SQUARE)
-    cut_trees_button.game_mode = CutGameMode.new
+  def render_button(text, opts)
+    game_mode_class_name = text.gsub(" ", "_").camelize + "GameMode"
+    game_mode_class      = game_mode_class_name.constantize
+    opts[:active] = @buttons.none?
 
-    @buttons << cut_trees_button
-  end
-
-  def render_nothing_element
-    do_nothing_button = Button.new("Do nothing", width: 190)
-    left = @buttons.last.right + PIXELS_PER_SQUARE
-
-    do_nothing_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
-    do_nothing_button.game_mode = DoNothingGameMode.new
-
-    @buttons << do_nothing_button
-  end
-
-  def render_build_storage_element
-    set_storage_button = Button.new("Set storage", width: 220)
-    left = @buttons.last.right + PIXELS_PER_SQUARE
-
-    set_storage_button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
-    set_storage_button.game_mode = SetStorageGameMode.new
-
-    @buttons << set_storage_button
+    button = Button.new(text, opts)
+    left = if @buttons.any?
+      @buttons.last.right + PIXELS_PER_SQUARE
+    else
+      PIXELS_PER_SQUARE
+    end
+    button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
+    button.game_mode = game_mode_class.new 
+    @buttons << button
   end
 
   def render_menu_background
