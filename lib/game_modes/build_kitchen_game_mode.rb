@@ -8,13 +8,28 @@ class BuildKitchenGameMode < GameMode::Base
   end
 
   def hover(x, y)
-    if @mask
-      @mask.x = x * PIXELS_PER_SQUARE
-      @mask.y = y * PIXELS_PER_SQUARE
-      @mask.add
+    @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, 3 * PIXELS_PER_SQUARE)
+    if terrain_clear?(x, y)
+      @mask.color = "brown"
     else
-      @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, 3 * PIXELS_PER_SQUARE, "brown")
-      @mask.color.opacity = 0.6
+      @mask.color = "red"
+    end
+    @mask.color.opacity = 0.6
+    # if @mask
+    #   @mask.x = x * PIXELS_PER_SQUARE
+    #   @mask.y = y * PIXELS_PER_SQUARE
+    #   @mask.add
+    # else
+    # end
+  end
+
+  private
+
+  def terrain_clear?(x, y)
+    fields = (x..(x+2)).to_a.product((y..(y+2)).to_a)
+
+    fields.all? do |arr|
+      $map[arr[0], arr[1]].nil? and $zones[arr[0], arr[1]].nil?
     end
   end
 end
