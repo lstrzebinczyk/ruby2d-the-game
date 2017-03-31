@@ -15,6 +15,9 @@ class Structure
   end
 end
 
+# TODO: MAKE THE KITCHEN ACTUALLY BUILDABLE
+# TODO: Like, require wood and time and stuff
+
 class Kitchen < Structure
   def initialize(x, y)
     @x, @y = x, y
