@@ -49,6 +49,7 @@ require_relative "./zones/storage_zone"
 require_relative "./gui/fps_drawer"
 require_relative "./gui/game_speed"
 require_relative "./gui/inspection_menu"
+require_relative "./gui/button"
 
 require_relative "./controls"
 require_relative "./update"

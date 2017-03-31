@@ -9,6 +9,8 @@ update do
       $previous_mouse_over = :menu
     end
     $menu.hover(get(:mouse_x), get(:mouse_y))
+  elsif $inspection_menu.contains?(get(:mouse_x), get(:mouse_y))
+    $menu.game_mode.unhover()
   else
     if $previous_mouse_over == :menu
       $menu.unhover

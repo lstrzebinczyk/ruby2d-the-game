@@ -56,22 +56,37 @@ class InspectionMenu
     @height         = height
     @x              = x
     @tab_margin_top = 40
+    @tab_buttons    = []
 
     @background     = Rectangle.new(@x, 0, @width, @height, "brown")
-    render_top_menu
+    render_tabs
+
+    # render_top_menu
     @characters_tab = CharactersTab.new(x: @x, margin_top: @tab_margin_top)
+  end
+
+  def contains?(mouse_x, mouse_y)
+    mouse_x > @x
   end
 
   def characters=(characters_list)
     @characters_tab.characters = characters_list
   end
 
-  def render_top_menu
-    @chars_text = Text.new(@x + 10, 6, "Chars", 14, "fonts/arial.ttf")
-
-    @bottom_border = Rectangle.new(@x, 26, @width, 2, [0, 0, 0, 0.3])
-    @right_to_chars_button_divider = Rectangle.new(@x + 60, 0, 2, 26, [0, 0, 0, 0.3])
+  def render_tabs
+    # render_tab_button("Chars")
   end
+
+  # def render_tab_button(tab_text)
+  #   background = Rectangle.new(@x, 26, @width, 2, [0, 0, 0, 0.3])
+  # end
+
+  # def render_top_menu
+  #   @chars_text = Text.new(@x + 10, 6, "Chars", 14, "fonts/arial.ttf")
+
+  #   @bottom_border = Rectangle.new(@x, 26, @width, 2, [0, 0, 0, 0.3])
+  #   @right_to_chars_button_divider = Rectangle.new(@x + 60, 0, 2, 26, [0, 0, 0, 0.3])
+  # end
 
   def rerender_content
     @characters_tab.rerender
@@ -81,14 +96,16 @@ class InspectionMenu
     @background.remove
     @background.add
 
-    @chars_text.remove
-    @chars_text.add
+    @tab_buttons.each(&:rerender)
 
-    @bottom_border.remove
-    @bottom_border.add
+    # @chars_text.remove
+    # @chars_text.add
 
-    @right_to_chars_button_divider.remove
-    @right_to_chars_button_divider.add
+    # @bottom_border.remove
+    # @bottom_border.add
+
+    # @right_to_chars_button_divider.remove
+    # @right_to_chars_button_divider.add
 
 
     @characters_tab.render

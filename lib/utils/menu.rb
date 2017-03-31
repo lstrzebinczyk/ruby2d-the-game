@@ -1,83 +1,5 @@
 class Menu
-  class Button
-    attr_accessor :game_mode
-    attr_reader :hover, :width
-
-    FONT_SIZE = 36
-    def initialize(text, opts = {})
-      @text   = text
-      @active = opts[:active] || false
-      @hover  = false
-      @width  = opts[:width]
-    end
-
-    def remove
-      @text_element.remove 
-      @background.remove
-    end
-
-    def add
-      @background.add 
-      @text_element.add
-    end
-
-    def contains?(mouse_x, mouse_y)
-      x      = @background.x
-      y      = @background.y 
-      width  = @background.width 
-      height = @background.height
-      (x..(x + width)).include?(mouse_x) && (y..(y + height)).include?(mouse_y)
-    end
-
-    def color
-      if @active
-        [1, 0, 0, opacity]
-      else
-        [0, 0, 1, opacity]
-      end
-    end
-
-    def opacity
-      if @hover
-        0.6
-      else
-        1
-      end
-    end
-
-    def active=(active)
-      @active = active
-      @background.color = color
-    end
-
-    def hover=(hover)
-      @hover = hover
-      @background.color.opacity = opacity
-    end
-
-    def right
-      @background.x2.to_i
-    end
-
-    def render(x, y)
-      menu_element_tiles_height = 3
-      @background = Rectangle.new(
-        x, 
-        y, 
-        width, # TWEAK IT 
-        menu_element_tiles_height * PIXELS_PER_SQUARE, 
-        color
-      )
-
-      @text_element = Text.new(
-        x + 4, 
-        y + 4, 
-        @text, FONT_SIZE, "fonts/arial.ttf"
-      )
-    end
-  end
-
-  attr_reader :game_mode
+  attr_accessor :game_mode
 
   def initialize
     @game_mode    = CutGameMode.new
@@ -90,9 +12,7 @@ class Menu
   def click(x, y)
     @buttons.each do |button|
       if button.contains?(x, y)
-        @game_mode = button.game_mode
-        deactivate_all_buttons
-        button.active = true
+        button.on_click.call
       end
     end
   end
@@ -163,7 +83,14 @@ class Menu
       PIXELS_PER_SQUARE
     end
     button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
-    button.game_mode = game_mode_class.new 
+    menu = self
+
+    button.on_click = -> {
+      menu.game_mode = game_mode_class.new 
+      menu.deactivate_all_buttons
+      button.active = true
+    }
+
     @buttons << button
   end
 
