@@ -1,6 +1,6 @@
 class Button
   attr_accessor :on_click
-  attr_reader :hover, :width
+  attr_reader :hover, :width, :text
 
   def initialize(text, opts = {})
     @text           = text

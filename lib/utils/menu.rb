@@ -48,7 +48,7 @@ class Menu
     render_menu_background
 
     render_button("Cut",           width: 70 )
-    render_button("Do nothing",    width: 190)
+    render_button("Inspect",       width: 130)
     render_button("Set storage",   width: 220)
     render_button("Build kitchen", width: 240)
   end

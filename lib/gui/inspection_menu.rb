@@ -125,9 +125,6 @@ class InspectionMenu
     opts[:inactive_color] = "brown"
     opts[:height] = 26
 
-    tab_class_name = "InspectionMenu::" + text.gsub(" ", "_").camelize + "Tab"
-    tab_class      = tab_class_name.constantize
-
     button = Button.new(text, opts)
     left = if @tab_buttons.any?
       @tab_buttons.last.right + 3
@@ -138,17 +135,23 @@ class InspectionMenu
     inspection_menu = self
 
     button.on_click = -> {
-      inspection_menu.deactivate_all_buttons
-      inspection_menu.active_tab.remove if inspection_menu.active_tab
-      inspection_menu.active_tab = tab_class.new(
-        x: inspection_menu.x, 
-        margin_top: inspection_menu.tab_margin_top
-      )
-      inspection_menu.active_tab.render
-      button.active = true
+      inspection_menu.set_mode(text)
     }
 
     @tab_buttons << button
+  end
+
+  def set_mode(mode)
+    deactivate_all_buttons
+    @active_tab.remove if @active_tab
+    tab_class_name = "InspectionMenu::" + mode.to_s.gsub(" ", "_").camelize + "Tab"
+    tab_class = tab_class_name.constantize
+    @active_tab = tab_class.new(
+      x: x, 
+      margin_top: tab_margin_top
+    )
+    @active_tab.render
+    @tab_buttons.find{|b| b.text.downcase == mode.to_s.downcase }.active = true
   end
 
   def rerender_content
