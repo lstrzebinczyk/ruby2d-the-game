@@ -36,9 +36,8 @@ class Kitchen < Structure::Base
     if type == :gathering
       # Yes, if there are not enough stored berried
       current_berries_grams  = $zones.grouped_count[BerriesPile] || 0
-      expected_berries_grams = @ensure_berries_kgs * 1000
 
-      current_berries_grams < expected_berries_grams
+      current_berries_grams < @ensure_berries_kgs
     else
       false
     end
@@ -46,7 +45,7 @@ class Kitchen < Structure::Base
 
   def get_job(type)
     if type == :gathering
-      if ($zones.grouped_count[BerriesPile] || 0) < @ensure_berries_kgs * 1000
+      if ($zones.grouped_count[BerriesPile] || 0) < @ensure_berries_kgs
         berry_bush = $map.find_closest_to(self) do |map_object|
           map_object.is_a? BerryBush and map_object.has_more?
         end

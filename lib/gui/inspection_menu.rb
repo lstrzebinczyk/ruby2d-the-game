@@ -121,12 +121,13 @@ class InspectionMenu
 
       items.each_with_index do |(k, v), i|
         msg = "#{k} => #{v} #{k.unit}s"
-        t = Text.new(@x + 5, 30, msg, 16, "fonts/arial.ttf")
+        t = Text.new(@x + 5, 30 + i * 20, msg, 16, "fonts/arial.ttf")
         @texts << t
       end
     end
 
     def remove
+      @texts.each(&:remove)
     end
   end
 

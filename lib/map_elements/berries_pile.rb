@@ -35,7 +35,7 @@ class BerriesPile
   end
 
   def count
-    @berries.grams
+    (@berries.grams / 1000).round(2)
   end
 
   def remove
