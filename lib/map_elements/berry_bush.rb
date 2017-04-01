@@ -13,7 +13,20 @@
       # - have the bushes regrow at a reasonable, realistic rate
 
 class BerryBush
-  attr_reader :x, :y
+  class Inspection
+    def initialize(berry_bush, opts = {})
+      kgs = (berry_bush.grams / 1000).round(2)
+      msg = "Berry Bush, #{kgs} of berries"
+      x = opts[:x]
+      y = opts[:y]
+      @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
+    end
+
+    def remove
+      @t.remove
+    end
+  end
+  attr_reader :x, :y, :grams
 
   def initialize(x, y)
     @x, @y = x, y

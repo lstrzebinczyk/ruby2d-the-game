@@ -63,8 +63,6 @@ class InspectionMenu
   end
 
   class InspectTab
-    attr_writer :content
-
     def initialize(opts)
       @x          = opts[:x]
       @margin_top = opts[:margin_top]
@@ -72,18 +70,31 @@ class InspectionMenu
       @content = []
     end
 
-    def render
+    def content=(content)
+      @content = content 
+      remove
+      render
     end
 
-    def rerender
+    def render
       @texts.each(&:remove)
       @texts = []
 
       @content.each_with_index do |c, index|
-        msg = c.class
-        t = Text.new(@x + 5, 30 + 25 * index, msg, 16, "fonts/arial.ttf")
-        @texts << t
+        x = @x + 5
+        y = 30 + 25 * index
+
+        if defined?(c.class::Inspection)
+          @texts << c.class::Inspection.new(c, x: x, y: y)
+        else
+          msg = c.class
+          t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
+          @texts << t
+        end
       end
+    end
+
+    def rerender
     end
 
     def remove
