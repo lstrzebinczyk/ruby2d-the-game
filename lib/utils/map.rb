@@ -39,6 +39,12 @@ class Map
       else
         self[x, y] = LogsPile.new(x, y, 1)
       end
+    elsif item.is_a? Berries
+      if self[x, y].is_a? BerriesPile
+        self[x, y].put(item)
+      else
+        self[x, y] = BerriesPile.new(x, y, item.grams)
+      end
     else
       raise "You need to handle this better"
     end

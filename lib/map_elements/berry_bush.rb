@@ -16,7 +16,7 @@ class BerryBush
   class Inspection
     def initialize(berry_bush, opts = {})
       kgs = (berry_bush.grams / 1000).round(2)
-      msg = "Berry Bush, #{kgs} of berries"
+      msg = "Berry Bush, #{kgs} kgs of berries"
       x = opts[:x]
       y = opts[:y]
       @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")

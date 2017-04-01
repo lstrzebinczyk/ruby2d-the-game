@@ -13,6 +13,9 @@ class PutAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
+      # require "pry"
+      # binding.pry
+
       if $map[@to.x, @to.y].nil? || $map[@to.x, @to.y].can_carry_more?
         item = @character.get_item
         $map.put_item(@to.x, @to.y, item)

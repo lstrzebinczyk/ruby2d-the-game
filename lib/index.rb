@@ -8,6 +8,7 @@ require_relative "./items/berries"
 require_relative "./map_elements/tree"
 require_relative "./map_elements/logs_pile"
 require_relative "./map_elements/berry_bush"
+require_relative "./map_elements/berries_pile"
 
 require_relative "./core_ext/time"
 require_relative "./core_ext/integer"
@@ -174,6 +175,12 @@ if designated_trees.count < trees_count
     cut_game_mode.perform(tree.x, tree.y)
   end
 end
+
+# TODO
+# setup kitchen on any free spot close to fireplace
+# $map.find_all_closest_to(fireplace).each do |spot|
+
+# end
 
 # START!
 show
