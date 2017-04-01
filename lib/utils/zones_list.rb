@@ -1,8 +1,11 @@
 class ZonesList
   include Enumerable
 
+  attr_reader :grouped_count
+
   def initialize
     @grid = Grid.new
+    @grouped_count = grouped_count_calculation
   end
 
   def [](x, y)
@@ -17,7 +20,13 @@ class ZonesList
     @grid.each(&block)
   end
 
-  def grouped_count
+  def recalculate
+    @grouped_count = grouped_count_calculation
+  end
+
+  private
+
+  def grouped_count_calculation
     map(&:map_object)
       .compact
       .keep_if{|i| i.respond_to?(:count) }

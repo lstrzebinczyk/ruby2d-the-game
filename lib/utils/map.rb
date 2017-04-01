@@ -48,6 +48,8 @@ class Map
     else
       raise "You need to handle this better"
     end
+
+    $zones.recalculate
   end
 
   def find_closest_to(spot, &block)
