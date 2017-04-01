@@ -28,6 +28,10 @@ class BerriesPile
     rerender
   end
 
+  def picking_time
+    5
+  end
+
   def grams
     @berries.grams
   end

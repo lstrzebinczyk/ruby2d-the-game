@@ -240,18 +240,12 @@ show
 
 # Introduce drinking
 # Introduce cooking
-# Introduce berry bush gathering
-# Maybe have the settlement require a stockpile, and in that stockpile a specific amount of food and wood?
-# With that stockpile have barrels, boxes and saxes for things?
 
 # have workbench for making wood things
 
 # Have items like axes, fishing rods, waterskins and so on
 # Organised crafting?
 # Logging of various decisions people made/settlement requires?
-
-# REMOVABLE MODULE TO UNIFY MAP BEHAVIOR? ADDING AND REMOVING TO RENDER BEHAVIOR?
-# RENDERABLE MODULE?
 
 # Prepare srug presentation?
 # About all of this?
@@ -341,11 +335,6 @@ show
 #       - etc
 
 
-# TODO: INSPECTION MENU
-# TODO: ALLOW SEEING HOW MANY THINGS ARE IN STORES
-
-
-# TODO: ADD GATHERER 
 # TODO: ADD FISHERMAN
 # TODO: ADD FARMER AND HIS CHICKENS
 
@@ -360,9 +349,6 @@ show
 # ŁOSOŚ: (atlantic salmon)
 #   - 100g raw: 183 calories 
 #   - 100g cooked: 206 calories
-
-# TODO: Bushed gathering!
-
 
 # TODO: JOB PRIORITISING
 # TODO: Add progress bar as progressing circle when cutting trees and gathering bushes
@@ -441,3 +427,5 @@ show
 # What went wrong?
 
 # Use dwarf fortress mayday graphics set?
+
+# TODO: Bug, people put piles on berries?

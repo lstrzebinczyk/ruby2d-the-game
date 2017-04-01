@@ -6,6 +6,10 @@ class Tree
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/pinetree.png")
   end
 
+  def picking_time
+    1.minute
+  end
+
   def passable?
     false
   end

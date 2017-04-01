@@ -2,7 +2,7 @@ class PickAction < Action::Base
   def initialize(from, character)
     @from      = from
     @character = character
-    @time_left = 1.minute
+    @time_left = from.picking_time
   end
 
   def update(seconds)
