@@ -27,6 +27,7 @@ require_relative "./actions/eat_action"
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
+require_relative "./jobs/pick_berry_bush_job"
 
 require_relative "./structures/base"
 require_relative "./structures/kitchen"
@@ -405,3 +406,7 @@ show
 
 
 # Implement inspection tab to list all available jobs in system
+
+
+
+# TODO: Unify jobs interface, usage and behavior

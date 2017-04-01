@@ -16,4 +16,13 @@ class ZonesList
   def each(&block)
     @grid.each(&block)
   end
+
+  def grouped_count
+    map(&:map_object)
+      .compact
+      .keep_if{|i| i.is_a? LogsPile}
+      .group_by(&:class)
+      .map{|k, v| { k => v.map(&:count).inject(&:+) } }
+      .inject({}, :merge)
+  end
 end

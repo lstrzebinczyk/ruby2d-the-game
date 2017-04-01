@@ -14,6 +14,12 @@ class JobList
           job.free? and job.available? and job.type == job_type
         end
       end
+
+      $structures.each do |structure|
+        if structure.has_job?(job_type)
+          return structure.get_job(job_type)
+        end
+      end
     end
     nil
   end

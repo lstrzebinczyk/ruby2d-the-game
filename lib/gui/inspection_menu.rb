@@ -117,12 +117,7 @@ class InspectionMenu
     def rerender
       @texts.each(&:remove)
       @texts = []
-      items = $zones.map(&:map_object)
-                    .compact
-                    .keep_if{|i| i.is_a? LogsPile}
-                    .group_by(&:class)
-                    .map{|k, v| { k => v.map(&:count).inject(&:+) } }
-                    .inject({}, :merge)
+      items = $zones.grouped_count
 
       items.each_with_index do |(k, v), i|
         msg = "#{k} => #{v} #{k.unit}s"

@@ -49,6 +49,10 @@ class BerryBush
     Berries.new(grams)
   end
 
+  def has_more?
+    @grams > 0
+  end
+
   # TODO: You should never try to put something to a berry bush
   def can_carry_more?
     false

@@ -42,6 +42,10 @@ class Fireplace < Structure::Base
     false
   end
 
+  def has_job?(type)
+    false
+  end
+
   def rerender
     @image_burning.remove
     @image_burning.add

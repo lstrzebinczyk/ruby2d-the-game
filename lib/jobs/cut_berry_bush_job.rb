@@ -28,7 +28,7 @@ class CutBerryBushJob
   end
 
   def target
-    @tree
+    @berry_bush
   end
 
   def action_for(character)
