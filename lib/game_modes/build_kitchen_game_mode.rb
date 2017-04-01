@@ -20,8 +20,6 @@ class BuildKitchenGameMode < GameMode::Base
     @mask.color.opacity = 0.6
   end
 
-  private
-
   def terrain_clear?(x, y)
     fields = (x..(x+2)).to_a.product((y..(y+2)).to_a)
 

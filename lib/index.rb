@@ -176,11 +176,27 @@ if designated_trees.count < trees_count
   end
 end
 
-# TODO
-# setup kitchen on any free spot close to fireplace
-# $map.find_all_closest_to(fireplace).each do |spot|
+# setup kitchen on first free spot closest to fireplace
+build_kitchen_game_mode = BuildKitchenGameMode.new
+all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
 
-# end
+free_spots = all_spots.keep_if do |arr|
+  build_kitchen_game_mode.terrain_clear?(arr[0], arr[1])
+end
+
+free_spots.sort_by! do |a|
+  (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+end
+
+spot = free_spots.first
+build_kitchen_game_mode.perform(spot[0], spot[1])
+
+
+kitchen = $structures.find{|s| s.is_a? Kitchen }
+
+5.times do
+  kitchen.ensure_more_berries
+end
 
 # START!
 show
