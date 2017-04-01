@@ -25,7 +25,7 @@ class BuildKitchenGameMode < GameMode::Base
     fields = (x..(x+2)).to_a.product((y..(y+2)).to_a)
 
     fields.all? do |arr|
-      $map[arr[0], arr[1]].nil? and $zones[arr[0], arr[1]].nil? and $structures.none? {|s| s.include_any?(fields) }
+      GameWorld.things_at(arr[0], arr[1]).empty?
     end
   end
 end

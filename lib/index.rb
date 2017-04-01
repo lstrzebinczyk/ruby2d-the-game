@@ -117,6 +117,19 @@ $fps_drawer.rerender(fps)
 $day_and_night_cycle.rerender
 $inspection_menu.rerender
 
+
+class GameWorld
+  def self.things_at(x, y)
+    arr = []
+    arr << $map[x, y]
+    arr << $zones[x, y]
+    arr << $structures.find{|s| s.include_any?([[x, y]]) }
+    arr.compact
+  end
+end
+
+
+
 # 
 # Autoplayer!
 #

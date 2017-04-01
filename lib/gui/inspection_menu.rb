@@ -63,18 +63,31 @@ class InspectionMenu
   end
 
   class InspectTab
+    attr_writer :content
+
     def initialize(opts)
       @x          = opts[:x]
       @margin_top = opts[:margin_top]
+      @texts = []
+      @content = []
     end
 
     def render
     end
 
     def rerender
+      @texts.each(&:remove)
+      @texts = []
+
+      @content.each_with_index do |c, index|
+        msg = c.class
+        t = Text.new(@x + 5, 30 + 25 * index, msg, 16, "fonts/arial.ttf")
+        @texts << t
+      end
     end
 
     def remove
+      @texts.each(&:remove)
     end
   end
 
@@ -124,6 +137,10 @@ class InspectionMenu
     render_tabs
 
     @tab_buttons.first.on_click.call
+  end
+
+  def content=(content)
+    @active_tab.content = content
   end
 
   def click(x, y)
