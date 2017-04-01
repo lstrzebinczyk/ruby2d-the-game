@@ -141,7 +141,17 @@ class Character
   def set_own_action
     if hungry?
       if food_in_storage?
-        # TODO fetch food from storage and eat it
+        spot = $map.find_closest_to(self) do |map_object|
+          map_object.is_a? BerriesPile
+        end
+        to_go_spot = $map.find_free_spot_near(spot)
+        action = MoveAction.new(self, to_go_spot, self).then do
+          PickAction.new(spot, self)
+        end.then do 
+          EatAction.new(self)
+        end
+
+        self.action = action
       else
         berries_spot = $map.find_closest_to(self) do |map_object|
           map_object.is_a? BerryBush and !map_object.picked?
@@ -149,8 +159,6 @@ class Character
 
         to_go_spot = $map.find_free_spot_near(berries_spot)
 
-        # TODO: FOR NOW BERRIES HAVE UNLIMITED AMOUNTS OF BERRIES
-        # TODO: HAVE BERRIES BE LIMITED AND REFILLED WITH TIME
         action = MoveAction.new(self, to_go_spot, self).then do
           GatherBerriesAction.new(self, berries_spot)
         end.then do 
@@ -188,9 +196,11 @@ class Character
     end
   end
 
-  # TODO: this must be dynamic based on actual facts on map
+  # TODO: MAKE FOOD LOOKUP MORE GENERAL
+  # LIKE: $zones.any_food?
+          # $zones.spot_with_food
   def food_in_storage?
-    false
+    !!$zones.grouped_count[BerriesPile]
   end
 
   # TODO: this must be dynamic based on actual facts on map

@@ -194,7 +194,7 @@ build_kitchen_game_mode.perform(spot[0], spot[1])
 
 kitchen = $structures.find{|s| s.is_a? Kitchen }
 
-5.times do
+15.times do
   kitchen.ensure_more_berries
 end
 
@@ -240,7 +240,6 @@ show
 
 # Introduce drinking
 # Introduce cooking
-# Introduce people types, accepting various jobs, or prioritising varous jobs
 # Introduce berry bush gathering
 # Maybe have the settlement require a stockpile, and in that stockpile a specific amount of food and wood?
 # With that stockpile have barrels, boxes and saxes for things?
@@ -433,3 +432,12 @@ show
 
 
 # TODO: Unify jobs interface, usage and behavior
+
+
+
+
+
+# TODO: Characters start circulating aroung berries pile spot. Why?
+# What went wrong?
+
+# Use dwarf fortress mayday graphics set?

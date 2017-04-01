@@ -18,6 +18,8 @@ class BerriesPile
     "kgs"
   end
 
+  attr_reader :x, :y
+
   def initialize(x, y, grams)
     @x       = x
     @y       = y
@@ -43,7 +45,6 @@ class BerriesPile
   end
 
   def can_carry_more?
-    # count < 6
     true
   end
 
@@ -56,15 +57,12 @@ class BerriesPile
   end
 
   def get_item
-    raise Error, "not implemented yet"
-    # item = @logs.shift
-    # rerender
-    # item
+    amount = [700, @berries.grams].min
+    @berries.get_grams(amount)
   end
 
   def put(item)
     if item.is_a? Berries
-      # @logs << item
       @berries += item
       rerender
     else

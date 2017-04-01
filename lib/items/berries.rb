@@ -10,6 +10,11 @@ class Berries < Item
     @grams = grams
   end
 
+  def get_grams(grams)
+    @grams -= grams 
+    Berries.new(grams)
+  end
+
   # 148g (a cup) -> 84.4 calories
   # 1g -> 0.57
   def calories_per_gram
