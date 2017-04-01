@@ -3,13 +3,18 @@
 
 class Character
   attr_accessor :energy
-  attr_reader   :x, :y, :state, :name
+  attr_reader   :x, :y, :state, :name, :accepts_jobs
 
   MAX_CALORIES = 3000
   def initialize(opts)
     x     = opts[:x]
     y     = opts[:y]
-    @name = opts[:name] # Warhammer-style german like setting is awesome
+    @name = opts[:name]
+    @type = opts[:type]
+    @accepts_jobs = {
+      woodcutter: [:woodcutting, :haul],
+      gatherer: [:gathering, :haul]
+    }[@type]
     
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
     @action = nil
@@ -33,7 +38,7 @@ class Character
   end
 
   def image_path
-    "assets/characters/woodcutter.png"
+    "assets/characters/#{@type}.png"
   end
 
   def state=(state)

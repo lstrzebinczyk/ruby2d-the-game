@@ -84,8 +84,10 @@ set({
 
 # GAME SETUP
 $characters_list = [
-  Character.new(x: 30, y: 20, name: "Johann"),
-  Character.new(x: 31, y: 20, name: "Franz")
+  Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
+  Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
+  Character.new(x: 31, y: 20, name: "Karl", type: :gatherer)
+
 ]
 $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 $background = Background.new
@@ -410,3 +412,6 @@ show
 
 
 # Introduce pottery!
+
+
+# Implement inspection tab to list all available jobs in system

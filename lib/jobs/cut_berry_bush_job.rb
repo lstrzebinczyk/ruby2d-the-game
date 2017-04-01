@@ -11,6 +11,10 @@ class CutBerryBushJob
     @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
   end
 
+  def type
+    :woodcutting
+  end
+
   def inspect
     "#<CutTreeJob @y=#{@tree.y}, @x=#{@tree.x}, @taken=#{@taken}>"
   end

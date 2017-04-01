@@ -7,10 +7,15 @@ class JobList
     @jobs << job
   end
 
-  def get_job
-    @jobs.find do |job|
-      job.free? and job.available?
+  def get_job(character)
+    character.accepts_jobs.each do |job_type|
+      if @jobs.any? {|job| job.free? and job.available? and job.type == job_type }
+        return @jobs.find do |job|
+          job.free? and job.available? and job.type == job_type
+        end
+      end
     end
+    nil
   end
 
   def count

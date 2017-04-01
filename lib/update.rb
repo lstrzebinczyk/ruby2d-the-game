@@ -39,7 +39,7 @@ update do
           # TODO: Character should refuse to take action
           # TODO: If his mood is too bad, for example too sleepy and too hungry to work
 
-          job = $job_list.get_job
+          job = $job_list.get_job(character)
           if job
             action = job.action_for(character)
             character.action = action

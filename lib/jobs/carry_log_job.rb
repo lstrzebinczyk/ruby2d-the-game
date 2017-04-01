@@ -6,6 +6,10 @@ class CarryLogJob
     @taken = false
   end
 
+  def type
+    :haul
+  end
+
   def inspect
     "#<CarryLogJob @y=#{@from.y}, @x=#{@from.x}, @taken=#{@taken}>"
   end
