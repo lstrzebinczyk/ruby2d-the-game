@@ -2,8 +2,21 @@
 # TODO: INTRODUCE characterType classess (gatherer, lumberjack etc)
 
 class Character
+   class Inspection
+    def initialize(character, opts = {})
+      msg = "#{character.name}, a #{character.type}"
+      x = opts[:x]
+      y = opts[:y]
+      @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
+    end
+
+    def remove
+      @t.remove
+    end
+  end
+
   attr_accessor :energy
-  attr_reader   :x, :y, :state, :name, :accepts_jobs
+  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type
 
   MAX_CALORIES = 3000
   def initialize(opts)
