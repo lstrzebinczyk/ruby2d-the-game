@@ -69,11 +69,18 @@ class Menu
     end
   end
 
+  def set_game_mode(game_mode_name)
+    game_mode_class_name = game_mode_name.to_s.gsub(" ", "_").camelize + "GameMode"
+    game_mode_class      = game_mode_class_name.constantize
+
+    self.game_mode = game_mode_class.new 
+    self.deactivate_all_buttons
+    @buttons.find{|b| b.text.downcase == game_mode_name.to_s.downcase }.active = true
+  end
+
   private
 
   def render_button(text, opts)
-    game_mode_class_name = text.gsub(" ", "_").camelize + "GameMode"
-    game_mode_class      = game_mode_class_name.constantize
     opts[:active] = @buttons.none?
 
     button = Button.new(text, opts)
@@ -86,9 +93,7 @@ class Menu
     menu = self
 
     button.on_click = -> {
-      menu.game_mode = game_mode_class.new 
-      menu.deactivate_all_buttons
-      button.active = true
+      menu.set_game_mode(text)
     }
 
     @buttons << button
