@@ -1,14 +1,16 @@
 # TODO: Have the fireplace require fuel to be burned
 # And have the fire of the light depend on the amount of fuel present
 
-# TODO: Have the lighted are depend on how trees are
+# TODO: Have the lighted area depend on how trees are
 # represented in area?
 # Tree should catch more light
 # and it should push more light to outside?
-class Fireplace
+class Fireplace < Structure
+  attr_reader :size
+
   def initialize
+    @size = 1
     @position = $map.find_free_spot_near($characters_list.first)
-    $map[@position.x, @position.y] = self
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE
     @image_burning  = Image.new(x, y, "assets/structures/campfire.png")

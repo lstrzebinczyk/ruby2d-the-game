@@ -29,6 +29,7 @@ require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
 
 require_relative "./structures/kitchen"
+require_relative "./structures/fireplace"
 
 require_relative "./game_modes/_index"
 
@@ -40,7 +41,6 @@ require_relative "./utils/character"
 require_relative "./utils/background"
 require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
-require_relative "./utils/fireplace"
 require_relative "./utils/job_list"
 require_relative "./utils/zones_list"
 
@@ -97,10 +97,9 @@ $mouse_background_drawer = MouseBackgroundDrawer.new
 $menu = Menu.new
 $day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
 $game_speed = GameSpeed.new
-$fireplace = Fireplace.new
 $job_list = JobList.new
 $zones = ZonesList.new
-$structures = []
+$structures = [Fireplace.new]
 
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
 
@@ -110,7 +109,7 @@ $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes t
 $background.rerender
 $characters_list.each(&:rerender)
 $map.rerender
-$fireplace.rerender
+$structures.each(&:rerender)
 $menu.rerender
 
 fps = get(:fps)
@@ -136,10 +135,12 @@ end
 # Autoplayer!
 #
 
+fireplace = $structures.find{|s| s.is_a? Fireplace }
+
 # Designate storage place, 5x5 in size, above and to the right of fireplace
 build_storage_mode = SetStorageGameMode.new
-storage_top_left_x = $fireplace.x + 2
-storage_top_left_y = $fireplace.y - 7
+storage_top_left_x = fireplace.x + 2
+storage_top_left_y = fireplace.y - 7
 
 (storage_top_left_x..(storage_top_left_x+5)).each do |x|
   (storage_top_left_y..(storage_top_left_y+5)).each do |y|
@@ -165,7 +166,7 @@ if designated_trees.count < trees_count
 
   need_more_trees_count = trees_count - designated_trees.count
 
-  $map.find_all_closest_to($fireplace) do |map_element|
+  $map.find_all_closest_to(fireplace) do |map_element|
     map_element.is_a?(Tree) and !designated_trees.include?(map_element)
   end.take(need_more_trees_count).each do |tree|
     cut_game_mode.perform(tree.x, tree.y)

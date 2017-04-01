@@ -155,7 +155,8 @@ class Character
         # go to sleep to dormitory
       elsif fireplace_present?
         # find a place to sleep near fireplace
-        spot = $map.find_free_spot_near($fireplace)
+        fireplace = $structures.find{|s| s.is_a? Fireplace }
+        spot = $map.find_free_spot_near(fireplace)
         sleep_action = MoveAction.new(self, spot, self).then do 
           SleepAction.new(self)
         end

@@ -54,5 +54,7 @@ update do
   end
 
   $inspection_menu.rerender_content
-  $fireplace.update($day_and_night_cycle.time)
+  $structures.each do |structure|
+    structure.update($day_and_night_cycle.time)
+  end
 end
