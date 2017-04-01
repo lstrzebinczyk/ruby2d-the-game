@@ -5,7 +5,7 @@
 # represented in area?
 # Tree should catch more light
 # and it should push more light to outside?
-class Fireplace < Structure
+class Fireplace < Structure::Base
   attr_reader :size
 
   def initialize

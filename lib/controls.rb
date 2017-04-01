@@ -27,6 +27,25 @@ on key_down: "escape" do
   close
 end
 
+# TODO: Figure out proper user interface for this!!
+on key_down: "m" do 
+  kitchen = $structures.find{|s| s.is_a? Kitchen }
+
+  if kitchen
+    kitchen.ensure_more_berries
+    $inspection_menu.rerender_content
+  end
+end
+
+on key_down: "n" do
+  kitchen = $structures.find{|s| s.is_a? Kitchen }
+  if kitchen
+    kitchen.ensure_less_berries
+    $inspection_menu.rerender_content
+  end
+end
+
+
 on_key do |key|
   if key == "1"
     $game_speed.set(1)

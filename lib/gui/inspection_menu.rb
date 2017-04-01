@@ -95,6 +95,8 @@ class InspectionMenu
     end
 
     def rerender
+      remove
+      render
     end
 
     def remove
