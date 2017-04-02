@@ -86,17 +86,16 @@ set({
 
 
 # GAME SETUP
-$characters_list = [
-  Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
-  Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
-  Character.new(x: 31, y: 20, name: "Karl", type: :gatherer)
-]
-$map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
-
 
 class GameWorld
-  def initialize
+  def initialize(characters_list, map)
+    $characters_list     = characters_list
+    $map                 = map
     $day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
+    $game_speed          = GameSpeed.new
+    $job_list            = JobList.new
+    $zones               = ZonesList.new
+    $structures          = [Fireplace.new]
   end
 
   def update(seconds)
@@ -130,18 +129,20 @@ class GameWorld
   end
 end
 
-$game_world = GameWorld.new
+characters_list = [
+  Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
+  Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
+  Character.new(x: 31, y: 20, name: "Karl", type: :gatherer)
+]
+map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 
-$zones = ZonesList.new
-$structures = [Fireplace.new]
+
+$game_world = GameWorld.new(characters_list, map)
+
 $background = Background.new
 $fps_drawer = FpsDrawer.new
 $menu = Menu.new
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
-
-$game_speed = GameSpeed.new
-
-$job_list = JobList.new
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
