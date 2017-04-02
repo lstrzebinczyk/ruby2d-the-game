@@ -10,10 +10,6 @@ class CarryLogJob
     :haul
   end
 
-  def inspect
-    "#<CarryLogJob @y=#{@from.y}, @x=#{@from.x}, @taken=#{@taken}>"
-  end
-
   def free?
     !@taken
   end

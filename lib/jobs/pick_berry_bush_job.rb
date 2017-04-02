@@ -13,10 +13,6 @@ class PickBerryBushJob
     :woodcutting
   end
 
-  def inspect
-    "#<PickTreeJob @y=#{@tree.y}, @x=#{@tree.x}, @taken=#{@taken}>"
-  end
-
   def free?
     !@taken
   end
