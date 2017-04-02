@@ -9,6 +9,10 @@ class LogsPile
     "log"
   end
 
+  def picking_time
+    1.minute
+  end
+
   def initialize(x, y, count = nil)
     @x          = x
     @y          = y

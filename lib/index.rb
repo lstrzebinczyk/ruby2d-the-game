@@ -215,15 +215,6 @@ show
 # TODO: cut Tree should leave logs and firewood
 # TODO: cut bushes should leave firewood
 
-# TT.......SS
-# TT.......SS
-# TT....C..SS
-# TT.......SS
-# TT.......SS
-# UNIFIED BENCHMARK!
-# HAVE A MAP LIKE THIS
-# AND BENCHMARK TO CUT AND MOVE ALL THE TREES TO STORAGES
-
 # TODO: DOING HARD WORK USES MORE ENERGY
 # TODO: FOR EXAMPLE, PUTS YOU TO SLEEP FASTER
 
@@ -277,12 +268,6 @@ show
 #   - 100g raw: 183 calories 
 #   - 100g cooked: 206 calories
 
-# TODO: JOB PRIORITISING
-# TODO: Add progress bar as progressing circle when cutting trees and gathering bushes
-
-
-
-
 # http://sosweetcreative.com/2613/font-face-and-base64-data-uri
 
 
@@ -293,9 +278,6 @@ show
 
 # Create structures, assign people to them, and setup expectancies
 #   - for example woodcutter workshop, assign woodcutter and set up to ensure n logs in storages 
-#   - for example gatherer workshop, assign gatherer and assign n kilograms of berries in storages
-
-# fuck gathering berries, create shop for autogatherying and 
 
 # write ruby2d-autorequire
 # Based on activesupport autorequiore
@@ -342,16 +324,8 @@ show
 
 # Implement inspection tab to list all available jobs in system
 
-
-
 # TODO: Unify jobs interface, usage and behavior
 
-
-
-
-
-# TODO: Characters start circulating aroung berries pile spot. Why?
-# What went wrong?
 
 # Use dwarf fortress mayday graphics set?
 
@@ -366,4 +340,4 @@ show
 # for example how many iterations it takes to cut n trees with fireplace, and how many without fireplace 
 
 
-# TODO: WRITE SPECIALISED TESTS FOR JOBS
+# TODO: WRITE SPECIALISED TESTS FOR JOBS and game modes

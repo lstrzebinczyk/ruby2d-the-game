@@ -1,8 +1,17 @@
+require "pry"
+
 class PickAction < Action::Base
   def initialize(from, character)
     @from      = from
     @character = character
-    @time_left = from.picking_time
+  end
+
+  def start
+    if $map[@from.x, @from.y].nil?
+      abandon_action
+    else
+      @time_left = $map[@from.x, @from.y].picking_time
+    end
   end
 
   def update(seconds)
