@@ -123,8 +123,8 @@ test_scenario.run!
 
 # puts "Printing..."
 # printer = RubyProf::GraphHtmlPrinter.new(result)
-# # printer = RubyProf::CallStackPrinter.new(result)
-# # RubyProf::CallStackPrinter
+# printer = RubyProf::CallStackPrinter.new(result)
+# RubyProf::CallStackPrinter
 
 # Pathname.new(FileUtils.pwd).join("./profiles/test_scenario_woodcutting.html").open("w+") do |file|
 #   printer.print(file, {})

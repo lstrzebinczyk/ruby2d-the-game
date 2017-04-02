@@ -7,6 +7,8 @@ class DayAndNightCycle
     @text = Text.new(820, 12, "12:00", 40, "fonts/arial.ttf")
     @sun_shining_mask = Rectangle.new(0, 0, width, height, [0, 33.0 / 255, 115.0 / 255, 1])
     @old_hour = @time.hour
+
+    @ticks_to_update_clock = (60 / $seconds_per_tick).to_i
   end
 
   def rerender
@@ -30,9 +32,15 @@ class DayAndNightCycle
     n = $seconds_per_tick
     @time += n
 
-    unless to_s == @text.text
+    @ticks_to_update_clock -= 1
+
+    if @ticks_to_update_clock == 0 
+      @ticks_to_update_clock = (60 / $seconds_per_tick).to_i
       @text.text = to_s
     end
+
+    # unless to_s == @text.text
+    # end
 
     if !@time.day? and @old_hour != @time.hour
       @sun_shining_mask.remove

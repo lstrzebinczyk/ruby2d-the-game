@@ -72,6 +72,7 @@ INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 
 class GameWorld
   def initialize(characters_list, map)
+    $seconds_per_tick    = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
     $characters_list     = characters_list
     $map                 = map
     $day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
@@ -79,7 +80,6 @@ class GameWorld
     $job_list            = JobList.new
     $zones               = ZonesList.new
     $structures          = []
-    $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
   end
 
   def update
