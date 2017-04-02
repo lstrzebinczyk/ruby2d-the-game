@@ -8,8 +8,6 @@
 # C => Character, woodcutter here
 # S => Storage zone
 
-require_relative "./game_world"
-
 class WorldBuilder
   def initialize(template)
     @template_data = template.split("\n").keep_if{|line| line.length > 0}.map{|line| line.split("") }
@@ -46,10 +44,8 @@ class WorldBuilder
   end
 end
 
-class TestScenario
-end
 
-class WoodcuttingTestScenario < TestScenario
+class WoodcuttingTestScenario 
   def initialize
 template = """
 TT...B...SS

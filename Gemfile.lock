@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.0.5)
+    diff-lcs (1.2.5)
     hike (1.2.3)
     opal (0.10.3)
       hike (~> 1.2)
@@ -10,6 +11,19 @@ GEM
       tilt (>= 1.4)
     perlin_noise (0.1.2)
     rack (2.0.1)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     ruby2d (0.3.0)
       opal (~> 0.10)
     sourcemap (0.1.1)
@@ -23,6 +37,7 @@ PLATFORMS
 
 DEPENDENCIES
   perlin_noise
+  rspec
   ruby2d
 
 BUNDLED WITH
