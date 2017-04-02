@@ -1,5 +1,3 @@
-require "pry"
-
 class PickAction < Action::Base
   def initialize(from, character)
     @from      = from
