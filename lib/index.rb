@@ -343,3 +343,5 @@ show
 # TODO: WRITE SPECIALISED TESTS FOR JOBS and game modes
 
 # TODO: Implement own time class, current one is sloooooow
+
+# TODO: day_and_night_cycle should be 2 separate classess, one for time and one for mask
