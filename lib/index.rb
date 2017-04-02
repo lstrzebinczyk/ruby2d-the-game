@@ -47,7 +47,7 @@ fps = get(:fps)
 $fps_drawer.rerender(fps)
 
 $inspection_menu.rerender
-
+$day_and_night_cycle.rerender
 
 class GameWorld
   def self.things_at(x, y)
