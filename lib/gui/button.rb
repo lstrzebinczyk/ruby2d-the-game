@@ -6,11 +6,9 @@ class Button
     @text           = text
     @active         = opts[:active] || false
     @hover          = false
-    @width          = opts[:width]
-    @height         = opts[:height] || 3 * PIXELS_PER_SQUARE
     @text_size      = opts[:text_size] || 36
-    @active_color   = opts[:active_color]   || [1, 0, 0, 1]
-    @inactive_color = opts[:inactive_color]   || [0, 0, 1, 1]
+    @active_color   = opts[:active_color] || [1, 0, 0, 1]
+    @inactive_color = opts[:inactive_color] || [0, 0, 1, 1]
   end
 
   def remove
@@ -67,18 +65,21 @@ class Button
   end
 
   def render(x, y)
-    @background = Rectangle.new(
-      x, 
-      y, 
-      width,
-      @height, 
-      color
-    )
+    side_padding = 12
 
     @text_element = Text.new(
-      x + 4, 
+      x + side_padding, 
       y + 4, 
       @text, @text_size, "fonts/arial.ttf"
     )
+
+    @background = Rectangle.new(
+      x, 
+      y, 
+      @text_element.width + 2 * side_padding,
+      @text_element.height + 8, 
+      color
+    )
+
   end
 end

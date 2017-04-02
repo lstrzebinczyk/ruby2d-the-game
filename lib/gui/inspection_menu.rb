@@ -171,17 +171,16 @@ class InspectionMenu
   end
 
   def render_tabs
-    render_button("Chars", width: 50)
-    render_button("Inspect", width: 55)
-    render_button("Store", width: 55)
+    render_button("Chars")
+    render_button("Inspect")
+    render_button("Store")
   end
 
-  def render_button(text, opts)
+  def render_button(text, opts = {})
     opts[:active] = @tab_buttons.none?
     opts[:text_size] = 14
     opts[:active_color] = [1, 1, 1, 0.3]
     opts[:inactive_color] = "brown"
-    opts[:height] = 26
 
     button = Button.new(text, opts)
     left = if @tab_buttons.any?
