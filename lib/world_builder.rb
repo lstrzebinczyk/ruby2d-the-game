@@ -70,10 +70,17 @@ TT.......SS
 
   def run!
     iterations = 0
-    while !done?
+
+    should_continue = true
+
+    while should_continue
       iterations += 1
       trees_count   = $map.count{|thing| thing.is_a? Tree }
       @world.update
+
+      if iterations % 1000 == 0 
+        should_continue = !done?
+      end
     end
   end
 
@@ -102,3 +109,25 @@ end
 
 test_scenario = WoodcuttingTestScenario.new
 test_scenario.run!
+
+
+
+
+require "ruby-prof"
+require "pathname"
+
+RubyProf.start
+
+test_scenario = WoodcuttingTestScenario.new
+test_scenario.run!
+
+result = RubyProf.stop
+
+puts "Printing..."
+printer = RubyProf::GraphHtmlPrinter.new(result)
+# printer = RubyProf::CallStackPrinter.new(result)
+# RubyProf::CallStackPrinter
+
+Pathname.new(FileUtils.pwd).join("./profiles/test_scenario_woodcutting.html").open("w+") do |file|
+  printer.print(file, {})
+end
