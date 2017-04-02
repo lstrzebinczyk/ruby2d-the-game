@@ -364,3 +364,6 @@ show
 #TODO: Write tests to measure effects of various things
 # TODO: So that we can measure effect of various things
 # for example how many iterations it takes to cut n trees with fireplace, and how many without fireplace 
+
+
+# TODO: WRITE SPECIALISED TESTS FOR JOBS
