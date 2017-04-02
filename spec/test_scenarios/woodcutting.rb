@@ -1,11 +1,12 @@
 class WoodcuttingTestScenario 
-  def initialize
+  def initialize(opts)
 template = """
 TT...B...SS
 TT....W..SS
 TT.......SS
 """
-    @world = WorldBuilder.new(template).build
+    
+    @world = WorldBuilder.new(template, opts).build
 
     cut_game_mode = CutGameMode.new
     $map.each do |elem|
