@@ -341,3 +341,5 @@ show
 
 
 # TODO: WRITE SPECIALISED TESTS FOR JOBS and game modes
+
+# TODO: Implement own time class, current one is sloooooow

@@ -5,10 +5,11 @@ class PickAction < Action::Base
   end
 
   def start
-    if $map[@from.x, @from.y].nil?
+    thing = $map[@from.x, @from.y]
+    if thing.nil? or !thing.respond_to?(:picking_time)
       abandon_action
     else
-      @time_left = $map[@from.x, @from.y].picking_time
+      @time_left = thing.picking_time
     end
   end
 
