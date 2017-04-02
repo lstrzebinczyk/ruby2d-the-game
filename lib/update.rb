@@ -1,4 +1,6 @@
 update do 
+  # GUI
+
   # Only show mouse button if it's on map
   # don't show anything if it's on menu
   if $menu.contains?(get(:mouse_x), get(:mouse_y))
@@ -23,38 +25,15 @@ update do
     $menu.game_mode.hover(mouse_x, mouse_y)
   end
 
+  $inspection_menu.rerender_content
+
   # APPROXIMATELY 2 times per second
   if rand < 0.03
     fps = get(:fps)
     $fps_drawer.rerender(fps)
   end
+  
 
-  $game_speed.value.times do
-    $characters_list.each do |character|
-      unless character.has_action?
-        if character.needs_own_action?
-          character.set_own_action
-        else
-
-          # TODO: Character should refuse to take action
-          # TODO: If his mood is too bad, for example too sleepy and too hungry to work
-
-          job = $job_list.get_job(character)
-          if job
-            action = job.action_for(character)
-            character.action = action
-            job.taken = true
-          end
-        end
-      end
-      character.update($seconds_per_tick)
-    end
-
-    $day_and_night_cycle.update
-  end
-
-  $inspection_menu.rerender_content
-  $structures.each do |structure|
-    structure.update($day_and_night_cycle.time)
-  end
+  # GAME WORLD
+  $game_world.update($seconds_per_tick)
 end

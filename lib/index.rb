@@ -42,7 +42,6 @@ require_relative "./utils/random_noise_generator"
 require_relative "./utils/map"
 require_relative "./utils/character"
 require_relative "./utils/background"
-require_relative "./utils/mouse_background_drawer"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/job_list"
 require_relative "./utils/zones_list"
@@ -54,6 +53,7 @@ require_relative "./gui/game_speed"
 require_relative "./gui/inspection_menu"
 require_relative "./gui/button"
 require_relative "./gui/menu"
+require_relative "./gui/mouse_background_drawer"
 
 require_relative "./controls"
 require_relative "./update"
@@ -90,21 +90,56 @@ $characters_list = [
   Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
   Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
   Character.new(x: 31, y: 20, name: "Karl", type: :gatherer)
-
 ]
 $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
-$background = Background.new
 
-$fps_drawer = FpsDrawer.new
-$mouse_background_drawer = MouseBackgroundDrawer.new
-$menu = Menu.new
-$day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
-$game_speed = GameSpeed.new
-$job_list = JobList.new
+
+class GameWorld
+  def update(seconds)
+    $game_speed.value.times do
+      $characters_list.each do |character|
+        unless character.has_action?
+          if character.needs_own_action?
+            character.set_own_action
+          else
+
+            # TODO: Character should refuse to take action
+            # TODO: If his mood is too bad, for example too sleepy and too hungry to work
+
+            job = $job_list.get_job(character)
+            if job
+              action = job.action_for(character)
+              character.action = action
+              job.taken = true
+            end
+          end
+        end
+        character.update($seconds_per_tick)
+      end
+
+      $day_and_night_cycle.update
+    end
+
+    $structures.each do |structure|
+      structure.update($day_and_night_cycle.time)
+    end
+  end
+end
+
+$game_world = GameWorld.new
+
 $zones = ZonesList.new
 $structures = [Fireplace.new]
-
+$background = Background.new
+$fps_drawer = FpsDrawer.new
+$menu = Menu.new
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
+
+$day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
+
+$game_speed = GameSpeed.new
+
+$job_list = JobList.new
 
 $previous_mouse_over = :game_window
 $seconds_per_tick = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
@@ -429,3 +464,11 @@ show
 # Use dwarf fortress mayday graphics set?
 
 # TODO: Bug, people put piles on berries?
+# TODO: Finish map builder and first set of tests
+
+# TODO: Implement death of starvation
+# TODO: So that our tests of various scenarios are somewhat realistic
+
+#TODO: Write tests to measure effects of various things
+# TODO: So that we can measure effect of various things
+# for example how many iterations it takes to cut n trees with fireplace, and how many without fireplace 
