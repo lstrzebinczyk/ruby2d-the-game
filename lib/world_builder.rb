@@ -52,10 +52,8 @@ end
 class WoodcuttingTestScenario < TestScenario
   def initialize
 template = """
-TT.......SS
 TT...B...SS
 TT....W..SS
-TT.......SS
 TT.......SS
 """
     @world = WorldBuilder.new(template).build
@@ -107,27 +105,27 @@ TT.......SS
   end
 end
 
+# test_scenario = WoodcuttingTestScenario.new
+# test_scenario.run!
+
+
+
+
+# require "ruby-prof"
+# require "pathname"
+
+# RubyProf.start
+
 test_scenario = WoodcuttingTestScenario.new
 test_scenario.run!
 
+# result = RubyProf.stop
 
+# puts "Printing..."
+# printer = RubyProf::GraphHtmlPrinter.new(result)
+# # printer = RubyProf::CallStackPrinter.new(result)
+# # RubyProf::CallStackPrinter
 
-
-require "ruby-prof"
-require "pathname"
-
-RubyProf.start
-
-test_scenario = WoodcuttingTestScenario.new
-test_scenario.run!
-
-result = RubyProf.stop
-
-puts "Printing..."
-printer = RubyProf::GraphHtmlPrinter.new(result)
-# printer = RubyProf::CallStackPrinter.new(result)
-# RubyProf::CallStackPrinter
-
-Pathname.new(FileUtils.pwd).join("./profiles/test_scenario_woodcutting.html").open("w+") do |file|
-  printer.print(file, {})
-end
+# Pathname.new(FileUtils.pwd).join("./profiles/test_scenario_woodcutting.html").open("w+") do |file|
+#   printer.print(file, {})
+# end
