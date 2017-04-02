@@ -95,6 +95,10 @@ $map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 
 
 class GameWorld
+  def initialize
+    $day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
+  end
+
   def update(seconds)
     $game_speed.value.times do
       $characters_list.each do |character|
@@ -135,8 +139,6 @@ $fps_drawer = FpsDrawer.new
 $menu = Menu.new
 $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
 
-$day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
-
 $game_speed = GameSpeed.new
 
 $job_list = JobList.new
@@ -153,7 +155,6 @@ $menu.rerender
 fps = get(:fps)
 $fps_drawer.rerender(fps)
 
-$day_and_night_cycle.rerender
 $inspection_menu.rerender
 
 
