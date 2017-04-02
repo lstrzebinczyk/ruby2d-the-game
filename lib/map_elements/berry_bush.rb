@@ -28,11 +28,15 @@ class BerryBush
   end
   attr_reader :x, :y, :grams
 
-  def initialize(x, y)
+  def initialize(x, y, grams = nil)
     @x, @y = x, y
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/berrybush.png")
     @picked = false
-    @grams = 4500 + rand * 1000
+    if grams 
+      @grams = grams 
+    else
+      @grams = 4500 + rand * 1000
+    end
   end
 
   def get_berries(seconds)

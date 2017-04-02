@@ -35,5 +35,5 @@ update do
   
 
   # GAME WORLD
-  $game_world.update($seconds_per_tick)
+  $game_world.update
 end

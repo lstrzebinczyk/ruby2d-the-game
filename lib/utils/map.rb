@@ -8,12 +8,16 @@ class Map
     end
   end
 
+  include Enumerable
+
   def initialize(opts)
     @width  = opts[:width]
     @height = opts[:height]
     @grid   = Grid.new
+  end
 
-    fill_grid_with_objects
+  def each(&block)
+    @grid.each(&block)
   end
 
   def [](x, y)
@@ -94,20 +98,6 @@ class Map
     self[x, y] = nil
   end
 
-  private
-
-  def noise_generator
-    @noise ||= RandomNoiseGenerator.new
-  end
-
-  def set_tree?(x, y)
-    rand < noise_generator.get(x, y)
-  end
-
-  def set_bush?(x, y) # of love
-    rand < (noise_generator.get(x, y) / 2)
-  end
-
   def fill_grid_with_objects
     (0..@width).each do |x|
       (0..@height).each do |y|
@@ -120,5 +110,19 @@ class Map
         end
       end
     end
+  end
+
+  private
+
+  def noise_generator
+    @noise ||= RandomNoiseGenerator.new
+  end
+
+  def set_tree?(x, y)
+    rand < noise_generator.get(x, y)
+  end
+
+  def set_bush?(x, y) # of love
+    rand < (noise_generator.get(x, y) / 2)
   end
 end

@@ -184,12 +184,14 @@ class Character
 
         self.action = sleep_action
       else
+
+        self.action = SleepAction.new(self)
         # TODO
         # TODO MAKE FIREPLACE BUILDABLE INSTEAD OF HAVING IT FROM BEGINNING
         # TODO MAKE STONES PART OF MAP
         # TODO MAKE FIREPLACE BUILDABLE FROM STONES
         # Go to sleep where you are standing
-        raise "NOT IMPLEMENTED"
+        # raise "NOT IMPLEMENTED"
       end
     else
       raise "ERROR"
@@ -215,7 +217,7 @@ class Character
 
   # TODO: this must be dynamic based on actual facts on map
   def fireplace_present?
-    true
+    $structures.any?{|structure| structure.is_a? Fireplace }
   end
 
   def update_position(x, y)
