@@ -3,6 +3,8 @@
 # Not connected only to pile
 
 class LogsPile
+  attr_reader :x, :y
+
   def self.unit
     "log"
   end
