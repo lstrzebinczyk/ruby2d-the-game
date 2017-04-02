@@ -3,7 +3,9 @@ GEM
   specs:
     concurrent-ruby (1.0.5)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     hike (1.2.3)
+    json (2.0.3)
     opal (0.10.3)
       hike (~> 1.2)
       sourcemap (~> 0.1.0)
@@ -26,6 +28,11 @@ GEM
     rspec-support (3.5.0)
     ruby2d (0.3.0)
       opal (~> 0.10)
+    simplecov (0.13.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sourcemap (0.1.1)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -39,6 +46,7 @@ DEPENDENCIES
   perlin_noise
   rspec
   ruby2d
+  simplecov
 
 BUNDLED WITH
    1.13.6

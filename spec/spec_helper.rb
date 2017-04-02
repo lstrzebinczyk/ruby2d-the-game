@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require_relative "./../lib/game_world"
 require "helpers/world_builder"
 
