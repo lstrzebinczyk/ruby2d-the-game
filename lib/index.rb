@@ -28,6 +28,8 @@ map.fill_grid_with_objects
 
 $game_world = GameWorld.new(characters_list, map)
 
+$structures << Fireplace.new
+
 $background = Background.new
 $fps_drawer = FpsDrawer.new
 $menu = Menu.new
@@ -75,10 +77,6 @@ storage_top_left_y = fireplace.y - 7
     build_storage_mode.perform(x, y)
   end
 end
-
-
-$structures << Fireplace.new
-
 
 # Cut whatever is in place of that storage mode
 
