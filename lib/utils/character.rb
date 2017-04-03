@@ -144,8 +144,7 @@ class Character
         spot = $map.find_closest_to(self) do |map_object|
           map_object.is_a? BerriesPile
         end
-        to_go_spot = $map.find_free_spot_near(spot)
-        action = MoveAction.new(character: self, to: to_go_spot).then do
+        action = MoveAction.new(character: self, near: spot).then do
           PickAction.new(spot, self)
         end.then do
           EatAction.new(self)
@@ -157,9 +156,7 @@ class Character
           map_object.is_a? BerryBush and !map_object.picked?
         end
 
-        to_go_spot = $map.find_free_spot_near(berries_spot)
-
-        action = MoveAction.new(character: self, to: to_go_spot).then do
+        action = MoveAction.new(character: self, near: berries_spot).then do
           GatherBerriesAction.new(self, berries_spot)
         end.then do
           EatAction.new(self)
@@ -177,8 +174,7 @@ class Character
       elsif fireplace_present?
         # find a place to sleep near fireplace
         fireplace = $structures.find{|s| s.is_a? Fireplace }
-        spot = $map.find_free_spot_near(fireplace)
-        sleep_action = MoveAction.new(character: self, to: spot).then do
+        sleep_action = MoveAction.new(character: self, near: fireplace).then do
           SleepAction.new(self)
         end
 

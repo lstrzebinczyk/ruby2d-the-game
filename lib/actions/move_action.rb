@@ -1,13 +1,23 @@
 class MoveAction < Action::Base
   def initialize(opts)
-    @to         = opts[:to]
     @character  = opts[:character]
-    if @to.nil? or @character.nil?
-      raise ArgumentError, "Move action requires :to and :character in input. Received to: '#{@to}', character: '#{@character}'"
+    if !@character.is_a? Character
+      raise ArgumentError, "MoveAction requires :character in input. Received '#{@character.inspect}'"
     end
 
-    @path       = calculate_path(from: @character)
+    @near = opts[:near]
+    @to   = opts[:to]
+
+    if @to and @near
+      raise ArgumentError, "MoveAction accepts either :to or :near. You passed both"
+    end
+
+    if @to.nil?
+      @to = $map.find_free_spot_near(@near)
+    end
+
     @ticks_left = 4 * @character.speed_multiplier
+    calculate_path!
   end
 
   # 4 meters per second when @character.speed_multiplier == 1
@@ -27,7 +37,7 @@ class MoveAction < Action::Base
           if @path.empty?
             end_action
           else
-            @path = calculate_path(from: @character)
+            calculate_path!
             next_step = @path.shift
             @character.update_position(next_step.x, next_step.y)
           end
@@ -42,8 +52,9 @@ class MoveAction < Action::Base
     end
   end
 
-  def calculate_path(opts)
-    from = opts[:from]
-    PathFinder.new(from, @to, $map).search
+  private
+
+  def calculate_path!
+    @path = PathFinder.new(@character, @to, $map).search
   end
 end

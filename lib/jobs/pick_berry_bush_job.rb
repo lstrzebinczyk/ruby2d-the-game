@@ -26,16 +26,13 @@ class PickBerryBushJob
   end
 
   def action_for(character)
-    spot_near_berries     = $map.find_free_spot_near(@berry_bush)
-    zone_to_leave_berries = available_zone
-    spot_near_zone        = $map.find_free_spot_near(available_zone)
-
-    MoveAction.new(character: character, to: spot_near_berries).then do
+    zone = available_zone
+    MoveAction.new(character: character, near: @berry_bush).then do
       GatherBerriesAction.new(character, @berry_bush)
     end.then do
-      MoveAction.new(character: character, to: spot_near_zone)
+      MoveAction.new(character: character, near: zone)
     end.then do
-      PutAction.new(zone_to_leave_berries, character, after: ->{ remove })
+      PutAction.new(zone, character, after: ->{ remove })
     end
   end
 
