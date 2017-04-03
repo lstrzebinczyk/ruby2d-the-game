@@ -7,6 +7,7 @@
 # T => Tree
 # C => Character, woodcutter here
 # S => Storage zone
+# L => Logs pile
 
 class WorldBuilder
   def initialize(template, opts = {})
@@ -23,6 +24,8 @@ class WorldBuilder
         case symbol
         when "T"
           map[x, y] = Tree.new(x, y)
+        when "L"
+          map[x, y] = LogsPile.new(x, y, 1)
         when "B"
           map[x, y] = BerryBush.new(x, y, @berry_bush_grams) # really, really big berry bush to keep them fed
         when "W"

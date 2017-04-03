@@ -1,13 +1,13 @@
 class PutAction < Action::Base
   def initialize(to, character, opts = {})
-    @to        = to 
+    @to        = to
     @character = character
     @time_left = 1.minute
     @after_callback = opts[:after]
   end
 
-  # If you want to put your object down, but the space is already filled 
-  # Check if there is place in another storage and go there 
+  # If you want to put your object down, but the space is already filled
+  # Check if there is place in another storage and go there
   # And if there is not, just drop it wherever you can
   def update(seconds)
     @time_left -= seconds
@@ -19,7 +19,13 @@ class PutAction < Action::Base
         @after_callback.call
         end_action
       else
-        spot = available_zone || @character
+        spot = nil
+        if available_zone
+          spot = available_zone
+        else
+          spot = @character
+        end
+
         spot_near = $map.find_free_spot_near(spot)
         action = PutAction.new(spot_near, @character, after: @after_callback)
 

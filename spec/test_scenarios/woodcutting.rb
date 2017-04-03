@@ -2,6 +2,8 @@ class WoodcuttingTestScenario
   def initialize(opts)
 template = """
 TT.BW.SS
+TT....SS
+TT....SS
 """
 
     opts[:berry_bush_grams] = 1000000

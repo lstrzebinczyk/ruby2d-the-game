@@ -16,7 +16,7 @@ class Character
   end
 
   attr_accessor :energy
-  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type
+  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :action
 
   MAX_CALORIES = 3000
   def initialize(opts)
@@ -28,7 +28,7 @@ class Character
       woodcutter: [:woodcutting, :haul],
       gatherer: [:gathering, :haul]
     }[@type]
-    
+
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
     @action = nil
 
@@ -61,7 +61,7 @@ class Character
 
     @state = state
 
-    if state == :sleeping 
+    if state == :sleeping
       indicator_x = x * PIXELS_PER_SQUARE + 11
       indicator_y = y * PIXELS_PER_SQUARE - 7
       @sleeping_indicator_1 = Text.new(indicator_x, indicator_y, "z", 10, "fonts/arial.ttf")
@@ -89,7 +89,7 @@ class Character
   end
 
   def carry=(item)
-    @carried_item = item 
+    @carried_item = item
   end
 
   def has_something_to_eat?
@@ -147,7 +147,7 @@ class Character
         to_go_spot = $map.find_free_spot_near(spot)
         action = MoveAction.new(self, to_go_spot, self).then do
           PickAction.new(spot, self)
-        end.then do 
+        end.then do
           EatAction.new(self)
         end
 
@@ -161,7 +161,7 @@ class Character
 
         action = MoveAction.new(self, to_go_spot, self).then do
           GatherBerriesAction.new(self, berries_spot)
-        end.then do 
+        end.then do
           EatAction.new(self)
         end
 
@@ -178,7 +178,7 @@ class Character
         # find a place to sleep near fireplace
         fireplace = $structures.find{|s| s.is_a? Fireplace }
         spot = $map.find_free_spot_near(fireplace)
-        sleep_action = MoveAction.new(self, spot, self).then do 
+        sleep_action = MoveAction.new(self, spot, self).then do
           SleepAction.new(self)
         end
 
@@ -212,7 +212,7 @@ class Character
 
   # TODO: this must be dynamic based on actual facts on map
   def dormitory_present?
-    false 
+    false
   end
 
   # TODO: this must be dynamic based on actual facts on map
@@ -250,7 +250,7 @@ class Character
     # 8 hours of sleep is enough rest for 16 hours of being awake
     # therefore energy goes from 1 to 0 in 16 hours
     # and goes back when sleeping in 8 hours
-    # during one second energy decreases by 1 / (16*60*60) 
+    # during one second energy decreases by 1 / (16*60*60)
     # when sleeping energy increases by 3 times that amount
     # TODO: MAKE REST SPEED DEPEND ON QUALITY OF BED
     @energy -= seconds / 57600.0
@@ -264,9 +264,9 @@ class Character
   end
 
   def calories_loss_per_second
-    if state == :sleeping 
-      # 69 calories per hour 
-      # 69.0 / (60 * 60) per second 
+    if state == :sleeping
+      # 69 calories per hour
+      # 69.0 / (60 * 60) per second
       0.019
     elsif state == :working
       # TODO
