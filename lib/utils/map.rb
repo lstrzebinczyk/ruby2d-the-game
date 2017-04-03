@@ -98,6 +98,7 @@ class Map
     self[x, y] = nil
   end
 
+  # TODO: This should really be moved to some sort of MapCreator.new
   def fill_grid_with_objects
     (0..@width).each do |x|
       (0..@height).each do |y|

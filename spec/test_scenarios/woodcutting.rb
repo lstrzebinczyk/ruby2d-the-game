@@ -1,5 +1,7 @@
 class WoodcuttingTestScenario
   def initialize(opts)
+
+# This is so big because I want it to trigger sleeping and eating
 template = """
 TT.BW.SS
 TT....SS
