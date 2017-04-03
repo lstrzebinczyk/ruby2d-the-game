@@ -6,6 +6,8 @@ TT....W..SS
 TT.......SS
 """
 
+
+    opts[:berry_bush_grams] = 1000000
     @world = WorldBuilder.new(template, opts).build
 
     cut_game_mode = CutGameMode.new

@@ -12,6 +12,7 @@ class WorldBuilder
   def initialize(template, opts = {})
     @template_data = template.split("\n").keep_if{|line| line.length > 0}.map{|line| line.split("") }
     @opts = opts
+    @berry_bush_grams = opts[:berry_bush_grams] || 5000
   end
 
   def build
@@ -23,7 +24,7 @@ class WorldBuilder
         when "T"
           map[x, y] = Tree.new(x, y)
         when "B"
-          map[x, y] = BerryBush.new(x, y, 1000000) # really, really big berry bush to keep them fed
+          map[x, y] = BerryBush.new(x, y, @berry_bush_grams) # really, really big berry bush to keep them fed
         when "W"
           chars << Character.new(x: x, y: y, name: "Char ##{chars.length + 1}", type: :woodcutter)
         when "G"
