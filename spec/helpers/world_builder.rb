@@ -9,7 +9,7 @@
 # S => Storage zone
 
 class WorldBuilder
-  def initialize(template, opts)
+  def initialize(template, opts = {})
     @template_data = template.split("\n").keep_if{|line| line.length > 0}.map{|line| line.split("") }
     @opts = opts
   end
@@ -26,6 +26,8 @@ class WorldBuilder
           map[x, y] = BerryBush.new(x, y, 1000000) # really, really big berry bush to keep them fed
         when "W"
           chars << Character.new(x: x, y: y, name: "Char ##{chars.length + 1}", type: :woodcutter)
+        when "G"
+          chars << Character.new(x: x, y: y, name: "Char ##{chars.length + 1}", type: :gatherer)
         end
       end
     end

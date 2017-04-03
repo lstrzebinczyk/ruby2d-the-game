@@ -1,16 +1,16 @@
-class WoodcuttingTestScenario 
+class WoodcuttingTestScenario
   def initialize(opts)
 template = """
 TT...B...SS
 TT....W..SS
 TT.......SS
 """
-    
+
     @world = WorldBuilder.new(template, opts).build
 
     cut_game_mode = CutGameMode.new
     $map.each do |elem|
-      if elem.is_a? Tree 
+      if elem.is_a? Tree
         cut_game_mode.perform(elem.x, elem.y)
       end
     end
@@ -23,10 +23,9 @@ TT.......SS
 
     while should_continue
       iterations += 1
-      trees_count   = $map.count{|thing| thing.is_a? Tree }
       @world.update
 
-      if iterations % 1000 == 0 
+      if iterations % 1000 == 0
         should_continue = !done?
       end
     end
@@ -40,7 +39,7 @@ TT.......SS
 
   def unstored_logs
     $map.find_all{|thing| thing.is_a? LogsPile }.count do |logs_pile|
-      x = logs_pile.x 
+      x = logs_pile.x
       y = logs_pile.y
       !$zones.find{|zone| zone.x == x and zone.y == y}
     end

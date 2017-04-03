@@ -49,19 +49,7 @@ $fps_drawer.rerender(fps)
 $inspection_menu.rerender
 $day_and_night_cycle.rerender
 
-class GameWorld
-  def self.things_at(x, y)
-    arr = []
-    arr << $map[x, y]
-    arr << $zones[x, y]
-    arr << $structures.find{|s| s.include_any?([[x, y]]) }
-    arr.compact
-  end
-end
-
-
-
-# 
+#
 # Autoplayer!
 #
 
@@ -148,7 +136,7 @@ show
 # ONLY ALLOW HAVING LEFT HAND AND RIGHT HAND FOR NOW
 
 # Have menu options to choose between
-  #   - dormitory 
+  #   - dormitory
 
 # pre-calculate where passable areas are with flooding the map from characters position
 # Use that information to help with maps passable information
@@ -179,14 +167,14 @@ show
 
 # Introduce roads
 # when person goes to road it's noted
-# and when there is enough of those 
+# and when there is enough of those
 # road (in steps) is created
-# it should be easier to walk on road 
+# it should be easier to walk on road
 # (smaller cost)
 # thus reinforcing roads creation
 
-# Random visitors should visit city 
-# and want to eat something and stay for a night 
+# Random visitors should visit city
+# and want to eat something and stay for a night
 # and want to leave money
 # later this should be only near trade routes
 # or on crossing of trade routes
@@ -200,7 +188,7 @@ show
 
 # Write documentation? For myself and others, to inform what various concepts are?
 # Add right menu with tabs:
-  # - show jobs list 
+  # - show jobs list
   # - show characters
 
 # BUG WHEN JOB IS GIVEN TO CUT TREE TO WHICH THERE IS NO PATH
@@ -218,26 +206,26 @@ show
 # TODO: DOING HARD WORK USES MORE ENERGY
 # TODO: FOR EXAMPLE, PUTS YOU TO SLEEP FASTER
 
-# TODO: Build a system of passing informations around 
-# Instead of having all the informations in the system 
+# TODO: Build a system of passing informations around
+# Instead of having all the informations in the system
 # People will use the informations they have themselves
-# For example if there is food in the storage 
+# For example if there is food in the storage
 # or basically anything
 # People go look for informations themselves
-# Or can ask questions and get informations 
+# Or can ask questions and get informations
 # Or people can exchange informations while just randomly talking
 
-# TODO: 
+# TODO:
 # Implement a system of growing crops in a garden
 # like tomatos, cucumbers and others
 # Make it realistic
-# Check how fast tomatos grow, how often do you need to water and so on 
+# Check how fast tomatos grow, how often do you need to water and so on
 
 # TODO: MIGRATE EVERYTHING FROM THE GAME V1
-# TODO: Then replace the game v1 with current implementation 
+# TODO: Then replace the game v1 with current implementation
 # TODO: And have the new version accessible in github.io as web version
 
-# TODO: HAVE GARDEN AND GROW BASIC GARDEN CROPS, 
+# TODO: HAVE GARDEN AND GROW BASIC GARDEN CROPS,
 #       FIGURE OUT WATERING DOWN AND HOW LONG DOES IT GROW
 
 # TODO: HAVE CHICKENS, FIGURE OUT FEEDING THEM AND GETTING EGGS
@@ -247,7 +235,7 @@ show
 #       for example: I have this-and-that in my own drawer
 
 
-# TODO: CREATE CLI TO ADD THINGS LIKE 
+# TODO: CREATE CLI TO ADD THINGS LIKE
 #       - the_game create_action
 #       - the_hame create_job
 #       - etc
@@ -265,19 +253,19 @@ show
 
 # http://www.newhealthguide.org/How-Many-Calories-In-Salmon.html
 # ŁOSOŚ: (atlantic salmon)
-#   - 100g raw: 183 calories 
+#   - 100g raw: 183 calories
 #   - 100g cooked: 206 calories
 
 # http://sosweetcreative.com/2613/font-face-and-base64-data-uri
 
 
 
-# TODO: Bigger map 
+# TODO: Bigger map
 # TODO: Buildable fireplace
 
 
 # Create structures, assign people to them, and setup expectancies
-#   - for example woodcutter workshop, assign woodcutter and set up to ensure n logs in storages 
+#   - for example woodcutter workshop, assign woodcutter and set up to ensure n logs in storages
 
 # write ruby2d-autorequire
 # Based on activesupport autorequiore
@@ -300,17 +288,6 @@ show
 
 
 # Js version, compile with emscripten?
-
-
-# introduce global
-
-# def sc(num)
-#   num * PIXELS_PER_SQUARE
-# end
-
-
-# ??????
-
 
 # Add game data inspection tab, let it have graph of rendered objects in time
 # Might help find some rendered objects leak
@@ -335,9 +312,9 @@ show
 # TODO: Implement death of starvation
 # TODO: So that our tests of various scenarios are somewhat realistic
 
-#TODO: Write tests to measure effects of various things
+# TODO: Write tests to measure effects of various things
 # TODO: So that we can measure effect of various things
-# for example how many iterations it takes to cut n trees with fireplace, and how many without fireplace 
+# for example how many iterations it takes to cut n trees with fireplace, and how many without fireplace
 
 
 # TODO: WRITE SPECIALISED TESTS FOR JOBS and game modes
@@ -345,3 +322,11 @@ show
 # TODO: Implement own time class, current one is sloooooow
 
 # TODO: day_and_night_cycle should be 2 separate classess, one for time and one for mask
+
+
+# Extract Button class to a nice external lib
+# ruby2d-button
+
+# Based more-or-less on html version of button
+# To have nice and self-contained buttons we must have the ability to add multiple on_click events
+# , an array of them

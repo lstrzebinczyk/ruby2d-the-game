@@ -10,4 +10,9 @@ describe "Test scenarios" do
     test_scenario = WoodcuttingTestScenario.new(fireplace: true)
     test_scenario.run!
   end
+
+  it "berries gathering scenario" do
+    test_scenario = BerriesGatheringTestScenario.new
+    test_scenario.run!
+  end
 end

@@ -23,12 +23,12 @@ on key_down: "space" do
   end
 end
 
-on key_down: "escape" do 
+on key_down: "escape" do
   close
 end
 
 # TODO: Figure out proper user interface for this!!
-on key_down: "m" do 
+on key_down: "m" do
   kitchen = $structures.find{|s| s.is_a? Kitchen }
 
   if kitchen

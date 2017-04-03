@@ -71,6 +71,14 @@ INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 
 
 class GameWorld
+  def self.things_at(x, y)
+    arr = []
+    arr << $map[x, y]
+    arr << $zones[x, y]
+    arr << $structures.find{|s| s.include_any?([[x, y]]) }
+    arr.compact
+  end
+
   def initialize(characters_list, map)
     $seconds_per_tick    = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
     $characters_list     = characters_list
