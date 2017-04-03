@@ -28,6 +28,8 @@ class WorldBuilder
           map[x, y] = LogsPile.new(x, y, 1)
         when "B"
           map[x, y] = BerryBush.new(x, y, @berry_bush_grams) # really, really big berry bush to keep them fed
+        when "R"
+          map[x, y] = BerriesPile.new(x, y, 1234)
         when "W"
           chars << Character.new(x: x, y: y, name: "Char ##{chars.length + 1}", type: :woodcutter)
         when "G"

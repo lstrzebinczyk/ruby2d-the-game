@@ -16,7 +16,8 @@ describe "InspectGameMode" do
     "B" => "Berries",
     "W" => "Woodcutter",
     "G" => "Gatherer",
-    "S" => "Storage Zone"
+    "S" => "Storage Zone",
+    "R" => "Berries Pile"
   }
 
   data.each do |template_key, name|
