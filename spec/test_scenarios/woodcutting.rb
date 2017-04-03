@@ -1,11 +1,8 @@
 class WoodcuttingTestScenario
   def initialize(opts)
 template = """
-TT...B...SS
-TT....W..SS
-TT.......SS
+TT.BW.SS
 """
-
 
     opts[:berry_bush_grams] = 1000000
     @world = WorldBuilder.new(template, opts).build

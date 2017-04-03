@@ -3,7 +3,7 @@ class InspectionMenu
     class CharacterWindow
       PROGRESS_BAR_BASE = (120 - 6)
       def initialize(character, y_offset, x)
-        @character = character 
+        @character = character
         @y_offset  = y_offset
         @x = x
 
@@ -34,7 +34,7 @@ class InspectionMenu
         @sleep_progress_bar.width = sleep_width
       end
     end
-    attr_writer :characters 
+    attr_writer :characters
 
     def initialize(opts)
       @x                       = opts[:x]
@@ -63,6 +63,8 @@ class InspectionMenu
   end
 
   class InspectTab
+    attr_reader :content
+
     def initialize(opts)
       @x          = opts[:x]
       @margin_top = opts[:margin_top]
@@ -71,7 +73,7 @@ class InspectionMenu
     end
 
     def content=(content)
-      @content = content 
+      @content = content
       remove
       render
     end
@@ -204,7 +206,7 @@ class InspectionMenu
     tab_class_name = "InspectionMenu::" + mode.to_s.gsub(" ", "_").camelize + "Tab"
     tab_class = tab_class_name.constantize
     @active_tab = tab_class.new(
-      x: x, 
+      x: x,
       margin_top: tab_margin_top
     )
     @active_tab.render
