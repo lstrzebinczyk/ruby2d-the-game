@@ -10,7 +10,7 @@ class PickBerryBushJob
   end
 
   def type
-    :woodcutting
+    :gathering
   end
 
   def free?
@@ -32,9 +32,9 @@ class PickBerryBushJob
 
     MoveAction.new(character, spot_near_berries, character).then do
       GatherBerriesAction.new(character, @berry_bush)
-    end.then do 
+    end.then do
       MoveAction.new(spot_near_berries, spot_near_zone, character)
-    end.then do 
+    end.then do
       PutAction.new(zone_to_leave_berries, character, after: ->{ remove })
     end
   end
