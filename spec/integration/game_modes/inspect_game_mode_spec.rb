@@ -30,6 +30,14 @@ describe "InspectGameMode" do
     end
   end
 
+  it "doesn't crash when inspecting kitchen" do
+    template = "."
+    @world = WorldBuilder.new(template).build
+    $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
+    BuildKitchenGameMode.new.click(0, 0)
+    InspectGameMode.new.click(0, 0)
+  end
+
   it "hovers and unhovers safely" do
     template = "."
     @world = WorldBuilder.new(template).build
