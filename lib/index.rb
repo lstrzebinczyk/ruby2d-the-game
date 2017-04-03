@@ -1,6 +1,6 @@
+require_relative "./game_world"
 require_relative "./controls"
 require_relative "./update"
-require_relative "./game_world"
 
 def rendered_objects
   (get :window).objects

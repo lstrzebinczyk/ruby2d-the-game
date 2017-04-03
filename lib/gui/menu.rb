@@ -36,8 +36,8 @@ class Menu
   end
 
   def rerender
-    @menu_background.remove 
-    @menu_background.add 
+    @menu_background.remove
+    @menu_background.add
 
     @buttons.each do |button|
       button.remove
@@ -50,6 +50,7 @@ class Menu
 
     render_button("Inspect")
     render_button("Cut")
+    render_button("Remove")
     render_button("Set storage")
     render_button("Build kitchen")
   end
@@ -74,7 +75,7 @@ class Menu
     game_mode_class_name = game_mode_name.to_s.gsub(" ", "_").camelize + "GameMode"
     game_mode_class      = game_mode_class_name.constantize
 
-    self.game_mode = game_mode_class.new 
+    self.game_mode = game_mode_class.new
     self.deactivate_all_buttons
     @buttons.find{|b| b.text.downcase == game_mode_name.to_s.downcase }.active = true
   end
