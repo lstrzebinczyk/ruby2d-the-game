@@ -26,18 +26,17 @@ class PickBerryBushJob
   end
 
   def action_for(character)
-    zone = available_zone
     MoveAction.new(character: character, near: @berry_bush).then do
       GatherBerriesAction.new(character, @berry_bush)
     end.then do
-      MoveAction.new(character: character, near: zone)
+      MoveAction.new(character: character, near: available_zone)
     end.then do
-      PutAction.new(zone, character, after: ->{ remove })
+      PutAction.new(available_zone, character, after: ->{ remove })
     end
   end
 
   def available_zone
-    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? BerriesPile }
+    @available_zone ||= $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? BerriesPile }
   end
 
   def remove

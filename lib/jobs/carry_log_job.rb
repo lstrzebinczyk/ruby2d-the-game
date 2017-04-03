@@ -19,7 +19,7 @@ class CarryLogJob
   end
 
   def available_zone
-    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? LogsPile }
+    @available_zone ||= $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? LogsPile }
   end
 
   def target
@@ -27,13 +27,12 @@ class CarryLogJob
   end
 
   def action_for(character)
-    spot = available_zone
     MoveAction.new(character: character, near: @from).then do
       PickAction.new(@from, character)
     end.then do
-      MoveAction.new(character: character, near: spot)
+      MoveAction.new(character: character, near: available_zone)
     end.then do
-      PutAction.new(spot, character, after: ->{ remove })
+      PutAction.new(available_zone, character, after: ->{ remove })
     end
   end
 
