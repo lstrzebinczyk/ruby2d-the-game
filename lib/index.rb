@@ -335,3 +335,6 @@ show
 
 # Looking for a place to store when we create the issue is pointless, because we are likely going to
 # have to do it again
+
+
+# Make cut not cut berry bushes. Move it to separate remove action

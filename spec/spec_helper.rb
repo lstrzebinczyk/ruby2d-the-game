@@ -1,6 +1,10 @@
 require 'simplecov'
 SimpleCov.start do
   add_filter '/spec/'
+
+  add_group "Actions", "lib/actions"
+  add_group "Game modes", "lib/game_modes"
+  add_group "Jobs", "lib/jobs"
 end
 
 require "pry"
