@@ -1,4 +1,6 @@
 class JobList
+  attr_reader :jobs
+
   def initialize
     @jobs = []
   end
