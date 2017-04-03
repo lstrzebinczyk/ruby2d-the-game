@@ -145,7 +145,7 @@ class Character
           map_object.is_a? BerriesPile
         end
         to_go_spot = $map.find_free_spot_near(spot)
-        action = MoveAction.new(self, to_go_spot, self).then do
+        action = MoveAction.new(character: self, to: to_go_spot).then do
           PickAction.new(spot, self)
         end.then do
           EatAction.new(self)
@@ -159,7 +159,7 @@ class Character
 
         to_go_spot = $map.find_free_spot_near(berries_spot)
 
-        action = MoveAction.new(self, to_go_spot, self).then do
+        action = MoveAction.new(character: self, to: to_go_spot).then do
           GatherBerriesAction.new(self, berries_spot)
         end.then do
           EatAction.new(self)
@@ -178,7 +178,7 @@ class Character
         # find a place to sleep near fireplace
         fireplace = $structures.find{|s| s.is_a? Fireplace }
         spot = $map.find_free_spot_near(fireplace)
-        sleep_action = MoveAction.new(self, spot, self).then do
+        sleep_action = MoveAction.new(character: self, to: spot).then do
           SleepAction.new(self)
         end
 

@@ -1,12 +1,15 @@
 class MoveAction < Action::Base
-  def initialize(from, to, character)
-    @from       = from
-    @to         = to
-    @character  = character
-    @path       = calculate_path(from: @from)
+  def initialize(opts)
+    @to         = opts[:to]
+    @character  = opts[:character]
+    if @to.nil? or @character.nil?
+      raise ArgumentError, "Move action requires :to and :character in input. Received to: '#{@to}', character: '#{@character}'"
+    end
+
+    @path       = calculate_path(from: @character)
     @ticks_left = 4 * @character.speed_multiplier
   end
-  
+
   # 4 meters per second when @character.speed_multiplier == 1
   def update(seconds)
     @ticks_left -= 1
@@ -34,7 +37,7 @@ class MoveAction < Action::Base
       end
     end
 
-    if @from.x == @to.x and @from.y == @to.y
+    if @character.x == @to.x and @character.y == @to.y
       end_action
     end
   end

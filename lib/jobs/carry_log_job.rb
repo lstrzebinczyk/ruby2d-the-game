@@ -28,19 +28,18 @@ class CarryLogJob
 
   def action_for(character)
     to = available_zone
-    spot_near_from = $map.find_free_spot_near(@from)
     spot_near_to   = $map.find_free_spot_near(to)
 
-    MoveAction.new(character, spot_near_from, character).then do
+    MoveAction.new(character: character, to: spot_near_to).then do
       PickAction.new(@from, character)
-    end.then do 
-      MoveAction.new(spot_near_from, spot_near_to, character)
-    end.then do 
+    end.then do
+      MoveAction.new(character: character, to: spot_near_to)
+    end.then do
       PutAction.new(to, character, after: ->{ remove })
     end
   end
 
   def remove
     $job_list.delete(self)
-  end 
+  end
 end

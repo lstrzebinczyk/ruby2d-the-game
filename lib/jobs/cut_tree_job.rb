@@ -29,7 +29,7 @@ class CutTreeJob
 
   def action_for(character)
     target_position = $map.find_free_spot_near(@tree)
-    MoveAction.new(character, target_position, character).then do
+    MoveAction.new(character: character, to: target_position).then do
       action = CutTreeAction.new(@tree, character)
       action.job = self
       action

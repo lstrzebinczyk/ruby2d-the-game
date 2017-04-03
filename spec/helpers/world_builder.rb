@@ -27,7 +27,7 @@ class WorldBuilder
         when "L"
           map[x, y] = LogsPile.new(x, y, 1)
         when "B"
-          map[x, y] = BerryBush.new(x, y, @berry_bush_grams) # really, really big berry bush to keep them fed
+          map[x, y] = BerryBush.new(x, y, @berry_bush_grams)
         when "R"
           map[x, y] = BerriesPile.new(x, y, 1234)
         when "W"

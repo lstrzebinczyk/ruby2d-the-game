@@ -337,4 +337,6 @@ show
 # have to do it again
 
 
-# Make cut not cut berry bushes. Move it to separate remove action
+# TODO: PEOPLE MORE OR LESS know how hungry they are. PEople should get enough food from storage to get fed
+# TODO: Actions should only be producable inside jobs
+# with action builder

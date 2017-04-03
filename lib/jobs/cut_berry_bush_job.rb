@@ -29,7 +29,7 @@ class CutBerryBushJob
 
   def action_for(character)
     target_position = $map.find_free_spot_near(@berry_bush)
-    MoveAction.new(character, target_position, character).then do
+    MoveAction.new(character: character, to: target_position).then do
       action = CutBerryBushAction.new(@berry_bush, character)
       action.job = self
       action
