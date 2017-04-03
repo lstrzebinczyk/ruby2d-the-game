@@ -1,8 +1,8 @@
 class StorageZone
-  attr_reader :x, :y 
-  
+  attr_reader :x, :y, :image
+
   def initialize(x, y)
-    @x = x 
+    @x = x
     @y = y
 
     x_coord = x * PIXELS_PER_SQUARE
@@ -23,9 +23,5 @@ class StorageZone
     elsif map_object.is_a? object_class
       map_object.can_carry_more?
     end
-  end
-
-  def remove
-    @image.remove
   end
 end

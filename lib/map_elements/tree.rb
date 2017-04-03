@@ -1,5 +1,5 @@
 class Tree
-  attr_reader :x, :y
+  attr_reader :x, :y, :image
 
   def initialize(x, y)
     @x, @y = x, y

@@ -1,5 +1,9 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
+require "pry"
 
 require_relative "./../lib/game_world"
 require "helpers/world_builder"

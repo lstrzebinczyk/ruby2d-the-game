@@ -1,5 +1,3 @@
-require 'ruby2d'
-
 require_relative "./controls"
 require_relative "./update"
 require_relative "./game_world"
@@ -330,3 +328,10 @@ show
 # Based more-or-less on html version of button
 # To have nice and self-contained buttons we must have the ability to add multiple on_click events
 # , an array of them
+
+
+# TODO: Implement store action: we should only look for place to story things when we have it
+# in our hands and we want to go to a place
+
+# Looking for a place to store when we create the issue is pointless, because we are likely going to
+# have to do it again
