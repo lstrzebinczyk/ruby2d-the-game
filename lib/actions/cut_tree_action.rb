@@ -29,7 +29,7 @@ class CutTreeAction < Action::Base
 
     if @ticks_left_to_hit == 0
       @ticks_left_to_hit = HIT_EVERY_TICKS
-      # @mask.add
+      @mask.add
       @animation_time_left = ANIMATION_TIME
     end
 
