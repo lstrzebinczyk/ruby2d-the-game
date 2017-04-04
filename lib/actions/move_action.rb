@@ -21,6 +21,9 @@ class MoveAction < Action::Base
     end
 
     @ticks_left = 4 * @character.speed_multiplier
+  end
+
+  def start
     calculate_path!
   end
 

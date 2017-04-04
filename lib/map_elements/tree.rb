@@ -10,6 +10,10 @@ class Tree
     false
   end
 
+  def can_carry_more?
+    false
+  end
+
   def rerender
     remove
     @image.add

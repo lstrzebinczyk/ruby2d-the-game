@@ -2,7 +2,7 @@ class PutAction < Action::Base
   def initialize(to, character, opts = {})
     @to        = to
     @character = character
-    @time_left = 1.minute
+    @time_left = 10
   end
 
   # If you want to put your object down, but the space is already filled
@@ -12,11 +12,12 @@ class PutAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      if $map[@to.x, @to.y].nil? || $map[@to.x, @to.y].can_carry_more?
-        item = @character.get_item
+      item = @character.get_item
+      if $map[@to.x, @to.y].nil? || $map[@to.x, @to.y].can_carry_more?(item.class)
         $map.put_item(@to.x, @to.y, item)
         end_action
       else
+        @character.carry = item
         if available_zone
           spot = available_zone
           action = PutAction.new(spot, @character)
@@ -37,7 +38,7 @@ class PutAction < Action::Base
   private
 
   def available_zone
-    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? LogsPile }
+    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? Log }
   end
 end
 

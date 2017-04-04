@@ -1,5 +1,5 @@
 # TODO: FEATURES FOR BERRY BUSHES
-#   - allow for cutting it 
+#   - allow for cutting it
 #     DONE - for now it just disappears
 #     - later it should produce firewood
 
@@ -32,8 +32,8 @@ class BerryBush
     @x, @y = x, y
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/berrybush.png")
     @picked = false
-    if grams 
-      @grams = grams 
+    if grams
+      @grams = grams
     else
       @grams = 4500 + rand * 1000
     end
@@ -58,12 +58,12 @@ class BerryBush
   end
 
   # TODO: You should never try to put something to a berry bush
-  def can_carry_more?
+  def can_carry_more?(item)
     false
   end
 
   def picked?
-    @picked 
+    @picked
   end
 
   def passable?
@@ -83,8 +83,8 @@ class BerryBush
   private
 
   def gathered_grams(seconds)
-    if gathered_grams_per_second * seconds > @grams 
-      @grams 
+    if gathered_grams_per_second * seconds > @grams
+      @grams
     else
       gathered_grams_per_second * seconds
     end

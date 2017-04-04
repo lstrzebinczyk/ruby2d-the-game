@@ -1,4 +1,4 @@
-# TODO: Reorganise to be a regular Pile 
+# TODO: Reorganise to be a regular Pile
 # TODO: That will just accept items from outside
 # Not connected only to pile
 
@@ -17,9 +17,9 @@ class LogsPile
     @x          = x
     @y          = y
     if count.nil?
-      count = 3 + rand(4) 
+      count = 3 + rand(4)
     end
-    @logs = Array.new(count){ Log.new } 
+    @logs = Array.new(count){ Log.new }
 
     rerender
   end
@@ -36,8 +36,8 @@ class LogsPile
     @image && @image.remove
   end
 
-  def can_carry_more?
-    count < 6
+  def can_carry_more?(item_class)
+    item_class == Log and count < 6
   end
 
   def rerender

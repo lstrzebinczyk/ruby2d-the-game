@@ -48,8 +48,8 @@ class BerriesPile
     @image && @image.remove
   end
 
-  def can_carry_more?
-    true
+  def can_carry_more?(item_class)
+    item_class == Berries
   end
 
   def rerender

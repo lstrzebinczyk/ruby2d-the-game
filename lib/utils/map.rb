@@ -40,17 +40,23 @@ class Map
     if item.is_a? Log
       if self[x, y].is_a? LogsPile
         self[x, y].put(item)
-      else
+      elsif self[x, y].nil?
         self[x, y] = LogsPile.new(x, y, 1)
+      else
+        raise ArgumentError, "you fucked that up"
       end
     elsif item.is_a? Berries
       if self[x, y].is_a? BerriesPile
         self[x, y].put(item)
-      else
+      elsif self[x, y].nil?
         self[x, y] = BerriesPile.new(x, y, item.grams)
+      else
+        raise ArgumentError, "you fucked that up"
       end
     else
-      raise "You need to handle this better"
+      # require "pry"
+      # binding.pry
+      raise "You need to handle this better, tried to put #{item}"
     end
 
     $zones.recalculate

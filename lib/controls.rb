@@ -45,28 +45,27 @@ on key_down: "n" do
   end
 end
 
+on key_down: "1" do
+  $game_speed.set(1)
+end
+
+on key_down: "2" do
+  $game_speed.set(5)
+end
+
+on key_down: "3" do
+  $game_speed.set(100)
+end
+
+on key_down: "4" do
+  $game_speed.set(250)
+end
+
+on key_down: "5" do
+  $game_speed.set(1000)
+end
 
 on_key do |key|
-  if key == "1"
-    $game_speed.set(1)
-  end
-
-  if key == "2"
-    $game_speed.set(5)
-  end
-
-  if key == "3"
-    $game_speed.set(100)
-  end
-
-  if key == "4"
-    $game_speed.set(250)
-  end
-
-  if key == "5"
-    $game_speed.set(1000)
-  end
-
   if key == "q"
     p $job_list
   end

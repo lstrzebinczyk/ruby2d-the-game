@@ -22,7 +22,7 @@ class PickAction < Action::Base
       if map_object and map_object.pickable?
         item = map_object.get_item
 
-        if $map[@from.x, @from.y].count == 0
+        if $map[@from.x, @from.y].count <= 0.01
           $map[@from.x, @from.y].remove
           $map[@from.x, @from.y] = nil
           $zones.recalculate

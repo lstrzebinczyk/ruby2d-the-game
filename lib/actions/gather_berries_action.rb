@@ -1,6 +1,8 @@
+# TODO: Introduce some sort of tools to help gather
+# TODO: Gather based not on time, but on how much a character can carry
 class GatherBerriesAction < Action::Base
   def initialize(character, berries_bush)
-    @character    = character 
+    @character    = character
     @berries_bush = berries_bush
     @time_left    = 30.minutes
   end
@@ -17,7 +19,7 @@ class GatherBerriesAction < Action::Base
     @time_left -= seconds
 
     @character.carry += @berries_bush.get_berries(seconds)
-    if @time_left <= 0 
+    if @time_left <= 0
       end_action
     end
   end

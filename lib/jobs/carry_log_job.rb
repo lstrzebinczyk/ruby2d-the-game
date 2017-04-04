@@ -12,7 +12,7 @@ class CarryLogJob
   end
 
   def available_zone
-    @available_zone ||= $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? LogsPile }
+    @available_zone ||= $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? Log }
   end
 
   def target
