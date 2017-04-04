@@ -20,10 +20,6 @@ class CutBerryBushAction < Action::Base
     @parent = parent
   end
 
-  def job=(job)
-    @job = job
-  end
-
   def update(seconds)
     @seconds_left -= seconds
     @ticks_left_to_hit -= 1
@@ -51,6 +47,5 @@ class CutBerryBushAction < Action::Base
     @parent.finish
     @berry_bush.remove
     $map[@berry_bush.x, @berry_bush.y] = nil
-    @job.remove
   end
 end

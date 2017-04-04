@@ -11,10 +11,13 @@ class JobList
 
   def get_job(character)
     character.accepts_jobs.each do |job_type|
-      if @jobs.any? {|job| job.free? and job.available? and job.type == job_type }
-        return @jobs.find do |job|
-          job.free? and job.available? and job.type == job_type
-        end
+      available_job = @jobs.find do |job|
+        job.available? and job.type == job_type
+      end
+
+      if available_job
+        delete(available_job)
+        return available_job
       end
 
       $structures.each do |structure|

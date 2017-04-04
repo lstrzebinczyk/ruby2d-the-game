@@ -16,7 +16,7 @@ class Character
   end
 
   attr_accessor :energy
-  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :action
+  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :job
 
   MAX_CALORIES = 3000
   def initialize(opts)
@@ -40,6 +40,12 @@ class Character
 
   def passable?
     false
+  end
+
+  def job=(job)
+    @job = job
+
+    @action = job && job.action_for(self)
   end
 
   def can_carry_more?
@@ -144,25 +150,13 @@ class Character
         spot = $map.find_closest_to(self) do |map_object|
           map_object.is_a? BerriesPile
         end
-        action = MoveAction.new(character: self, near: spot).then do
-          PickAction.new(spot, self)
-        end.then do
-          EatAction.new(self)
-        end
 
-        self.action = action
+        self.job = EatJob.new(from: spot)
       else
         berries_spot = $map.find_closest_to(self) do |map_object|
           map_object.is_a? BerryBush and !map_object.picked?
         end
-
-        action = MoveAction.new(character: self, near: berries_spot).then do
-          GatherBerriesAction.new(self, berries_spot)
-        end.then do
-          EatAction.new(self)
-        end
-
-        self.action = action
+        self.job = EatJob.new(from: berries_spot)
       end
     elsif sleepy?
       if has_own_bed?
@@ -174,20 +168,9 @@ class Character
       elsif fireplace_present?
         # find a place to sleep near fireplace
         fireplace = $structures.find{|s| s.is_a? Fireplace }
-        sleep_action = MoveAction.new(character: self, near: fireplace).then do
-          SleepAction.new(self)
-        end
-
-        self.action = sleep_action
+        self.job = SleepJob.new(near: fireplace)
       else
-
-        self.action = SleepAction.new(self)
-        # TODO
-        # TODO MAKE FIREPLACE BUILDABLE INSTEAD OF HAVING IT FROM BEGINNING
-        # TODO MAKE STONES PART OF MAP
-        # TODO MAKE FIREPLACE BUILDABLE FROM STONES
-        # Go to sleep where you are standing
-        # raise "NOT IMPLEMENTED"
+        self.job = SleepJob.new(at: self)
       end
     else
       raise "ERROR"
@@ -217,10 +200,8 @@ class Character
   end
 
   def update_position(x, y)
-    @image.remove
     @image.x = x * PIXELS_PER_SQUARE
     @image.y = y * PIXELS_PER_SQUARE
-    @image.add
   end
 
   def rerender
@@ -236,6 +217,9 @@ class Character
 
   def finish
     @action = nil
+    @job && @job.remove
+
+    @job = nil
   end
 
   private

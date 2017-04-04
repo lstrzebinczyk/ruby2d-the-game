@@ -60,6 +60,8 @@ class Map
     find_all_closest_to(spot, &block).first
   end
 
+  #TODO: REMOVE THIS METHOD
+  #TODO: Only singular is needed, that one method in autoplayer can be refactored to use one above
   def find_all_closest_to(spot, &block)
     @grid.find_all(&block).sort do |a, b|
       distance_a = (spot.x - a.x) ** 2 + (spot.y - a.y) ** 2
@@ -69,6 +71,7 @@ class Map
     end
   end
 
+  # TODO: LET DĘBSKI KNOW!
   # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM
   def find_free_spot_near(position)
     positions = []
@@ -81,9 +84,16 @@ class Map
     positions << Position.new(position.x + 1, position.y - 1)
     positions << Position.new(position.x + 1, position.y    )
     positions << Position.new(position.x + 1, position.y + 1)
-    positions.find_all do |pos|
-      passable?(pos.x, pos.y)
-    end.first
+
+    # if positions.none?{|pos| self[pos.x, pos.y].nil? }
+    #   require "pry"
+    #   binding.pry
+    # end
+
+    positions.find do |pos|
+      self[pos.x, pos.y].nil?
+      # passable?(pos.x, pos.y)
+    end#.first
   end
 
   def rerender

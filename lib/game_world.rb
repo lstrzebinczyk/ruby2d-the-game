@@ -29,6 +29,8 @@ require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
 require_relative "./jobs/pick_berry_bush_job"
+require_relative "./jobs/eat_job"
+require_relative "./jobs/sleep_job"
 
 require_relative "./structures/base"
 require_relative "./structures/kitchen"
@@ -97,16 +99,9 @@ class GameWorld
           if character.needs_own_action?
             character.set_own_action
           else
-
             # TODO: Character should refuse to take action
             # TODO: If his mood is too bad, for example too sleepy and too hungry to work
-
-            job = $job_list.get_job(character)
-            if job
-              action = job.action_for(character)
-              character.action = action
-              job.taken = true
-            end
+            character.job = $job_list.get_job(character)
           end
         end
         character.update($seconds_per_tick)

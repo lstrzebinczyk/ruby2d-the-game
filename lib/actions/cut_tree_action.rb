@@ -1,7 +1,7 @@
 # I want it to take 4 hours to cut that tree
 # and I want it to hit every 40 ticks
 
-# TODO: HAVE THE CHARACTER CHANGE PLACE FROM WHISH HE CUTS THE TREE 
+# TODO: HAVE THE CHARACTER CHANGE PLACE FROM WHISH HE CUTS THE TREE
 # TODO: A COUPLE TIMES
 
 class CutTreeAction < Action::Base
@@ -21,10 +21,6 @@ class CutTreeAction < Action::Base
     @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
     @mask.remove
     @parent = parent
-  end
-
-  def job=(job)
-    @job = job
   end
 
   def update(seconds)
@@ -53,10 +49,9 @@ class CutTreeAction < Action::Base
     @mask.remove
     @parent.finish
     @tree.remove
-    @job.remove
     $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
 
-    $map[@tree.x, @tree.y].count.times do 
+    $map[@tree.x, @tree.y].count.times do
       new_job = CarryLogJob.new(from: @tree)
       $job_list.add(new_job)
     end

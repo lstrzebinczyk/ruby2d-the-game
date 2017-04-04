@@ -20,6 +20,8 @@ TT....SS
   end
 
   def run!
+    time_start = Time.now
+
     iterations = 0
 
     should_continue = true
@@ -30,6 +32,10 @@ TT....SS
 
       if iterations % 1000 == 0
         should_continue = !done?
+      end
+
+      if Time.now - time_start > 5
+        raise Error, "Timeout in test"
       end
     end
   end

@@ -15,6 +15,7 @@ template = """
   def run!
     iterations = 0
     should_continue = true
+    time_start = Time.now
 
     while should_continue
       iterations += 1
@@ -22,6 +23,10 @@ template = """
 
       if iterations % 1000 == 0
         should_continue = !done?
+      end
+
+      if Time.now - time_start > 5
+        raise Error, "Timeout in test"
       end
     end
   end
