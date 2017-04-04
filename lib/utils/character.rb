@@ -207,16 +207,9 @@ class Character
   end
 
   def update_position(x, y)
-    # if ((self.x - x).abs > 1) or ((self.y - y).abs > 1)
-    #   p "Actions did before the crash:"
-    #   p @list_of_recent_actions
-    #   p "Job done when crashed:"
-    #   p @job.class
-    #   p "Character was at: (#{self.x}, #{self.y})"
-    #   p "Target was        (#{x}, #{y})"
-    #   p "Distance was #{(self.x - x).abs + (self.y - y).abs}"
-    #   raise ArgumentError, "Teleporting is not allowed!"
-    # end
+    if ((self.x - x).abs > 1) or ((self.y - y).abs > 1)
+      raise ArgumentError, "Teleporting is not allowed!"
+    end
 
     @image.x = x * PIXELS_PER_SQUARE
     @image.y = y * PIXELS_PER_SQUARE
@@ -234,7 +227,6 @@ class Character
   end
 
   def finish
-    @list_of_recent_actions << @action.class
     @action = nil
     @job && @job.remove
 
