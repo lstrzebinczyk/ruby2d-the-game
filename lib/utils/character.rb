@@ -200,10 +200,8 @@ class Character
   end
 
   def update_position(x, y)
-    @image.remove
     @image.x = x * PIXELS_PER_SQUARE
     @image.y = y * PIXELS_PER_SQUARE
-    @image.add
   end
 
   def rerender
