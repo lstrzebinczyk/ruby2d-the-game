@@ -2,7 +2,7 @@
 # TODO: INTRODUCE characterType classess (gatherer, lumberjack etc)
 
 class Character
-   class Inspection
+  class Inspection
     def initialize(character, opts = {})
       msg = "#{character.name}, a #{character.type}"
       x = opts[:x]

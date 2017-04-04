@@ -1,4 +1,4 @@
-on(mouse: 'any') do |x, y, thing|
+on(mouse: 'any') do |x, y|
   # puts "#{x} #{y} #{thing}"
   # Only take consider user action if it clicks on map
   # not if it clicks on menu

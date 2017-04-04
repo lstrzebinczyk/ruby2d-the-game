@@ -20,7 +20,6 @@ class Fireplace < Structure::Base
 
     @opacity = 0.08
 
-    color = 'yellow'
     inner_x = (@position.x - 1) * PIXELS_PER_SQUARE
     inner_y = (@position.y - 1) * PIXELS_PER_SQUARE
     @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
@@ -35,7 +34,7 @@ class Fireplace < Structure::Base
   end
 
   def y
-    @position.y 
+    @position.y
   end
 
   def passable?
@@ -70,10 +69,10 @@ class Fireplace < Structure::Base
     else
       if @burning
         if rand < 0.2 / $game_speed.value
-          @inner_square.color.opacity = @opacity * 2 + rand / 15 
+          @inner_square.color.opacity = @opacity * 2 + rand / 15
         end
         if rand < 0.2 / $game_speed.value
-          @outer_square.color.opacity = @opacity + rand / 20 
+          @outer_square.color.opacity = @opacity + rand / 20
         end
         rerender
       else

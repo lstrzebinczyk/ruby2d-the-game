@@ -7,7 +7,7 @@ describe "RemoveGameMode" do
     RemoveGameMode.new.click(0, 0)
 
     expect($job_list.count).to eq(1)
-    expect($job_list.jobs.first).to be_a (CutBerryBushJob)
+    expect($job_list.jobs.first).to be_a CutBerryBushJob
   end
 
   it "cancels the job if used for second time" do

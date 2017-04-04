@@ -1,6 +1,6 @@
 class Grid
   include Enumerable
-  
+
   def initialize
     @grid_data = {}
   end
@@ -16,8 +16,8 @@ class Grid
   end
 
   def each
-    @grid_data.each do |key, value|
-      value.each do |key, value|
+    @grid_data.each do |_, line|
+      line.each do |_, value|
         yield(value)
       end
     end

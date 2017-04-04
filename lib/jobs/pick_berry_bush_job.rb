@@ -1,8 +1,6 @@
 class PickBerryBushJob
   def initialize(berry_bush)
     @berry_bush = berry_bush
-    x = berry_bush.x * PIXELS_PER_SQUARE
-    y = berry_bush.y * PIXELS_PER_SQUARE
   end
 
   def type

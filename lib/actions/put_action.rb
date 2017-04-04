@@ -1,5 +1,5 @@
 class PutAction < Action::Base
-  def initialize(to, character, opts = {})
+  def initialize(to, character)
     @to        = to
     @character = character
     @time_left = 10
@@ -23,7 +23,6 @@ class PutAction < Action::Base
           action = PutAction.new(spot, @character)
           replace_action(action)
         else
-          spot = @character
           spot_near = $map.find_free_spot_near(@character)
           action = PutAction.new(spot_near, @character)
           new_job = CarryLogJob.new(from: spot_near)

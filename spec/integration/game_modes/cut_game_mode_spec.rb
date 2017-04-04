@@ -7,7 +7,7 @@ describe "CutGameMode" do
     CutGameMode.new.click(0, 0)
 
     expect($job_list.count).to eq(1)
-    expect($job_list.jobs.first).to be_a (CutTreeJob)
+    expect($job_list.jobs.first).to be_a CutTreeJob
   end
 
   it "cancels the job if used for second time" do
