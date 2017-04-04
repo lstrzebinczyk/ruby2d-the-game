@@ -340,3 +340,6 @@ show
 # TODO: PEOPLE MORE OR LESS know how hungry they are. PEople should get enough food from storage to get fed
 # TODO: Actions should only be producable inside jobs
 # with action builder
+
+
+# Bug, why they keep pushing logs to where berries pile is...?

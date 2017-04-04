@@ -15,8 +15,8 @@ class Character
     end
   end
 
-  attr_accessor :energy, :job
-  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :action
+  attr_accessor :energy
+  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :action, :job
 
   MAX_CALORIES = 3000
   def initialize(opts)
@@ -40,6 +40,15 @@ class Character
 
   def passable?
     false
+  end
+
+  def job=(job)
+    # if @job
+      # @job.remove
+    # end
+    @job = job
+
+    @action = job && job.action_for(self)
   end
 
   def can_carry_more?
@@ -236,6 +245,9 @@ class Character
 
   def finish
     @action = nil
+    @job && @job.remove
+
+    @job = nil
   end
 
   private

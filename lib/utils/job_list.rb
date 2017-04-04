@@ -15,7 +15,10 @@ class JobList
         job.available? and job.type == job_type
       end
 
-      return available_job if available_job
+      if available_job
+        delete(available_job)
+        return available_job
+      end
 
       $structures.each do |structure|
         if structure.has_job?(job_type)
