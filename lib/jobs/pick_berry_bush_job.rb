@@ -1,20 +1,12 @@
 class PickBerryBushJob
-  attr_accessor :taken
-
   def initialize(berry_bush)
     @berry_bush = berry_bush
     x = berry_bush.x * PIXELS_PER_SQUARE
     y = berry_bush.y * PIXELS_PER_SQUARE
-
-    @taken = false
   end
 
   def type
     :gathering
-  end
-
-  def free?
-    !@taken
   end
 
   def available?
@@ -31,7 +23,7 @@ class PickBerryBushJob
     end.then do
       MoveAction.new(character: character, near: available_zone)
     end.then do
-      PutAction.new(available_zone, character, after: ->{ remove })
+      PutAction.new(available_zone, character)
     end
   end
 
@@ -40,6 +32,5 @@ class PickBerryBushJob
   end
 
   def remove
-    $job_list.delete(self)
   end
 end

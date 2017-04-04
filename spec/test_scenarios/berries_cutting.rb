@@ -13,6 +13,7 @@ class BerriesCuttingTestScenario
 
   def run!
     iterations = 0
+    time_start = Time.now
 
     should_continue = true
 
@@ -22,6 +23,10 @@ class BerriesCuttingTestScenario
 
       if iterations % 1000 == 0
         should_continue = !done?
+      end
+
+      if Time.now - time_start > 5
+        raise Error, "Timeout in test"
       end
     end
   end

@@ -1,17 +1,10 @@
 class CarryLogJob
-  attr_writer :taken
-
   def initialize(opts)
     @from = opts[:from]
-    @taken = false
   end
 
   def type
     :haul
-  end
-
-  def free?
-    !@taken
   end
 
   def available?
@@ -32,11 +25,10 @@ class CarryLogJob
     end.then do
       MoveAction.new(character: character, near: available_zone)
     end.then do
-      PutAction.new(available_zone, character, after: ->{ remove })
+      PutAction.new(available_zone, character)
     end
   end
 
   def remove
-    $job_list.delete(self)
   end
 end

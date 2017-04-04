@@ -19,23 +19,25 @@ describe "CutGameMode" do
     expect($job_list.count).to eq(0)
   end
 
-  it "doesn't cancel the job if job is taken" do
-    template = "T"
-    @world = WorldBuilder.new(template).build
-    CutGameMode.new.click(0, 0)
-
-    $job_list.jobs.first.taken = true
-
-    CutGameMode.new.click(0, 0)
-
-    expect($job_list.count).to eq(1)
-    expect($job_list.jobs.first).to be_a (CutTreeJob)
-  end
-
   it "hovers and unhovers safely" do
     template = "."
     @world = WorldBuilder.new(template).build
     CutGameMode.new.hover(0, 0)
     CutGameMode.new.unhover
+  end
+
+  it "forbids me to add new job if somebody is already performing this job" do
+    template = "TW"
+    @world = WorldBuilder.new(template).build
+    CutGameMode.new.click(0, 0)
+
+    @world.update
+
+    # Character took the cut job
+    expect($characters_list.first.action).to be
+
+    CutGameMode.new.click(0, 0)
+
+    expect($job_list.count).to eq(0)
   end
 end

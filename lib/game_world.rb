@@ -105,7 +105,11 @@ class GameWorld
             if job
               action = job.action_for(character)
               character.action = action
-              job.taken = true
+              if character.job
+                character.job.remove
+              end
+              character.job = job
+              $job_list.delete(job)
             end
           end
         end

@@ -11,6 +11,7 @@ class Action
       if @next_action
         @character.action = @next_action
       else
+        @character.job.remove
         @character.finish
       end
     end

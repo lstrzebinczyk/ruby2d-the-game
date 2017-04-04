@@ -15,7 +15,7 @@ class Character
     end
   end
 
-  attr_accessor :energy
+  attr_accessor :energy, :job
   attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :action
 
   MAX_CALORIES = 3000
