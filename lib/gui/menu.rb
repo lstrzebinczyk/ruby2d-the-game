@@ -72,12 +72,12 @@ class Menu
   end
 
   def set_game_mode(game_mode_name)
-    game_mode_class_name = game_mode_name.to_s.gsub(" ", "_").camelize + "GameMode"
+    game_mode_class_name = game_mode_name.to_s.tr(" ", "_").camelize + "GameMode"
     game_mode_class      = game_mode_class_name.constantize
 
     self.game_mode = game_mode_class.new
     self.deactivate_all_buttons
-    @buttons.find{|b| b.text.downcase == game_mode_name.to_s.downcase }.active = true
+    @buttons.find{|b| b.text.casecmp(game_mode_name.to_s) == 0 }.active = true
   end
 
   private

@@ -203,14 +203,14 @@ class InspectionMenu
   def set_mode(mode)
     deactivate_all_buttons
     @active_tab.remove if @active_tab
-    tab_class_name = "InspectionMenu::" + mode.to_s.gsub(" ", "_").camelize + "Tab"
+    tab_class_name = "InspectionMenu::" + mode.to_s.tr(" ", "_").camelize + "Tab"
     tab_class = tab_class_name.constantize
     @active_tab = tab_class.new(
       x: x,
       margin_top: tab_margin_top
     )
     @active_tab.render
-    @tab_buttons.find{|b| b.text.downcase == mode.to_s.downcase }.active = true
+    @tab_buttons.find{|b| b.text.casecmp(mode.to_s) == 0 }.active = true
   end
 
   def rerender_content
