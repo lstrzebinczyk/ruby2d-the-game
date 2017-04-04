@@ -9,6 +9,7 @@ TT....SS
 """
 
     opts[:berry_bush_grams] = 1000000
+    @timeout = opts[:timeout] || 5
     @world = WorldBuilder.new(template, opts).build
 
     cut_game_mode = CutGameMode.new
@@ -34,7 +35,7 @@ TT....SS
         should_continue = !done?
       end
 
-      if Time.now - time_start > 5
+      if Time.now - time_start > @timeout
         raise Error, "Timeout in test"
       end
     end
