@@ -36,8 +36,6 @@ class Character
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 
     @state  = :working
-
-    @list_of_recent_actions = []
   end
 
   def passable?
