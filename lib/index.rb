@@ -343,3 +343,22 @@ show
 
 
 # Bug, why they keep pushing logs to where berries pile is...?
+# TODO: When people take food, they should go with it to a proper place. Their own dining room, eating place, or anywhere
+# with table and chair If not, they will go near fireplace.
+
+
+# Look into having something like SIMD.js natively for the lib?
+# For performance? At least my positions can benefit from this
+
+
+# Have random buildings or caves or mazes or other things that people can explore,
+# have some people be adventurous and look for stuff in there
+
+# Startopia was fucking amazing. Write clone? Or write a game mode that is similiar to startopia?
+
+# Scan code with rubocop, or something other shit
+
+# TODO: Gave a goat at beginning. Make it eat grass, walk around, and be daily
+# TODO: Create a pasture, figure out how to keep the goat there
+# TODO: MAke the goats jump on trees
+# TODO: Goats are awesome
