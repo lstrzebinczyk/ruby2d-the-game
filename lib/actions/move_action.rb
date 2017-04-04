@@ -16,6 +16,10 @@ class MoveAction < Action::Base
       @to = $map.find_free_spot_near(@near)
     end
 
+    if @to.nil?
+      raise ArgumentError, "Shit..."
+    end
+
     @ticks_left = 4 * @character.speed_multiplier
     calculate_path!
   end
@@ -56,5 +60,6 @@ class MoveAction < Action::Base
 
   def calculate_path!
     @path = PathFinder.new(@character, @to, $map).search
+    @path.shift # First step in that path is always where @character is
   end
 end

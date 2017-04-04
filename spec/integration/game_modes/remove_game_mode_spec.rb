@@ -34,7 +34,7 @@ describe "RemoveGameMode" do
     @world.update
 
     # Character took the cut job
-    expect($characters_list.first.action).to be
+    expect($characters_list.first.job).to be
 
     RemoveGameMode.new.click(0, 0)
 

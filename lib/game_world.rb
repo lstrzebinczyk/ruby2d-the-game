@@ -29,6 +29,8 @@ require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
 require_relative "./jobs/carry_log_job"
 require_relative "./jobs/pick_berry_bush_job"
+require_relative "./jobs/eat_job"
+require_relative "./jobs/sleep_job"
 
 require_relative "./structures/base"
 require_relative "./structures/kitchen"

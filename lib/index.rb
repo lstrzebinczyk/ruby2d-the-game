@@ -362,3 +362,7 @@ show
 # TODO: Create a pasture, figure out how to keep the goat there
 # TODO: MAke the goats jump on trees
 # TODO: Goats are awesome
+
+
+# TODO: Holy shit, characters are teleporting...
+ # ADD SOME GUARD TO CRASH WHEN THIS HAPPENS

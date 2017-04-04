@@ -34,7 +34,7 @@ describe "CutGameMode" do
     @world.update
 
     # Character took the cut job
-    expect($characters_list.first.action).to be
+    expect($characters_list.first.job).to be
 
     CutGameMode.new.click(0, 0)
 
