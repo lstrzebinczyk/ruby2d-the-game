@@ -15,6 +15,7 @@ class EatJob
         GatherBerriesAction.new(character, @from)
       end
     end.then do
+      # TODO: Should go to a table and chair if there is a diner, or own house
       fireplace = $structures.find{|s| s.is_a? Fireplace }
       MoveAction.new(character: character, near: fireplace || character)
     end.then do

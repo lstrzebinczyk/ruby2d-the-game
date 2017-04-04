@@ -145,9 +145,6 @@ show
 # But from time to time I have to stop it to sleep and eat
 # But when I wake up, I want to get back to it
 
-# With that introduce config file with all the informations that need to be setup
-# like how long does it take to move, how fast do people get hungry and so on
-
 # When that is done, look into having a settlement that is sentient
 # And gives jobs to make itself functional
 
@@ -192,17 +189,9 @@ show
 # BUG WHEN JOB IS GIVEN TO CUT TREE TO WHICH THERE IS NO PATH
 # THE PATH IS ABANDONED, BUT TREE IS STILL CUT
 
-# INTRODUCE SET OF UNIFIED SCENARIOS FOR PERFORMANCE BENCHMARKING
-# INTRODUCE SOME TESTS?
-
-# Introduce Game class, to be able to run tests without visual parts, and faster
-
 # TODO: Introduce firewood
 # TODO: cut Tree should leave logs and firewood
 # TODO: cut bushes should leave firewood
-
-# TODO: DOING HARD WORK USES MORE ENERGY
-# TODO: FOR EXAMPLE, PUTS YOU TO SLEEP FASTER
 
 # TODO: Build a system of passing informations around
 # Instead of having all the informations in the system
@@ -299,23 +288,10 @@ show
 
 # Implement inspection tab to list all available jobs in system
 
-# TODO: Unify jobs interface, usage and behavior
-
-
 # Use dwarf fortress mayday graphics set?
-
-# TODO: Bug, people put piles on berries?
-# TODO: Finish map builder and first set of tests
 
 # TODO: Implement death of starvation
 # TODO: So that our tests of various scenarios are somewhat realistic
-
-# TODO: Write tests to measure effects of various things
-# TODO: So that we can measure effect of various things
-# for example how many iterations it takes to cut n trees with fireplace, and how many without fireplace
-
-
-# TODO: WRITE SPECIALISED TESTS FOR JOBS and game modes
 
 # TODO: Implement own time class, current one is sloooooow
 
@@ -362,7 +338,3 @@ show
 # TODO: Create a pasture, figure out how to keep the goat there
 # TODO: MAke the goats jump on trees
 # TODO: Goats are awesome
-
-
-# TODO: Holy shit, characters are teleporting...
- # ADD SOME GUARD TO CRASH WHEN THIS HAPPENS
