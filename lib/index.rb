@@ -332,8 +332,6 @@ show
 
 # Startopia was fucking amazing. Write clone? Or write a game mode that is similiar to startopia?
 
-# Scan code with rubocop, or something other shit
-
 # TODO: Gave a goat at beginning. Make it eat grass, walk around, and be daily
 # TODO: Create a pasture, figure out how to keep the goat there
 # TODO: MAke the goats jump on trees
