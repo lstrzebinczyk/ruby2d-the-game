@@ -125,7 +125,9 @@ class Map
   end
 
   def in_river?(x, y)
-    river_sinus(x) < y and y < river_sinus(x) + 4
+    y < river_sinus(x) and y >= 0
+    # and y < river_sinus(x) + 4
+    # river_sinus(x) < y
   end
 
   def river_sinus(x)

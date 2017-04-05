@@ -97,7 +97,7 @@ class PathFinder
     while @open_nodes.size > 0 do
       # Map for now is infinite, so if search gets too big, we decide
       # That there is no good path
-      if @closed_nodes.size > 1000
+      if @closed_nodes.size > 2000
         return []
       end
 

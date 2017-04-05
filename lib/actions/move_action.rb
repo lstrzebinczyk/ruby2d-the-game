@@ -64,5 +64,9 @@ class MoveAction < Action::Base
   def calculate_path!
     @path = PathFinder.new(@character, @to, $map).search
     @path.shift # First step in that path is always where @character is
+
+    if @path.empty?
+      raise ArgumentError, "No path: ("
+    end
   end
 end
