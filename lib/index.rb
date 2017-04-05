@@ -19,7 +19,7 @@ set({
 characters_list = [
   Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
   Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
-  Character.new(x: 31, y: 20, name: "Karl", type: :gatherer)
+  Character.new(x: 32, y: 20, name: "Karl", type: :gatherer)
 ]
 map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 map.fill_grid_with_objects

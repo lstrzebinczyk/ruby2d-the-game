@@ -32,7 +32,7 @@ class Map
     if self[x, y]
       self[x, y].passable?
     else
-      true
+      0 < x and x < @width and 0 < y and y < @height
     end
   end
 
@@ -54,8 +54,6 @@ class Map
         raise ArgumentError, "you fucked that up"
       end
     else
-      # require "pry"
-      # binding.pry
       raise "You need to handle this better, tried to put #{item}"
     end
 
@@ -64,8 +62,8 @@ class Map
 
   def find_closest_to(spot, &block)
     @grid.find_all(&block).sort do |a, b|
-      distance_a = (spot.x - a.x).abs + (spot.y - a.y).abs
-      distance_b = (spot.x - b.x).abs + (spot.y - b.y).abs
+      distance_a = (spot.x - a.x) ** 2 + (spot.y - a.y) ** 2
+      distance_b = (spot.x - b.x) ** 2 + (spot.y - b.y) ** 2
 
       distance_a - distance_b
     end.first
