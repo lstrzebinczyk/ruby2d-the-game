@@ -76,3 +76,4 @@ There is an universe of things that can be done in here, and a plenty of fun thi
 * Make something faster. Since it's a game, all performance improvements are welcome
 * Implement something new. Review issues and pick something that you'd like to do.
 * Make something more realistic or fun. You can review current implementation and discuss how something can be done better.
+* Contribute to ruby-2d!

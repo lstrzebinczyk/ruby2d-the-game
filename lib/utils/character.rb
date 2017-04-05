@@ -36,6 +36,9 @@ class Character
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 
     @state  = :working
+
+    @update_stats_every = 10
+    @till_update_stats = 0
   end
 
   def passable?
@@ -138,9 +141,20 @@ class Character
 
   # TODO: LET CHARACTER ABANDON THEIR TASKS WHEN THEY REALLY NEED TO SLEEP OR EAT OR SOMETHING
   #       AND GET TO IT LATER
+
+  # Temporarily update energy and calories only every @update_stats_every ticks
+  # We need to find a good solution to manage this
+  # probably
   def update(seconds)
-    update_energy(seconds)
-    update_calories(seconds)
+    @till_update_stats += 1
+    if @till_update_stats == @update_stats_every
+      @till_update_stats = 0
+      update_energy(seconds * @update_stats_every)
+      update_calories(seconds * @update_stats_every)
+    end
+    # @update_stats_every = 10
+    # @till_update_stats = 0
+
 
     @action && @action.update(seconds)
   end
