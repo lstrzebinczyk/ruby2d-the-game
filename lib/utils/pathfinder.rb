@@ -49,7 +49,7 @@ class PathFinder
   # plus some randoms to make the paths bit more wacky and unpredicrable
   # this way they looks much nicer and less mechanical
   def heuristic(current_node, destination_node)
-    make_positive(current_node.x - destination_node.x + rand) + make_positive(current_node.y - destination_node.y + rand)
+    make_positive(current_node.x - destination_node.x) + make_positive(current_node.y - destination_node.y)
   end
 
   def make_positive(value)
@@ -95,6 +95,7 @@ class PathFinder
 
   def search
     while @open_nodes.size > 0 do
+      # p @open_nodes
       # Map for now is infinite, so if search gets too big, we decide
       # That there is no good path
       if @closed_nodes.size > 2000

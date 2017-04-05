@@ -73,15 +73,15 @@ class Map
   # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM
   def find_free_spot_near(position)
     positions = []
-    positions << Position.new(position.x - 1, position.y - 1)
-    positions << Position.new(position.x - 1, position.y    )
-    positions << Position.new(position.x - 1, position.y + 1)
-    positions << Position.new(position.x    , position.y - 1)
+    positions << Position.new(position.x - 1, position.y - 1) if passable?(position.x - 1, position.y - 1)
+    positions << Position.new(position.x - 1, position.y    ) if passable?(position.x - 1, position.y    )
+    positions << Position.new(position.x - 1, position.y + 1) if passable?(position.x - 1, position.y + 1)
+    positions << Position.new(position.x    , position.y - 1) if passable?(position.x    , position.y - 1)
     # Position.new(position.x    , position.y    )
-    positions << Position.new(position.x    , position.y + 1)
-    positions << Position.new(position.x + 1, position.y - 1)
-    positions << Position.new(position.x + 1, position.y    )
-    positions << Position.new(position.x + 1, position.y + 1)
+    positions << Position.new(position.x    , position.y + 1) if passable?(position.x    , position.y + 1)
+    positions << Position.new(position.x + 1, position.y - 1) if passable?(position.x + 1, position.y - 1)
+    positions << Position.new(position.x + 1, position.y    ) if passable?(position.x + 1, position.y    )
+    positions << Position.new(position.x + 1, position.y + 1) if passable?(position.x + 1, position.y + 1)
 
     # if positions.none?{|pos| self[pos.x, pos.y].nil? }
     #   require "pry"
@@ -125,7 +125,7 @@ class Map
   end
 
   def in_river?(x, y)
-    y < river_sinus(x) and y >= 0
+    y < river_sinus(x) #and y >= 0
     # and y < river_sinus(x) + 4
     # river_sinus(x) < y
   end

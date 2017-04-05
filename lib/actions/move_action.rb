@@ -13,10 +13,18 @@ class MoveAction < Action::Base
     end
 
     if @to.nil?
-      @to = $map.find_free_spot_near(@near)
+      # If you are already near that point, congratulations!
+      if @near
+        if (@near.x - @character.x).abs <= 1 and (@near.y - @character.y).abs <= 1
+          @already_there = true
+        else
+          @to = $map.find_free_spot_near(@near)
+        end
+      end
+
     end
 
-    if @to.nil?
+    if @to.nil? and @already_there.nil?
       raise ArgumentError, "Shit..."
     end
 
@@ -24,13 +32,17 @@ class MoveAction < Action::Base
   end
 
   def start
-    calculate_path!
+    if @already_there
+      @path = []
+    else
+      calculate_path!
+    end
   end
 
   # 4 meters per second when @character.speed_multiplier == 1
   def update(seconds)
     @ticks_left -= 1
-    if @ticks_left == 0
+    if @ticks_left <= 0
       @ticks_left = 4 * @character.speed_multiplier
       next_step = @path.shift
       if next_step
@@ -54,7 +66,7 @@ class MoveAction < Action::Base
       end
     end
 
-    if @character.x == @to.x and @character.y == @to.y
+    if @already_there or (@character.x == @to.x and @character.y == @to.y)
       end_action
     end
   end
@@ -63,7 +75,6 @@ class MoveAction < Action::Base
 
   def calculate_path!
     @path = PathFinder.new(@character, @to, $map).search
-    @path.shift # First step in that path is always where @character is
 
     if @path.empty?
       raise ArgumentError, "No path: ("

@@ -30,23 +30,21 @@ describe "CutGameMode" do
   it "forbids me to add new job if somebody is already performing this job" do
     template = "TW"
     @world = WorldBuilder.new(template).build
-    CutGameMode.new.click(0, 0)
+    CutGameMode.new.perform(0, 0)
 
     @world.update
 
     # Character took the cut job
     expect($characters_list.first.job).to be
-
-    CutGameMode.new.click(0, 0)
-
+    CutGameMode.new.perform(0, 0)
     expect($job_list.count).to eq(0)
   end
 
   it "doesn't allow me to add cut task if I want to cut something nobody can get to" do
 template = """
-RRR.W.
-RTR.B.
-RRR...
+VVV.W.
+VTV.B.
+VVV...
 """
 
     @world = WorldBuilder.new(template).build

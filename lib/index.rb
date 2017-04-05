@@ -54,8 +54,8 @@ $y_offset = 0
 # Autoplayer!
 #
 
-autoplay = false
-if autoplay
+# @autoplay = true
+if @autoplay
 
   fireplace = $structures.find{|s| s.is_a? Fireplace }
 
@@ -92,6 +92,7 @@ if autoplay
       tree = $map.find_closest_to(fireplace) do |map_element|
         map_element.is_a?(Tree) and !designated_trees.include?(map_element)
       end
+      designated_trees.push(tree)
       cut_game_mode.perform(tree.x, tree.y)
     end
   end
@@ -139,3 +140,11 @@ show
 
 
 # 2d top view rune clone? In which you walk and control your character from the top and fight other people?
+
+
+# IMplement that flood map that will, for all map positions, store if that position is achievable or not
+# Cut/remove tasks are only available when they are on achievable spots
+# flood map is updated on each putting something on map and each removing something from map
+# unify putting and removing something from map
+# when removing something, that field becomes achievable if any neighbor is achievable
+# when adding something, figure out smart thing to do

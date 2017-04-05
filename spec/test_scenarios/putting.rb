@@ -2,7 +2,10 @@ class PuttingToOtherZoneTestScenario
   Position = Struct.new(:x, :y)
 
   def initialize
-    template = "L..W..SS" # F => Filled Storage
+    template = """
+L..W..SS
+........
+"""
     @world = WorldBuilder.new(template).build
     carry_job = CarryLogJob.new(from: Position.new(0, 0))
     $job_list.add(carry_job)
@@ -37,7 +40,11 @@ class PuttingOnGroundTestScenario
   Position = Struct.new(:x, :y)
 
   def initialize
-    template = "L..W..S" # F => Filled Storage
+    template = """
+.......
+L..W..S
+.......
+""" # F => Filled Storage
     @world = WorldBuilder.new(template).build
     carry_job = CarryLogJob.new(from: Position.new(0, 0))
     $job_list.add(carry_job)

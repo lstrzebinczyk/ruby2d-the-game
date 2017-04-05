@@ -28,7 +28,9 @@ describe "RemoveGameMode" do
   end
 
   it "forbids me to add new job if somebody is already performing this job" do
+    # This must be so big, because pathfinding is badly implemented...
     template = "BW"
+
     @world = WorldBuilder.new(template).build
     RemoveGameMode.new.click(0, 0)
 
@@ -36,17 +38,15 @@ describe "RemoveGameMode" do
 
     # Character took the cut job
     expect($characters_list.first.job).to be
-
     RemoveGameMode.new.click(0, 0)
-
     expect($job_list.count).to eq(0)
   end
 
   it "doesn't allow me to add remove task if I want to remove something nobody can get to" do
 template = """
-RRR.W.
-RBR.B.
-RRR...
+VVV.W.
+VBV.B.
+VVV...
 """
 
     @world = WorldBuilder.new(template).build

@@ -13,7 +13,7 @@ describe "Test scenarios" do
     BerriesGatheringTestScenario.new.run!
   end
 
-  it "berries cuting scenario" do
+  it "berries cutting scenario" do
     BerriesCuttingTestScenario.new.run!
   end
 

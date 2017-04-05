@@ -30,6 +30,8 @@ class WorldBuilder
           map[x, y] = BerryBush.new(x, y, @berry_bush_grams)
         when "R"
           map[x, y] = BerriesPile.new(x, y, 1234)
+        when "V"
+          map[x, y] = River.new(x, y)
         when "W"
           chars << Character.new(x: x, y: y, name: "Char ##{chars.length + 1}", type: :woodcutter)
         when "G"

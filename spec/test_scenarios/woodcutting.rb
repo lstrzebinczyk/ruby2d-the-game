@@ -3,9 +3,11 @@ class WoodcuttingTestScenario
 
 # This is so big because I want it to trigger sleeping and eating
 template = """
-TT.BW.SS
-TT....SS
-TT....SS
+..........
+.T.T.BW.SS.
+.T.T....SS.
+.T.T....SS.
+...........
 """
 
     opts[:berry_bush_grams] = 1000000

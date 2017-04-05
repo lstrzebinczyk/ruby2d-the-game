@@ -41,4 +41,12 @@ describe "SetStorageGameMode" do
     SetStorageGameMode.new.hover(0, 0)
     SetStorageGameMode.new.unhover
   end
+
+  it "Doesn't allow me to build storage on river" do
+    template = "V"
+    @world = WorldBuilder.new(template).build
+    SetStorageGameMode.new.click(0, 0)
+
+    expect($zones.count).to eq(0)
+  end
 end
