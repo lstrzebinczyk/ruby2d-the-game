@@ -133,11 +133,26 @@ class Map
   end
 
   def in_river?(x, y)
-    top_river_sinus(x) < y and y < top_river_sinus(x) + 4
+    river_sinus(x) < y and y < river_sinus(x) + 4
   end
 
-  def top_river_sinus(x)
-    2 + 3 * Math.sin(x * 0.1)
+  def river_sinus(x)
+    river_sinus_adder + river_sinus_multiplier * Math.sin(river_in_sinus_alpha(x))
+  end
+
+  def river_sinus_adder
+    @adder ||= 1.7 + rand + rand + rand
+  end
+
+  def river_sinus_multiplier
+    @multiplier ||= 2.3 + 2 * rand + 2 * rand
+  end
+
+  def river_in_sinus_alpha(x)
+    @tr ||= rand - rand + rand - rand
+    @ml ||= 0.1 + rand/10 - rand/10
+
+    @tr + x * @ml
   end
 
   def fill_trees_and_bushes
