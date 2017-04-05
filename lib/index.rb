@@ -88,9 +88,10 @@ if autoplay
 
     need_more_trees_count = trees_count - designated_trees.count
 
-    $map.find_all_closest_to(fireplace) do |map_element|
-      map_element.is_a?(Tree) and !designated_trees.include?(map_element)
-    end.take(need_more_trees_count).each do |tree|
+    need_more_trees_count.times do
+      tree = $map.find_closest_to(fireplace) do |map_element|
+        map_element.is_a?(Tree) and !designated_trees.include?(map_element)
+      end
       cut_game_mode.perform(tree.x, tree.y)
     end
   end
