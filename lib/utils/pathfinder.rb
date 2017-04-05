@@ -49,7 +49,7 @@ class PathFinder
   # plus some randoms to make the paths bit more wacky and unpredicrable
   # this way they looks much nicer and less mechanical
   def heuristic(current_node, destination_node)
-    ((current_node.x - destination_node.x + rand) ** 2) + ((current_node.y - destination_node.y + rand) ** 2)
+    ((current_node.x - destination_node.x + rand).abs) + ((current_node.y - destination_node.y + rand).abs)
   end
 
   # calc cost

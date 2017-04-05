@@ -70,8 +70,8 @@ class Map
   #TODO: Only singular is needed, that one method in autoplayer can be refactored to use one above
   def find_all_closest_to(spot, &block)
     @grid.find_all(&block).sort do |a, b|
-      distance_a = (spot.x - a.x) ** 2 + (spot.y - a.y) ** 2
-      distance_b = (spot.x - b.x) ** 2 + (spot.y - b.y) ** 2
+      distance_a = (spot.x - a.x).abs + (spot.y - a.y).abs
+      distance_b = (spot.x - b.x).abs + (spot.y - b.y).abs
 
       distance_a - distance_b
     end
