@@ -148,3 +148,10 @@ show
 # unify putting and removing something from map
 # when removing something, that field becomes achievable if any neighbor is achievable
 # when adding something, figure out smart thing to do
+
+# Also instead of "carry job" implement "store job". Store job will look for available zone on start
+# and only be available when there is an available zone empty or with proper type
+
+# Then we can make tests map compact again
+
+# This map should start from fireplace, and if there is no fireplace, from first character
