@@ -116,6 +116,31 @@ class Map
 
   # TODO: This should really be moved to some sort of MapCreator.new
   def fill_grid_with_objects
+    fill_river
+    fill_trees_and_bushes
+  end
+
+  private
+
+  def fill_river
+    (0..@width).each do |x|
+      (0..@height).each do |y|
+        if in_river?(x, y)
+          @grid[x, y] = River.new(x, y)
+        end
+      end
+    end
+  end
+
+  def in_river?(x, y)
+    top_river_sinus(x) < y and y < top_river_sinus(x) + 4
+  end
+
+  def top_river_sinus(x)
+    2 + 3 * Math.sin(x * 0.1)
+  end
+
+  def fill_trees_and_bushes
     (0..@width).each do |x|
       (0..@height).each do |y|
         if @grid[x, y].nil?
@@ -128,8 +153,6 @@ class Map
       end
     end
   end
-
-  private
 
   def noise_generator
     @noise ||= RandomNoiseGenerator.new

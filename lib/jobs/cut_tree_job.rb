@@ -11,6 +11,7 @@ class CutTreeJob
     :woodcutting
   end
 
+  # Job is available if character can get to the tree
   def available?
     true
   end

@@ -9,6 +9,7 @@ require_relative "./map_elements/tree"
 require_relative "./map_elements/logs_pile"
 require_relative "./map_elements/berry_bush"
 require_relative "./map_elements/berries_pile"
+require_relative "./map_elements/river"
 
 require_relative "./core_ext/time"
 require_relative "./core_ext/integer"

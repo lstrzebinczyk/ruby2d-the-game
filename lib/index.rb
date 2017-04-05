@@ -47,70 +47,94 @@ $fps_drawer.rerender(fps)
 $inspection_menu.rerender
 $day_and_night_cycle.rerender
 
+$x_offset = 0
+$y_offset = 0
+
 #
 # Autoplayer!
 #
 
-fireplace = $structures.find{|s| s.is_a? Fireplace }
+autoplay = false
+if autoplay
 
-# Designate storage place, 5x5 in size, above and to the right of fireplace
-build_storage_mode = SetStorageGameMode.new
-storage_top_left_x = fireplace.x + 2
-storage_top_left_y = fireplace.y - 7
+  fireplace = $structures.find{|s| s.is_a? Fireplace }
 
-(storage_top_left_x..(storage_top_left_x+5)).each do |x|
-  (storage_top_left_y..(storage_top_left_y+5)).each do |y|
-    build_storage_mode.perform(x, y)
+  # Designate storage place, 5x5 in size, above and to the right of fireplace
+  build_storage_mode = SetStorageGameMode.new
+  storage_top_left_x = fireplace.x + 2
+  storage_top_left_y = fireplace.y - 7
+
+  (storage_top_left_x..(storage_top_left_x+5)).each do |x|
+    (storage_top_left_y..(storage_top_left_y+5)).each do |y|
+      build_storage_mode.perform(x, y)
+    end
   end
-end
 
-# Cut whatever is in place of that storage mode
+  # Cut whatever is in place of that storage mode
 
-cut_game_mode = CutGameMode.new
-designated_trees = []
+  cut_game_mode = CutGameMode.new
+  designated_trees = []
 
-$zones.each do |zone|
-  if $map[zone.x, zone.y].is_a?(Tree)
-    designated_trees.push($map[zone.x, zone.y])
+  $zones.each do |zone|
+    if $map[zone.x, zone.y].is_a?(Tree)
+      designated_trees.push($map[zone.x, zone.y])
+    end
+    cut_game_mode.perform(zone.x, zone.y)
   end
-  cut_game_mode.perform(zone.x, zone.y)
-end
 
-trees_count = 20
-if designated_trees.count < trees_count
-  puts "need #{trees_count - designated_trees.count} more trees"
+  trees_count = 20
+  if designated_trees.count < trees_count
+    puts "need #{trees_count - designated_trees.count} more trees"
 
-  need_more_trees_count = trees_count - designated_trees.count
+    need_more_trees_count = trees_count - designated_trees.count
 
-  $map.find_all_closest_to(fireplace) do |map_element|
-    map_element.is_a?(Tree) and !designated_trees.include?(map_element)
-  end.take(need_more_trees_count).each do |tree|
-    cut_game_mode.perform(tree.x, tree.y)
+    $map.find_all_closest_to(fireplace) do |map_element|
+      map_element.is_a?(Tree) and !designated_trees.include?(map_element)
+    end.take(need_more_trees_count).each do |tree|
+      cut_game_mode.perform(tree.x, tree.y)
+    end
   end
-end
 
-# setup kitchen on first free spot closest to fireplace
-build_kitchen_game_mode = BuildKitchenGameMode.new
-all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+  # setup kitchen on first free spot closest to fireplace
+  build_kitchen_game_mode = BuildKitchenGameMode.new
+  all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
 
-free_spots = all_spots.keep_if do |arr|
-  build_kitchen_game_mode.terrain_clear?(arr[0], arr[1])
-end
+  free_spots = all_spots.keep_if do |arr|
+    build_kitchen_game_mode.terrain_clear?(arr[0], arr[1])
+  end
 
-free_spots.sort_by! do |a|
-  (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-end
+  free_spots.sort_by! do |a|
+    (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+  end
 
-spot = free_spots.first
-build_kitchen_game_mode.perform(spot[0], spot[1])
+  spot = free_spots.first
+  build_kitchen_game_mode.perform(spot[0], spot[1])
 
 
-kitchen = $structures.find{|s| s.is_a? Kitchen }
+  kitchen = $structures.find{|s| s.is_a? Kitchen }
 
-15.times do
-  kitchen.ensure_more_berries
+  15.times do
+    kitchen.ensure_more_berries
+  end
 end
 
 # START!
 show
 
+# TODO:
+# Think about having someting like n.+(other, modulo) functions. This will perform modulo adding.
+# This should be really fast, because no checking is needed for overflow if module is small enough
+
+# Franta-Maly event list, look for implementation
+# Find a good way of determining things that have to happen in the future. Throw
+# things on stack/list and make sure that happens.
+# Those are things like
+#   - update vegetation | should happen, for example, once daily
+#   - update roads
+#   - update day/night mask
+#   - update characters?
+
+# Make it all cron-like in settings
+
+
+# 2d top view rune clone? In which you walk and control your character from the top and fight other people?

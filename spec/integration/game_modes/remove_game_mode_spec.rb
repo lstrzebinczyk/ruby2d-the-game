@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "RemoveGameMode" do
   it "adds job to cut the tree to jobs list" do
-    template = "B"
+    template = "BW"
     @world = WorldBuilder.new(template).build
     RemoveGameMode.new.click(0, 0)
 
@@ -11,9 +11,10 @@ describe "RemoveGameMode" do
   end
 
   it "cancels the job if used for second time" do
-    template = "B"
+    template = "BW"
     @world = WorldBuilder.new(template).build
     RemoveGameMode.new.click(0, 0)
+    expect($job_list.count).to eq(1)
     RemoveGameMode.new.click(0, 0)
 
     expect($job_list.count).to eq(0)
@@ -38,6 +39,19 @@ describe "RemoveGameMode" do
 
     RemoveGameMode.new.click(0, 0)
 
+    expect($job_list.count).to eq(0)
+  end
+
+  it "doesn't allow me to add remove task if I want to remove something nobody can get to" do
+template = """
+RRR.W.
+RBR.B.
+RRR...
+"""
+
+    @world = WorldBuilder.new(template).build
+    expect($map[1, 1]).to be_a BerryBush
+    CutGameMode.new.click(1, 1)
     expect($job_list.count).to eq(0)
   end
 end
