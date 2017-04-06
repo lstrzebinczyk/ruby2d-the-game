@@ -1,4 +1,4 @@
-update do 
+update do
   # GUI
 
   # Only show mouse button if it's on map
@@ -32,7 +32,7 @@ update do
     fps = get(:fps)
     $fps_drawer.rerender(fps)
   end
-  
+
 
   # GAME WORLD
   $game_world.update

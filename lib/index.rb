@@ -127,18 +127,6 @@ show
 # Think about having someting like n.+(other, modulo) functions. This will perform modulo adding.
 # This should be really fast, because no checking is needed for overflow if module is small enough
 
-# Franta-Maly event list, look for implementation
-# Find a good way of determining things that have to happen in the future. Throw
-# things on stack/list and make sure that happens.
-# Those are things like
-#   - update vegetation | should happen, for example, once daily
-#   - update roads
-#   - update day/night mask
-#   - update characters?
-
-# Make it all cron-like in settings
-
-
 # 2d top view rune clone? In which you walk and control your character from the top and fight other people?
 
 
@@ -155,3 +143,6 @@ show
 # Then we can make tests map compact again
 
 # This map should start from fireplace, and if there is no fireplace, from first character
+
+
+# http://gameprogrammingpatterns.com/game-loop.html
