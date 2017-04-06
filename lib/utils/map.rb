@@ -8,6 +8,8 @@ class Map
     end
   end
 
+  attr_reader :width, :height
+
   include Enumerable
 
   def initialize(opts)
@@ -32,8 +34,16 @@ class Map
     if self[x, y]
       self[x, y].passable?
     else
-      0 < x and x < @width and 0 < y and y < @height
+      in_map?(x, y)
     end
+  end
+
+  def in_map?(x, y)
+    0 <= x and x < @width and 0 <= y and y < @height
+  end
+
+  def walkable_ground?(x, y)
+    in_map?(x, y) and (self[x, y].nil? or !self[x, y].is_a? River)
   end
 
   def put_item(x, y, item)
@@ -125,7 +135,7 @@ class Map
   end
 
   def in_river?(x, y)
-    y < river_sinus(x) #and y >= 0
+    y > river_sinus(x) and y < river_sinus(x) + 4
     # and y < river_sinus(x) + 4
     # river_sinus(x) < y
   end

@@ -72,6 +72,93 @@ MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
 
 INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 
+class FloodMap
+  Position = Struct.new(:x, :y)
+
+  def initialize(map, characters)
+    @map        = map
+    @characters = characters
+
+    @availability_grid = Array.new(@map.height) { Array.new(@map.width){ nil } }
+    @positions_to_check = []
+
+    @characters.each do |character|
+      @availability_grid[character.y][character.x] = :ok
+    end
+
+    @characters.each do |character|
+      [-1, 0, 1].each do |x_delta|
+        [-1, 0, 1].each do |y_delta|
+          unless @availability_grid[character.y + y_delta][character.x + x_delta]
+            @positions_to_check << Position.new(character.x + x_delta, character.y + y_delta)
+            @availability_grid[character.y + y_delta][character.x + x_delta] = :checking
+          end
+        end
+      end
+    end
+
+    @renderable = []
+  end
+
+  def progress
+    position = @positions_to_check.shift
+    if position
+      x        = position.x
+      y        = position.y
+
+      [-1, 0, 1].each do |x_delta|
+        [-1, 0, 1].each do |y_delta|
+          if @availability_grid.dig(y + y_delta, x + x_delta) == :ok and @map.walkable_ground?(x + x_delta, y + y_delta)
+            @availability_grid[y][x] = :ok
+
+            rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
+            rendered.color.opacity = 0.2
+            @renderable << rendered
+
+            [-1, 0, 1].each do |x_inner_delta|
+              [-1, 0, 1].each do |y_inner_delta|
+                if @map.in_map?(x + x_inner_delta, y + y_inner_delta)
+                  unless @availability_grid.dig(y + y_inner_delta, x + x_inner_delta)
+                    @positions_to_check << Position.new(x + x_inner_delta, y + y_inner_delta)
+                    @availability_grid[y + y_inner_delta][x + x_inner_delta] = :checking
+                  end
+                end
+              end
+            end
+
+            # 2.times{ toggle }
+            return
+          end
+        end
+      end
+    else
+      $start_flood_map_progressing = false
+    end
+  end
+
+  def toggle
+    if @renderable.any?
+      @renderable.each(&:remove)
+      @renderable = []
+    else
+      @availability_grid.each_with_index do |row, y|
+        row.each_with_index do |value, x|
+          if value
+            if value == :ok
+              rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
+              rendered.color.opacity = 0.2
+              @renderable << rendered
+            # elsif value == :checking
+            #   rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "blue")
+            #   rendered.color.opacity = 0.2
+            #   @renderable << rendered
+            end
+          end
+        end
+      end
+    end
+  end
+end
 
 class GameWorld
   def self.things_at(x, y)
@@ -91,6 +178,7 @@ class GameWorld
     $job_list            = JobList.new
     $zones               = ZonesList.new
     $structures          = []
+    $flood_map           = FloodMap.new(map, characters_list)
   end
 
   def update

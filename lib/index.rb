@@ -146,3 +146,7 @@ show
 
 
 # http://gameprogrammingpatterns.com/game-loop.html
+
+
+# I need a better concept of what is passable, and what is currently available
+# River is not passable

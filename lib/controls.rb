@@ -23,6 +23,16 @@ on key_down: "space" do
   end
 end
 
+on key_down: "z" do
+  $flood_map && $flood_map.toggle
+end
+
+on key_down: "x" do
+  $start_flood_map_progressing = true
+  $flood_map && $flood_map.progress
+end
+
+
 on key_down: "escape" do
   close
 end
@@ -65,29 +75,29 @@ on key_down: "5" do
   $game_speed.set(1000)
 end
 
+on key_down: "p" do
+  if @profiling
+    result = RubyProf.stop
+    printer = RubyProf::GraphHtmlPrinter.new(result)
+
+    Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
+      printer.print(file, {})
+    end
+    close
+  else
+    Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
+
+    require "ruby-prof"
+    require "pathname"
+
+    RubyProf.start
+    @profiling = true
+  end
+end
+
 on_key do |key|
   if key == "q"
     p $job_list
-  end
-
-  if key == "p"
-    if @profiling
-      result = RubyProf.stop
-      printer = RubyProf::GraphHtmlPrinter.new(result)
-
-      Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
-        printer.print(file, {})
-      end
-      close
-    else
-      Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
-
-      require "ruby-prof"
-      require "pathname"
-
-      RubyProf.start
-      @profiling = true
-    end
   end
 
   if key == "o"
