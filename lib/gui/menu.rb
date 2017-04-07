@@ -53,6 +53,7 @@ class Menu
     render_button("Remove")
     render_button("Set storage")
     render_button("Build kitchen")
+    render_button("Build workshop")
   end
 
   def unhover
@@ -84,6 +85,7 @@ class Menu
 
   def render_button(text, opts = {})
     opts[:active] = @buttons.none?
+    opts[:text_size] = 28
 
     button = Button.new(text, opts)
     left = if @buttons.any?

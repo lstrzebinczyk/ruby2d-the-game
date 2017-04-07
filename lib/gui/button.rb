@@ -9,6 +9,7 @@ class Button
     @text_size      = opts[:text_size] || 36
     @active_color   = opts[:active_color] || [1, 0, 0, 1]
     @inactive_color = opts[:inactive_color] || [0, 0, 1, 1]
+    @side_padding   = opts[:side_padding] || 12
   end
 
   def remove
@@ -65,10 +66,8 @@ class Button
   end
 
   def render(x, y)
-    side_padding = 12
-
     @text_element = Text.new(
-      x + side_padding,
+      x + @side_padding,
       y + 4,
       @text, @text_size, "fonts/arial.ttf"
     )
@@ -76,7 +75,7 @@ class Button
     @background = Rectangle.new(
       x,
       y,
-      @text_element.width + 2 * side_padding,
+      @text_element.width + 2 * @side_padding,
       @text_element.height + 8,
       color
     )

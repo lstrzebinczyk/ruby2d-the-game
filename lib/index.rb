@@ -149,3 +149,14 @@ show
 # http://gameprogrammingpatterns.com/game-loop.html
 
 # Should jobs or actions be implemented as enumerator?
+
+
+# TODO WITH WOODEN WORKSHOP:
+# - set a workshop blueprint
+# - have it require 1 piece of wood brought to it
+# - have it require some time spent building
+# - when done, have it somehow allow producing tables
+# - one table require 2 pieces of wood
+# - have kitchen require a table to build in the same manner workshop requires piece of wood
+
+# - then a fishing workshop, require a table too
