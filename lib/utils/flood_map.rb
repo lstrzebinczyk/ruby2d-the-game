@@ -1,3 +1,5 @@
+# This implementation is terrible
+
 class FloodMap
   class Position
     attr_reader :x, :y, :checked_times
@@ -51,18 +53,24 @@ class FloodMap
     end
   end
 
+  # This should introduce clever small changes to the flood map
   def set_as_available(x, y)
+    # @positions_to_check << Position.new(x, y)
+    # @availability_grid[y][x] = :checking
+
+    # calculate!
+
     if @renderable.any?
       @was_toggled = true
       @renderable.each(&:remove)
       @renderable = []
     end
-
     start!
-
     if @was_toggled
       toggle
     end
+    calculate!
+
     # [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
     #   x_delta = arr[0]
     #   y_delta = arr[1]
@@ -74,7 +82,6 @@ class FloodMap
     #   end
     # end
 
-    calculate!
   end
 
   def add_as_checking(x, y)
@@ -116,7 +123,6 @@ class FloodMap
       end
 
       unless position.checked_times >= 5
-        # puts "CHECK"
         position.check!
         @positions_to_check_later << position
       end

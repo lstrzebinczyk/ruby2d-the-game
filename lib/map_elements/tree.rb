@@ -10,7 +10,7 @@ class Tree
     false
   end
 
-  def can_carry_more?
+  def can_carry_more?(thing)
     false
   end
 
