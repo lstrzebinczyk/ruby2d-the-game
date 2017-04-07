@@ -1,10 +1,6 @@
 class BerriesCuttingTestScenario
   def initialize
-    template = """
-........
-BBB.W.SS
-........
-"""
+    template = "BBB.W.SS"
     @world = WorldBuilder.new(template).build
 
     remove_game_mode = RemoveGameMode.new

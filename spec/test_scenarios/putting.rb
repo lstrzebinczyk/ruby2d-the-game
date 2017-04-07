@@ -2,10 +2,7 @@ class PuttingToOtherZoneTestScenario
   Position = Struct.new(:x, :y)
 
   def initialize
-    template = """
-L..W..SS
-........
-"""
+    template = "L..W..SS"
     @world = WorldBuilder.new(template).build
     carry_job = CarryLogJob.new(from: Position.new(0, 0))
     $job_list.add(carry_job)
