@@ -73,7 +73,18 @@ MENU_HEIGHT = 5 * PIXELS_PER_SQUARE
 INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 
 class FloodMap
-  Position = Struct.new(:x, :y)
+  class Position
+    attr_reader :x, :y, :checked_times
+
+    def initialize(x, y)
+      @x, @y = x, y
+      @checked_times = 0
+    end
+
+    def check!
+      @checked_times += 1
+    end
+  end
 
   def initialize(map, characters)
     @map        = map
@@ -81,6 +92,7 @@ class FloodMap
 
     @availability_grid = Array.new(@map.height) { Array.new(@map.width){ nil } }
     @positions_to_check = []
+    @positions_to_check_later = []
 
     @characters.each do |character|
       @availability_grid[character.y][character.x] = :ok
@@ -89,15 +101,21 @@ class FloodMap
     @characters.each do |character|
       [-1, 0, 1].each do |x_delta|
         [-1, 0, 1].each do |y_delta|
-          unless @availability_grid[character.y + y_delta][character.x + x_delta]
-            @positions_to_check << Position.new(character.x + x_delta, character.y + y_delta)
-            @availability_grid[character.y + y_delta][character.x + x_delta] = :checking
-          end
+          add_as_checking(character.x + x_delta, character.y + y_delta)
         end
       end
     end
 
     @renderable = []
+  end
+
+  def add_as_checking(x, y)
+    unless @availability_grid.dig(y, x)
+      if @map.in_map?(x, y)
+        @positions_to_check << Position.new(x, y)
+        @availability_grid[y][x] = :checking
+      end
+    end
   end
 
   def progress
@@ -106,33 +124,38 @@ class FloodMap
       x        = position.x
       y        = position.y
 
-      [-1, 0, 1].each do |x_delta|
-        [-1, 0, 1].each do |y_delta|
-          if @availability_grid.dig(y + y_delta, x + x_delta) == :ok and @map.walkable_ground?(x + x_delta, y + y_delta)
-            @availability_grid[y][x] = :ok
+      [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
+        x_delta = arr[0]
+        y_delta = arr[1]
 
-            rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
-            rendered.color.opacity = 0.2
-            @renderable << rendered
+        if @availability_grid.dig(y + y_delta, x + x_delta) == :ok and @map.passable?(x + x_delta, y + y_delta)
+          @availability_grid[y][x] = :ok
 
-            [-1, 0, 1].each do |x_inner_delta|
-              [-1, 0, 1].each do |y_inner_delta|
-                if @map.in_map?(x + x_inner_delta, y + y_inner_delta)
-                  unless @availability_grid.dig(y + y_inner_delta, x + x_inner_delta)
-                    @positions_to_check << Position.new(x + x_inner_delta, y + y_inner_delta)
-                    @availability_grid[y + y_inner_delta][x + x_inner_delta] = :checking
-                  end
-                end
-              end
-            end
+          rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
+          rendered.color.opacity = 0.2
+          @renderable << rendered
 
-            # 2.times{ toggle }
-            return
+          [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
+            x_inner_delta = arr[0]
+            y_inner_delta = arr[1]
+            add_as_checking(x + x_inner_delta, y + y_inner_delta)
           end
+
+          return
         end
       end
+
+      unless position.checked_times >= 5
+        position.check!
+        @positions_to_check_later << position
+      end
     else
-      $start_flood_map_progressing = false
+      if @positions_to_check_later.any?
+        @positions_to_check = @positions_to_check_later
+        @positions_to_check_later = []
+      else
+        $start_flood_map_progressing = false
+      end
     end
   end
 
@@ -148,10 +171,6 @@ class FloodMap
               rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
               rendered.color.opacity = 0.2
               @renderable << rendered
-            # elsif value == :checking
-            #   rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "blue")
-            #   rendered.color.opacity = 0.2
-            #   @renderable << rendered
             end
           end
         end

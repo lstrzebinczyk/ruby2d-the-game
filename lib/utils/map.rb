@@ -23,7 +23,7 @@ class Map
   end
 
   def [](x, y)
-    @grid[x, y] || $characters_list.find{|c| c.x == x && c.y == y}
+    @grid[x, y] #|| $characters_list.find{|c| c.x == x && c.y == y}
   end
 
   def []=(x, y, value)

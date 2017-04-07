@@ -23,6 +23,9 @@ characters_list = [
 ]
 map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
 map.fill_grid_with_objects
+characters_list.each do |character|
+  map.clear(character.x, character.y)
+end
 
 $game_world = GameWorld.new(characters_list, map)
 
