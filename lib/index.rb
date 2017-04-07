@@ -58,7 +58,7 @@ start_game!
 # Autoplayer!
 #
 
-# @autoplay = true
+@autoplay = true
 if @autoplay
 
   fireplace = $structures.find{|s| s.is_a? Fireplace }
