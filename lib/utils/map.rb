@@ -114,6 +114,8 @@ class Map
     elem = self[x, y]
     elem && elem.remove
     self[x, y] = nil
+    $flood_map && $flood_map.set_as_available(x, y)
+    nil
   end
 
   # TODO: This should really be moved to some sort of MapCreator.new

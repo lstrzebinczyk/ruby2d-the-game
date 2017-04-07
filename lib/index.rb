@@ -145,11 +145,6 @@ show
 
 # Then we can make tests map compact again
 
-# This map should start from fireplace, and if there is no fireplace, from first character
-
-
 # http://gameprogrammingpatterns.com/game-loop.html
 
-
-# I need a better concept of what is passable, and what is currently available
-# River is not passable
+# Should jobs or actions be implemented as enumerator?

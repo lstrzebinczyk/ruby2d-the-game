@@ -48,7 +48,7 @@ class CutTreeAction < Action::Base
   def finish
     @mask.remove
     @parent.finish
-    @tree.remove
+    $map.clear(@tree.x, @tree.y)
     $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
 
     $map[@tree.x, @tree.y].count.times do

@@ -45,7 +45,6 @@ class CutBerryBushAction < Action::Base
   def finish
     @mask.remove
     @parent.finish
-    @berry_bush.remove
-    $map[@berry_bush.x, @berry_bush.y] = nil
+    $map.clear(@berry_bush.x, @berry_bush.y)
   end
 end

@@ -27,10 +27,10 @@ on key_down: "z" do
   $flood_map && $flood_map.toggle
 end
 
-on key_down: "x" do
-  $start_flood_map_progressing = true
-  $flood_map && $flood_map.progress
-end
+# on key_down: "x" do
+#   $start_flood_map_progressing = true
+#   $flood_map && $flood_map.progress
+# end
 
 
 on key_down: "escape" do
