@@ -16,6 +16,10 @@ class FloodMap
     @map        = map
     @characters = characters
 
+    start!
+  end
+
+  def start!
     @availability_grid = Array.new(@map.height) { Array.new(@map.width){ nil } }
     @positions_to_check = []
     @positions_to_check_later = []
@@ -38,12 +42,6 @@ class FloodMap
   end
 
   def available?(x, y)
-    p "#{x}, #{y} => #{@availability_grid.dig(y, x)}"
-    p "#{y}, #{x} => #{@availability_grid.dig(x, y)}"
-
-    # floo
-    # require "pry"
-    # binding.pry
     @availability_grid.dig(y, x) == :ok
   end
 
@@ -54,16 +52,27 @@ class FloodMap
   end
 
   def set_as_available(x, y)
-    [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
-      x_delta = arr[0]
-      y_delta = arr[1]
-      unless @availability_grid[y + y_delta][x + x_delta] == :ok
-        if @map.in_map?(x + x_delta, y + y_delta)
-          @positions_to_check << Position.new(x + x_delta, y + y_delta)
-          @availability_grid[y + y_delta][x + x_delta] = :checking
-        end
-      end
+    if @renderable.any?
+      @was_toggled = true
+      @renderable.each(&:remove)
+      @renderable = []
     end
+
+    start!
+
+    if @was_toggled
+      toggle
+    end
+    # [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
+    #   x_delta = arr[0]
+    #   y_delta = arr[1]
+    #   unless @availability_grid[y + y_delta][x + x_delta] == :ok
+    #     if @map.in_map?(x + x_delta, y + y_delta)
+    #       @positions_to_check << Position.new(x + x_delta, y + y_delta)
+    #       @availability_grid[y + y_delta][x + x_delta] = :checking
+    #     end
+    #   end
+    # end
 
     calculate!
   end
@@ -107,6 +116,7 @@ class FloodMap
       end
 
       unless position.checked_times >= 5
+        # puts "CHECK"
         position.check!
         @positions_to_check_later << position
       end
