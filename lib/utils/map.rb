@@ -173,6 +173,8 @@ class Map
         end
       end
     end
+
+    @noise_cache = nil
   end
 
   def noise_generator
@@ -180,10 +182,20 @@ class Map
   end
 
   def set_tree?(x, y)
-    rand < noise_generator.get(x, y)
+    rand < get_noise(x, y)
   end
 
   def set_bush?(x, y) # of love
-    rand < (noise_generator.get(x, y) / 2)
+    rand < (get_noise(x, y) / 2)
+  end
+
+  def get_noise(x, y)
+    noise_cache[x] ||= {}
+    noise_cache[x][y] ||= noise_generator.get(x, y)
+    noise_cache[x][y]
+  end
+
+  def noise_cache
+    @noise_cache ||= {}
   end
 end
