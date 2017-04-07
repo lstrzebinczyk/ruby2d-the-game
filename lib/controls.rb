@@ -27,14 +27,6 @@ on key_down: "z" do
   $flood_map && $flood_map.toggle
 end
 
-# on key_down: ""
-
-# on key_down: "x" do
-#   $start_flood_map_progressing = true
-#   $flood_map && $flood_map.progress
-# end
-
-
 on key_down: "escape" do
   close
 end
@@ -97,29 +89,27 @@ on key_down: "p" do
   end
 end
 
+on key_down: "o" do
+if @profiling
+  result = RubyProf.stop
+  printer = RubyProf::GraphHtmlPrinter.new(result)
+
+  Pathname.new(FileUtils.pwd).join("./profiles/in-game-allocations.html").open("w+") do |file|
+    printer.print(file, {})
+  end
+  close
+else
+  Text.new(200, 15, "PROFILING MEMORY", 40, "fonts/arial.ttf")
+  require "ruby-prof"
+  require "pathname"
+
+  RubyProf.measure_mode = RubyProf::ALLOCATIONS
+  RubyProf.start
+  @profiling = true
+end
+end
+
 on key_down: "f5" do
   get(:window).clear
   start_game!
 end
-
-# on_key do |key|
-#   if key == "o"
-#     if @profiling
-#       result = RubyProf.stop
-#       printer = RubyProf::GraphHtmlPrinter.new(result)
-
-#       Pathname.new(FileUtils.pwd).join("./profiles/in-game-allocations.html").open("w+") do |file|
-#         printer.print(file, {})
-#       end
-#       close
-#     else
-#       Text.new(200, 15, "PROFILING MEMORY", 40, "fonts/arial.ttf")
-#       require "ruby-prof"
-#       require "pathname"
-
-#       RubyProf.measure_mode = RubyProf::ALLOCATIONS
-#       RubyProf.start
-#       @profiling = true
-#     end
-#   end
-# end
