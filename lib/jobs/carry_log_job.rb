@@ -8,7 +8,7 @@ class CarryLogJob
   end
 
   def available?
-    !!available_zone
+    !!available_zone and $flood_map.available?(available_zone.x, available_zone.y)
   end
 
   def available_zone

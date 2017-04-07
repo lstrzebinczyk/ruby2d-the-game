@@ -11,9 +11,8 @@ class CutTreeJob
     :woodcutting
   end
 
-  # Job is available if character can get to the tree
   def available?
-    true
+    $flood_map.available?(@tree.x, @tree.y)
   end
 
   def target

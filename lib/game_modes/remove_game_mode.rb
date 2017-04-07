@@ -11,12 +11,8 @@ class RemoveGameMode < GameMode::Base
         $job_list.delete(job)
         job.remove
       else
-        target_position = Position.new(in_game_x, in_game_y)
-        # Only set the job if any character can get to that point
-        if $characters_list.any?{|character| PathFinder.new(character, target_position, $map).search.any? }
-          new_job = CutBerryBushJob.new(map_object)
-          $job_list.add(new_job)
-        end
+        new_job = CutBerryBushJob.new(map_object)
+        $job_list.add(new_job)
       end
     end
   end

@@ -37,6 +37,16 @@ class FloodMap
     calculate!
   end
 
+  def available?(x, y)
+    p "#{x}, #{y} => #{@availability_grid.dig(y, x)}"
+    p "#{y}, #{x} => #{@availability_grid.dig(x, y)}"
+
+    # floo
+    # require "pry"
+    # binding.pry
+    @availability_grid.dig(y, x) == :ok
+  end
+
   def calculate!
     while @positions_to_check.any? or @positions_to_check_later.any?
       progress
@@ -47,8 +57,6 @@ class FloodMap
     [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
       x_delta = arr[0]
       y_delta = arr[1]
-      # add_as_checking(x + x_delta, y + y_delta)
-
       unless @availability_grid[y + y_delta][x + x_delta] == :ok
         if @map.in_map?(x + x_delta, y + y_delta)
           @positions_to_check << Position.new(x + x_delta, y + y_delta)

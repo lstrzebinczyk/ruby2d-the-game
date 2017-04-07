@@ -83,25 +83,24 @@ class Map
   # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM
   def find_free_spot_near(position)
     positions = []
-    positions << Position.new(position.x - 1, position.y - 1) if passable?(position.x - 1, position.y - 1)
-    positions << Position.new(position.x - 1, position.y    ) if passable?(position.x - 1, position.y    )
-    positions << Position.new(position.x - 1, position.y + 1) if passable?(position.x - 1, position.y + 1)
-    positions << Position.new(position.x    , position.y - 1) if passable?(position.x    , position.y - 1)
+    positions << Position.new(position.x - 1, position.y - 1)
+    positions << Position.new(position.x - 1, position.y    )
+    positions << Position.new(position.x - 1, position.y + 1)
+    positions << Position.new(position.x    , position.y - 1)
     # Position.new(position.x    , position.y    )
-    positions << Position.new(position.x    , position.y + 1) if passable?(position.x    , position.y + 1)
-    positions << Position.new(position.x + 1, position.y - 1) if passable?(position.x + 1, position.y - 1)
-    positions << Position.new(position.x + 1, position.y    ) if passable?(position.x + 1, position.y    )
-    positions << Position.new(position.x + 1, position.y + 1) if passable?(position.x + 1, position.y + 1)
+    positions << Position.new(position.x    , position.y + 1)
+    positions << Position.new(position.x + 1, position.y - 1)
+    positions << Position.new(position.x + 1, position.y    )
+    positions << Position.new(position.x + 1, position.y + 1)
 
     # if positions.none?{|pos| self[pos.x, pos.y].nil? }
     #   require "pry"
     #   binding.pry
     # end
 
-    positions.find do |pos|
-      self[pos.x, pos.y].nil?
-      # passable?(pos.x, pos.y)
-    end#.first
+    positions.find_all do |pos|
+      passable?(pos.x, pos.y) and $flood_map.available?(pos.x, pos.y)
+    end.first
   end
 
   def rerender
