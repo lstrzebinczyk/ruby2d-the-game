@@ -16,42 +16,43 @@ set({
 
 # GAME SETUP
 
-characters_list = [
-  Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
-  Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
-  Character.new(x: 32, y: 20, name: "Karl", type: :gatherer)
-]
-map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
-map.fill_grid_with_objects
-characters_list.each do |character|
-  map.clear(character.x, character.y)
+def start_game!
+  characters_list = [
+    Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
+    Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
+    Character.new(x: 32, y: 20, name: "Karl", type: :gatherer)
+  ]
+  map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
+  map.fill_grid_with_objects
+  characters_list.each do |character|
+    map.clear(character.x, character.y)
+  end
+
+  $game_world = GameWorld.new(characters_list, map)
+
+  $structures << Fireplace.new
+
+  $background = Background.new
+  $fps_drawer = FpsDrawer.new
+  $menu = Menu.new
+  $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
+
+  $previous_mouse_over = :game_window
+
+  $background.rerender
+  $characters_list.each(&:rerender)
+  $map.rerender
+  $structures.each(&:rerender)
+  $menu.rerender
+
+  fps = get(:fps)
+  $fps_drawer.rerender(fps)
+
+  $inspection_menu.rerender
+  $day_and_night_cycle.rerender
 end
 
-$game_world = GameWorld.new(characters_list, map)
-
-$structures << Fireplace.new
-
-$background = Background.new
-$fps_drawer = FpsDrawer.new
-$menu = Menu.new
-$inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
-
-$previous_mouse_over = :game_window
-
-$background.rerender
-$characters_list.each(&:rerender)
-$map.rerender
-$structures.each(&:rerender)
-$menu.rerender
-
-fps = get(:fps)
-$fps_drawer.rerender(fps)
-
-$inspection_menu.rerender
-$day_and_night_cycle.rerender
-
-$x_offset = 0
-$y_offset = 0
+start_game!
 
 #
 # Autoplayer!
