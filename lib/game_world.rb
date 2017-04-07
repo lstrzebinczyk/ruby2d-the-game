@@ -79,7 +79,8 @@ class GameWorld
     arr << $map[x, y]
     arr << $zones[x, y]
     arr << $structures.find{|s| s.include_any?([[x, y]]) }
-    arr.compact
+    arr << $characters_list.find_all{|char| char.x == x and char.y == y }
+    arr.flatten.compact
   end
 
   def initialize(characters_list, map)
