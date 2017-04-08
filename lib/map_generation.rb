@@ -27,8 +27,10 @@ points.each do |point|
   Square.new(512 * point.x, 512 * point.y, 8, "red")
 end
 
+# https://en.wikipedia.org/wiki/Delaunay_triangulation
+# calculate a delaunay triangulation, then relaxation once or twice
 
-
+# http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/
 
 
 

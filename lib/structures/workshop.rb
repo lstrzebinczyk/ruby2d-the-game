@@ -1,5 +1,26 @@
 class Workshop < Structure::Base
-  attr_reader :x, :y, :size
+  class Inspection
+    def initialize(workshop, opts = {})
+      x = opts[:x]
+      y = opts[:y]
+      @texts = []
+      if workshop.stage == :blueprint
+        @texts << Text.new(x, y, "Workshop (blueprint)", 16, "fonts/arial.ttf")
+        @texts << Text.new(x, y + 20, "Needs 1 log", 16, "fonts/arial.ttf")
+      elsif workshop.stage == :building
+        @texts << Text.new(x, y, "Workshop (building)", 16, "fonts/arial.ttf")
+      else
+        @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
+      end
+    end
+
+    def remove
+      @texts.each(&:remove)
+    end
+  end
+
+
+  attr_reader :x, :y, :size, :stage
 
   def initialize(x, y)
     @x, @y = x, y
