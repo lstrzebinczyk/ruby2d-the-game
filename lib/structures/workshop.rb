@@ -19,7 +19,6 @@ class Workshop < Structure::Base
     end
   end
 
-
   attr_reader :x, :y, :size, :stage
 
   def initialize(x, y)
