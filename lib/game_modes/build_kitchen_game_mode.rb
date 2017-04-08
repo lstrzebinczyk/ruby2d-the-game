@@ -5,6 +5,8 @@ class BuildKitchenGameMode < GameMode::Base
       if $menu
         $menu.set_game_mode(:inspect)
       end
+      unhover
+      @mask = nil
     end
   end
 

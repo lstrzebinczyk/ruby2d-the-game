@@ -52,7 +52,7 @@ class Menu
     render_button("Cut")
     render_button("Remove")
     render_button("Set storage")
-    render_button("Build kitchen")
+    # render_button("Build kitchen")
     render_button("Build workshop")
   end
 

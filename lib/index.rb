@@ -20,7 +20,8 @@ def start_game!
   characters_list = [
     Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
     Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
-    Character.new(x: 32, y: 20, name: "Karl", type: :gatherer)
+    Character.new(x: 32, y: 20, name: "Karl", type: :gatherer),
+    Character.new(x: 33, y: 20, name: "Joseph", type: :craftsman),
   ]
   map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
   map.fill_grid_with_objects
@@ -102,26 +103,26 @@ if @autoplay
   end
 
   # setup kitchen on first free spot closest to fireplace
-  build_kitchen_game_mode = BuildKitchenGameMode.new
-  all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+  # build_kitchen_game_mode = BuildKitchenGameMode.new
+  # all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
 
-  free_spots = all_spots.keep_if do |arr|
-    build_kitchen_game_mode.terrain_clear?(arr[0], arr[1])
-  end
+  # free_spots = all_spots.keep_if do |arr|
+  #   build_kitchen_game_mode.terrain_clear?(arr[0], arr[1])
+  # end
 
-  free_spots.sort_by! do |a|
-    (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-  end
+  # free_spots.sort_by! do |a|
+  #   (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+  # end
 
-  spot = free_spots.first
-  build_kitchen_game_mode.perform(spot[0], spot[1])
+  # spot = free_spots.first
+  # build_kitchen_game_mode.perform(spot[0], spot[1])
 
 
-  kitchen = $structures.find{|s| s.is_a? Kitchen }
+  # kitchen = $structures.find{|s| s.is_a? Kitchen }
 
-  15.times do
-    kitchen.ensure_more_berries
-  end
+  # 15.times do
+  #   kitchen.ensure_more_berries
+  # end
 end
 
 # START!
@@ -132,7 +133,7 @@ show
 # This should be really fast, because no checking is needed for overflow if module is small enough
 
 # 2d top view rune clone? In which you walk and control your character from the top and fight other people?
-
+# Warhammer game?
 
 # IMplement that flood map that will, for all map positions, store if that position is achievable or not
 # Cut/remove tasks are only available when they are on achievable spots
@@ -160,3 +161,6 @@ show
 # - have kitchen require a table to build in the same manner workshop requires piece of wood
 
 # - then a fishing workshop, require a table too
+
+
+# http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation

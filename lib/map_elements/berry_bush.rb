@@ -39,6 +39,10 @@ class BerryBush
     end
   end
 
+  def contains?(item_type)
+    item_type == :berries and @grams > 0
+  end
+
   def get_berries(seconds)
     grams = gathered_grams(seconds)
     @grams -= grams

@@ -25,6 +25,8 @@ require_relative "./actions/put_action"
 require_relative "./actions/sleep_action"
 require_relative "./actions/gather_berries_action"
 require_relative "./actions/eat_action"
+require_relative "./actions/supply_action"
+require_relative "./actions/build_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
@@ -32,10 +34,13 @@ require_relative "./jobs/carry_log_job"
 require_relative "./jobs/pick_berry_bush_job"
 require_relative "./jobs/eat_job"
 require_relative "./jobs/sleep_job"
+require_relative "./jobs/supply_job"
+require_relative "./jobs/build_job"
 
 require_relative "./structures/base"
 require_relative "./structures/kitchen"
 require_relative "./structures/fireplace"
+require_relative "./structures/workshop"
 
 require_relative "./game_modes/_index"
 

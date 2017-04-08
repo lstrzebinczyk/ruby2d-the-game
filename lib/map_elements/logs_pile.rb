@@ -24,6 +24,10 @@ class LogsPile
     rerender
   end
 
+  def contains?(item_type)
+    item_type == :log and @logs.count > 0
+  end
+
   def pickable?
     true
   end

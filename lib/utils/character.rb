@@ -26,7 +26,8 @@ class Character
     @type = opts[:type]
     @accepts_jobs = {
       woodcutter: [:woodcutting, :haul],
-      gatherer: [:gathering, :haul]
+      gatherer: [:gathering, :haul],
+      craftsman: [:building, :carpentry, :haul]
     }[@type]
 
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
