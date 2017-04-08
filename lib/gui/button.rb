@@ -79,6 +79,5 @@ class Button
       @text_element.height + 8,
       color
     )
-
   end
 end
