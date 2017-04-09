@@ -1,5 +1,6 @@
 class StorageZone
   attr_reader :x, :y, :image
+  attr_accessor :taken
 
   def initialize(x, y)
     @x = x
@@ -11,6 +12,7 @@ class StorageZone
     @image = Square.new(x_coord, y_coord, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
     @image.remove
     @image.add
+    @taken = false
   end
 
   def map_object

@@ -8,11 +8,14 @@ class StoreJob
   end
 
   def available?
-    !!available_zone and $flood_map.available?(available_zone.x, available_zone.y)
+    zone = available_zone
+    !!zone and $flood_map.available?(zone.x, zone.y)
   end
 
   def available_zone
-    @available_zone ||= $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? @item.class }
+    $zones.find do |zone|
+      zone.is_a? StorageZone and zone.has_place_for?(@item.class) and !zone.taken
+    end
   end
 
   def target
@@ -20,12 +23,14 @@ class StoreJob
   end
 
   def action_for(character)
+    zone = available_zone
+    zone.taken = true
     MoveAction.new(character: character, near: @item).then do
       PickAction.new(@item, character)
     end.then do
-      MoveAction.new(character: character, near: available_zone)
+      MoveAction.new(character: character, near: zone)
     end.then do
-      PutAction.new(available_zone, character)
+      PutAction.new(zone, character)
     end
   end
 

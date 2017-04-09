@@ -117,7 +117,7 @@ class Map
     # end
 
     positions.find_all do |pos|
-      self[pos.x, pos.y].nil? and $flood_map.available?(pos.x, pos.y)
+      self[pos.x, pos.y].nil? and $characters_list.none?{|c| c.x == pos.x && c.y == pos.y} and $flood_map.available?(pos.x, pos.y)
     end.first
   end
 

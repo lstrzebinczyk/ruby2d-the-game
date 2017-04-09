@@ -162,9 +162,3 @@ show
 
 # TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
 # TODO: Supplying things to workshop sometimes teleports
-# REMOVE LOG Piles completely. Instead just do log this much times on ground.
-# We'll need new graphics for log/wood
-
-
-# When somebody does storing job, make the zone somehow know that thing is coming to it.
-# So that when there is one zone free, all of the people will not rush to it with things
