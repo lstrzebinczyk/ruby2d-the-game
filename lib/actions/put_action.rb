@@ -25,7 +25,7 @@ class PutAction < Action::Base
         else
           spot_near = $map.find_free_spot_near(@character)
           action = PutAction.new(spot_near, @character)
-          new_job = CarryLogJob.new(from: spot_near)
+          new_job = StoreJob.new(spot_near)
           $job_list.add(new_job)
 
           replace_action(action)

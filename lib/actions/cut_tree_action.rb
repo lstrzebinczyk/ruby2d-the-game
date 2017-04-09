@@ -49,10 +49,11 @@ class CutTreeAction < Action::Base
     @mask.remove
     @parent.finish
     $map.clear(@tree.x, @tree.y)
-    $map[@tree.x, @tree.y] = LogsPile.new(@tree.x, @tree.y)
+    pile = LogsPile.new(@tree.x, @tree.y)
+    $map[@tree.x, @tree.y] = pile
 
     $map[@tree.x, @tree.y].count.times do
-      new_job = CarryLogJob.new(from: @tree)
+      new_job = StoreJob.new(pile)
       $job_list.add(new_job)
     end
   end

@@ -153,8 +153,6 @@ show
 
 
 # TODO WITH WOODEN WORKSHOP:
-# - when done, have it somehow allow producing tables
-# - one table require 2 pieces of wood
 # - have kitchen require a table to build in the same manner workshop requires piece of wood
 
 # - then a fishing workshop, require a table too
@@ -163,5 +161,4 @@ show
 # http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation
 
 # TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
-# TODO: Replace carry log job with store job
 # TODO: Supplying things to workshop sometimes teleports
