@@ -41,7 +41,6 @@ class Log < Item
   end
 
   def contains?(item_type)
-    false
+    item_type == :log
   end
-
 end

@@ -162,3 +162,4 @@ show
 
 # TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
 # TODO: Supplying things to workshop sometimes teleports
+# TODO: Write test for creating workshop and producing a table

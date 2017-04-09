@@ -38,7 +38,7 @@ class PutAction < Action::Base
   private
 
   def available_zone
-    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? Log }
+    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? @character.carry.class }
   end
 end
 
