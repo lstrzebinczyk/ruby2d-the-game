@@ -11,6 +11,14 @@ class Workshop < Structure::Base
         @texts << Text.new(x, y, "Workshop (building)", 16, "fonts/arial.ttf")
       else
         @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
+
+        msg = "Request tables: #{workshop.request_tables}"
+        @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
+        @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
+        @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
+
+
+
       end
     end
 
@@ -20,6 +28,7 @@ class Workshop < Structure::Base
   end
 
   attr_reader :x, :y, :size, :stage
+  attr_reader :request_tables
 
   def initialize(x, y)
     @x, @y = x, y
@@ -30,6 +39,7 @@ class Workshop < Structure::Base
 
     @stage = :blueprint
     @needs = [:log]
+    @request_tables = 0
 
     supply_job = SupplyJob.new(:log, to: self)
     $job_list.add(supply_job)
@@ -37,6 +47,13 @@ class Workshop < Structure::Base
 
   def passable?
     true
+  end
+
+  def request_tables=(request_tables)
+    @request_tables = request_tables
+    if @request_tables < 0
+      @request_tables = 0
+    end
   end
 
   def supply(item)

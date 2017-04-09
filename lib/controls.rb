@@ -49,6 +49,24 @@ on key_down: "n" do
   end
 end
 
+on key_down: "k" do
+  workshop = $structures.find{|s| s.is_a? Workshop }
+
+  if workshop
+    workshop.request_tables -= 1
+    $inspection_menu.rerender_content
+  end
+end
+
+on key_down: "l" do
+  workshop = $structures.find{|s| s.is_a? Workshop }
+
+  if workshop
+    workshop.request_tables += 1
+    $inspection_menu.rerender_content
+  end
+end
+
 on key_down: "1" do
   $game_speed.set(1)
 end
