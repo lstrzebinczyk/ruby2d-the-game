@@ -162,3 +162,5 @@ show
 
 # TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
 # TODO: Supplying things to workshop sometimes teleports
+# REMOVE LOG Piles completely. Instead just do log this much times on ground.
+# We'll need new graphics for log/wood
