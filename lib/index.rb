@@ -87,7 +87,7 @@ if @autoplay
     cut_game_mode.perform(zone.x, zone.y)
   end
 
-  trees_count = 20
+  trees_count = 5
   if designated_trees.count < trees_count
     puts "need #{trees_count - designated_trees.count} more trees"
 

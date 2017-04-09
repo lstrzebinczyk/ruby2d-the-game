@@ -36,6 +36,7 @@ require_relative "./jobs/eat_job"
 require_relative "./jobs/sleep_job"
 require_relative "./jobs/supply_job"
 require_relative "./jobs/build_job"
+require_relative "./jobs/produce_job"
 
 require_relative "./structures/base"
 require_relative "./structures/kitchen"

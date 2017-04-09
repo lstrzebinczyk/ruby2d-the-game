@@ -12,13 +12,17 @@ class Workshop < Structure::Base
       else
         @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
 
-        msg = "Request tables: #{workshop.request_tables}"
+        count = workshop.jobs.count{|j| j.is_a? ProduceJob }
+
+        msg = "Request tables: #{count}"
         @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
-        @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
+        # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
         @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
+        @texts << Text.new(x, y + 80, "Supplies:", 16, "fonts/arial.ttf")
 
+        logs_count = workshop.supplies.count{|thing| thing.is_a? Log }
 
-
+        @texts << Text.new(x, y + 100, "Logs: #{logs_count}", 16, "fonts/arial.ttf")
       end
     end
 
@@ -28,7 +32,7 @@ class Workshop < Structure::Base
   end
 
   attr_reader :x, :y, :size, :stage
-  attr_reader :request_tables
+  attr_reader :jobs, :supplies
 
   def initialize(x, y)
     @x, @y = x, y
@@ -39,7 +43,8 @@ class Workshop < Structure::Base
 
     @stage = :blueprint
     @needs = [:log]
-    @request_tables = 0
+    @jobs     = []
+    @supplies = []
 
     supply_job = SupplyJob.new(:log, to: self)
     $job_list.add(supply_job)
@@ -49,28 +54,44 @@ class Workshop < Structure::Base
     true
   end
 
-  def request_tables=(request_tables)
-    @request_tables = request_tables
-    if @request_tables < 0
-      @request_tables = 0
+  def has_stuff_required_for(item_type)
+    if item_type == :table
+      @supplies.include?(:log)
+    end
+  end
+
+  def request_table
+    @jobs << SupplyJob.new(:log, to: self)
+    @jobs << ProduceJob.new(:table, at: self)
+  end
+
+  def produce(item_type)
+    if item_type == :table
+      @supplies.delete(:log)
+      spot = $map.find_free_spot_near(self)
+      $map[spot.x, spot.y] = Table.new(spot.x, spot.y)
     end
   end
 
   def supply(item)
-    if @needs.include?(item.type)
-      @needs.delete(item.type)
-      if @needs.empty?
-        @stage = :building
-        @mask.color = "gray"
-        @mask.color.opacity = 0.8
+    if @stage == :finished
+      @supplies << item
+    elsif @stage == :blueprint
+      if @needs.include?(item.type)
+        @needs.delete(item.type)
+        if @needs.empty?
+          @stage = :building
+          @mask.color = "gray"
+          @mask.color.opacity = 0.8
 
-        build_job = BuildJob.new(structure: self)
-        $job_list.add(build_job)
+          build_job = BuildJob.new(structure: self)
+          $job_list.add(build_job)
+        end
+      else
+        require "pry"
+        binding.pry
+        raise ArgumentError, "Incorrect item brought"
       end
-    else
-      require "pry"
-      binding.pry
-      raise ArgumentError, "Incorrect item brought"
     end
   end
 
@@ -84,17 +105,13 @@ class Workshop < Structure::Base
     20.minutes
   end
 
-  # If it's blueprint stage, we need to bring all of the needed materials to structure
-  # Then it's building time
-  # Then structure can be used
-
   def has_job?(type)
-    false
-    # if @stage == :blueprint
-    #   if type == :haul
+    @jobs.any?{|j| j.type == type and j.available? }
+  end
 
-    #   end
-    # end
+  def get_job(type)
+    job = @jobs.find_all{|j| j.type == type and j.available? }.shift
+    @jobs.delete(job)
   end
 
   def update(time)
