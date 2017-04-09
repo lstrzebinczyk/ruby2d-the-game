@@ -63,6 +63,8 @@ class Map
       else
         raise ArgumentError, "you fucked that up"
       end
+    elsif item.is_a? Table
+      self[x, y] = Table.new(x, y)
     else
       raise "You need to handle this better, tried to put #{item}"
     end

@@ -20,6 +20,7 @@ class StoreJob
   end
 
   def action_for(character)
+    puts "TAKING STOREJOB"
     MoveAction.new(character: character, near: @item).then do
       PickAction.new(@item, character)
     end.then do

@@ -7,6 +7,7 @@ class PickAction < Action::Base
   def start
     thing = $map[@from.x, @from.y]
     if thing.nil? or !thing.respond_to?(:picking_time)
+      puts "Abandoning picking of #{thing}"
       abandon_action
     else
       @time_left = thing.picking_time
