@@ -8,10 +8,12 @@ class Character
       x = opts[:x]
       y = opts[:y]
       @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
+      @t1 = Text.new(x, y + 20, "Job: #{character.job.class}", 16, "fonts/arial.ttf")
     end
 
     def remove
       @t.remove
+      @t1.remove
     end
   end
 
