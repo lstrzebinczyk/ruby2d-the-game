@@ -39,22 +39,24 @@ class Point
   end
 end
 
-# TODO: I can make the lines be prettier
-# TODO: Calculate positions smarter and as a quad
-# TODO: And draw it smarter
 class Line
   def initialize(point_a, point_b)
     @point_a, @point_b = point_a, point_b
-    @line_width = 3
+    @line_width = 2
+
+    line_length = Math.sqrt((point_a.x - point_b.x)**2 + (point_a.y - point_b.y)**2)
+    unit_x = (point_b.x - point_a.x) / line_length
+    unit_y = (point_b.y - point_a.y) / line_length
+
     @image = Quad.new(
-      @point_a.x * WINDOW_SIZE,
-      @point_a.y * WINDOW_SIZE,
-      @point_a.x * WINDOW_SIZE + @line_width,
-      @point_a.y * WINDOW_SIZE + @line_width,
-      @point_b.x * WINDOW_SIZE,
-      @point_b.y * WINDOW_SIZE,
-      @point_b.x * WINDOW_SIZE + @line_width,
-      @point_b.y * WINDOW_SIZE + @line_width,
+      WINDOW_SIZE * @point_a.x - unit_y * @line_width / 2,
+      WINDOW_SIZE * @point_a.y + unit_x * @line_width / 2,
+      WINDOW_SIZE * @point_a.x + unit_y * @line_width / 2,
+      WINDOW_SIZE * @point_a.y - unit_x * @line_width / 2,
+      WINDOW_SIZE * @point_b.x - unit_y * @line_width / 2,
+      WINDOW_SIZE * @point_b.y + unit_x * @line_width / 2,
+      WINDOW_SIZE * @point_b.x + unit_y * @line_width / 2,
+      WINDOW_SIZE * @point_b.y - unit_x * @line_width / 2,
       "black"
     )
   end
