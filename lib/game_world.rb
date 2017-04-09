@@ -4,6 +4,7 @@ require 'perlin_noise'
 require_relative "./items/item"
 require_relative "./items/log"
 require_relative "./items/berries"
+require_relative "./items/table"
 
 require_relative "./map_elements/tree"
 require_relative "./map_elements/logs_pile"
@@ -27,6 +28,7 @@ require_relative "./actions/gather_berries_action"
 require_relative "./actions/eat_action"
 require_relative "./actions/supply_action"
 require_relative "./actions/build_action"
+require_relative "./actions/produce_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"

@@ -56,7 +56,7 @@ class Workshop < Structure::Base
 
   def has_stuff_required_for(item_type)
     if item_type == :table
-      @supplies.include?(:log)
+      @supplies.any?{|s| s.type == :log }
     end
   end
 
@@ -67,9 +67,12 @@ class Workshop < Structure::Base
 
   def produce(item_type)
     if item_type == :table
-      @supplies.delete(:log)
+      log = @supplies.find{|el| el.is_a? Log}
+      @supplies.delete(log)
       spot = $map.find_free_spot_near(self)
-      $map[spot.x, spot.y] = Table.new(spot.x, spot.y)
+      item = Table.new(spot.x, spot.y)
+      $map[spot.x, spot.y] = item
+      item
     end
   end
 

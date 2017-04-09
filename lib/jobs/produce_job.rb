@@ -22,7 +22,7 @@ class ProduceJob
 
   def action_for(character)
     MoveAction.new(character: character, to: @at).then do
-      ProduceAction.new(@item_type, at: @at)
+      ProduceAction.new(@item_type, at: @at, character: character)
     end
   end
 

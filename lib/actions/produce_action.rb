@@ -2,6 +2,7 @@ class ProduceAction < Action::Base
   def initialize(item_type, opts)
     @item_type = item_type
     @at        = opts[:at]
+    @character = opts[:character]
     @time_left = 15.minutes
   end
 
