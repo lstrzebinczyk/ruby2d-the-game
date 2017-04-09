@@ -79,7 +79,7 @@ class PathFinder
 
   # field passable?
   def passable?(x, y)
-    @map.passable?(x, y)
+    @map.passable?(x, y) and $characters_list.none?{|char| char.x == x and char.y == y }
   end
 
   # expand node in all 4 directions
