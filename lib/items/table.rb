@@ -1,7 +1,6 @@
 class Table < Item
   attr_reader :x, :y, :count
 
-  # TODO: CU THAT IMAGE LITTLE BIT MORE CAREFULLY
   def initialize(x, y)
     @x, @y = x, y
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/structures/table.png")

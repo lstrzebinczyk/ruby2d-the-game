@@ -59,7 +59,7 @@ start_game!
 # Autoplayer!
 #
 
-@autoplay = true
+# @autoplay = true
 if @autoplay
 
   fireplace = $structures.find{|s| s.is_a? Fireplace }
@@ -164,3 +164,7 @@ show
 # TODO: Supplying things to workshop sometimes teleports
 # REMOVE LOG Piles completely. Instead just do log this much times on ground.
 # We'll need new graphics for log/wood
+
+
+# When somebody does storing job, make the zone somehow know that thing is coming to it.
+# So that when there is one zone free, all of the people will not rush to it with things

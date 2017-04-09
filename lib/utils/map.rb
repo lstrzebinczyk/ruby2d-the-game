@@ -48,13 +48,7 @@ class Map
 
   def put_item(x, y, item)
     if item.is_a? Log
-      if self[x, y].is_a? LogsPile
-        self[x, y].put(item)
-      elsif self[x, y].nil?
-        self[x, y] = LogsPile.new(x, y, 1)
-      else
-        raise ArgumentError, "you fucked that up"
-      end
+      self[x, y] = Log.new(x, y)
     elsif item.is_a? Berries
       if self[x, y].is_a? BerriesPile
         self[x, y].put(item)
@@ -102,6 +96,28 @@ class Map
 
     positions.find_all do |pos|
       passable?(pos.x, pos.y) and $flood_map.available?(pos.x, pos.y)
+    end.first
+  end
+
+  def find_empty_spot_near(position)
+    positions = []
+    positions << Position.new(position.x - 1, position.y - 1)
+    positions << Position.new(position.x - 1, position.y    )
+    positions << Position.new(position.x - 1, position.y + 1)
+    positions << Position.new(position.x    , position.y - 1)
+    # Position.new(position.x    , position.y    )
+    positions << Position.new(position.x    , position.y + 1)
+    positions << Position.new(position.x + 1, position.y - 1)
+    positions << Position.new(position.x + 1, position.y    )
+    positions << Position.new(position.x + 1, position.y + 1)
+
+    # if positions.none?{|pos| self[pos.x, pos.y].nil? }
+    #   require "pry"
+    #   binding.pry
+    # end
+
+    positions.find_all do |pos|
+      self[pos.x, pos.y].nil? and $flood_map.available?(pos.x, pos.y)
     end.first
   end
 

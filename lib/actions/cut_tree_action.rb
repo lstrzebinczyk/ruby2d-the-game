@@ -49,12 +49,22 @@ class CutTreeAction < Action::Base
     @mask.remove
     @parent.finish
     $map.clear(@tree.x, @tree.y)
-    pile = LogsPile.new(@tree.x, @tree.y)
-    $map[@tree.x, @tree.y] = pile
-
-    $map[@tree.x, @tree.y].count.times do
-      new_job = StoreJob.new(pile)
+    logs_count = 3 + rand(4)
+    logs_count.times do
+      spot = $map.find_empty_spot_near(@tree)
+      log = Log.new(spot.x, spot.y)
+      $map[spot.x, spot.y] = log
+      new_job = StoreJob.new(log)
       $job_list.add(new_job)
     end
+
+
+    # pile = LogsPile.new(@tree.x, @tree.y)
+    # $map[@tree.x, @tree.y] = pile
+
+    # $map[@tree.x, @tree.y].count.times do
+    #   new_job = StoreJob.new(pile)
+    #   $job_list.add(new_job)
+    # end
   end
 end
