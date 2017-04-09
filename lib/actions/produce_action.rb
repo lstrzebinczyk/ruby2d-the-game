@@ -16,7 +16,9 @@ class ProduceAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      @at.produce(@item_type)
+      item = @at.produce(@item_type)
+      job = StoreJob.new(item)
+      $job_list.add(job)
       end_action
     end
   end

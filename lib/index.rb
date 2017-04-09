@@ -161,3 +161,7 @@ show
 
 
 # http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation
+
+# TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
+# TODO: Replace carry log job with store job
+# TODO: Supplying things to workshop sometimes teleports

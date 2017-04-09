@@ -1,4 +1,6 @@
 class Table < Item
+  attr_reader :x, :y
+
   def initialize(x, y)
     @x, @y = x, y
     @image = Square.new(
