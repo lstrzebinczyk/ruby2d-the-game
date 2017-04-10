@@ -42,7 +42,7 @@ end
 class Line
   def initialize(point_a, point_b)
     @point_a, @point_b = point_a, point_b
-    @line_width = 2
+    @line_width = 5
 
     line_length = Math.sqrt((point_a.x - point_b.x)**2 + (point_a.y - point_b.y)**2)
     unit_x = (point_b.x - point_a.x) / line_length
@@ -53,10 +53,10 @@ class Line
       WINDOW_SIZE * @point_a.y + unit_x * @line_width / 2,
       WINDOW_SIZE * @point_a.x + unit_y * @line_width / 2,
       WINDOW_SIZE * @point_a.y - unit_x * @line_width / 2,
-      WINDOW_SIZE * @point_b.x - unit_y * @line_width / 2,
-      WINDOW_SIZE * @point_b.y + unit_x * @line_width / 2,
       WINDOW_SIZE * @point_b.x + unit_y * @line_width / 2,
       WINDOW_SIZE * @point_b.y - unit_x * @line_width / 2,
+      WINDOW_SIZE * @point_b.x - unit_y * @line_width / 2,
+      WINDOW_SIZE * @point_b.y + unit_x * @line_width / 2,
       "black"
     )
   end
@@ -234,3 +234,4 @@ end
 
 
 show
+
