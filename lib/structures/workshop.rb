@@ -24,8 +24,7 @@ class Workshop < Structure::Base
     end
   end
 
-  attr_reader :x, :y, :size, :stage
-  attr_reader :supplies
+  attr_reader :x, :y, :supplies
 
   def self.structure_requirements
     [:log]

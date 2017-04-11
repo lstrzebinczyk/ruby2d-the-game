@@ -1,6 +1,3 @@
-# TODO: MAKE THE KITCHEN ACTUALLY BUILDABLE
-# TODO: Like, require wood and time and stuff
-
 class Kitchen < Structure::Base
   class Inspection
     def initialize(kitchen, opts = {})
@@ -20,11 +17,23 @@ class Kitchen < Structure::Base
     end
   end
 
-  attr_reader :x, :y, :size, :ensure_berries_kgs
+  attr_reader :x, :y, :size, :ensure_berries_kgs, :supplies
+
+  def self.structure_requirements
+    [:table]
+  end
+
+  def self.building_time
+    20.minutes
+  end
+
+  def self.size
+    3
+  end
 
   def initialize(x, y)
     @x, @y = x, y
-    @size  = 3
+    @size  = self.class.size
 
     @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, 3 * PIXELS_PER_SQUARE, "brown")
     @mask.color.opacity = 0.6
@@ -65,8 +74,5 @@ class Kitchen < Structure::Base
     if @ensure_berries_kgs <= 0.0
       @ensure_berries_kgs = 0.0
     end
-  end  
-
-  def update(time)
   end
 end
