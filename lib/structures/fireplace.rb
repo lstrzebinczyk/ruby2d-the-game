@@ -6,10 +6,11 @@
 # Tree should catch more light
 # and it should push more light to outside?
 class Fireplace < Structure::Base
-  attr_reader :size
+  def self.size
+    1
+  end
 
   def initialize
-    @size = 1
     @position = $map.find_free_spot_near($characters_list.first)
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE

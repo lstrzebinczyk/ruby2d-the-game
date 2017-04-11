@@ -1,7 +1,7 @@
 class BuildWorkshopGameMode < GameMode::Base
   def perform(in_game_x, in_game_y)
     if terrain_clear?(in_game_x, in_game_y)
-      $structures << Workshop.new(in_game_x, in_game_y)
+      $structures << Blueprint.new(Workshop, in_game_x, in_game_y)
       if $menu
         $menu.set_game_mode(:inspect)
       end

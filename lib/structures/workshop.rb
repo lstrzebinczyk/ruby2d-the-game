@@ -1,29 +1,150 @@
+class Blueprint < Structure::Base
+  class Inspection
+    def initialize(blueprint, opts = {})
+      x = opts[:x]
+      y = opts[:y]
+      @texts = []
+      @texts << Text.new(x, y, "Blueprint (#{blueprint.structure_class})", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 20, "Needs #{blueprint.needs}", 16, "fonts/arial.ttf")
+    end
+
+    def remove
+      @texts.each(&:remove)
+    end
+  end
+
+  attr_reader :needs, :structure_class, :x, :y
+
+  def initialize(structure_class, x, y)
+    @structure_class = structure_class
+    @size            = structure_class.size
+    @x, @y = x, y
+
+    @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, @size * PIXELS_PER_SQUARE, "blue")
+    @mask.color.opacity = 0.4
+
+    @needs = []
+    @jobs  = []
+
+    structure_class.structure_requirements.each do |requirement|
+      @needs << requirement
+      @jobs << SupplyJob.new(requirement, to: self)
+    end
+  end
+
+  def size
+    @structure_class.size
+  end
+
+  def has_job?(type)
+    @jobs.any?{|j| j.type == type and j.available? }
+  end
+
+  def get_job(type)
+    job = @jobs.find{|j| j.type == type and j.available? }
+    @jobs.delete(job)
+  end
+
+  def remove
+    @mask.remove
+  end
+
+  def supply(item)
+    if @needs.include?(item.type)
+      @needs.delete(item.type)
+      if @needs.empty?
+        self.remove
+        $structures.delete(self)
+        $structures << Construction.new(@structure_class, @x, @y)
+      end
+    else
+      require "pry"
+      binding.pry
+      raise ArgumentError, "Incorrect item brought"
+    end
+  end
+
+  def update(seconds)
+  end
+end
+
+class Construction < Structure::Base
+  class Inspection
+    def initialize(construction, opts = {})
+      x = opts[:x]
+      y = opts[:y]
+      @text = Text.new(x, y, "Construction (#{construction.structure_class})", 16, "fonts/arial.ttf")
+    end
+
+    def remove
+      @text.remove
+    end
+  end
+
+  attr_reader :structure_class, :x, :y
+
+  def initialize(structure_class, x, y)
+    @structure_class = structure_class
+    @size            = structure_class.size
+    @x, @y = x, y
+
+    @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, @size * PIXELS_PER_SQUARE, "gray")
+    @mask.color.opacity = 0.8
+
+    @jobs  = [BuildJob.new(structure: self)]
+  end
+
+  def size
+    @structure_class.size
+  end
+
+  def building_time
+    @structure_class.building_time
+  end
+
+  def remove
+    @mask.remove
+  end
+
+  def finished_building!
+    self.remove
+    $structures.delete(self)
+    $structures << @structure_class.new(@x, @y)
+  end
+
+  def has_job?(type)
+    @jobs.any?{|j| j.type == type and j.available? }
+  end
+
+  def get_job(type)
+    job = @jobs.find{|j| j.type == type and j.available? }
+    @jobs.delete(job)
+  end
+
+  def update(seconds)
+  end
+end
+
+
 class Workshop < Structure::Base
   class Inspection
     def initialize(workshop, opts = {})
       x = opts[:x]
       y = opts[:y]
       @texts = []
-      if workshop.stage == :blueprint
-        @texts << Text.new(x, y, "Workshop (blueprint)", 16, "fonts/arial.ttf")
-        @texts << Text.new(x, y + 20, "Needs 1 log", 16, "fonts/arial.ttf")
-      elsif workshop.stage == :building
-        @texts << Text.new(x, y, "Workshop (building)", 16, "fonts/arial.ttf")
-      else
-        @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
 
-        count = workshop.jobs.count{|j| j.is_a? ProduceJob }
+      count = workshop.jobs.count{|j| j.is_a? ProduceJob }
 
-        msg = "Request tables: #{count}"
-        @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
-        # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
-        @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
-        @texts << Text.new(x, y + 80, "Supplies:", 16, "fonts/arial.ttf")
+      msg = "Request tables: #{count}"
+      @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
+      # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 80, "Supplies:", 16, "fonts/arial.ttf")
 
-        logs_count = workshop.supplies.count{|thing| thing.is_a? Log }
+      logs_count = workshop.supplies.count{|thing| thing.is_a? Log }
 
-        @texts << Text.new(x, y + 100, "Logs: #{logs_count}", 16, "fonts/arial.ttf")
-      end
+      @texts << Text.new(x, y + 100, "Logs: #{logs_count}", 16, "fonts/arial.ttf")
     end
 
     def remove
@@ -34,20 +155,27 @@ class Workshop < Structure::Base
   attr_reader :x, :y, :size, :stage
   attr_reader :jobs, :supplies
 
+  def self.structure_requirements
+    [:log]
+  end
+
+  def self.building_time
+    20.minutes
+  end
+
+  def self.size
+    3
+  end
+
   def initialize(x, y)
     @x, @y = x, y
-    @size  = 3
+    @size  = self.class.size
 
-    @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, 3 * PIXELS_PER_SQUARE, "blue")
-    @mask.color.opacity = 0.4
+    @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, @size * PIXELS_PER_SQUARE, "green")
+    @mask.color.opacity = 0.6
 
-    @stage = :blueprint
-    @needs = [:log]
     @jobs     = []
     @supplies = []
-
-    supply_job = SupplyJob.new(:log, to: self)
-    $job_list.add(supply_job)
   end
 
   def passable?
@@ -61,20 +189,8 @@ class Workshop < Structure::Base
   end
 
   def request_table
-
-    # require "pry"
-    # binding.pry
-
-
     @jobs << SupplyJob.new(:log, to: self)
     @jobs << ProduceJob.new(:table, at: self)
-
-    # puts "REQUESTED TABLE"
-    # @jobs.group_by{|j| j.class }.map{|k, v| { k => v.count} }.reduce({}, :merge).each do |class_job, count|
-    #   puts "#{class_job} => #{count}"
-    # end
-
-    # p @jobs
   end
 
   def produce(item_type)
@@ -89,35 +205,7 @@ class Workshop < Structure::Base
   end
 
   def supply(item)
-    if @stage == :finished
-      @supplies << item
-    elsif @stage == :blueprint
-      if @needs.include?(item.type)
-        @needs.delete(item.type)
-        if @needs.empty?
-          @stage = :building
-          @mask.color = "gray"
-          @mask.color.opacity = 0.8
-
-          build_job = BuildJob.new(structure: self)
-          $job_list.add(build_job)
-        end
-      else
-        require "pry"
-        binding.pry
-        raise ArgumentError, "Incorrect item brought"
-      end
-    end
-  end
-
-  def finished_building!
-    @mask.color = "green"
-    @mask.color.opacity = 0.6
-    @stage = :finished
-  end
-
-  def building_time
-    20.minutes
+    @supplies << item
   end
 
   def has_job?(type)
