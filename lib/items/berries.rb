@@ -1,6 +1,4 @@
 class Berries < Item
-  attr_reader :x, :y
-
   def initialize(x, y, grams)
     @x, @y = x, y
     @grams = grams
@@ -9,30 +7,8 @@ class Berries < Item
     @image.color = "purple"
   end
 
-  def x=(x)
-    @x = x
-    @image.x = x * PIXELS_PER_SQUARE
-  end
-
-  def y=(y)
-    @y = y
-    @image.y = y * PIXELS_PER_SQUARE
-  end
-
-  def remove
-    @image.remove
-  end
-
-  def render
-    @image.add
-  end
-
   def category
     :food
-  end
-
-  def type
-    :berries
   end
 
   def calories
@@ -54,14 +30,4 @@ class Berries < Item
   def grams_eaten_per_second
     2.027
   end
-
-  # def calories_eaten_in(seconds)
-  #   grams_eaten = seconds * grams_eaten_per_second
-  #   @grams -= grams_eaten
-  #   grams_eaten * calories_per_gram
-  # end
-
-  # def empty?
-  #   @grams <= 0
-  # end
 end
