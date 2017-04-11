@@ -175,7 +175,7 @@ class Character
         self.job = EatJob.new(from: food)
       else
         berries_spot = $map.find_closest_to(self) do |map_object|
-          map_object.is_a? BerryBush and !map_object.picked?
+          map_object.is_a? BerryBush and !map_object.picked? and $flood_map.available?(map_object.x, map_object.y)
         end
         # If there is no stored food anywhere, find any berries spot and gather it
         # from hunger

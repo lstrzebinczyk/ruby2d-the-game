@@ -77,6 +77,7 @@ class MoveAction < Action::Base
     @path = PathFinder.new(@character, @to, $map).search
 
     if @path.empty?
+      puts "Will crash. Tried to get from (#{@character.x}, #{@character.y}) to (#{@to.x}, #{@to.y})"
       raise ArgumentError, "No path: ("
     end
   end

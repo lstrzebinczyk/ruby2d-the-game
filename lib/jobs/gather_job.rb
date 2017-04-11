@@ -12,7 +12,7 @@ class GatherJob
   end
 
   def available?
-    true
+    $flood_map.available?(@target.x, @target.y)
   end
 
   def target
