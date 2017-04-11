@@ -26,7 +26,11 @@ class SupplyJob
     tile_with_item_cached = tile_with_item
 
     MoveAction.new(character: character, near: tile_with_item_cached).then do
-      PickAction.new(tile_with_item_cached, character)
+      on_abandon = -> {
+        @to.jobs << SupplyJob.new(@item_type, to: @to)
+      }
+
+      PickAction.new(tile_with_item_cached, character, on_abandon: on_abandon)
     end.then do
       MoveAction.new(character: character, near: @to)
     end.then do

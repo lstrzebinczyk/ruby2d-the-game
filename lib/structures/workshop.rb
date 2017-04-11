@@ -61,8 +61,20 @@ class Workshop < Structure::Base
   end
 
   def request_table
+
+    # require "pry"
+    # binding.pry
+
+
     @jobs << SupplyJob.new(:log, to: self)
     @jobs << ProduceJob.new(:table, at: self)
+
+    # puts "REQUESTED TABLE"
+    # @jobs.group_by{|j| j.class }.map{|k, v| { k => v.count} }.reduce({}, :merge).each do |class_job, count|
+    #   puts "#{class_job} => #{count}"
+    # end
+
+    # p @jobs
   end
 
   def produce(item_type)
@@ -113,7 +125,7 @@ class Workshop < Structure::Base
   end
 
   def get_job(type)
-    job = @jobs.find_all{|j| j.type == type and j.available? }.shift
+    job = @jobs.find{|j| j.type == type and j.available? }
     @jobs.delete(job)
   end
 

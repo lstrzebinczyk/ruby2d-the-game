@@ -1,13 +1,17 @@
 class PickAction < Action::Base
-  def initialize(from, character)
-    @from      = from
-    @character = character
+  def initialize(from, character, opts = {})
+    @from       = from
+    @character  = character
+    @on_abandon = opts[:on_abandon]
   end
 
   def start
     thing = $map[@from.x, @from.y]
     if thing.nil? or !thing.respond_to?(:picking_time)
       puts "Abandoning picking of #{thing}"
+      if @on_abandon
+        @on_abandon.call
+      end
       abandon_action
     else
       @time_left = thing.picking_time
