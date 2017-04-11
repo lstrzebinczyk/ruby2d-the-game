@@ -116,13 +116,6 @@ if @autoplay
 
   spot = free_spots.first
   build_workshop_game_mode.perform(spot[0], spot[1])
-
-
-  # kitchen = $structures.find{|s| s.is_a? Kitchen }
-
-  # 15.times do
-  #   kitchen.ensure_more_berries
-  # end
 end
 
 # START!
@@ -135,17 +128,6 @@ show
 # 2d top view rune clone? In which you walk and control your character from the top and fight other people?
 # Warhammer game?
 
-# IMplement that flood map that will, for all map positions, store if that position is achievable or not
-# Cut/remove tasks are only available when they are on achievable spots
-# flood map is updated on each putting something on map and each removing something from map
-# unify putting and removing something from map
-# when removing something, that field becomes achievable if any neighbor is achievable
-# when adding something, figure out smart thing to do
-
-# Also instead of "carry job" implement "store job". Store job will look for available zone on start
-# and only be available when there is an available zone empty or with proper type
-
-# Then we can make tests map compact again
 
 # http://gameprogrammingpatterns.com/game-loop.html
 
@@ -153,7 +135,6 @@ show
 
 
 # TODO WITH WOODEN WORKSHOP:
-# - have kitchen require a table to build in the same manner workshop requires piece of wood
 
 # - then a fishing workshop, require a table too
 
@@ -176,46 +157,3 @@ show
 # - Kontrakt oldenhallera?
 # - Kreutzhoffen !!!!!!
 #   - Oh I love that place
-
-
-
-# DIRECTIONS = [
-#   [ 1,  0],
-#   [ 0,  1],
-#   [-1,  0],
-#   [ 0, -1]
-# ]
-
-# def square_edge_coordinates((center_x, center_y), radius)
-#   position = [center_x - radius/2, center_y - radius/2]
-
-#   DIRECTIONS.lazy
-#     .flat_map do |direction|
-#       [direction].lazy
-#         .cycle
-#         .take(radius.pred)
-#     end
-#     .map do |step|
-#       old_position = position
-
-#       position = position.zip(step).map(&:sum) # elementwise vector sum
-
-#       old_position
-#     end
-# end
-
-# def range(x=Float::INFINITY)
-#   (0...x).lazy
-# end
-
-# def odd_numbers
-#   range.map { |x| 1 + 2 * x }
-# end
-
-# def search_path(center)
-#   odd_numbers
-#     .drop(1).
-#     .flat_map { |radius| square_edge_coordinates(center, radius) }
-# end
-
-# square_edge_coordinates([10, 10], 5).force.to_a
