@@ -13,7 +13,7 @@ class PuttingToOtherZoneTestScenario
   def run!
     time_start = Time.now
 
-    while $map[0, 0].is_a? LogsPile
+    while $map[0, 0].is_a? Log
       @world.update
 
       if Time.now - time_start > 5
@@ -21,9 +21,9 @@ class PuttingToOtherZoneTestScenario
       end
     end
 
-    $map[6, 0] = LogsPile.new(6, 0, 6)
+    $map[6, 0] = Log.new(6, 0)
 
-    while !$map[7, 0].is_a? LogsPile
+    while !$map[7, 0].is_a? Log
       @world.update
 
       if Time.now - time_start > 5
@@ -53,7 +53,7 @@ L..W..S
   def run!
     time_start = Time.now
 
-    while $map[0, 0].is_a? LogsPile
+    while $map[0, 0].is_a? Log
       @world.update
 
       if Time.now - time_start > 5
@@ -61,9 +61,9 @@ L..W..S
       end
     end
 
-    $map[6, 0] = LogsPile.new(6, 0, 6)
+    $map[6, 0] = Log.new(6, 0)
 
-    while $map.count{|el| el.is_a? LogsPile } != 2 do
+    while $map.count{|el| el.is_a? Log } != 2 do
       @world.update
 
       if Time.now - time_start > 5

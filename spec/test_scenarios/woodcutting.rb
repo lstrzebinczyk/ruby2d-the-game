@@ -3,9 +3,9 @@ class WoodcuttingTestScenario
 
 # This is so big because I want it to trigger sleeping and eating
 template = """
-TT.BW.SS.
-TT....SS.
-TT....SS.
+...BW.SS.
+T.....SS.
+......SS.
 """
 
     opts[:berry_bush_grams] = 1000000
@@ -48,7 +48,7 @@ TT....SS.
   end
 
   def unstored_logs
-    $map.find_all{|thing| thing.is_a? LogsPile }.count do |logs_pile|
+    $map.find_all{|thing| thing.is_a? Log }.count do |logs_pile|
       x = logs_pile.x
       y = logs_pile.y
       !$zones.find{|zone| zone.x == x and zone.y == y}

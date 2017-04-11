@@ -25,7 +25,7 @@ class WorldBuilder
         when "T"
           map[x, y] = Tree.new(x, y)
         when "L"
-          map[x, y] = LogsPile.new(x, y, 1)
+          map[x, y] = Log.new(x, y)
         when "B"
           map[x, y] = BerryBush.new(x, y, @berry_bush_grams)
         when "R"
