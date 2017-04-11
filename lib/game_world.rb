@@ -40,6 +40,8 @@ require_relative "./jobs/produce_job"
 require_relative "./jobs/store_job"
 
 require_relative "./structures/base"
+require_relative "./structures/_blueprint"
+require_relative "./structures/_construction"
 require_relative "./structures/kitchen"
 require_relative "./structures/fireplace"
 require_relative "./structures/workshop"
