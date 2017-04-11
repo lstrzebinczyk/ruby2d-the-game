@@ -141,8 +141,6 @@ show
 
 # http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation
 
-# TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
-# TODO: Supplying things to workshop sometimes teleports
 # TODO: Write test for creating workshop and producing a table
 
 
@@ -161,3 +159,6 @@ show
 
 
 # TODO: Refactor pick action
+
+# Implement nice storage system like I want it
+# Implement some nice system to find out where and when no path error happens

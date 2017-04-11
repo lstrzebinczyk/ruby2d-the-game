@@ -35,6 +35,14 @@ class Berries < Item
     :berries
   end
 
+  def calories
+    @grams * calories_per_gram
+  end
+
+  def eating_time
+    @grams / grams_eaten_per_second
+  end
+
   # 148g (a cup) -> 84.4 calories
   # 1g -> 0.57
   def calories_per_gram
@@ -47,13 +55,13 @@ class Berries < Item
     2.027
   end
 
-  def calories_eaten_in(seconds)
-    grams_eaten = seconds * grams_eaten_per_second
-    @grams -= grams_eaten
-    grams_eaten * calories_per_gram
-  end
+  # def calories_eaten_in(seconds)
+  #   grams_eaten = seconds * grams_eaten_per_second
+  #   @grams -= grams_eaten
+  #   grams_eaten * calories_per_gram
+  # end
 
-  def empty?
-    @grams <= 0
-  end
+  # def empty?
+  #   @grams <= 0
+  # end
 end
