@@ -40,6 +40,7 @@ require_relative "./jobs/build_job"
 require_relative "./jobs/produce_job"
 require_relative "./jobs/store_job"
 require_relative "./jobs/chill_job"
+require_relative "./jobs/gather_job"
 
 require_relative "./structures/base"
 require_relative "./structures/_blueprint"

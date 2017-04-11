@@ -9,6 +9,7 @@ class GameMode
       in_game_x = x / PIXELS_PER_SQUARE
       in_game_y = y / PIXELS_PER_SQUARE
       perform(in_game_x, in_game_y)
+      $characters_list.find_all{|char| char.job.is_a? ChillJob}.each(&:finish)
     end
 
     def unhover

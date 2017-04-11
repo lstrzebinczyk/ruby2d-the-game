@@ -48,12 +48,25 @@ class Menu
   def render
     render_menu_background
 
+    # Temporary solution, when we get nicer mouse events management
+    # Do expanded selects
+    # Poor mans implementation of buttons in rows
+
+
+    # menu first row
+
+    @menu_buttons_top_offset = 0
+
     render_button("Inspect")
     render_button("Cut")
     render_button("Remove")
     render_button("Set storage")
     render_button("Build workshop")
     render_button("Build kitchen")
+
+    @menu_buttons_top_offset = 38
+
+    render_button("Gather", left: PIXELS_PER_SQUARE)
   end
 
   def unhover
@@ -85,15 +98,20 @@ class Menu
 
   def render_button(text, opts = {})
     opts[:active] = @buttons.none?
-    opts[:text_size] = 28
+    opts[:text_size] = 22
 
     button = Button.new(text, opts)
-    left = if @buttons.any?
-      @buttons.last.right + PIXELS_PER_SQUARE
+    left = nil
+    if opts[:left]
+      left = opts[:left]
     else
-      PIXELS_PER_SQUARE
+      left = if @buttons.any?
+        @buttons.last.right + PIXELS_PER_SQUARE
+      else
+        PIXELS_PER_SQUARE
+      end
     end
-    button.render(left, @menu_y_start + PIXELS_PER_SQUARE)
+    button.render(left, @menu_buttons_top_offset + @menu_y_start + PIXELS_PER_SQUARE / 2)
     menu = self
 
     button.on_click = -> {
