@@ -1,5 +1,5 @@
 class Berries < Item
-  attr_reader :x, :y, :count
+  attr_reader :x, :y
 
   def initialize(x, y, grams)
     @x, @y = x, y
@@ -7,8 +7,6 @@ class Berries < Item
 
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/berries.png")
     @image.color = "purple"
-
-    @count = 1
   end
 
   def x=(x)
@@ -21,11 +19,6 @@ class Berries < Item
     @image.y = y * PIXELS_PER_SQUARE
   end
 
-  def get_item
-    @count = 0
-    self
-  end
-
   def remove
     @image.remove
   end
@@ -35,14 +28,6 @@ class Berries < Item
   end
 
   def passable?
-    true
-  end
-
-  def picking_time
-    15
-  end
-
-  def pickable?
     true
   end
 
