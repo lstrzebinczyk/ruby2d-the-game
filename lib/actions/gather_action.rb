@@ -14,9 +14,7 @@ class GatherAction < Action::Base
     if @time_left <= 0
       @target.gather_all.each do |item|
         spot = $map.find_empty_spot_near(@target)
-        item.x = spot.x
-        item.y = spot.y
-        $map[spot.x, spot.y] = item
+        $map.put_item(spot.x, spot.y, item)
       end
 
       @target.was_picked!

@@ -24,14 +24,6 @@ class StorageZone
   end
 
   def has_place_for?(object_class)
-    if map_object.nil?
-      true
-    else
-      map_object.can_carry_more?(object_class)
-    # elsif map_object.is_a? object_class
-    #   # require "pry"
-    #   puts "object_class: #{object_class} | map_object class: #{map_object.class}"
-    #   map_object.can_carry_more?(object_class)
-    end
+    map_object.nil?
   end
 end

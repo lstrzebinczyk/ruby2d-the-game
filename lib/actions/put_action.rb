@@ -14,7 +14,7 @@ class PutAction < Action::Base
     if @time_left <= 0
       @to.taken = false
       item = @character.get_item
-      if $map[@to.x, @to.y].nil? || $map[@to.x, @to.y].can_carry_more?(item.class)
+      if $map[@to.x, @to.y].nil?
         $map.put_item(@to.x, @to.y, item)
         end_action
       else

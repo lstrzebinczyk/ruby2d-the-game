@@ -12,8 +12,4 @@ class River
   def passable?
     false
   end
-
-  def can_carry_more?(thing)
-    false
-  end
 end

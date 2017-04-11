@@ -55,10 +55,6 @@ class Character
     end
   end
 
-  def can_carry_more?(item)
-    false
-  end
-
   def pickable?
     false
   end

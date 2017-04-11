@@ -9,6 +9,16 @@ class Log < Item
     @image.color = "brown"
   end
 
+  def x=(x)
+    @x = x
+    @image.x = x * PIXELS_PER_SQUARE
+  end
+
+  def y=(y)
+    @y = y
+    @image.y = y * PIXELS_PER_SQUARE
+  end
+
   def category
     :material
   end
@@ -23,9 +33,5 @@ class Log < Item
 
   def passable?
     true
-  end
-
-  def can_carry_more?(item_class)
-    false
   end
 end

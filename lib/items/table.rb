@@ -7,16 +7,22 @@ class Table < Item
     @image.color = "brown"
   end
 
+  def x=(x)
+    @x = x
+    @image.x = x * PIXELS_PER_SQUARE
+  end
+
+  def y=(y)
+    @y = y
+    @image.y = y * PIXELS_PER_SQUARE
+  end
+
   def category
     :furniture
   end
 
   def remove
     @image.remove
-  end
-
-  def can_carry_more?(item_class)
-    false
   end
 
   def type

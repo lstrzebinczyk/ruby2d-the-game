@@ -68,11 +68,6 @@ class BerryBush
     end
   end
 
-  # TODO: You should never try to put something to a berry bush
-  def can_carry_more?(item)
-    false
-  end
-
   def picked?
     @picked
   end

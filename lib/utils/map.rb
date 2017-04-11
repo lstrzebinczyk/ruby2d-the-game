@@ -47,21 +47,9 @@ class Map
   end
 
   def put_item(x, y, item)
-    if item.is_a? Log
-      self[x, y] = Log.new(x, y)
-    elsif item.is_a? Berries
-      if self[x, y].is_a? BerriesPile
-        self[x, y].put(item)
-      elsif self[x, y].nil?
-        self[x, y] = BerriesPile.new(x, y, item.grams)
-      else
-        raise ArgumentError, "you fucked that up"
-      end
-    elsif item.is_a? Table
-      self[x, y] = Table.new(x, y)
-    else
-      raise "You need to handle this better, tried to put #{item}"
-    end
+    item.x = x
+    item.y = y
+    self[x, y] = item
 
     $zones.recalculate
   end
