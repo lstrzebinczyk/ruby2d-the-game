@@ -185,17 +185,7 @@ class Character
         # from hunger
         berries_spot.will_get_picked!
         self.job = GatherJob.new(berries_spot)
-        # chill
       end
-      # if food_in_storage?
-      #   spot = $map.find_closest_to(self) do |map_object|
-      #     map_object.is_a? BerriesPile
-      #   end
-
-      #   self.job = EatJob.new(from: spot)
-      # else
-      #   self.job = EatJob.new(from: berries_spot)
-      # end
     elsif sleepy?
       if has_own_bed?
         # TODO
