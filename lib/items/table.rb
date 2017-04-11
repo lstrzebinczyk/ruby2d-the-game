@@ -25,11 +25,15 @@ class Table < Item
     @image.remove
   end
 
-  def type
-    :table
+  def render
+    @image.add
   end
 
-  def passable?
-    false
+  def impassable?
+    true
+  end
+
+  def type
+    :table
   end
 end

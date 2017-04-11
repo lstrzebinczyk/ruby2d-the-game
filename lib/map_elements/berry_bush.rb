@@ -72,10 +72,6 @@ class BerryBush
     @picked
   end
 
-  def passable?
-    true
-  end
-
   def rerender
     remove
     @image.add

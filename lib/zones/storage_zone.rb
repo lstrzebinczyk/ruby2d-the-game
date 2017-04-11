@@ -19,10 +19,6 @@ class StorageZone
     $map[@x, @y]
   end
 
-  def passable?
-    true
-  end
-
   def has_place_for?(object_class)
     map_object.nil?
   end

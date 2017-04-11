@@ -6,8 +6,8 @@ class Tree
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/pinetree.png")
   end
 
-  def passable?
-    false
+  def impassable?
+    true
   end
 
   def rerender

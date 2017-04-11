@@ -9,7 +9,7 @@ class River
     @image.add
   end
 
-  def passable?
-    false
+  def impassable?
+    true
   end
 end

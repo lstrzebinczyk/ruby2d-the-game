@@ -32,7 +32,7 @@ class Map
 
   def passable?(x, y)
     if self[x, y]
-      self[x, y].passable?
+      !self[x, y].respond_to?(:impassable?) or !self[x, y].impassable?
     else
       in_map?(x, y)
     end
@@ -50,7 +50,7 @@ class Map
     item.x = x
     item.y = y
     self[x, y] = item
-
+    item.render
     $zones.recalculate
   end
 

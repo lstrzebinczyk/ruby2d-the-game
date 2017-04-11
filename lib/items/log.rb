@@ -27,11 +27,11 @@ class Log < Item
     @image.remove
   end
 
-  def type
-    :log
+  def render
+    @image.add
   end
 
-  def passable?
-    true
+  def type
+    :log
   end
 end

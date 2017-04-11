@@ -38,8 +38,8 @@ class Fireplace < Structure::Base
     @position.y
   end
 
-  def passable?
-    false
+  def impassable?
+    true
   end
 
   def has_job?(type)

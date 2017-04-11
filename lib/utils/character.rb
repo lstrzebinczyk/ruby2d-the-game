@@ -44,8 +44,8 @@ class Character
     @till_update_stats = 0
   end
 
-  def passable?
-    false
+  def impassable?
+    true
   end
 
   def job=(job)

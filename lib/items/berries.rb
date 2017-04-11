@@ -23,16 +23,16 @@ class Berries < Item
     @image.remove
   end
 
+  def render
+    @image.add
+  end
+
   def category
     :food
   end
 
   def type
     :berries
-  end
-
-  def passable?
-    true
   end
 
   # 148g (a cup) -> 84.4 calories

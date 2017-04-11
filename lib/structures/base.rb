@@ -32,9 +32,5 @@ class Structure
 
     def update(time)
     end
-
-    def passable?
-      true
-    end
   end
 end
