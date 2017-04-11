@@ -38,6 +38,13 @@ class Kitchen < Structure::Base
     @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, 3 * PIXELS_PER_SQUARE, "brown")
     @mask.color.opacity = 0.6
 
+    @table = Image.new(
+      (x + 1) * PIXELS_PER_SQUARE,
+      (y + 1) * PIXELS_PER_SQUARE, "assets/structures/table.png"
+    )
+    @table.color = "brown"
+
+
     @ensure_berries_kgs = 0.0
   end
 

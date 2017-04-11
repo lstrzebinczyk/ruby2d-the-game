@@ -166,6 +166,10 @@ class Character
     hungry? || sleepy?
   end
 
+  def chill
+    self.job = ChillJob.new
+  end
+
   def set_own_action
     if hungry?
       if food_in_storage?

@@ -28,6 +28,7 @@ require_relative "./actions/eat_action"
 require_relative "./actions/supply_action"
 require_relative "./actions/build_action"
 require_relative "./actions/produce_action"
+require_relative "./actions/chill_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
@@ -38,6 +39,7 @@ require_relative "./jobs/supply_job"
 require_relative "./jobs/build_job"
 require_relative "./jobs/produce_job"
 require_relative "./jobs/store_job"
+require_relative "./jobs/chill_job"
 
 require_relative "./structures/base"
 require_relative "./structures/_blueprint"
@@ -115,6 +117,8 @@ class GameWorld
             # TODO: If his mood is too bad, for example too sleepy and too hungry to work
             character.job = $job_list.get_job(character)
           end
+
+          character.chill unless character.job
         end
         character.update($seconds_per_tick)
       end

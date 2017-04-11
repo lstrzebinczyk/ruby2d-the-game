@@ -59,7 +59,7 @@ start_game!
 # Autoplayer!
 #
 
-@autoplay = true
+# @autoplay = true
 if @autoplay
 
   fireplace = $structures.find{|s| s.is_a? Fireplace }
@@ -102,20 +102,20 @@ if @autoplay
     end
   end
 
-  # setup kitchen on first free spot closest to fireplace
-  # build_kitchen_game_mode = BuildKitchenGameMode.new
-  # all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+  # setup workshop on first free spot closest to fireplace
+  build_workshop_game_mode = BuildWorkshopGameMode.new
+  all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
 
-  # free_spots = all_spots.keep_if do |arr|
-  #   build_kitchen_game_mode.terrain_clear?(arr[0], arr[1])
-  # end
+  free_spots = all_spots.keep_if do |arr|
+    build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
+  end
 
-  # free_spots.sort_by! do |a|
-  #   (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-  # end
+  free_spots.sort_by! do |a|
+    (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+  end
 
-  # spot = free_spots.first
-  # build_kitchen_game_mode.perform(spot[0], spot[1])
+  spot = free_spots.first
+  build_workshop_game_mode.perform(spot[0], spot[1])
 
 
   # kitchen = $structures.find{|s| s.is_a? Kitchen }
