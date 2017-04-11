@@ -1,23 +1,31 @@
 require "spec_helper"
 
+class FakeFloodMap
+  def available?(x, y)
+    true
+  end
+end
+
 describe "Map" do
   it "doesn't crash on generating reasonable content" do
     m = Map.new(width: 20, height: 20)
     m.fill_grid_with_objects
   end
 
-  # it "finds closest map position" do
-  #   map = Map.new(width: 3, height: 3)
-  #   (0..2).each do |x|
-  #     (0..2).each do |y|
-  #       map[x, y] = Tree.new(x, y)
-  #     end
-  #   end
+  it "finds closest map position" do
+    map = Map.new(width: 5, height: 5)
+    (1..3).each do |x|
+      (1..3).each do |y|
+        map[x, y] = Tree.new(x, y)
+      end
+    end
 
-  #   middle_tree = map[1, 1]
-  #   position = map.find_free_spot_near(middle_tree)
+    $flood_map = FakeFloodMap.new
 
-  #   expect(position.x).to be
-  #   expect(position.y).to be
-  # end
+    middle_tree = map[2, 2]
+    position = map.find_free_spot_near(middle_tree)
+
+    expect(position.x).to eq(0)
+    expect(position.y).to eq(0)
+  end
 end

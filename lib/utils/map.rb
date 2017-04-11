@@ -75,50 +75,16 @@ class Map
     end.first
   end
 
-  # TODO: LET DĘBSKI KNOW!
-  # TODO: IMPLEMENT BETTER FREE SPOT POSITION FINDING ALGORITHM
   def find_free_spot_near(position)
-    positions = []
-    positions << Position.new(position.x - 1, position.y - 1)
-    positions << Position.new(position.x - 1, position.y    )
-    positions << Position.new(position.x - 1, position.y + 1)
-    positions << Position.new(position.x    , position.y - 1)
-    # Position.new(position.x    , position.y    )
-    positions << Position.new(position.x    , position.y + 1)
-    positions << Position.new(position.x + 1, position.y - 1)
-    positions << Position.new(position.x + 1, position.y    )
-    positions << Position.new(position.x + 1, position.y + 1)
-
-    # if positions.none?{|pos| self[pos.x, pos.y].nil? }
-    #   require "pry"
-    #   binding.pry
-    # end
-
-    positions.find_all do |pos|
+    search_path(position.x, position.y).find do |pos|
       passable?(pos.x, pos.y) and $flood_map.available?(pos.x, pos.y)
-    end.first
+    end
   end
 
   def find_empty_spot_near(position)
-    positions = []
-    positions << Position.new(position.x - 1, position.y - 1)
-    positions << Position.new(position.x - 1, position.y    )
-    positions << Position.new(position.x - 1, position.y + 1)
-    positions << Position.new(position.x    , position.y - 1)
-    # Position.new(position.x    , position.y    )
-    positions << Position.new(position.x    , position.y + 1)
-    positions << Position.new(position.x + 1, position.y - 1)
-    positions << Position.new(position.x + 1, position.y    )
-    positions << Position.new(position.x + 1, position.y + 1)
-
-    # if positions.none?{|pos| self[pos.x, pos.y].nil? }
-    #   require "pry"
-    #   binding.pry
-    # end
-
-    positions.find_all do |pos|
+    search_path(position.x, position.y).find do |pos|
       self[pos.x, pos.y].nil? and $characters_list.none?{|c| c.x == pos.x && c.y == pos.y} and $flood_map.available?(pos.x, pos.y)
-    end.first
+    end
   end
 
   def rerender
@@ -142,6 +108,47 @@ class Map
   end
 
   private
+
+  DIRECTIONS = [
+    [ 1,  0],
+    [ 0,  1],
+    [-1,  0],
+    [ 0, -1]
+  ]
+
+  def square_edge_coordinates(center_x, center_y, radius)
+    position = [center_x - radius/2, center_y - radius/2]
+
+    DIRECTIONS.lazy
+      .flat_map do |direction|
+        [direction].lazy
+          .cycle
+          .take(radius.pred)
+      end
+      .map do |step|
+        old_position = position
+        position = position.zip(step).map(&:sum) # elementwise vector sum
+        Position.new(old_position[0], old_position[1])
+      end
+  end
+
+  def odd_numbers
+    (0...Float::INFINITY)
+      .lazy
+      .map { |x| 1 + 2 * x }
+  end
+
+  def search_path(x, y)
+    odd_numbers
+      .drop(1)
+      .flat_map { |radius| square_edge_coordinates(x, y, radius) }
+  end
+
+
+
+
+  # MAP GENERATION
+  # TODO: MOVE TO SEPARATE CLASS
 
   def fill_river
     (0..@width).each do |x|

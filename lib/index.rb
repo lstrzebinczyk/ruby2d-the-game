@@ -163,3 +163,59 @@ show
 # TODO: PUT ACTION SHOULD NOT BE ONLY FOR LOGS
 # TODO: Supplying things to workshop sometimes teleports
 # TODO: Write test for creating workshop and producing a table
+
+
+# Having a simulation where you can watch city being build is one idea
+# Other is: build the city yourself, like a designer
+# Fill it with actors that do their own job, each one has their role to fill
+#   their own needs etc
+
+# - Introduce some sort of adventure, reality to it
+# - and allow player inside, let him do things
+
+# - Kontrakt oldenhallera?
+# - Kreutzhoffen !!!!!!
+#   - Oh I love that place
+
+
+
+# DIRECTIONS = [
+#   [ 1,  0],
+#   [ 0,  1],
+#   [-1,  0],
+#   [ 0, -1]
+# ]
+
+# def square_edge_coordinates((center_x, center_y), radius)
+#   position = [center_x - radius/2, center_y - radius/2]
+
+#   DIRECTIONS.lazy
+#     .flat_map do |direction|
+#       [direction].lazy
+#         .cycle
+#         .take(radius.pred)
+#     end
+#     .map do |step|
+#       old_position = position
+
+#       position = position.zip(step).map(&:sum) # elementwise vector sum
+
+#       old_position
+#     end
+# end
+
+# def range(x=Float::INFINITY)
+#   (0...x).lazy
+# end
+
+# def odd_numbers
+#   range.map { |x| 1 + 2 * x }
+# end
+
+# def search_path(center)
+#   odd_numbers
+#     .drop(1).
+#     .flat_map { |radius| square_edge_coordinates(center, radius) }
+# end
+
+# square_edge_coordinates([10, 10], 5).force.to_a
