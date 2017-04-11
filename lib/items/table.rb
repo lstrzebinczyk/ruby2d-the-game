@@ -26,8 +26,4 @@ class Table < Item
   def passable?
     false
   end
-
-  def contains?(item_type)
-    item_type == :table
-  end
 end

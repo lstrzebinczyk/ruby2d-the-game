@@ -14,7 +14,7 @@ class SupplyJob
 
   def tile_with_item
     $map.find_closest_to(@to) do |tile|
-      tile && tile.contains?(@item_type)
+      tile.respond_to?(:type) and tile.type == @item_type
     end
   end
 

@@ -16,8 +16,4 @@ class River
   def can_carry_more?(thing)
     false
   end
-
-  def contains?(item_type)
-    false
-  end
 end

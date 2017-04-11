@@ -43,10 +43,6 @@ class BerryBush
     @grams / gathered_grams_per_second
   end
 
-  def contains?(item_type)
-    item_type == :berries and @grams > 0
-  end
-
   # Max package is 350 grams. That's a big handful.
   def gather_all
     items = []
@@ -72,24 +68,6 @@ class BerryBush
     end
   end
 
-  # def get_berries(seconds)
-  #   grams = gathered_grams(seconds)
-  #   @grams -= grams
-
-  #   if @grams <= 0
-  #     @picked = true
-  #     unless @finished_mask
-  #       @finished_mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
-  #     end
-  #   end
-
-  #   Berries.new(grams)
-  # end
-
-  # def has_more?
-  #   @grams > 0
-  # end
-
   # TODO: You should never try to put something to a berry bush
   def can_carry_more?(item)
     false
@@ -114,14 +92,6 @@ class BerryBush
   end
 
   private
-
-  # def gathered_grams(seconds)
-  #   if gathered_grams_per_second * seconds > @grams
-  #     @grams
-  #   else
-  #     gathered_grams_per_second * seconds
-  #   end
-  # end
 
   # Gather a cup (148 grams) in 5 minutes
   # so in second 148.0 / (5 * 60)

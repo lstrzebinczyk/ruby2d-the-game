@@ -14,10 +14,6 @@ class Tree
     false
   end
 
-  def contains?(item_type)
-    false
-  end
-
   def rerender
     remove
     @image.add

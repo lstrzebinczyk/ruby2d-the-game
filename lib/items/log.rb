@@ -28,8 +28,4 @@ class Log < Item
   def can_carry_more?(item_class)
     false
   end
-
-  def contains?(item_type)
-    item_type == :log
-  end
 end
