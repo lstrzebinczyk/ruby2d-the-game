@@ -157,3 +157,7 @@ show
 # - Kontrakt oldenhallera?
 # - Kreutzhoffen !!!!!!
 #   - Oh I love that place
+
+
+
+# TODO: Refactor pick action

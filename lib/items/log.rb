@@ -11,6 +11,10 @@ class Log < Item
     @count = 1
   end
 
+  def category
+    :material
+  end
+
   def remove
     @image.remove
   end

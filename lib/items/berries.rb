@@ -1,18 +1,49 @@
-# This represents a handful of berries 
-# Later this will be restricted to how many can be transported with hand 
-# Some sort of sack or something will be needed 
-# TODO TODO TODO: MAKE THIS MORE REAL
-
 class Berries < Item
-  attr_reader :grams
+  attr_reader :x, :y, :count
 
-  def initialize(grams)
+  def initialize(x, y, grams)
+    @x, @y = x, y
     @grams = grams
+
+    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/berries.png")
+    @image.color = "purple"
+
+    @count = 1
   end
 
-  def get_grams(grams)
-    @grams -= grams 
-    Berries.new(grams)
+  def x=(x)
+    @x = x
+    @image.x = x * PIXELS_PER_SQUARE
+  end
+
+  def y=(y)
+    @y = y
+    @image.y = y * PIXELS_PER_SQUARE
+  end
+
+  def get_item
+    @count = 0
+    self
+  end
+
+  def remove
+    @image.remove
+  end
+
+  def category
+    :food
+  end
+
+  def passable?
+    true
+  end
+
+  def picking_time
+    15
+  end
+
+  def pickable?
+    true
   end
 
   # 148g (a cup) -> 84.4 calories
@@ -25,14 +56,6 @@ class Berries < Item
   # thats 5 * 60 / 148 grams eaten per second
   def grams_eaten_per_second
     2.027
-  end
-
-  def +(other)
-    if other.is_a? Berries
-      Berries.new(grams + other.grams)
-    else
-      raise "Uh-uh, I did a booboo"
-    end
   end
 
   def calories_eaten_in(seconds)

@@ -35,31 +35,60 @@ class BerryBush
     if grams
       @grams = grams
     else
-      @grams = 4500 + rand * 1000
+      @grams = 1500 + (rand * 1000).to_i
     end
+  end
+
+  def gathering_time
+    @grams / gathered_grams_per_second
   end
 
   def contains?(item_type)
     item_type == :berries and @grams > 0
   end
 
-  def get_berries(seconds)
-    grams = gathered_grams(seconds)
-    @grams -= grams
+  # Max package is 350 grams. That's a big handful.
+  def gather_all
+    items = []
+    max = 350
+    full_packets = @grams / max
 
-    if @grams <= 0
-      @picked = true
-      unless @finished_mask
-        @finished_mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
-      end
+    full_packets.times do
+      items << Berries.new(@x, @y, max)
     end
 
-    Berries.new(grams)
+    items << Berries.new(@x, @y, @grams - full_packets * max)
+    items
   end
 
-  def has_more?
-    @grams > 0
+  def will_get_picked!
+    @picked = true
   end
+
+  def was_picked!
+    @picked = true
+    unless @finished_mask
+      @finished_mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+    end
+  end
+
+  # def get_berries(seconds)
+  #   grams = gathered_grams(seconds)
+  #   @grams -= grams
+
+  #   if @grams <= 0
+  #     @picked = true
+  #     unless @finished_mask
+  #       @finished_mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+  #     end
+  #   end
+
+  #   Berries.new(grams)
+  # end
+
+  # def has_more?
+  #   @grams > 0
+  # end
 
   # TODO: You should never try to put something to a berry bush
   def can_carry_more?(item)
@@ -86,13 +115,13 @@ class BerryBush
 
   private
 
-  def gathered_grams(seconds)
-    if gathered_grams_per_second * seconds > @grams
-      @grams
-    else
-      gathered_grams_per_second * seconds
-    end
-  end
+  # def gathered_grams(seconds)
+  #   if gathered_grams_per_second * seconds > @grams
+  #     @grams
+  #   else
+  #     gathered_grams_per_second * seconds
+  #   end
+  # end
 
   # Gather a cup (148 grams) in 5 minutes
   # so in second 148.0 / (5 * 60)

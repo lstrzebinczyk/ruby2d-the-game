@@ -13,7 +13,6 @@ class GatherJob
 
   def available?
     true
-    # $flood_map.available?(@target.x, @target.y)
   end
 
   def target
@@ -21,10 +20,9 @@ class GatherJob
   end
 
   def action_for(character)
-    MoveAction.new(character: character, near: @target)
-    # MoveAction.new(character: character, near: @tree).then do
-    #   CutTreeAction.new(@tree, character)
-    # end
+    MoveAction.new(character: character, near: @target).then do
+      GatherAction.new(character, @target)
+    end
   end
 
   def remove

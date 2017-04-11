@@ -172,18 +172,30 @@ class Character
 
   def set_own_action
     if hungry?
-      if food_in_storage?
-        spot = $map.find_closest_to(self) do |map_object|
-          map_object.is_a? BerriesPile
-        end
-
-        self.job = EatJob.new(from: spot)
+      food = $map.find_closest_to(self) do |map_object|
+        map_object.respond_to?(:category) and map_object.category == :food
+      end
+      if food
+        self.job = EatJob.new(from: food)
       else
         berries_spot = $map.find_closest_to(self) do |map_object|
           map_object.is_a? BerryBush and !map_object.picked?
         end
-        self.job = EatJob.new(from: berries_spot)
+        # If there is no stored food anywhere, find any berries spot and gather it
+        # from hunger
+        berries_spot.will_get_picked!
+        self.job = GatherJob.new(berries_spot)
+        # chill
       end
+      # if food_in_storage?
+      #   spot = $map.find_closest_to(self) do |map_object|
+      #     map_object.is_a? BerriesPile
+      #   end
+
+      #   self.job = EatJob.new(from: spot)
+      # else
+      #   self.job = EatJob.new(from: berries_spot)
+      # end
     elsif sleepy?
       if has_own_bed?
         # TODO
@@ -201,13 +213,6 @@ class Character
     else
       raise "ERROR"
     end
-  end
-
-  # TODO: MAKE FOOD LOOKUP MORE GENERAL
-  # LIKE: $zones.any_food?
-          # $zones.spot_with_food
-  def food_in_storage?
-    !!$zones.grouped_count[BerriesPile]
   end
 
   # TODO: this must be dynamic based on actual facts on map

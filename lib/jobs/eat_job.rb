@@ -9,11 +9,7 @@ class EatJob
 
   def action_for(character)
     MoveAction.new(character: character, near: @from).then do
-      if @from.is_a? BerriesPile
-        PickAction.new(@from, character)
-      elsif @from.is_a? BerryBush
-        GatherBerriesAction.new(character, @from)
-      end
+      PickAction.new(@from, character)
     end.then do
       # TODO: Should go to a table and chair if there is a diner, or own house
       fireplace = $structures.find{|s| s.is_a? Fireplace }

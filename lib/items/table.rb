@@ -9,6 +9,10 @@ class Table < Item
     @count = 1
   end
 
+  def category
+    :furniture
+  end
+
   def remove
     @image.remove
   end
