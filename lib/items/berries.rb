@@ -67,4 +67,8 @@ class Berries < Item
   def empty?
     @grams <= 0
   end
+
+  def contains?(item_type)
+    item_type == :berries
+  end
 end
