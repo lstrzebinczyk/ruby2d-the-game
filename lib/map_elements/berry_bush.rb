@@ -35,7 +35,7 @@ class BerryBush
     if grams
       @grams = grams
     else
-      @grams = 1500 + (rand * 1000).to_i
+      @grams = 2500 + (rand * 1000).to_i
     end
   end
 
@@ -43,17 +43,16 @@ class BerryBush
     @grams / gathered_grams_per_second
   end
 
-  # Max package is 350 grams. That's a big handful.
   def gather_all
     items = []
-    max = 350
-    full_packets = @grams / max
+    max = 550
+    divisions = @grams.divmod(max)
 
-    full_packets.times do
+    divisions[0].times do
       items << Berries.new(@x, @y, max)
     end
 
-    items << Berries.new(@x, @y, @grams - full_packets * max)
+    items << Berries.new(@x, @y, divisions[1])
     items
   end
 
