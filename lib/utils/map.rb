@@ -161,11 +161,12 @@ class Map
   end
 
   def river_sinus(x)
-    river_sinus_adder + river_sinus_multiplier * Math.sin(river_in_sinus_alpha(x))
+    river_sinus_adder(x) + river_sinus_multiplier * Math.sin(river_in_sinus_alpha(x))
   end
 
-  def river_sinus_adder
-    @adder ||= 1.7 + rand + rand + rand
+  def river_sinus_adder(x)
+    @adder_rand ||= rand + rand + rand
+    x * 0.07 + @adder_rand
   end
 
   def river_sinus_multiplier
