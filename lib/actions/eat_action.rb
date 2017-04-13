@@ -4,7 +4,11 @@ class EatAction < Action::Base
   end
 
   def start
-    @time_left = @character.carry.eating_time
+    if @character.carry.nil?
+      end_action
+    else
+      @time_left = @character.carry.eating_time
+    end
   end
 
   def update(seconds)

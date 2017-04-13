@@ -56,7 +56,16 @@ on :key_down do |e|
     workshop = $structures.find{|s| s.is_a? Workshop }
 
     if workshop
-      workshop.request_table
+      workshop.request(Table)
+      $inspection_menu.rerender_content
+    end
+  end
+
+  if e.key == "k"
+    workshop = $structures.find{|s| s.is_a? Workshop }
+
+    if workshop
+      workshop.request(Barrel)
       $inspection_menu.rerender_content
     end
   end

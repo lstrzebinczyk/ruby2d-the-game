@@ -5,6 +5,7 @@ require_relative "./items/item"
 require_relative "./items/log"
 require_relative "./items/berries"
 require_relative "./items/table"
+require_relative "./items/barrel"
 
 require_relative "./map_elements/tree"
 require_relative "./map_elements/berry_bush"

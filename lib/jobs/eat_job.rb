@@ -1,6 +1,11 @@
 class EatJob
   def initialize(opts)
-    @from = opts[:from]
+    if opts[:from_container]
+      @from = opts[:from_container]
+      @from_container = true
+    else
+      @from = opts[:from]
+    end
 
     unless @from
       raise ArgumentError, "EatJob requires a :from key, received '#{@from.inspect}'"
@@ -9,7 +14,7 @@ class EatJob
 
   def action_for(character)
     MoveAction.new(character: character, near: @from).then do
-      PickAction.new(@from, character)
+      PickAction.new(@from, character, get_from_container: @from_container)
     end.then do
       # TODO: Should go to a table and chair if there is a diner, or own house
       fireplace = $structures.find{|s| s.is_a? Fireplace }

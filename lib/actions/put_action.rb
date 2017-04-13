@@ -17,6 +17,9 @@ class PutAction < Action::Base
       if $map[@to.x, @to.y].nil?
         $map.put_item(@to.x, @to.y, item)
         end_action
+      elsif $map[@to.x, @to.y].is_a? Container
+        $map[@to.x, @to.y].put(item)
+        end_action
       else
         @character.carry = item
         if available_zone
@@ -38,7 +41,7 @@ class PutAction < Action::Base
   private
 
   def available_zone
-    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? @character.carry.class }
+    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? @character.carry }
   end
 end
 

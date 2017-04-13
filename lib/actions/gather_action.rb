@@ -15,6 +15,8 @@ class GatherAction < Action::Base
       @target.gather_all.each do |item|
         spot = $map.find_empty_spot_near(@target)
         $map.put_item(spot.x, spot.y, item)
+        new_job = StoreJob.new(item)
+        $job_list.add(new_job)
       end
 
       @target.was_picked!

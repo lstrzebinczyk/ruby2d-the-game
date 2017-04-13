@@ -19,7 +19,11 @@ class Item
     @image.add
   end
 
+  def self.type
+    @type ||= name.downcase.to_sym
+  end
+
   def type
-    @type ||= self.class.name.downcase.to_sym
+    self.class.type
   end
 end

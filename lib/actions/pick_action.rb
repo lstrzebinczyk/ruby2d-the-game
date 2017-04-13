@@ -4,6 +4,7 @@ class PickAction < Action::Base
     @character  = character
     @time_left  = 5
     @on_abandon = opts[:on_abandon]
+    @get_from_container = opts[:get_from_container]
   end
 
   def start
@@ -24,10 +25,13 @@ class PickAction < Action::Base
       map_object = $map[@from.x, @from.y]
 
       if map_object
-        @character.carry = map_object
-        map_object.remove
-        $map[@from.x, @from.y] = nil
-
+        if map_object.is_a? Container and @get_from_container
+          @character.carry = map_object.get_something
+        else
+          @character.carry = map_object
+          map_object.remove
+          $map[@from.x, @from.y] = nil
+        end
         end_action
       else
         abandon_action

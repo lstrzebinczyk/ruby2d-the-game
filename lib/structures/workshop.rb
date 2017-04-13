@@ -6,17 +6,22 @@ class Workshop < Structure::Base
       @texts = []
       @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
 
-      count = workshop.jobs.count{|j| j.is_a? ProduceJob }
-
+      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_type == :table }
       msg = "Request tables: #{count}"
       @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
       # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
       @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 80, "Supplies:", 16, "fonts/arial.ttf")
 
+      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_type == :barrel }
+      msg = "Request barrels: #{count}"
+      @texts << Text.new(x, y + 120, msg, 16, "fonts/arial.ttf")
+      # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 160, "Press k to increase", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 180, "Supplies:", 16, "fonts/arial.ttf")
       logs_count = workshop.supplies.count{|thing| thing.is_a? Log }
+      @texts << Text.new(x, y + 200, "Logs: #{logs_count}", 16, "fonts/arial.ttf")
 
-      @texts << Text.new(x, y + 100, "Logs: #{logs_count}", 16, "fonts/arial.ttf")
+
     end
 
     def remove
@@ -52,20 +57,34 @@ class Workshop < Structure::Base
   def has_stuff_required_for(item_type)
     if item_type == :table
       @supplies.any?{|s| s.type == :log }
+    elsif item_type == :barrel
+      @supplies.any?{|s| s.type == :log }
     end
   end
 
-  def request_table
-    @jobs << SupplyJob.new(:log, to: self)
-    @jobs << ProduceJob.new(:table, at: self)
+  def request(item_class)
+    item_class.required_supplies.each do |supply|
+      @jobs << SupplyJob.new(supply, to: self)
+    end
+    @jobs << ProduceJob.new(item_class.type, at: self)
   end
 
+  # TODO: Always use classes like Table, Barrel to pass around instead of hashes.
   def produce(item_type)
     if item_type == :table
       log = @supplies.find{|el| el.is_a? Log}
       @supplies.delete(log)
       spot = $map.find_free_spot_near(self)
       item = Table.new(spot.x, spot.y)
+      $map[spot.x, spot.y] = item
+      item
+    end
+
+    if item_type == :barrel
+      log = @supplies.find{|el| el.is_a? Log}
+      @supplies.delete(log)
+      spot = $map.find_free_spot_near(self)
+      item = Barrel.new(spot.x, spot.y)
       $map[spot.x, spot.y] = item
       item
     end

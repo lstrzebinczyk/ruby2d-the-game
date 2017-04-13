@@ -9,16 +9,20 @@ class Character
       y = opts[:y]
       @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
       @t1 = Text.new(x, y + 20, "Job: #{character.job.class}", 16, "fonts/arial.ttf")
+      @t2 = Text.new(x, y + 40, "Action: #{character.action.class}", 16, "fonts/arial.ttf")
+      @t3 = Text.new(x, y + 60, "Carries: #{character.carry.class}", 16, "fonts/arial.ttf")
     end
 
     def remove
       @t.remove
       @t1.remove
+      @t2.remove
+      @t3.remove
     end
   end
 
   attr_accessor :energy, :calories
-  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :job
+  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :job, :action
 
   MAX_CALORIES = 3000
 
@@ -159,9 +163,19 @@ class Character
 
   def set_own_action
     if hungry?
+      food_container = $map.find_closest_to(self) do |map_object|
+        map_object.is_a? Container and map_object.storage.any?{|ob| ob.category == :food }
+      end
+
+      if food_container
+        self.job = EatJob.new(from_container: food_container)
+        return
+      end
+
       food = $map.find_closest_to(self) do |map_object|
         map_object.respond_to?(:category) and map_object.category == :food
       end
+
       if food
         self.job = EatJob.new(from: food)
       else

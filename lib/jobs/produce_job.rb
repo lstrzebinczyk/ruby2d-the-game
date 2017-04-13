@@ -1,11 +1,9 @@
 class ProduceJob
+  attr_reader :item_type
+
   def initialize(item_type, opts)
     @item_type = item_type
     @at        = opts[:at]
-
-    if @item_type != :table
-      raise ArgumentError, "Need to think this better"
-    end
   end
 
   def type

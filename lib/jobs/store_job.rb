@@ -1,6 +1,11 @@
 class StoreJob
   def initialize(item)
     @item = item
+
+    if @item.nil?
+      require "pry"
+      binding.pry
+    end
   end
 
   def type
@@ -14,7 +19,7 @@ class StoreJob
 
   def available_zone
     $zones.find do |zone|
-      zone.is_a? StorageZone and zone.has_place_for?(@item.class) and !zone.taken
+      zone.is_a? StorageZone and zone.has_place_for?(@item) and !zone.taken
     end
   end
 

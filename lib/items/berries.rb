@@ -7,6 +7,14 @@ class Berries < Item
     @image.color = "purple"
   end
 
+  def inspect
+    "Berries, #{kilograms}kg"
+  end
+
+  def kilograms
+    (@grams / 1000.0).round(2)
+  end
+
   def category
     :food
   end

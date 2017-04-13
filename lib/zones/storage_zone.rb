@@ -19,7 +19,11 @@ class StorageZone
     $map[@x, @y]
   end
 
-  def has_place_for?(object_class)
-    map_object.nil?
+  def has_place_for?(object)
+    if object.category == :food
+      !map_object.nil? and map_object.is_a? Container and map_object.accepts?(object)
+    else
+      map_object.nil?
+    end
   end
 end
