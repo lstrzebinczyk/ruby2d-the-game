@@ -154,9 +154,6 @@ show
 # - Kreutzhoffen !!!!!!
 #   - Oh I love that place
 
-
-
-# Implement nice storage system like I want it
 # Implement some nice system to find out where and when no path error happens
 
 # Create issue about dropdown selects for menu
@@ -166,3 +163,5 @@ show
 
 # Prepare presentation about ruby2d and the game
   # - write simple space invader?
+
+# TODO: Remove objects #type method, always pass around class for setting up and passing data purposes

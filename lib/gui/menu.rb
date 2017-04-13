@@ -61,8 +61,8 @@ class Menu
     render_button("Cut")
     render_button("Remove")
     render_button("Set storage")
-    render_button("Build workshop")
-    render_button("Build kitchen")
+    render_button("Build workshop", game_mode: BuildGameMode.new(Workshop) )
+    render_button("Build kitchen" , game_mode: BuildGameMode.new(Kitchen)  )
 
     @menu_buttons_top_offset = 38
 
@@ -85,13 +85,14 @@ class Menu
     end
   end
 
-  def set_game_mode(game_mode_name)
-    game_mode_class_name = game_mode_name.to_s.tr(" ", "_").camelize + "GameMode"
-    game_mode_class      = game_mode_class_name.constantize
-
-    self.game_mode = game_mode_class.new
+  def set_game_mode(game_mode)
     self.deactivate_all_buttons
-    @buttons.find{|b| b.text.casecmp(game_mode_name.to_s) == 0 }.active = true
+    if game_mode == :inspect
+      self.game_mode = InspectGameMode.new
+      @buttons.find{|b| b.text == "Inspect" }.active = true
+    else
+      self.game_mode = game_mode
+    end
   end
 
   private
@@ -99,6 +100,14 @@ class Menu
   def render_button(text, opts = {})
     opts[:active] = @buttons.none?
     opts[:text_size] = 22
+
+    game_mode = if opts[:game_mode]
+      opts[:game_mode]
+    else
+      game_mode_class_name = text.to_s.tr(" ", "_").camelize + "GameMode"
+      game_mode_class      = game_mode_class_name.constantize
+      game_mode_class.new
+    end
 
     button = Button.new(text, opts)
     left = nil
@@ -115,7 +124,8 @@ class Menu
     menu = self
 
     button.on_click = -> {
-      menu.set_game_mode(text)
+      menu.set_game_mode(game_mode)
+      button.active = true
     }
 
     @buttons << button
