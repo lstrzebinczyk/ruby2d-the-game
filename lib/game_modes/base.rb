@@ -16,6 +16,10 @@ class GameMode
       def mouse_up(x, y)
       end
 
+      def click(x, y)
+        mouse_down(x, y)
+      end
+
       def perform(x, y)
       end
 
@@ -75,6 +79,11 @@ class GameMode
         @x_arr   = nil
         @y_arr   = nil
         @hide_background_drawer = nil
+      end
+
+      def click(x, y)
+        mouse_down(x, y)
+        mouse_up(x, y)
       end
 
       def mouse_down(x, y)

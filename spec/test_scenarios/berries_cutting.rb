@@ -7,7 +7,7 @@ class BerriesCuttingTestScenario
 
     $map.each do |elem|
       if elem.is_a? BerryBush
-        remove_game_mode.perform(elem.x, elem.y)
+        remove_game_mode.click(elem.x * PIXELS_PER_SQUARE, elem.y * PIXELS_PER_SQUARE)
       end
     end
   end

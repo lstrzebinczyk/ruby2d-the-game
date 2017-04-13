@@ -10,4 +10,9 @@ class Log < Item
   def category
     :material
   end
+
+  def rerender
+    @image.remove
+    @image.add
+  end
 end

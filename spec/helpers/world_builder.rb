@@ -29,7 +29,8 @@ class WorldBuilder
         when "B"
           map[x, y] = BerryBush.new(x, y, @berry_bush_grams)
         when "R"
-          map[x, y] = BerriesPile.new(x, y, 1234)
+          raise ArgumentError, "No more berries pile"
+          # map[x, y] = BerriesPile.new(x, y, 1234)
         when "V"
           map[x, y] = River.new(x, y)
         when "W"
@@ -46,7 +47,7 @@ class WorldBuilder
       line.each_with_index do |symbol, x|
         case symbol
         when "S"
-          SetStorageGameMode.new.perform(x, y)
+          SetStorageGameMode.new.click(x, y)
         end
       end
     end

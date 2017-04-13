@@ -9,7 +9,7 @@ describe "Test scenarios" do
     WoodcuttingTestScenario.new(fireplace: true).run!
   end
 
-  it "berries gathering scenario" do
+  xit "berries gathering scenario" do
     BerriesGatheringTestScenario.new.run!
   end
 
