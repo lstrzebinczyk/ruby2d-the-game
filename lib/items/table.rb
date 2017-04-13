@@ -1,6 +1,6 @@
 class Table < Item
   def self.required_supplies
-    [:log]
+    [Log]
   end
 
   def initialize(x, y)

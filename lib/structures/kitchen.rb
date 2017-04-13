@@ -15,7 +15,7 @@ class Kitchen < Structure::Base
   attr_reader :x, :y, :size, :supplies
 
   def self.structure_requirements
-    [:table]
+    [Table]
   end
 
   def self.building_time

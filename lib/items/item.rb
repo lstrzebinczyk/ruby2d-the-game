@@ -18,12 +18,4 @@ class Item
   def render
     @image.add
   end
-
-  def self.type
-    @type ||= name.downcase.to_sym
-  end
-
-  def type
-    self.class.type
-  end
 end

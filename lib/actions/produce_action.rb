@@ -1,14 +1,14 @@
 class ProduceAction < Action::Base
-  def initialize(item_type, opts)
-    @item_type = item_type
+  def initialize(item_class, opts)
+    @item_class = item_class
     @at        = opts[:at]
     @character = opts[:character]
     @time_left = 15.minutes
   end
 
   def start
-    unless @at.has_stuff_required_for(@item_type)
-      raise ArgumentError, "Can't produce the #{@item_type}"
+    unless @at.has_stuff_required_for(@item_class)
+      raise ArgumentError, "Can't produce the #{@item_class}"
     end
   end
 
@@ -16,7 +16,7 @@ class ProduceAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      item = @at.produce(@item_type)
+      item = @at.produce(@item_class)
       job = StoreJob.new(item)
       $job_list.add(job)
       end_action

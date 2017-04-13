@@ -1,6 +1,6 @@
 class SupplyJob
-  def initialize(item_type, opts)
-    @item_type = item_type
+  def initialize(item_class, opts)
+    @item_class = item_class
     @to = opts[:to]
   end
 
@@ -14,12 +14,12 @@ class SupplyJob
 
   def tile_with_item
     $map.find_closest_to(@to) do |tile|
-      tile.respond_to?(:type) and tile.type == @item_type
+      tile.is_a? @item_class
     end
   end
 
   def target
-    [@item_type, @to]
+    [@item_class, @to]
   end
 
   def action_for(character)
@@ -27,7 +27,7 @@ class SupplyJob
 
     MoveAction.new(character: character, near: tile_with_item_cached).then do
       on_abandon = -> {
-        @to.jobs << SupplyJob.new(@item_type, to: @to)
+        @to.jobs << SupplyJob.new(@item_class, to: @to)
       }
 
       PickAction.new(tile_with_item_cached, character, on_abandon: on_abandon)

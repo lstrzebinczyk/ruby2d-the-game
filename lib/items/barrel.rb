@@ -34,7 +34,7 @@ class Barrel < Container
   end
 
   def self.required_supplies
-    [:log]
+    [Log]
   end
 
   def initialize(x, y)

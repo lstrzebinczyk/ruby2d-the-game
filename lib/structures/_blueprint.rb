@@ -43,8 +43,8 @@ class Blueprint < Structure::Base
   end
 
   def supply(item)
-    if @needs.include?(item.type)
-      @needs.delete(item.type)
+    if @needs.include?(item.class)
+      @needs.delete(item.class)
       if @needs.empty?
         self.remove
         $structures.delete(self)

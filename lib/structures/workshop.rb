@@ -6,13 +6,13 @@ class Workshop < Structure::Base
       @texts = []
       @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
 
-      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_type == :table }
+      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_class == Table }
       msg = "Request tables: #{count}"
       @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
       # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
       @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
 
-      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_type == :barrel }
+      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_class == Barrel }
       msg = "Request barrels: #{count}"
       @texts << Text.new(x, y + 120, msg, 16, "fonts/arial.ttf")
       # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
@@ -32,7 +32,7 @@ class Workshop < Structure::Base
   attr_reader :x, :y, :supplies
 
   def self.structure_requirements
-    [:log]
+    [Log]
   end
 
   def self.building_time
@@ -54,11 +54,11 @@ class Workshop < Structure::Base
     @supplies = []
   end
 
-  def has_stuff_required_for(item_type)
-    if item_type == :table
-      @supplies.any?{|s| s.type == :log }
-    elsif item_type == :barrel
-      @supplies.any?{|s| s.type == :log }
+  # TODO: THis must be handled better if there will be duplications
+  # like [Log, Log]
+  def has_stuff_required_for(item_class)
+    item_class.required_supplies.each do |requirement|
+      @supplies.any?{|s| s.is_a? requirement }
     end
   end
 
@@ -66,28 +66,19 @@ class Workshop < Structure::Base
     item_class.required_supplies.each do |supply|
       @jobs << SupplyJob.new(supply, to: self)
     end
-    @jobs << ProduceJob.new(item_class.type, at: self)
+    @jobs << ProduceJob.new(item_class, at: self)
   end
 
   # TODO: Always use classes like Table, Barrel to pass around instead of hashes.
-  def produce(item_type)
-    if item_type == :table
-      log = @supplies.find{|el| el.is_a? Log}
-      @supplies.delete(log)
-      spot = $map.find_free_spot_near(self)
-      item = Table.new(spot.x, spot.y)
-      $map[spot.x, spot.y] = item
-      item
+  def produce(item_class)
+    item_class.required_supplies.each do |requirement|
+      supply = @supplies.find{|el| el.is_a? requirement}
+      @supplies.delete(supply)
     end
-
-    if item_type == :barrel
-      log = @supplies.find{|el| el.is_a? Log}
-      @supplies.delete(log)
-      spot = $map.find_free_spot_near(self)
-      item = Barrel.new(spot.x, spot.y)
-      $map[spot.x, spot.y] = item
-      item
-    end
+    spot = $map.find_free_spot_near(self)
+    item = item_class.new(spot.x, spot.y)
+    $map[spot.x, spot.y] = item
+    item
   end
 
   def supply(item)

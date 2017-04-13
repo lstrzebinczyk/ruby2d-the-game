@@ -1,8 +1,8 @@
 class ProduceJob
-  attr_reader :item_type
+  attr_reader :item_class
 
-  def initialize(item_type, opts)
-    @item_type = item_type
+  def initialize(item_class, opts)
+    @item_class = item_class
     @at        = opts[:at]
   end
 
@@ -11,16 +11,16 @@ class ProduceJob
   end
 
   def available?
-    @at.has_stuff_required_for(@item_type)
+    @at.has_stuff_required_for(@item_class)
   end
 
   def target
-    [@item_type, @at]
+    [@item_class, @at]
   end
 
   def action_for(character)
     MoveAction.new(character: character, to: @at).then do
-      ProduceAction.new(@item_type, at: @at, character: character)
+      ProduceAction.new(@item_class, at: @at, character: character)
     end
   end
 
