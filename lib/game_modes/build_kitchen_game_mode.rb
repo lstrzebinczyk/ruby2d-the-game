@@ -1,8 +1,7 @@
-class BuildKitchenGameMode < GameMode::Base
+class BuildKitchenGameMode < GameMode::Base::Point
   def perform(in_game_x, in_game_y)
     if terrain_clear?(in_game_x, in_game_y)
       $structures << Blueprint.new(Kitchen, in_game_x, in_game_y)
-
       if $menu
         $menu.set_game_mode(:inspect)
       end

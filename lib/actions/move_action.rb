@@ -28,7 +28,7 @@ class MoveAction < Action::Base
       raise ArgumentError, "Shit..."
     end
 
-    @ticks_left = 4 * @character.speed_multiplier
+    @ticks_left = 16 / @character.speed
   end
 
   def start
@@ -39,11 +39,10 @@ class MoveAction < Action::Base
     end
   end
 
-  # 4 meters per second when @character.speed_multiplier == 1
   def update(seconds)
     @ticks_left -= 1
     if @ticks_left <= 0
-      @ticks_left = 4 * @character.speed_multiplier
+      @ticks_left = 16 / @character.speed
       next_step = @path.shift
       if next_step
         # If the place is free, go there

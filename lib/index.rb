@@ -38,8 +38,6 @@ def start_game!
   $menu = Menu.new
   $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
 
-  $previous_mouse_over = :game_window
-
   $background.rerender
   $characters_list.each(&:rerender)
   $map.rerender
@@ -158,7 +156,13 @@ show
 
 
 
-# TODO: Refactor pick action
-
 # Implement nice storage system like I want it
 # Implement some nice system to find out where and when no path error happens
+
+# Create issue about dropdown selects for menu
+# Create tests for structures:
+  # - building workshop (rename to carpenter?)
+  # - build kitchen
+
+# Prepare presentation about ruby2d and the game
+  # - write simple space invader?

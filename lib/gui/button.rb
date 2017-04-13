@@ -1,6 +1,5 @@
 class Button
-  attr_accessor :on_click
-  attr_reader :hover, :width, :text
+  attr_reader :hover, :width, :text, :on_click
 
   def initialize(text, opts = {})
     @text           = text
@@ -63,6 +62,16 @@ class Button
 
   def right
     @background.x2.to_i
+  end
+
+  def on_click=(on_click)
+    @on_click = on_click
+
+    Application.on :mouse_down do |e|
+      if self.contains?(e.x, e.y)
+        @on_click.call
+      end
+    end
   end
 
   def render(x, y)

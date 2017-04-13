@@ -1,10 +1,14 @@
-class SetStorageGameMode < GameMode::Base
-  def perform(in_game_x, in_game_y)
-    if $zones[in_game_x, in_game_y].nil?
-      unless $map[in_game_x, in_game_y].is_a? River
-        $zones[in_game_x, in_game_y] = StorageZone.new(in_game_x, in_game_y)
-        if $map[in_game_x, in_game_y]
-          $map[in_game_x, in_game_y].rerender
+class SetStorageGameMode < GameMode::Base::Area
+  def perform(in_game_x_range, in_game_y_range)
+    in_game_x_range.each do |x|
+      in_game_y_range.each do |y|
+        if $zones[x, y].nil?
+          unless $map[x, y].is_a? River
+            $zones[x, y] = StorageZone.new(x, y)
+            if $map[x, y]
+              $map[x, y].rerender
+            end
+          end
         end
       end
     end

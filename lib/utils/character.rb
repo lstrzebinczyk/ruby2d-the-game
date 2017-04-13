@@ -21,6 +21,7 @@ class Character
   attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :job
 
   MAX_CALORIES = 3000
+
   def initialize(opts)
     x     = opts[:x]
     y     = opts[:y]
@@ -112,16 +113,6 @@ class Character
   def eat(seconds)
     @calories += @carried_item.calories_eaten_in(seconds)
     @carried_item = nil if @carried_item.empty?
-  end
-
-  # poor mans implementation of the fact, that carrying big piece of wood makes you slower
-  # Exactly 6 times slower, in here
-  def speed_multiplier
-    if @carried_item and @carried_item.is_a?(Log)
-      6
-    else
-      1
-    end
   end
 
   def get_item
@@ -234,6 +225,11 @@ class Character
     @action = action
     @action.start
     nil
+  end
+
+  # treat like meters per seconds
+  def speed
+    4
   end
 
   def finish
