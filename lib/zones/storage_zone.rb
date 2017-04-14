@@ -52,8 +52,12 @@ class StorageZone
   end
 
   def has_job?(job_type)
-    job_type == :haul and $map.find_closest_to(self) do |obj|
-      obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
+    if job_type == :haul
+      if $map.find_closest_to(self) do |obj|
+        obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
+      end
+        return true
+      end
     end
   end
 
