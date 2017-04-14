@@ -58,7 +58,6 @@ require_relative "./utils/character"
 require_relative "./utils/background"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/job_list"
-require_relative "./utils/zones_list"
 require_relative "./utils/flood_map"
 
 require_relative "./zones/storage_zone"
@@ -88,8 +87,8 @@ class GameWorld
   def self.things_at(x, y)
     arr = []
     arr << $map[x, y]
-    arr << $zones[x, y]
-    arr << $structures.find{|s| s.include_any?([[x, y]]) }
+    arr << $zones.find_all{|s| s.include_any?([[x, y]]) }
+    arr << $structures.find_all{|s| s.include_any?([[x, y]]) }
     arr << $characters_list.find_all{|char| char.x == x and char.y == y }
     arr.flatten.compact
   end
@@ -101,7 +100,7 @@ class GameWorld
     $day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
     $game_speed          = GameSpeed.new
     $job_list            = JobList.new
-    $zones               = ZonesList.new
+    $zones               = []
     $structures          = []
     $flood_map           = FloodMap.new(map, characters_list)
   end

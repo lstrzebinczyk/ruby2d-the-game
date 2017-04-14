@@ -106,33 +106,6 @@ class InspectionMenu
     end
   end
 
-  class StoreTab
-    def initialize(opts)
-      @x          = opts[:x]
-      @margin_top = opts[:margin_top]
-      @texts = []
-    end
-
-    def render
-    end
-
-    def rerender
-      @texts.each(&:remove)
-      @texts = []
-      items = $zones.grouped_count
-
-      items.each_with_index do |(k, v), i|
-        msg = "#{k} => #{v} #{k.unit}s"
-        t = Text.new(@x + 5, 30 + i * 20, msg, 16, "fonts/arial.ttf")
-        @texts << t
-      end
-    end
-
-    def remove
-      @texts.each(&:remove)
-    end
-  end
-
   attr_accessor :active_tab
   attr_reader :x, :tab_margin_top
 
@@ -175,7 +148,6 @@ class InspectionMenu
   def render_tabs
     render_button("Chars")
     render_button("Inspect")
-    render_button("Store")
   end
 
   def render_button(text, opts = {})

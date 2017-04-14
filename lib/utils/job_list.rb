@@ -25,6 +25,12 @@ class JobList
           return structure.get_job(job_type)
         end
       end
+
+      $zones.each do |zone|
+        if zone.has_job?(job_type)
+          return zone.get_job(job_type)
+        end
+      end
     end
     nil
   end

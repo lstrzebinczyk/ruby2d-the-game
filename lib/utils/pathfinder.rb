@@ -49,7 +49,7 @@ class PathFinder
   # plus some randoms to make the paths bit more wacky and unpredicrable
   # this way they looks much nicer and less mechanical
   def heuristic(current_node, destination_node)
-    make_positive(current_node.x - destination_node.x) + make_positive(current_node.y - destination_node.y)
+    make_positive(current_node.x - destination_node.x + rand) + make_positive(current_node.y - destination_node.y + rand)
   end
 
   def make_positive(value)

@@ -12,36 +12,20 @@ class PutAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      @to.taken = false
       item = @character.get_item
       if $map[@to.x, @to.y].nil?
         $map.put_item(@to.x, @to.y, item)
-        end_action
-      elsif $map[@to.x, @to.y].is_a? Container
-        $map[@to.x, @to.y].put(item)
-        end_action
+      # elsif $map[@to.x, @to.y].is_a? Container
+      #   $map[@to.x, @to.y].put(item)
       else
-        @character.carry = item
-        if available_zone
-          spot = available_zone
-          action = PutAction.new(spot, @character)
-          replace_action(action)
-        else
-          spot_near = $map.find_free_spot_near(@character)
-          action = PutAction.new(spot_near, @character)
-          new_job = StoreJob.new(spot_near)
-          $job_list.add(new_job)
-
-          replace_action(action)
-        end
+        spot_near = $map.find_empty_spot_near(@character)
+        $map.put_item(spot_near.x, spot_near.y, item)
       end
+      $zones.each do |zone|
+        zone.free_taken(@to)
+      end
+      end_action
     end
-  end
-
-  private
-
-  def available_zone
-    $zones.find{|zone| zone.is_a? StorageZone and zone.has_place_for? @character.carry }
   end
 end
 

@@ -18,8 +18,10 @@ class StoreJob
   end
 
   def available_zone
-    $zones.find do |zone|
-      zone.is_a? StorageZone and zone.has_place_for?(@item) and !zone.taken
+    $zones.each do |zone|
+      if zone.has_empty_spot?
+        return zone.empty_spot
+      end
     end
   end
 
@@ -29,7 +31,6 @@ class StoreJob
 
   def action_for(character)
     zone = available_zone
-    zone.taken = true
     MoveAction.new(character: character, near: @item).then do
       PickAction.new(@item, character)
     end.then do

@@ -76,9 +76,8 @@ class Workshop < Structure::Base
       @supplies.delete(supply)
     end
     spot = $map.find_free_spot_near(self)
-    item = item_class.new(spot.x, spot.y)
-    $map[spot.x, spot.y] = item
-    item
+    $map[spot.x, spot.y] = item_class.new(spot.x, spot.y)
+    nil
   end
 
   def supply(item)

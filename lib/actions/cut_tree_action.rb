@@ -54,8 +54,6 @@ class CutTreeAction < Action::Base
       spot = $map.find_empty_spot_near(@tree)
       log = Log.new(spot.x, spot.y)
       $map[spot.x, spot.y] = log
-      new_job = StoreJob.new(log)
-      $job_list.add(new_job)
     end
   end
 end

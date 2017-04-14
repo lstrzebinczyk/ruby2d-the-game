@@ -51,7 +51,6 @@ class Map
     item.y = y
     self[x, y] = item
     item.render
-    $zones.recalculate
   end
 
   def find_closest_to(spot, &block)

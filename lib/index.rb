@@ -78,12 +78,12 @@ if @autoplay
   cut_game_mode = CutGameMode.new
   designated_trees = []
 
-  $zones.each do |zone|
-    if $map[zone.x, zone.y].is_a?(Tree)
-      designated_trees.push($map[zone.x, zone.y])
-    end
-    cut_game_mode.perform(zone.x, zone.y)
-  end
+  # $zones.each do |zone|
+  #   if $map[zone.x, zone.y].is_a?(Tree)
+  #     designated_trees.push($map[zone.x, zone.y])
+  #   end
+  #   cut_game_mode.perform(zone.x, zone.y)
+  # end
 
   trees_count = 5
   if designated_trees.count < trees_count
@@ -164,4 +164,14 @@ show
 # Prepare presentation about ruby2d and the game
   # - write simple space invader?
 
-# TODO: Remove objects #type method, always pass around class for setting up and passing data purposes
+# Allow storing logs in crates?
+# But if that is so, we must allow storing berries in storage
+
+# Should zone be removed and should this be a structure?
+
+# Write a PR with removing events!
+# I need this to provide nice menu for structures
+
+# Talk to Witold and Mike about AC sponsoring the next srug
+
+# Add removing zones feature, this is now obligatory!

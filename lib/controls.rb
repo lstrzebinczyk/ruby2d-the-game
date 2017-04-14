@@ -19,6 +19,12 @@ on :mouse_up do |e|
   end
 end
 
+on :mouse_down do |e|
+  if e.button == :right
+    $menu.game_mode.abort
+  end
+end
+
 on :key_down do |e|
   case e.key
   when "space"
