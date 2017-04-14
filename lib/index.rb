@@ -175,3 +175,5 @@ show
 # Talk to Witold and Mike about AC sponsoring the next srug
 
 # Add removing zones feature, this is now obligatory!
+
+# Try creating initial version of warhammer?

@@ -40,49 +40,11 @@ class StorageZone
     self_fields.any?{|arr| $map[arr[0], arr[1]].nil? }
   end
 
-  # TODO: Implement nicer system of remembering which spots were suggested for StorageZone
-  # So You wont suggest them again
-  def suggested_spots
-    @suggested_spots ||= {}
-    if clean_spots?
-      @suggested_spots = {}
-    end
-    @suggested_spots
-  end
-
-  def clean_spots?
-    @i ||= 1
-    @i += 1
-    @i = @i % 10
-    @i == 0
-  end
-
-  def free_taken(spot)
-    spots_memory = suggested_spots
-
-    if spots_memory[spot.x]
-      spots_memory[spot.x][spot.y] = nil
-    end
-  end
-
-  def is_available?(spot)
-    suggested_spots.dig(spot.x, spot.y).nil?
-  end
-
-  def set_taken(spot)
-    spots_memory = suggested_spots
-    spots_memory[spot.x] ||= {}
-    spots_memory[spot.x][spot.y] = true
-  end
-
   def empty_spot
     spot = self_fields.find do |arr|
-      position = Position.new(arr[0], arr[1])
-      $map[position.x, position.y].nil? and is_available?(position)
+      $map[arr[0], arr[1]].nil?
     end
-    pos = Position.new(spot[0], spot[1])
-    set_taken(pos)
-    pos
+    Position.new(spot[0], spot[1])
   end
 
   def contain?(object)

@@ -21,9 +21,6 @@ class PutAction < Action::Base
         spot_near = $map.find_empty_spot_near(@character)
         $map.put_item(spot_near.x, spot_near.y, item)
       end
-      $zones.each do |zone|
-        zone.free_taken(@to)
-      end
       end_action
     end
   end
