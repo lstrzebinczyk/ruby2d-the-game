@@ -1,6 +1,7 @@
 class StoreJob
-  def initialize(item)
+  def initialize(item, opts = {})
     @item = item
+    @in   = opts[:in]
 
     if @item.nil?
       require "pry"
@@ -12,6 +13,10 @@ class StoreJob
     :haul
   end
 
+  def target_place
+    @target_place ||= @in || available_zone
+  end
+
   def available?
     zone = available_zone
     !!zone and $flood_map.available?(zone.x, zone.y)
@@ -19,9 +24,8 @@ class StoreJob
 
   def available_zone
     $zones.each do |zone|
-      if zone.has_empty_spot?
-        return zone.empty_spot
-      end
+      spot = zone.empty_spot
+      return spot if spot
     end
   end
 
@@ -30,13 +34,12 @@ class StoreJob
   end
 
   def action_for(character)
-    zone = available_zone
     MoveAction.new(character: character, near: @item).then do
       PickAction.new(@item, character)
     end.then do
-      MoveAction.new(character: character, near: zone)
+      MoveAction.new(character: character, near: target_place)
     end.then do
-      PutAction.new(zone, character)
+      PutAction.new(target_place, character, in_container: @in)
     end
   end
 

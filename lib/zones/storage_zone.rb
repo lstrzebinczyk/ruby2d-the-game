@@ -36,10 +36,6 @@ class StorageZone
     end
   end
 
-  def has_empty_spot?
-    self_fields.any?{|arr| $map[arr[0], arr[1]].nil? }
-  end
-
   def empty_spot
     spot = self_fields.find do |arr|
       $map[arr[0], arr[1]].nil?
@@ -53,23 +49,26 @@ class StorageZone
 
   def get_job(job_type)
     if job_type == :haul
-      item = $map.find_closest_to(self) do |obj|
-        obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
-      end
+      container = self_fields.map do |field_arr|
+        $map[field_arr[0], field_arr[1]]
+      end.keep_if do |map_elem|
+        # TODO Make this more generic for containers later
+        map_elem.is_a? Barrel and map_elem.accepts?(:food)
+      end.first
 
-      StoreJob.new(item) if item
+      if container
+        item = $map.find_closest_to(self) do |obj|
+          obj.is_a? Item and obj.category == :food
+        end
+        if item
+          StoreJob.new(item, in: container)
+        end
+      else
+        item = $map.find_closest_to(self) do |obj|
+          obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
+        end
+        StoreJob.new(item) if item
+      end
     end
   end
-
-  # def map_object
-  #   $map[@x, @y]
-  # end
-
-  # def has_place_for?(object)
-  #   if object.category == :food
-  #     !map_object.nil? and map_object.is_a? Container and map_object.accepts?(object)
-  #   else
-  #     map_object.nil?
-  #   end
-  # end
 end

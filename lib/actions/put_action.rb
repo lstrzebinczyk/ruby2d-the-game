@@ -1,8 +1,9 @@
 class PutAction < Action::Base
-  def initialize(to, character)
-    @to        = to
-    @character = character
-    @time_left = 10
+  def initialize(to, character, opts = {})
+    @to           = to
+    @character    = character
+    @time_left    = 10
+    @in_container = opts[:in_container]
   end
 
   # If you want to put your object down, but the space is already filled
@@ -13,13 +14,21 @@ class PutAction < Action::Base
 
     if @time_left <= 0
       item = @character.get_item
-      if $map[@to.x, @to.y].nil?
-        $map.put_item(@to.x, @to.y, item)
-      # elsif $map[@to.x, @to.y].is_a? Container
-      #   $map[@to.x, @to.y].put(item)
+
+      if @in_container
+        if $map[@to.x, @to.y].is_a? Container
+          $map[@to.x, @to.y].put(item)
+        else
+          spot_near = $map.find_empty_spot_near(@character)
+          $map.put_item(spot_near.x, spot_near.y, item)
+        end
       else
-        spot_near = $map.find_empty_spot_near(@character)
-        $map.put_item(spot_near.x, spot_near.y, item)
+        if $map[@to.x, @to.y].nil?
+          $map.put_item(@to.x, @to.y, item)
+        else
+          spot_near = $map.find_empty_spot_near(@character)
+          $map.put_item(spot_near.x, spot_near.y, item)
+        end
       end
       end_action
     end

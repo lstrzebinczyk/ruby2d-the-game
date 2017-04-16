@@ -12,7 +12,7 @@ class CutTreeAction < Action::Base
     @tree = tree
 
     @ticks_left_to_hit   = HIT_EVERY_TICKS
-    @seconds_left = 5.minutes
+    @seconds_left = 1.hour
     @animation_time_left = 0
 
     x = tree.x * PIXELS_PER_SQUARE
