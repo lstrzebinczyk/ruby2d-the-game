@@ -21,13 +21,11 @@ class Structure
       self.class.size
     end
 
-    def has_job?(type)
-      @jobs.any?{|j| j.type == type and j.available? }
-    end
-
     def get_job(type)
-      job = @jobs.find{|j| j.type == type and j.available? }
-      @jobs.delete(job)
+      if @jobs and @jobs.any?
+        job = @jobs.find{|j| j.type == type and j.available? }
+        @jobs.delete(job)
+      end
     end
 
     def update(time)

@@ -21,15 +21,13 @@ class JobList
       end
 
       $structures.each do |structure|
-        if structure.has_job?(job_type)
-          return structure.get_job(job_type)
-        end
+        job = structure.get_job(job_type)
+        return job if job
       end
 
       $zones.each do |zone|
-        if zone.has_job?(job_type)
-          return zone.get_job(job_type)
-        end
+        job = zone.get_job(job_type)
+        return job if job
       end
     end
     nil

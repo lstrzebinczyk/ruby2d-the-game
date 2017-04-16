@@ -86,6 +86,8 @@ class BerryBush
   # Gather a cup (148 grams) in 5 minutes
   # so in second 148.0 / (5 * 60)
   def gathered_grams_per_second
-    0.493
+    # 0.493
+    # Make it smaller so the game is more dynamic
+    0.25
   end
 end

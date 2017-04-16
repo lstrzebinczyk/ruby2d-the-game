@@ -51,23 +51,13 @@ class StorageZone
     @x_range.cover?(object.x) and @y_range.cover?(object.y)
   end
 
-  def has_job?(job_type)
-    if job_type == :haul
-      if $map.find_closest_to(self) do |obj|
-        obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
-      end
-        return true
-      end
-    end
-  end
-
   def get_job(job_type)
     if job_type == :haul
       item = $map.find_closest_to(self) do |obj|
         obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
       end
 
-      StoreJob.new(item)
+      StoreJob.new(item) if item
     end
   end
 
