@@ -30,6 +30,7 @@ require_relative "./actions/supply_action"
 require_relative "./actions/build_action"
 require_relative "./actions/produce_action"
 require_relative "./actions/chill_action"
+require_relative "./actions/get_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"

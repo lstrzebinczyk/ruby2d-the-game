@@ -29,7 +29,15 @@ class SupplyJob
       on_abandon = -> {
         @to.jobs << SupplyJob.new(@item_class, to: @to)
       }
-      PickAction.new(tile_with_item_cached, character, on_abandon: on_abandon)
+      if tile_with_item_cached.is_a? Container
+        GetAction.new(@item_class,
+          from: tile_with_item_cached,
+          character: character,
+          on_abandon: on_abandon
+        )
+      else
+        PickAction.new(tile_with_item_cached, character, on_abandon: on_abandon)
+      end
     end.then do
       MoveAction.new(character: character, near: @to)
     end.then do
