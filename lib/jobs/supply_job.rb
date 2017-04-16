@@ -14,7 +14,7 @@ class SupplyJob
 
   def tile_with_item
     $map.find_closest_to(@to) do |tile|
-      tile.is_a? @item_class
+      tile.is_a? @item_class or (tile.is_a?(Container) and tile.contains?(@item_class))
     end
   end
 
@@ -29,7 +29,6 @@ class SupplyJob
       on_abandon = -> {
         @to.jobs << SupplyJob.new(@item_class, to: @to)
       }
-
       PickAction.new(tile_with_item_cached, character, on_abandon: on_abandon)
     end.then do
       MoveAction.new(character: character, near: @to)

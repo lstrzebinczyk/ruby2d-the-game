@@ -175,3 +175,5 @@ show
 
 # Try creating initial version of warhammer?
 
+# Bug, sometimes created objects are not put in place and they dissappar,
+# but their image stays on the old spot

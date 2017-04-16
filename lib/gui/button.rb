@@ -70,7 +70,6 @@ class Button
 
     Application.on :mouse_up do |e|
       if self.contains?(e.x, e.y)
-        # p e
         @on_click.call
       end
     end
