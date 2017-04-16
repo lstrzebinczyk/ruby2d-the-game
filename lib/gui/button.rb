@@ -9,6 +9,7 @@ class Button
     @active_color   = opts[:active_color] || [1, 0, 0, 1]
     @inactive_color = opts[:inactive_color] || [0, 0, 1, 1]
     @side_padding   = opts[:side_padding] || 12
+    @top_and_bottom_padding = opts[:top_and_bottom_padding] || 4
   end
 
   def remove
@@ -67,8 +68,9 @@ class Button
   def on_click=(on_click)
     @on_click = on_click
 
-    Application.on :mouse_down do |e|
+    Application.on :mouse_up do |e|
       if self.contains?(e.x, e.y)
+        # p e
         @on_click.call
       end
     end
@@ -77,7 +79,7 @@ class Button
   def render(x, y)
     @text_element = Text.new(
       x + @side_padding,
-      y + 4,
+      y + @top_and_bottom_padding,
       @text, @text_size, "fonts/arial.ttf"
     )
 
@@ -85,7 +87,7 @@ class Button
       x,
       y,
       @text_element.width + 2 * @side_padding,
-      @text_element.height + 8,
+      @text_element.height + 2 * @top_and_bottom_padding,
       color
     )
   end

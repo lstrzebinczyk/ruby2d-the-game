@@ -55,14 +55,12 @@ class StorageZone
         # TODO Make this more generic for containers later
         map_elem.is_a? Barrel and map_elem.accepts?(:food)
       end.first
+      item = $map.find_closest_to(self) do |obj|
+        obj.is_a? Item and obj.category == :food
+      end
 
-      if container
-        item = $map.find_closest_to(self) do |obj|
-          obj.is_a? Item and obj.category == :food
-        end
-        if item
-          StoreJob.new(item, in: container)
-        end
+      if container and item
+        StoreJob.new(item, in: container)
       else
         item = $map.find_closest_to(self) do |obj|
           obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }

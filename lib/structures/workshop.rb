@@ -1,31 +1,46 @@
+$workshop_button_actions_set = {
+
+}
+
 class Workshop < Structure::Base
   class Inspection
     def initialize(workshop, opts = {})
       x = opts[:x]
       y = opts[:y]
+      @buttons = []
       @texts = []
       @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
 
-      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_class == Table }
-      msg = "Request tables: #{count}"
-      @texts << Text.new(x, y + 20, msg, 16, "fonts/arial.ttf")
-      # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 60, "Press l to increase", 16, "fonts/arial.ttf")
+      padding = workshop.class.buildable_items.map{|item_class| item_class.name.size }.max
 
-      count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_class == Barrel }
-      msg = "Request barrels: #{count}"
-      @texts << Text.new(x, y + 120, msg, 16, "fonts/arial.ttf")
-      # @texts << Text.new(x, y + 40, "Press k to decrease", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 160, "Press k to increase", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 180, "Supplies:", 16, "fonts/arial.ttf")
-      logs_count = workshop.supplies.count{|thing| thing.is_a? Log }
-      @texts << Text.new(x, y + 200, "Logs: #{logs_count}", 16, "fonts/arial.ttf")
+      workshop.class.buildable_items.each_with_index do |item_class, index|
+        count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_class == item_class }
+        message = "#{item_class.name.ljust(padding)}: #{count}"
+        @texts << Text.new(x, y + 20 * (index + 1), message, 16, "fonts/arial.ttf")
 
+        button = Button.new("+",
+          side_padding: 4,
+          inactive_color: "green",
+          text_size: 10,
+          top_and_bottom_padding: 4
+        )
+        button.render(x + @texts.last.width + 10, @texts.last.y)
+        unless $workshop_button_actions_set[item_class]
+          on_click_callback = -> {
+            workshop.request(item_class)
+          }
+          button.on_click = on_click_callback
+          $workshop_button_actions_set[item_class] = true
+        end
+        @buttons << button
+      end
 
+      @buttons.each(&:rerender)
     end
 
     def remove
       @texts.each(&:remove)
+      @buttons.each(&:remove)
     end
   end
 
@@ -41,6 +56,10 @@ class Workshop < Structure::Base
 
   def self.size
     3
+  end
+
+  def self.buildable_items
+    [Table, Barrel]
   end
 
   def initialize(x, y)

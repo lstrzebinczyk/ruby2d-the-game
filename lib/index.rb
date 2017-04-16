@@ -165,9 +165,6 @@ show
   # - write simple space invader?
 
 # Allow storing logs in crates?
-# But if that is so, we must allow storing berries in storage
-
-# Should zone be removed and should this be a structure?
 
 # Write a PR with removing events!
 # I need this to provide nice menu for structures
@@ -177,3 +174,4 @@ show
 # Add removing zones feature, this is now obligatory!
 
 # Try creating initial version of warhammer?
+
