@@ -164,8 +164,6 @@ show
 # Prepare presentation about ruby2d and the game
   # - write simple space invader?
 
-# Allow storing logs in crates?
-
 # Write a PR with removing events!
 # I need this to provide nice menu for structures
 
@@ -178,5 +176,3 @@ show
 # Bug, sometimes created objects are not put in place and they dissappar,
 # but their image stays on the old spot
 
-# Find a reasonable way of differentiating between picking from ground and getting from container
-# When logs are stored in crates, we need to be able to use them

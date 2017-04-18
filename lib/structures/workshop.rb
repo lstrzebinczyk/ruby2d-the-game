@@ -94,7 +94,7 @@ class Workshop < Structure::Base
       supply = @supplies.find{|el| el.is_a? requirement}
       @supplies.delete(supply)
     end
-    spot = $map.find_free_spot_near(self)
+    spot = $map.find_empty_spot_near(self)
     $map[spot.x, spot.y] = item_class.new(spot.x, spot.y)
     nil
   end
