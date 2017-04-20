@@ -19,7 +19,7 @@ set({
 def start_game!
   characters_list = [
     Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
-    Character.new(x: 31, y: 20, name: "Franz", type: :woodcutter),
+    Character.new(x: 31, y: 20, name: "Franz", type: :fisherman),
     Character.new(x: 32, y: 20, name: "Karl", type: :gatherer),
     Character.new(x: 33, y: 20, name: "Joseph", type: :craftsman),
   ]

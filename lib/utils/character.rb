@@ -34,7 +34,8 @@ class Character
     @accepts_jobs = {
       woodcutter: [:woodcutting, :haul],
       gatherer: [:gathering, :haul],
-      craftsman: [:building, :carpentry, :haul]
+      craftsman: [:building, :carpentry, :haul],
+      fisherman: [:fish_cleaning, :fishing, :haul]
     }[@type]
 
     @image  = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)

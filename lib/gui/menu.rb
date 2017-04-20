@@ -63,6 +63,7 @@ class Menu
     render_button("Set storage")
     render_button("Build workshop", game_mode: BuildGameMode.new(Workshop) )
     render_button("Build kitchen" , game_mode: BuildGameMode.new(Kitchen)  )
+    render_button("Build fishery" , game_mode: BuildGameMode.new(Fishery)  )
 
     @menu_buttons_top_offset = 38
 
