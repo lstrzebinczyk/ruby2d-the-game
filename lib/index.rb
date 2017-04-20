@@ -2,10 +2,6 @@ require_relative "./game_world"
 require_relative "./controls"
 require_relative "./update"
 
-def rendered_objects
-  (get :window).objects
-end
-
 set({
   title: "The Game Continues",
   width: WIDTH,
@@ -167,46 +163,12 @@ class Autoplayer
   end
 end
 
-
-
 @autoplay = true
 if @autoplay
   $autoplayer = Autoplayer.new
   $autoplayer.build_phase_one
 end
-#   cut_game_mode = CutGameMode.new
-#   designated_trees = []
 
-#   trees_count = 5
-#   if designated_trees.count < trees_count
-#     puts "need #{trees_count - designated_trees.count} more trees"
-
-#     need_more_trees_count = trees_count - designated_trees.count
-
-#     need_more_trees_count.times do
-#       tree = $map.find_closest_to(fireplace) do |map_element|
-#         map_element.is_a?(Tree) and !designated_trees.include?(map_element)
-#       end
-#       designated_trees.push(tree)
-#       cut_game_mode.perform((tree.x..tree.x), (tree.y..tree.y))
-#     end
-#   end
-
-#   # setup workshop on first free spot closest to fireplace
-#   # build_workshop_game_mode = BuildWorkshopGameMode.new
-#   # all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
-
-#   # free_spots = all_spots.keep_if do |arr|
-#   #   build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
-#   # end
-
-#   # free_spots.sort_by! do |a|
-#   #   (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-#   # end
-
-#   # spot = free_spots.first
-#   # build_workshop_game_mode.perform(spot[0], spot[1])
-# end
 
 # START!
 show
@@ -224,16 +186,6 @@ show
 # Should jobs or actions be implemented as enumerator?
 
 
-# TODO WITH WOODEN WORKSHOP:
-
-# - then a fishing workshop, require a table too
-
-
-# http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation
-
-# TODO: Write test for creating workshop and producing a table
-
-
 # Having a simulation where you can watch city being build is one idea
 # Other is: build the city yourself, like a designer
 # Fill it with actors that do their own job, each one has their role to fill
@@ -248,11 +200,6 @@ show
 
 # Implement some nice system to find out where and when no path error happens
 
-# Create issue about dropdown selects for menu
-# Create tests for structures:
-  # - building workshop (rename to carpenter?)
-  # - build kitchen
-
 # Prepare presentation about ruby2d and the game
   # - write simple space invader?
 
@@ -261,10 +208,7 @@ show
 
 # Talk to Witold and Mike about AC sponsoring the next srug
 
-# Add removing zones feature, this is now obligatory!
-
 # Try creating initial version of warhammer?
 
-# Bug, sometimes created objects are not put in place and they dissappar,
-# but their image stays on the old spot
-
+# Observable based visual things? Sort of based on ember ?
+# This could help having menu reorganised only when needed
