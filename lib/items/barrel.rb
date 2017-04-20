@@ -5,6 +5,7 @@ class Container < Item
 
   def put(thing)
     storage << thing
+    after_put_callback
   end
 
   def contains?(item_class)
@@ -13,6 +14,9 @@ class Container < Item
 
   def get_something
     storage.shift
+  end
+
+  def after_put_callback
   end
 end
 
@@ -64,7 +68,7 @@ class Barrel < Container
 
   def remove
     @image.remove
-    @background.add
+    @background.remove
   end
 
   def accepts?(thing)
@@ -78,5 +82,9 @@ class Barrel < Container
 
   def category
     :container
+  end
+
+  def after_put_callback
+    storage.sort!{|a, b| -a.calories <=> -b.calories }
   end
 end

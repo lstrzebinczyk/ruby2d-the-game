@@ -6,6 +6,7 @@ class Kitchen < Structure::Base
       @texts = []
       @texts << Text.new(x, y, "Kitchen", 16, "fonts/arial.ttf")
       @texts << Text.new(x, y + 20, "Continuous cooking: on", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 40, "Cleaned fishes: #{kitchen.supplies.count}", 16, "fonts/arial.ttf")
     end
 
     def remove
