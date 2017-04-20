@@ -1,8 +1,3 @@
-  # map = MapGenerator.new(SQUARES_WIDTH, SQUARES_HEIGHT).generate
-  # map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
-  # map.fill_grid_with_objects
-
-
 class MapGenerator
   def initialize(width, height)
     @width, @height = width, height
