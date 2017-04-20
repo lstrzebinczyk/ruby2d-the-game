@@ -1,17 +1,3 @@
-# TODO: FEATURES FOR BERRY BUSHES
-#   - allow for cutting it
-#     DONE - for now it just disappears
-#     - later it should produce firewood
-
-#   - allow for harvesting it
-#     - it should follow it's own number of berries available (in kilograms)
-#     - storing berries in storage should be possible
-#     - add second person
-#     - have first person only do forestry and carrying, second only for harvesting and carrying
-#     - implement eating and having to eat
-
-      # - have the bushes regrow at a reasonable, realistic rate
-
 class BerryBush
   class Inspection
     def initialize(berry_bush, opts = {})

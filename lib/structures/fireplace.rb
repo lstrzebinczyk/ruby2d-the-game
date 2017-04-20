@@ -1,10 +1,3 @@
-# TODO: Have the fireplace require fuel to be burned
-# And have the fire of the light depend on the amount of fuel present
-
-# TODO: Have the lighted area depend on how trees are
-# represented in area?
-# Tree should catch more light
-# and it should push more light to outside?
 class Fireplace < Structure::Base
   def self.size
     1
