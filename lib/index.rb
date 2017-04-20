@@ -57,41 +57,46 @@ start_game!
 # Autoplayer!
 #
 
-@autoplay = true
-if @autoplay
+class Autoplayer
+  def build_phase_one
+    cut_trees(5)
+    gather_plants(10)
+    set_storage
+  end
 
-  fireplace = $structures.find{|s| s.is_a? Fireplace }
+  private
 
-  # Designate storage place, 5x5 in size, above and to the right of fireplace
-  # build_storage_mode = SetStorageGameMode.new
-  # storage_top_left_x = fireplace.x + 2
-  # storage_top_left_y = fireplace.y - 7
+  # set 5x5 storage
+  def set_storage
+    # size = 7
+    size = 6
+    fireplace = $structures.find{|s| s.is_a? Fireplace }
 
-  # (storage_top_left_x..(storage_top_left_x+5)).each do |x|
-  #   (storage_top_left_y..(storage_top_left_y+5)).each do |y|
-  #     build_storage_mode.perform(x, y)
-  #   end
-  # end
+    all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+    free_spots = all_spots.find_all do |spot|
+      x = spot[0]
+      y = spot[1]
+      (x..(x + size - 1)).to_a.product((y..(y + size - 1)).to_a).all? do |arr|
+        $map.in_map?(arr[0], arr[1]) and GameWorld.things_at(arr[0], arr[1]).empty?
+      end
+    end
 
-  # Cut whatever is in place of that storage mode
+    closest_to_fireplace_spot = free_spots.sort_by! do |a|
+      (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+    end.first
 
-  cut_game_mode = CutGameMode.new
-  designated_trees = []
+    x_range = (closest_to_fireplace_spot[0]..(closest_to_fireplace_spot[0] + size - 1))
+    y_range = (closest_to_fireplace_spot[1]..(closest_to_fireplace_spot[1] + size - 1))
 
-  # $zones.each do |zone|
-  #   if $map[zone.x, zone.y].is_a?(Tree)
-  #     designated_trees.push($map[zone.x, zone.y])
-  #   end
-  #   cut_game_mode.perform(zone.x, zone.y)
-  # end
+    SetStorageGameMode.new.perform(x_range, y_range)
+  end
 
-  trees_count = 5
-  if designated_trees.count < trees_count
-    puts "need #{trees_count - designated_trees.count} more trees"
+  def cut_trees(count)
+    fireplace = $structures.find{|s| s.is_a? Fireplace }
+    cut_game_mode = CutGameMode.new
+    designated_trees = []
 
-    need_more_trees_count = trees_count - designated_trees.count
-
-    need_more_trees_count.times do
+    count.times do
       tree = $map.find_closest_to(fireplace) do |map_element|
         map_element.is_a?(Tree) and !designated_trees.include?(map_element)
       end
@@ -100,21 +105,60 @@ if @autoplay
     end
   end
 
-  # setup workshop on first free spot closest to fireplace
-  # build_workshop_game_mode = BuildWorkshopGameMode.new
-  # all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+  def gather_plants(count)
+    fireplace = $structures.find{|s| s.is_a? Fireplace }
+    cut_game_mode = GatherGameMode.new
+    designated_bushes = []
 
-  # free_spots = all_spots.keep_if do |arr|
-  #   build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
-  # end
-
-  # free_spots.sort_by! do |a|
-  #   (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-  # end
-
-  # spot = free_spots.first
-  # build_workshop_game_mode.perform(spot[0], spot[1])
+    count.times do
+      bush = $map.find_closest_to(fireplace) do |map_element|
+        map_element.is_a?(BerryBush) and !designated_bushes.include?(map_element)
+      end
+      designated_bushes.push(bush)
+      cut_game_mode.perform((bush.x..bush.x), (bush.y..bush.y))
+    end
+  end
 end
+
+
+
+@autoplay = true
+if @autoplay
+  Autoplayer.new.build_phase_one
+end
+#   cut_game_mode = CutGameMode.new
+#   designated_trees = []
+
+#   trees_count = 5
+#   if designated_trees.count < trees_count
+#     puts "need #{trees_count - designated_trees.count} more trees"
+
+#     need_more_trees_count = trees_count - designated_trees.count
+
+#     need_more_trees_count.times do
+#       tree = $map.find_closest_to(fireplace) do |map_element|
+#         map_element.is_a?(Tree) and !designated_trees.include?(map_element)
+#       end
+#       designated_trees.push(tree)
+#       cut_game_mode.perform((tree.x..tree.x), (tree.y..tree.y))
+#     end
+#   end
+
+#   # setup workshop on first free spot closest to fireplace
+#   # build_workshop_game_mode = BuildWorkshopGameMode.new
+#   # all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+
+#   # free_spots = all_spots.keep_if do |arr|
+#   #   build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
+#   # end
+
+#   # free_spots.sort_by! do |a|
+#   #   (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+#   # end
+
+#   # spot = free_spots.first
+#   # build_workshop_game_mode.perform(spot[0], spot[1])
+# end
 
 # START!
 show

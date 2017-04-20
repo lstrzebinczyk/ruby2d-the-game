@@ -49,35 +49,37 @@ class StorageZone
 
   def get_job(job_type)
     if job_type == :haul
-      barrel = self_fields.map do |field_arr|
-        $map[field_arr[0], field_arr[1]]
-      end.keep_if do |map_elem|
-        # TODO Make this more generic for containers later
-        map_elem.is_a? Barrel and map_elem.accepts?(:food)
-      end.first
-      food = $map.find_closest_to(self) do |obj|
-        obj.is_a? Item and obj.category == :food
-      end
-
-      if barrel and food
-        StoreJob.new(food, in: barrel)
-      else
-        crate = self_fields.map do |field_arr|
+      if empty_spot
+        barrel = self_fields.map do |field_arr|
           $map[field_arr[0], field_arr[1]]
         end.keep_if do |map_elem|
           # TODO Make this more generic for containers later
-          map_elem.is_a? Crate and map_elem.accepts?(:material)
+          map_elem.is_a? Barrel and map_elem.accepts?(:food)
         end.first
-        item = $map.find_closest_to(self) do |obj|
-          obj.is_a? Item and obj.category == :material
+        food = $map.find_closest_to(self) do |obj|
+          obj.is_a? Item and obj.category == :food
         end
-        if crate and item
-          StoreJob.new(item, in: crate)
+
+        if barrel and food
+          StoreJob.new(food, in: barrel)
         else
+          crate = self_fields.map do |field_arr|
+            $map[field_arr[0], field_arr[1]]
+          end.keep_if do |map_elem|
+            # TODO Make this more generic for containers later
+            map_elem.is_a? Crate and map_elem.accepts?(:material)
+          end.first
           item = $map.find_closest_to(self) do |obj|
-            obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
+            obj.is_a? Item and obj.category == :material
           end
-          StoreJob.new(item) if item
+          if crate and item
+            StoreJob.new(item, in: crate)
+          else
+            item = $map.find_closest_to(self) do |obj|
+              obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
+            end
+            StoreJob.new(item) if item
+          end
         end
       end
     end
