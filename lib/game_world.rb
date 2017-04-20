@@ -136,5 +136,7 @@ class GameWorld
     $structures.each do |structure|
       structure.update($day_and_night_cycle.time)
     end
+
+    $autoplayer.perform! if $autoplayer
   end
 end

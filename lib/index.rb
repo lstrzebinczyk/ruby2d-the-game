@@ -58,17 +58,64 @@ start_game!
 #
 
 class Autoplayer
+  def initialize
+    @done  = false
+    @phase = 1
+  end
+
   def build_phase_one
     cut_trees(5)
     gather_plants(10)
     set_storage
+    set(Workshop)
+    set(Kitchen)
+    set(Fishery)
+
+    @phase = 2
+  end
+
+  def perform!
+    if @phase == 2
+      if $structures.any?{|s| s.is_a? Workshop }
+        workshop = $structures.find{|s| s.is_a? Workshop }
+        3.times do
+          workshop.request(Table)
+        end
+        3.times do
+          workshop.request(Barrel)
+        end
+        3.times do
+          workshop.request(Crate)
+        end
+        @phase += 1
+      end
+    end
   end
 
   private
 
-  # set 5x5 storage
+  # TODO Make sure structure is at least 1 spot from any other structures and zones
+  # Looks nicer :3
+  # TODO: And at least 4 spots away from fireplace, or more
+  def set(structure)
+    fireplace = $structures.find{|s| s.is_a? Fireplace }
+
+    build_workshop_game_mode = BuildGameMode.new(structure)
+    all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+
+    free_spots = all_spots.keep_if do |arr|
+      build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
+    end
+
+    free_spots.sort_by! do |a|
+      (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+    end
+
+    spot = free_spots.first
+    build_workshop_game_mode.perform(spot[0], spot[1])
+  end
+
   def set_storage
-    # size = 7
     size = 6
     fireplace = $structures.find{|s| s.is_a? Fireplace }
 
@@ -124,7 +171,8 @@ end
 
 @autoplay = true
 if @autoplay
-  Autoplayer.new.build_phase_one
+  $autoplayer = Autoplayer.new
+  $autoplayer.build_phase_one
 end
 #   cut_game_mode = CutGameMode.new
 #   designated_trees = []
