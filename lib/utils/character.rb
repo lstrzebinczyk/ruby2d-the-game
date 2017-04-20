@@ -33,7 +33,7 @@ class Character
     @type = opts[:type]
     @accepts_jobs = {
       woodcutter: [:woodcutting, :haul],
-      gatherer: [:gathering, :haul],
+      gatherer: [:cooking, :gathering, :haul],
       craftsman: [:building, :carpentry, :haul],
       fisherman: [:fish_cleaning, :fishing, :haul]
     }[@type]

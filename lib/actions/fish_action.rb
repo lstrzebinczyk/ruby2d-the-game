@@ -1,7 +1,7 @@
 class FishAction < Action::Base
   def initialize(character)
     @character = character
-    @time_left = 1.hour
+    @time_left = 2.hour
   end
 
   def update(seconds)

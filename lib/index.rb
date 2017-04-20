@@ -57,21 +57,21 @@ start_game!
 # Autoplayer!
 #
 
-# @autoplay = true
+@autoplay = true
 if @autoplay
 
   fireplace = $structures.find{|s| s.is_a? Fireplace }
 
   # Designate storage place, 5x5 in size, above and to the right of fireplace
-  build_storage_mode = SetStorageGameMode.new
-  storage_top_left_x = fireplace.x + 2
-  storage_top_left_y = fireplace.y - 7
+  # build_storage_mode = SetStorageGameMode.new
+  # storage_top_left_x = fireplace.x + 2
+  # storage_top_left_y = fireplace.y - 7
 
-  (storage_top_left_x..(storage_top_left_x+5)).each do |x|
-    (storage_top_left_y..(storage_top_left_y+5)).each do |y|
-      build_storage_mode.perform(x, y)
-    end
-  end
+  # (storage_top_left_x..(storage_top_left_x+5)).each do |x|
+  #   (storage_top_left_y..(storage_top_left_y+5)).each do |y|
+  #     build_storage_mode.perform(x, y)
+  #   end
+  # end
 
   # Cut whatever is in place of that storage mode
 
@@ -96,24 +96,24 @@ if @autoplay
         map_element.is_a?(Tree) and !designated_trees.include?(map_element)
       end
       designated_trees.push(tree)
-      cut_game_mode.perform(tree.x, tree.y)
+      cut_game_mode.perform((tree.x..tree.x), (tree.y..tree.y))
     end
   end
 
   # setup workshop on first free spot closest to fireplace
-  build_workshop_game_mode = BuildWorkshopGameMode.new
-  all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+  # build_workshop_game_mode = BuildWorkshopGameMode.new
+  # all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
 
-  free_spots = all_spots.keep_if do |arr|
-    build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
-  end
+  # free_spots = all_spots.keep_if do |arr|
+  #   build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
+  # end
 
-  free_spots.sort_by! do |a|
-    (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-  end
+  # free_spots.sort_by! do |a|
+  #   (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
+  # end
 
-  spot = free_spots.first
-  build_workshop_game_mode.perform(spot[0], spot[1])
+  # spot = free_spots.first
+  # build_workshop_game_mode.perform(spot[0], spot[1])
 end
 
 # START!

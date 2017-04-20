@@ -4,7 +4,8 @@ class Kitchen < Structure::Base
       x = opts[:x]
       y = opts[:y]
       @texts = []
-      @texts << Text.new(x, y, Kitchen.name, 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y, "Kitchen", 16, "fonts/arial.ttf")
+      @texts << Text.new(x, y + 20, "Continuous cooking: on", 16, "fonts/arial.ttf")
     end
 
     def remove
@@ -12,7 +13,7 @@ class Kitchen < Structure::Base
     end
   end
 
-  attr_reader :x, :y, :size, :supplies
+  attr_reader :x, :y, :size, :supplies, :jobs
 
   def self.structure_requirements
     [Table]
@@ -41,5 +42,38 @@ class Kitchen < Structure::Base
 
     @jobs     = []
     @supplies = []
+  end
+
+  def get_job(type)
+    if type == :cooking
+      if supplies.any?
+        CookingJob.new(CookedFish, at: self)
+      end
+    elsif type == :haul
+      unless supplies.count >= 10
+        supply_job = SupplyJob.new(CleanedFish, to: self)
+        supply_job if supply_job.available?
+      end
+    end
+  end
+
+  def has_stuff_required_for(item_class)
+    item_class.required_supplies.each do |requirement|
+      @supplies.any?{|s| s.is_a? requirement }
+    end
+  end
+
+  def produce(item_class)
+    item_class.required_supplies.each do |requirement|
+      supply = @supplies.find{|el| el.is_a? requirement}
+      @supplies.delete(supply)
+    end
+    spot = $map.find_empty_spot_near(self)
+    $map[spot.x, spot.y] = item_class.new(spot.x, spot.y)
+    nil
+  end
+
+  def supply(item)
+    @supplies << item
   end
 end
