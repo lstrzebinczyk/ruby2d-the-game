@@ -3,11 +3,12 @@ class ProduceJob
 
   def initialize(item_class, opts)
     @item_class = item_class
-    @at        = opts[:at]
+    @at         = opts[:at]
+    @type       = opts[:type]
   end
 
   def type
-    :carpentry
+    @type || :carpentry
   end
 
   def available?

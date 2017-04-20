@@ -47,7 +47,7 @@ class Fishery < Structure::Base
   def get_job(type)
     if type == :fish_cleaning
       if supplies.any?
-        FishCleaningJob.new(at: self)
+        ProduceJob.new(CleanedFish, at: self, type: :fish_cleaning)
       end
     elsif type == :fishing
       FishingJob.new
@@ -58,23 +58,12 @@ class Fishery < Structure::Base
       end
     end
   end
-    # @jobs     = []
 
-
-  # TODO: THis must be handled better if there will be duplications
-  # like [Log, Log]
   def has_stuff_required_for(item_class)
     item_class.required_supplies.each do |requirement|
       @supplies.any?{|s| s.is_a? requirement }
     end
   end
-
-  # def request(item_class)
-  #   item_class.required_supplies.each do |supply|
-  #     @jobs << SupplyJob.new(supply, to: self)
-  #   end
-  #   @jobs << ProduceJob.new(item_class, at: self)
-  # end
 
   # TODO: Always use classes like Table, Barrel to pass around instead of hashes.
   def produce(item_class)

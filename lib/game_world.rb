@@ -47,8 +47,6 @@ require_relative "./jobs/store_job"
 require_relative "./jobs/chill_job"
 require_relative "./jobs/gather_job"
 require_relative "./jobs/fishing_job"
-require_relative "./jobs/fish_cleaning_job"
-require_relative "./jobs/cooking_job"
 
 require_relative "./structures/base"
 require_relative "./structures/_blueprint"

@@ -47,7 +47,7 @@ class Kitchen < Structure::Base
   def get_job(type)
     if type == :cooking
       if supplies.any?
-        CookingJob.new(CookedFish, at: self)
+        ProduceJob.new(CookedFish, at: self, type: :cooking)
       end
     elsif type == :haul
       unless supplies.count >= 10
