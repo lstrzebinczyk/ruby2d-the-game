@@ -19,8 +19,8 @@ def start_game!
     Character.new(x: 32, y: 20, name: "Karl", type: :gatherer),
     Character.new(x: 33, y: 20, name: "Joseph", type: :craftsman),
   ]
-  map = Map.new(width: SQUARES_WIDTH, height: SQUARES_HEIGHT)
-  map.fill_grid_with_objects
+  map = MapGenerator.new(SQUARES_WIDTH, SQUARES_HEIGHT).generate
+
   characters_list.each do |character|
     map.clear(character.x, character.y)
   end

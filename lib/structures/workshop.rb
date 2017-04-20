@@ -88,7 +88,6 @@ class Workshop < Structure::Base
     @jobs << ProduceJob.new(item_class, at: self)
   end
 
-  # TODO: Always use classes like Table, Barrel to pass around instead of hashes.
   def produce(item_class)
     item_class.required_supplies.each do |requirement|
       supply = @supplies.find{|el| el.is_a? requirement}

@@ -94,12 +94,6 @@ class Map
     nil
   end
 
-  # TODO: This should really be moved to some sort of MapCreator.new
-  def fill_grid_with_objects
-    fill_river
-    fill_trees_and_bushes
-  end
-
   private
 
   DIRECTIONS = [
@@ -135,85 +129,5 @@ class Map
     odd_numbers
       .drop(1)
       .flat_map { |radius| square_edge_coordinates(x, y, radius) }
-  end
-
-
-
-
-  # MAP GENERATION
-  # TODO: MOVE TO SEPARATE CLASS
-
-  def fill_river
-    (0..@width).each do |x|
-      (0..@height).each do |y|
-        if in_river?(x, y)
-          @grid[x, y] = River.new(x, y)
-        end
-      end
-    end
-  end
-
-  def in_river?(x, y)
-    y > river_sinus(x) and y < river_sinus(x) + 4
-    # and y < river_sinus(x) + 4
-    # river_sinus(x) < y
-  end
-
-  def river_sinus(x)
-    river_sinus_adder(x) + river_sinus_multiplier * Math.sin(river_in_sinus_alpha(x))
-  end
-
-  def river_sinus_adder(x)
-    @adder_rand ||= rand + rand + rand
-    x * 0.07 + @adder_rand
-  end
-
-  def river_sinus_multiplier
-    @multiplier ||= 2.3 + 2 * rand + 2 * rand
-  end
-
-  def river_in_sinus_alpha(x)
-    @tr ||= rand - rand + rand - rand
-    @ml ||= 0.1 + rand/10 - rand/10
-
-    @tr + x * @ml
-  end
-
-  def fill_trees_and_bushes
-    (0..@width).each do |x|
-      (0..@height).each do |y|
-        if @grid[x, y].nil?
-          if set_tree?(x, y)
-            @grid[x, y] = Tree.new(x, y)
-          elsif set_bush?(x, y)
-            @grid[x, y] = BerryBush.new(x, y)
-          end
-        end
-      end
-    end
-
-    @noise_cache = nil
-  end
-
-  def noise_generator
-    @noise ||= RandomNoiseGenerator.new
-  end
-
-  def set_tree?(x, y)
-    rand < get_noise(x, y)
-  end
-
-  def set_bush?(x, y) # of love
-    rand < (get_noise(x, y) / 2)
-  end
-
-  def get_noise(x, y)
-    noise_cache[x] ||= {}
-    noise_cache[x][y] ||= noise_generator.get(x, y)
-    noise_cache[x][y]
-  end
-
-  def noise_cache
-    @noise_cache ||= {}
   end
 end
