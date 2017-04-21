@@ -1,7 +1,7 @@
 class MoveAction < Action::Base
   def initialize(opts)
     @character  = opts[:character]
-    if !@character.is_a? Character
+    if !@character.is_a? Creature
       raise ArgumentError, "MoveAction requires :character in input. Received '#{@character.inspect}'"
     end
 

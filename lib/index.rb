@@ -18,6 +18,7 @@ def start_game!
     Character.new(x: 31, y: 20, name: "Franz", type: :fisherman),
     Character.new(x: 32, y: 20, name: "Karl", type: :gatherer),
     Character.new(x: 33, y: 20, name: "Joseph", type: :craftsman),
+    Goat.new(34, 20)
   ]
   map = MapGenerator.new(SQUARES_WIDTH, SQUARES_HEIGHT).generate
 

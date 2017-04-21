@@ -58,12 +58,15 @@ require_relative "./structures/fishery"
 
 require_relative "./game_modes/_index"
 
+require_relative "./creatures/creature"
+require_relative "./creatures/goat"
+require_relative "./creatures/character"
+
 require_relative "./utils/pathfinder"
 require_relative "./utils/grid"
 require_relative "./utils/random_noise_generator"
 require_relative "./utils/map"
 require_relative "./utils/map_generator"
-require_relative "./utils/character"
 require_relative "./utils/background"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/job_list"

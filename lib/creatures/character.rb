@@ -1,7 +1,7 @@
 # TODO: INTRODUCE CharacterState classess (sleeping, working, slacking etc)
 # TODO: INTRODUCE characterType classess (gatherer, lumberjack etc)
 
-class Character
+class Character < Creature
   class Inspection
     def initialize(character, opts = {})
       msg = "#{character.name}, a #{character.type}"
@@ -159,7 +159,8 @@ class Character
   end
 
   def chill
-    self.job = ChillJob.new
+    fireplace = $structures.find{|s| s.is_a? Fireplace }
+    self.job = ChillJob.new(near: fireplace)
   end
 
   def set_own_action
