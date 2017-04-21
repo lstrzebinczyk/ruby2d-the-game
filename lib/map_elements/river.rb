@@ -1,5 +1,5 @@
 class River
-  attr_reader :x, :y
+  attr_accessor :x, :y
 
   def initialize(x, y)
     @x, @y = x, y
@@ -8,6 +8,10 @@ class River
 
   def rerender
     @image.remove
+    @image.add
+  end
+
+  def render
     @image.add
   end
 

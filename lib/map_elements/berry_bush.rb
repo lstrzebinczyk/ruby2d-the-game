@@ -12,7 +12,9 @@ class BerryBush
       @t.remove
     end
   end
-  attr_reader :x, :y, :grams
+
+  attr_reader :grams
+  attr_accessor :x, :y
 
   def initialize(x, y, grams = nil)
     @x, @y = x, y
@@ -23,6 +25,10 @@ class BerryBush
     else
       @grams = 2500 + (rand * 1000).to_i
     end
+  end
+
+  def render
+    @image.add
   end
 
   def gathering_time

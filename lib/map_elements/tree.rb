@@ -1,5 +1,5 @@
 class Tree
-  attr_reader :x, :y, :image
+  attr_accessor :x, :y
 
   def initialize(x, y)
     @x, @y = x, y
@@ -12,10 +12,14 @@ class Tree
 
   def rerender
     remove
-    @image.add
+    render
   end
 
   def remove
     @image.remove
+  end
+
+  def render
+    @image.add
   end
 end

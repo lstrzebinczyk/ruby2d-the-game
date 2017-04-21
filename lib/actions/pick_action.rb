@@ -29,8 +29,7 @@ class PickAction < Action::Base
           @character.carry = map_object.get_something
         else
           @character.carry = map_object
-          map_object.remove
-          $map[@from.x, @from.y] = nil
+          $map.clear(@from.x, @from.y)
         end
         end_action
       else

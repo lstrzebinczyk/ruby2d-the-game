@@ -26,8 +26,11 @@ class Map
     @grid[x, y] #|| $characters_list.find{|c| c.x == x && c.y == y}
   end
 
-  def []=(x, y, value)
-    @grid[x, y] = value
+  def []=(x, y, item)
+    item.x = x
+    item.y = y
+    @grid[x, y] = item
+    item.render
   end
 
   def passable?(x, y)
@@ -44,13 +47,6 @@ class Map
 
   def walkable_ground?(x, y)
     in_map?(x, y) and (self[x, y].nil? or !self[x, y].is_a? River)
-  end
-
-  def put_item(x, y, item)
-    item.x = x
-    item.y = y
-    self[x, y] = item
-    item.render
   end
 
   def find_closest_to(spot, &block)
@@ -89,7 +85,7 @@ class Map
   def clear(x, y)
     elem = self[x, y]
     elem && elem.remove
-    self[x, y] = nil
+    @grid[x, y] = nil
     $flood_map && $flood_map.set_as_available(x, y)
     nil
   end

@@ -20,14 +20,14 @@ class PutAction < Action::Base
           $map[@to.x, @to.y].put(item)
         else
           spot_near = $map.find_empty_spot_near(@character)
-          $map.put_item(spot_near.x, spot_near.y, item)
+          $map[spot_near.x, spot_near.y] = item
         end
       else
         if $map[@to.x, @to.y].nil?
-          $map.put_item(@to.x, @to.y, item)
+          $map[@to.x, @to.y] = item
         else
           spot_near = $map.find_empty_spot_near(@character)
-          $map.put_item(spot_near.x, spot_near.y, item)
+          $map[spot_near.x, spot_near.y] = item
         end
       end
       end_action
