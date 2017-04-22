@@ -18,6 +18,8 @@ def start_game!
     Character.new(x: 31, y: 20, name: "Franz", type: :fisherman),
     Character.new(x: 32, y: 20, name: "Karl", type: :gatherer),
     Character.new(x: 33, y: 20, name: "Joseph", type: :craftsman),
+  ]
+  creatures_list = [
     Goat.new(34, 20)
   ]
   map = MapGenerator.new(SQUARES_WIDTH, SQUARES_HEIGHT).generate
@@ -26,7 +28,11 @@ def start_game!
     map.clear(character.x, character.y)
   end
 
-  $game_world = GameWorld.new(characters_list, map)
+  $game_world = GameWorld.new(
+    characters_list: characters_list,
+    creatures_list: creatures_list,
+    map: map
+  )
 
   $structures << Fireplace.new
 
@@ -37,6 +43,7 @@ def start_game!
 
   $background.rerender
   $characters_list.each(&:rerender)
+  $creatures_list.each(&:rerender)
   $map.rerender
   $structures.each(&:rerender)
   $menu.rerender

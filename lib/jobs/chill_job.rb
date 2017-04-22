@@ -1,11 +1,12 @@
 class ChillJob
   def initialize(opts = {})
     @near = opts[:near]
+    @area = opts[:area] || 40
   end
 
   def action_for(character)
     if @near
-      spot = $map.free_spots_near(@near, 40).to_a.sample
+      spot = $map.free_spots_near(@near, @area).to_a.sample
 
       MoveAction.new(character: character, to: spot).then do
         ChillAction.new(character)

@@ -14,7 +14,7 @@ class Goat < Creature
   end
 
   def speed
-    4
+    1
   end
 
   def action=(action)
@@ -42,12 +42,15 @@ class Goat < Creature
   end
 
   def needs_own_action?
-    true
+    false
   end
 
-  def set_own_action
-    self.job = ChillJob.new(near: self)
+  def chill
+    self.job = ChillJob.new(near: self, area: 200)
   end
+
+  # def set_own_action
+  # end
 
   def update(seconds)
     @action && @action.update(seconds)

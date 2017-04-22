@@ -105,16 +105,17 @@ class GameWorld
     arr.flatten.compact
   end
 
-  def initialize(characters_list, map)
+  def initialize(opts)
     $seconds_per_tick    = 1 #0.25 Ideally I would like it to be 0.25, but that makes the game rather boring
-    $characters_list     = characters_list
-    $map                 = map
+    $characters_list     = opts[:characters_list]
+    $map                 = opts[:map]
+    $creatures_list      = opts[:creatures_list]
     $day_and_night_cycle = DayAndNightCycle.new(WORLD_HEIGHT, WORLD_WIDTH)
     $game_speed          = GameSpeed.new
     $job_list            = JobList.new
     $zones               = []
     $structures          = []
-    $flood_map           = FloodMap.new(map, characters_list)
+    $flood_map           = FloodMap.new($map, $characters_list)
   end
 
   def update
@@ -132,6 +133,11 @@ class GameWorld
           character.chill unless character.job
         end
         character.update($seconds_per_tick)
+      end
+
+      $creatures_list.each do |creature|
+        creature.chill unless creature.job
+        creature.update($seconds_per_tick)
       end
 
       $day_and_night_cycle.update
