@@ -10,16 +10,10 @@ class Map
 
   attr_reader :width, :height
 
-  include Enumerable
-
   def initialize(opts)
     @width  = opts[:width]
     @height = opts[:height]
     @grid   = Grid.new
-  end
-
-  def each(&block)
-    @grid.each(&block)
   end
 
   def [](x, y)
