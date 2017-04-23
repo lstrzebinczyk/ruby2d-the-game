@@ -98,23 +98,23 @@ class Character < Creature
 
   def set_own_action
     if hungry?
-      food_container = $map.spots_near(self) do |spot|
+      food_container = $map.spots_near(self).find do |spot|
         spot.content.is_a? Container and spot.content.storage.any?{|ob| ob.category == :food }
-      end.first
+      end
 
       if food_container
         self.job = EatJob.new(from_container: food_container)
         return
       end
 
-      food = $map.spots_near(self) do |spot|
+      food = $map.spots_near(self).find do |spot|
         spot.content.respond_to?(:category) and spot.content.category == :food
-      end.first
+      end
 
       if food
         self.job = EatJob.new(from: food)
       else
-        berries_spot = $map.spots_near(self) do |spot|
+        berries_spot = $map.spots_near(self).find do |spot|
           spot.content.is_a? BerryBush and !spot.content.picked?
         end
 

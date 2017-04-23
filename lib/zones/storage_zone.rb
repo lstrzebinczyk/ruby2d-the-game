@@ -57,9 +57,9 @@ class StorageZone
           map_elem.is_a? Barrel and map_elem.accepts?(:food)
         end.first
 
-        food = $map.spots_near(self) do |spot|
+        food = $map.spots_near(self).find do |spot|
           spot.content.is_a? Item and spot.content.category == :food
-        end.first
+        end
 
         if barrel and food
           StoreJob.new(food, in: barrel)
@@ -71,16 +71,16 @@ class StorageZone
             map_elem.is_a? Crate and map_elem.accepts?(:material)
           end.first
 
-          item = $map.spots_near(self) do |spot|
+          item = $map.spots_near(self).find do |spot|
             spot.content.is_a? Item and spot.content.category == :material
-          end.first
+          end
 
           if crate and item
             StoreJob.new(item, in: crate)
           else
-            item = $map.spots_near(self) do |spot|
+            item = $map.spots_near(self).find do |spot|
               spot.content.is_a? Item and $zones.none?{|zone| zone.contain?(spot.content) }
-            end.first
+            end
 
             StoreJob.new(item) if item
           end

@@ -105,9 +105,9 @@ class Autoplayer
     fireplace = $structures.find{|s| s.is_a? Fireplace }
 
     build_workshop_game_mode = BuildGameMode.new(structure)
-    spot = $map.spots_near(fireplace) do |free_spot|
+    spot = $map.spots_near(fireplace).find do |free_spot|
       build_workshop_game_mode.terrain_clear?(free_spot.x, free_spot.y)
-    end.first
+    end
 
     build_workshop_game_mode.perform(spot.x, spot.y)
   end
@@ -116,13 +116,13 @@ class Autoplayer
     size = 6
     fireplace = $structures.find{|s| s.is_a? Fireplace }
 
-    spot = $map.spots_near(fireplace) do |free_spot|
+    spot = $map.spots_near(fireplace).find do |free_spot|
       x = free_spot.x
       y = free_spot.y
       (x..(x + size - 1)).to_a.product((y..(y + size - 1)).to_a).all? do |arr|
         !$map[arr[0], arr[1]].nil? and GameWorld.things_at(arr[0], arr[1]).empty?
       end
-    end.first
+    end
 
     x_range = (spot.x..(spot.x + size - 1))
     y_range = (spot.y..(spot.y + size - 1))

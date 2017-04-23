@@ -116,9 +116,10 @@ class Map
           .take(radius.pred)
       end
       .map do |step|
-        old_position = position
-        position = position.zip(step).map(&:sum) # elementwise vector sum
-        self[old_position[0], old_position[1]]
+        response = self[position[0], position[1]]
+        position[0] += step[0]
+        position[1] += step[1]
+        response
       end
   end
 end
