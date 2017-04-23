@@ -60,16 +60,18 @@ class FloodMap
 
     # calculate!
 
-    if @renderable.any?
-      @was_toggled = true
-      @renderable.each(&:remove)
-      @renderable = []
-    end
-    start!
-    if @was_toggled
-      toggle
-    end
-    calculate!
+    # if @renderable.any?
+    #   @was_toggled = true
+    #   @renderable.each(&:remove)
+    #   @renderable = []
+    # end
+    # start!
+    # if @was_toggled
+    #   toggle
+    # end
+    # calculate!
+
+    @availability_grid[y][x] = :ok
   end
 
   def add_as_checking(x, y)
