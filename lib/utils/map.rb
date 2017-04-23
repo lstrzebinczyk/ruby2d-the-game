@@ -149,7 +149,6 @@ class Map
 
   def progress_availability
     position = @positions_to_check.shift
-    # p "will check position (#{position.x}, #{position.y})"
     if position
       x        = position.x
       y        = position.y
@@ -159,8 +158,7 @@ class Map
         y_delta = arr[1]
 
         if self[x + x_delta, y + y_delta] and self[x + x_delta, y + y_delta].available == :ok and self[x + x_delta, y + y_delta].passable?
-          # p "Set (#{x}, #{y}) as ok"
-          self[x, y].available = :ok
+          self[x, y].available = :ok unless self[x, y].terrain.is_a?(River)
 
           [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
             x_inner = x + arr[0]

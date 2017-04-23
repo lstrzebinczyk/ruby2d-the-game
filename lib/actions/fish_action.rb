@@ -8,7 +8,10 @@ class FishAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      empty_spot = $map.free_spots_near(@character).first
+      empty_spot = $map.free_spots_near(@character).find_all do |spot|
+        spot.terrain.passable?
+      end.first
+
       fish = RawFish.new(empty_spot.x, empty_spot.y)
       $map[empty_spot.x, empty_spot.y].content = fish
 

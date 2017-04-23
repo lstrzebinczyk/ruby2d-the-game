@@ -1,6 +1,6 @@
 class Goat < Creature
   attr_reader :state
-  attr_accessor :energy, :hunger
+  attr_accessor :energy, :hunger, :calories
 
   def initialize(x, y)
     @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
@@ -15,7 +15,7 @@ class Goat < Creature
   end
 
   def needs_own_action?
-    sleepy?
+    hungry? || sleepy?
   end
 
   def chill
@@ -23,7 +23,9 @@ class Goat < Creature
   end
 
   def set_own_action
-    if sleepy?
+    if hungry?
+      self.job = EatGrassJob.new(at: self)
+    elsif sleepy?
       self.job = SleepJob.new(at: self)
     else
       raise "ERROR"
