@@ -10,7 +10,7 @@ class CutGameMode < GameMode::Base::Area
   end
 
   def perform_point(in_game_x, in_game_y)
-    map_object = $map[in_game_x, in_game_y]
+    map_object = $map[in_game_x, in_game_y].content
     if map_object.is_a? Tree
       if $characters_list.any? {|c| c.job.is_a? CutTreeJob and c.job.target == map_object}
         # do nothing

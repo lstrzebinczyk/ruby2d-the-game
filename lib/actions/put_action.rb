@@ -16,22 +16,21 @@ class PutAction < Action::Base
       item = @character.get_item
 
       if @in_container
-        if $map[@to.x, @to.y].is_a? Container
-          $map[@to.x, @to.y].put(item)
+        if $map[@to.x, @to.y].content.is_a? Container
+          $map[@to.x, @to.y].content.put(item)
         else
-          spot_near = $map.find_empty_spot_near(@character)
-          $map[spot_near.x, spot_near.y] = item
+          spot_near = $map.free_spots_near(@character).first
+          $map[spot_near.x, spot_near.y].content = item
         end
       else
-        if $map[@to.x, @to.y].nil?
-          $map[@to.x, @to.y] = item
+        if $map[@to.x, @to.y].content.nil?
+          $map[@to.x, @to.y].content = item
         else
-          spot_near = $map.find_empty_spot_near(@character)
-          $map[spot_near.x, spot_near.y] = item
+          spot_near = $map.free_spots_near(@character).first
+          $map[spot_near.x, spot_near.y].content = item
         end
       end
       end_action
     end
   end
 end
-

@@ -6,7 +6,7 @@ class ChillJob
 
   def action_for(character)
     if @near
-      spot = $map.free_spots_near(@near, @area).to_a.sample
+      spot = $map.free_spots_near(@near).take(@area).to_a.sample
 
       MoveAction.new(character: character, to: spot).then do
         ChillAction.new(character)

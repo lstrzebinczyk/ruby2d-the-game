@@ -13,9 +13,9 @@ class SupplyJob
   end
 
   def tile_with_item
-    $map.find_closest_to(@to) do |tile|
-      tile.is_a? @item_class or (tile.is_a?(Container) and tile.contains?(@item_class))
-    end
+    $map.spots_near(@to) do |spot|
+      spot.content.is_a? @item_class or (spot.content.is_a?(Container) and spot.content.contains?(@item_class))
+    end.first
   end
 
   def target

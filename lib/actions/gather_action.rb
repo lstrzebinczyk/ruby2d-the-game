@@ -10,11 +10,10 @@ class GatherAction < Action::Base
   def update(seconds)
     @time_left -= seconds
 
-    # @character.carry += @berries_bush.get_berries(seconds)
     if @time_left <= 0
       @target.gather_all.each do |item|
-        spot = $map.find_empty_spot_near(@target)
-        $map[spot.x, spot.y] =  item
+        spot = $map.free_spots_near(@target).first
+        $map[spot.x, spot.y].content =  item
       end
 
       @target.was_picked!

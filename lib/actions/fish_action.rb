@@ -8,9 +8,9 @@ class FishAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      empty_spot = $map.find_empty_spot_near(@character)
+      empty_spot = $map.free_spots_near(@character).first
       fish = RawFish.new(empty_spot.x, empty_spot.y)
-      $map[empty_spot.x, empty_spot.y] =  fish
+      $map[empty_spot.x, empty_spot.y].content = fish
 
       end_action
     end

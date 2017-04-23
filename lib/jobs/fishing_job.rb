@@ -4,11 +4,11 @@ class FishingJob
   end
 
   def action_for(character)
-    river_tile = $map.find_closest_to(character) do |tile|
-      tile.is_a?(River)
-    end
+    river_spot = $map.spots_near(character) do |spot|
+      spot.terrain.is_a? River
+    end.first
 
-    MoveAction.new(character: character, near: river_tile).then do
+    MoveAction.new(character: character, near: river_spot).then do
       FishAction.new(character)
     end
   end

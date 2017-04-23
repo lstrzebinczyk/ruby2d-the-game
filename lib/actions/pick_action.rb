@@ -22,14 +22,14 @@ class PickAction < Action::Base
     @time_left -= seconds
 
     if @time_left <= 0
-      map_object = $map[@from.x, @from.y]
+      map_object = $map[@from.x, @from.y].content
 
       if map_object
         if map_object.is_a? Container and @get_from_container
           @character.carry = map_object.get_something
         else
           @character.carry = map_object
-          $map.clear(@from.x, @from.y)
+          $map[@from.x, @from.y].clear_content
         end
         end_action
       else

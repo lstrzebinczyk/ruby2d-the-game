@@ -14,6 +14,7 @@ require_relative "./items/cooked_fish"
 require_relative "./map_elements/tree"
 require_relative "./map_elements/berry_bush"
 require_relative "./map_elements/river"
+require_relative "./map_elements/ground"
 
 require_relative "./core_ext/time"
 require_relative "./core_ext/integer"
@@ -98,7 +99,7 @@ INSPECTION_MENU_HEIGHT = WORLD_HEIGHT + MENU_HEIGHT
 class GameWorld
   def self.things_at(x, y)
     arr = []
-    arr << $map[x, y]
+    arr << $map[x, y].content if $map[x, y]
     arr << $zones.find_all{|s| s.include_any?([[x, y]]) }
     arr << $structures.find_all{|s| s.include_any?([[x, y]]) }
     arr << $characters_list.find_all{|char| char.x == x and char.y == y }

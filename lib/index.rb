@@ -25,7 +25,7 @@ def start_game!
   map = MapGenerator.new(SQUARES_WIDTH, SQUARES_HEIGHT).generate
 
   characters_list.each do |character|
-    map.clear(character.x, character.y)
+    map[character.x, character.y].clear_content
   end
 
   $game_world = GameWorld.new(
@@ -128,7 +128,7 @@ class Autoplayer
       x = spot[0]
       y = spot[1]
       (x..(x + size - 1)).to_a.product((y..(y + size - 1)).to_a).all? do |arr|
-        $map.in_map?(arr[0], arr[1]) and GameWorld.things_at(arr[0], arr[1]).empty?
+        !$map[arr[0], arr[1]].nil? and GameWorld.things_at(arr[0], arr[1]).empty?
       end
     end
 
@@ -145,28 +145,30 @@ class Autoplayer
   def cut_trees(count)
     fireplace = $structures.find{|s| s.is_a? Fireplace }
     cut_game_mode = CutGameMode.new
-    designated_trees = []
 
-    count.times do
-      tree = $map.find_closest_to(fireplace) do |map_element|
-        map_element.is_a?(Tree) and !designated_trees.include?(map_element)
-      end
-      designated_trees.push(tree)
-      cut_game_mode.perform((tree.x..tree.x), (tree.y..tree.y))
+    trees_spots = $map.spots_near(fireplace) do |spot|
+      spot.content.is_a? Tree
+    end.take(count)
+
+    trees_spots.each do |tree_spot|
+      x = tree_spot.x
+      y = tree_spot.y
+      cut_game_mode.perform_point(x, y)
     end
   end
 
   def gather_plants(count)
     fireplace = $structures.find{|s| s.is_a? Fireplace }
-    cut_game_mode = GatherGameMode.new
-    designated_bushes = []
+    gather_game_mode = GatherGameMode.new
 
-    count.times do
-      bush = $map.find_closest_to(fireplace) do |map_element|
-        map_element.is_a?(BerryBush) and !designated_bushes.include?(map_element)
-      end
-      designated_bushes.push(bush)
-      cut_game_mode.perform((bush.x..bush.x), (bush.y..bush.y))
+    bushes_spots = $map.spots_near(fireplace) do |spot|
+      spot.content.is_a? BerryBush
+    end.take(count)
+
+    bushes_spots.each do |bush_spot|
+      x = bush_spot.x
+      y = bush_spot.y
+      gather_game_mode.perform_point(x, y)
     end
   end
 end

@@ -4,7 +4,7 @@ class Fireplace < Structure::Base
   end
 
   def initialize
-    @position = $map.find_free_spot_near($characters_list.first)
+    @position = $map.passable_spots_near($characters_list.first).first
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE
     @image_burning  = Image.new(x, y, "assets/structures/campfire.png")

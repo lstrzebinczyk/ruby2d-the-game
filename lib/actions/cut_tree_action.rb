@@ -48,12 +48,12 @@ class CutTreeAction < Action::Base
   def finish
     @mask.remove
     @parent.finish
-    $map.clear(@tree.x, @tree.y)
+    $map[@tree.x, @tree.y].clear_content
     logs_count = 3 + rand(4)
     logs_count.times do
-      spot = $map.find_empty_spot_near(@tree)
+      spot = $map.free_spots_near(@tree).first
       log = Log.new(spot.x, spot.y)
-      $map[spot.x, spot.y] = log
+      $map[spot.x, spot.y].content = log
     end
   end
 end

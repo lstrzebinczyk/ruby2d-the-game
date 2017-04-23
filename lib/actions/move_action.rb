@@ -18,7 +18,7 @@ class MoveAction < Action::Base
         if (@near.x - @character.x).abs <= 1 and (@near.y - @character.y).abs <= 1
           @already_there = true
         else
-          @to = $map.find_free_spot_near(@near)
+          @to = $map.passable_spots_near(@near).first
         end
       end
 
@@ -47,7 +47,7 @@ class MoveAction < Action::Base
       if next_step
         # If the place is free, go there
         # If not, look for new path and use it
-        if $map.passable?(next_step.x, next_step.y) and $characters_list.none?{|char| char.x == next_step.x and char.y == next_step.y }
+        if $map[next_step.x, next_step.y].passable? and $characters_list.none?{|char| char.x == next_step.x and char.y == next_step.y }
           @character.update_position(next_step.x, next_step.y)
         else
           # If this was the last step you meant to take

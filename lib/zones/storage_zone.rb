@@ -38,7 +38,7 @@ class StorageZone
 
   def empty_spot
     spot = self_fields.find do |arr|
-      $map[arr[0], arr[1]].nil?
+      $map[arr[0], arr[1]].content.nil?
     end
     Position.new(spot[0], spot[1]) if spot
   end
@@ -51,33 +51,37 @@ class StorageZone
     if job_type == :haul
       if empty_spot
         barrel = self_fields.map do |field_arr|
-          $map[field_arr[0], field_arr[1]]
+          $map[field_arr[0], field_arr[1]].content
         end.keep_if do |map_elem|
           # TODO Make this more generic for containers later
           map_elem.is_a? Barrel and map_elem.accepts?(:food)
         end.first
-        food = $map.find_closest_to(self) do |obj|
-          obj.is_a? Item and obj.category == :food
-        end
+
+        food = $map.spots_near(self) do |spot|
+          spot.content.is_a? Item and spot.content.category == :food
+        end.first
 
         if barrel and food
           StoreJob.new(food, in: barrel)
         else
           crate = self_fields.map do |field_arr|
-            $map[field_arr[0], field_arr[1]]
+            $map[field_arr[0], field_arr[1]].content
           end.keep_if do |map_elem|
             # TODO Make this more generic for containers later
             map_elem.is_a? Crate and map_elem.accepts?(:material)
           end.first
-          item = $map.find_closest_to(self) do |obj|
-            obj.is_a? Item and obj.category == :material
-          end
+
+          item = $map.spots_near(self) do |spot|
+            spot.content.is_a? Item and spot.content.category == :material
+          end.first
+
           if crate and item
             StoreJob.new(item, in: crate)
           else
-            item = $map.find_closest_to(self) do |obj|
-              obj.is_a? Item and $zones.none?{|zone| zone.contain?(obj) }
-            end
+            item = $map.spots_near(self) do |spot|
+              spot.content.is_a? Item and $zones.none?{|zone| zone.contain?(spot.content) }
+            end.first
+
             StoreJob.new(item) if item
           end
         end

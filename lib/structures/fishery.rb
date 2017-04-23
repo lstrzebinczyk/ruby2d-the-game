@@ -71,8 +71,8 @@ class Fishery < Structure::Base
       supply = @supplies.find{|el| el.is_a? requirement}
       @supplies.delete(supply)
     end
-    spot = $map.find_empty_spot_near(self)
-    $map[spot.x, spot.y] = item_class.new(spot.x, spot.y)
+    spot = $map.free_spots_near(self).first
+    $map[spot.x, spot.y].content = item_class.new(spot.x, spot.y)
     nil
   end
 

@@ -22,7 +22,7 @@ class FloodMap
   end
 
   def start!
-    @availability_grid = Array.new(@map.height) { Array.new(@map.width){ nil } }
+    @availability_grid = Array.new(@map.height + 1) { Array.new(@map.width + 1){ nil } }
     @positions_to_check = []
     @positions_to_check_later = []
 
@@ -70,23 +70,11 @@ class FloodMap
       toggle
     end
     calculate!
-
-    # [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
-    #   x_delta = arr[0]
-    #   y_delta = arr[1]
-    #   unless @availability_grid[y + y_delta][x + x_delta] == :ok
-    #     if @map.in_map?(x + x_delta, y + y_delta)
-    #       @positions_to_check << Position.new(x + x_delta, y + y_delta)
-    #       @availability_grid[y + y_delta][x + x_delta] = :checking
-    #     end
-    #   end
-    # end
-
   end
 
   def add_as_checking(x, y)
     unless @availability_grid.dig(y, x)
-      if @map.in_map?(x, y)
+      unless @map[x, y].nil?
         @positions_to_check << Position.new(x, y)
         @availability_grid[y][x] = :checking
       end
@@ -103,7 +91,7 @@ class FloodMap
         x_delta = arr[0]
         y_delta = arr[1]
 
-        if @availability_grid.dig(y + y_delta, x + x_delta) == :ok and @map.passable?(x + x_delta, y + y_delta)
+        if @availability_grid.dig(y + y_delta, x + x_delta) == :ok and @map[x + x_delta, y + y_delta] and @map[x + x_delta, y + y_delta].passable?
           @availability_grid[y][x] = :ok
 
           if @renderable.any?

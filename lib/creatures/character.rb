@@ -98,28 +98,29 @@ class Character < Creature
 
   def set_own_action
     if hungry?
-      food_container = $map.find_closest_to(self) do |map_object|
-        map_object.is_a? Container and map_object.storage.any?{|ob| ob.category == :food }
-      end
+      food_container = $map.spots_near(self) do |spot|
+        spot.content.is_a? Container and spot.content.storage.any?{|ob| ob.category == :food }
+      end.first
 
       if food_container
         self.job = EatJob.new(from_container: food_container)
         return
       end
 
-      food = $map.find_closest_to(self) do |map_object|
-        map_object.respond_to?(:category) and map_object.category == :food
-      end
+      food = $map.spots_near(self) do |spot|
+        spot.content.respond_to?(:category) and spot.content.category == :food
+      end.first
 
       if food
         self.job = EatJob.new(from: food)
       else
-        berries_spot = $map.find_closest_to(self) do |map_object|
-          map_object.is_a? BerryBush and !map_object.picked? and $flood_map.available?(map_object.x, map_object.y)
+        berries_spot = $map.spots_near(self) do |spot|
+          spot.content.is_a? BerryBush and !spot.content.picked?
         end
+
         # If there is no stored food anywhere, find any berries spot and gather it
         # from hunger
-        berries_spot.will_get_picked!
+        berries_spot.content.will_get_picked!
         self.job = GatherJob.new(berries_spot)
       end
     elsif sleepy?
