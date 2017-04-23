@@ -106,7 +106,8 @@ class Autoplayer
 
     build_workshop_game_mode = BuildGameMode.new(structure)
     spot = $map.spots_near(fireplace).find do |free_spot|
-      build_workshop_game_mode.terrain_clear?(free_spot.x, free_spot.y)
+      structure_template = Structure::Base.new(free_spot.x, free_spot.y, structure.size)
+      structure_template.distance_to(fireplace) > 4 and build_workshop_game_mode.terrain_clear?(free_spot.x, free_spot.y)
     end
 
     build_workshop_game_mode.perform(spot.x, spot.y)

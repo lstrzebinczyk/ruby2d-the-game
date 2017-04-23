@@ -57,6 +57,32 @@ class Map
     end
   end
 
+  def calculate_availability(characters)
+    @positions_to_check = []
+    @positions_to_check_later = []
+
+    characters.each do |character|
+      [-1, 0, 1].each do |x_delta|
+        [-1, 0, 1].each do |y_delta|
+          x = character.x + x_delta
+          y = character.y + y_delta
+          if self[x, y]
+            @positions_to_check << self[x, y]
+            self[x, y].available = :checking
+          end
+        end
+      end
+    end
+
+    characters.each do |character|
+      self[character.x, character.y].available = :ok
+    end
+
+    while @positions_to_check.any? or @positions_to_check_later.any?
+      progress_availability
+    end
+  end
+
   def [](x, y)
     @grid[x, y]
   end
@@ -119,32 +145,6 @@ class Map
         position[1] += step[1]
         response
       end
-  end
-
-  def calculate_availability(characters)
-    @positions_to_check = []
-    @positions_to_check_later = []
-
-    characters.each do |character|
-      [-1, 0, 1].each do |x_delta|
-        [-1, 0, 1].each do |y_delta|
-          x = character.x + x_delta
-          y = character.y + y_delta
-          if self[x, y]
-            @positions_to_check << self[x, y]
-            self[x, y].available = :checking
-          end
-        end
-      end
-    end
-
-    characters.each do |character|
-      self[character.x, character.y].available = :ok
-    end
-
-    while @positions_to_check.any? or @positions_to_check_later.any?
-      progress_availability
-    end
   end
 
   def progress_availability
