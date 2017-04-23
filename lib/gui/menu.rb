@@ -63,6 +63,7 @@ class Menu
     @menu_buttons_top_offset = 38
 
     render_button("Gather", left: PIXELS_PER_SQUARE)
+    render_button("Set pasture", game_mode: SetZoneGameMode.new(PastureZone))
   end
 
   def unhover

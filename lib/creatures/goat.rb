@@ -8,6 +8,12 @@ class Goat < Creature
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 
     @state  = :working
+
+    @pasture = nil
+  end
+
+  def pasture=(pasture)
+    @pasture = pasture
   end
 
   def speed
@@ -19,7 +25,13 @@ class Goat < Creature
   end
 
   def chill
-    self.job = ChillJob.new(near: self, area: 200)
+    if @pasture
+      field_arr = @pasture.self_fields.sample
+      map_spot = $map[field_arr[0], field_arr[1]]
+      self.job = ChillJob.new(at: map_spot)
+    else
+      self.job = ChillJob.new(near: self, area: 200)
+    end
   end
 
   def set_own_action

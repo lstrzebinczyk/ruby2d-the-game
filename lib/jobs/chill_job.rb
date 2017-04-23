@@ -1,6 +1,7 @@
 class ChillJob
   def initialize(opts = {})
     @near = opts[:near]
+    @at   = opts[:at]
     @area = opts[:area] || 40
   end
 
@@ -9,6 +10,10 @@ class ChillJob
       spot = $map.free_spots_near(@near).take(@area).to_a.sample
 
       MoveAction.new(character: character, to: spot).then do
+        ChillAction.new(character)
+      end
+    elsif @at
+      MoveAction.new(character: character, to: @at).then do
         ChillAction.new(character)
       end
     else

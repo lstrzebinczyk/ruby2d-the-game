@@ -75,6 +75,7 @@ require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/job_list"
 
 require_relative "./zones/storage_zone"
+require_relative "./zones/pasture_zone"
 
 require_relative "./gui/fps_drawer"
 require_relative "./gui/game_speed"
