@@ -72,10 +72,8 @@ class Map
     end
   end
 
-  def spots_near(position, &block)
-    enumerator = search_path(position.x, position.y)
-    enumerator = enumerator.find_all(&block) if block_given?
-    enumerator
+  def spots_near(position)
+    search_path(position.x, position.y)
   end
 
   def rerender
