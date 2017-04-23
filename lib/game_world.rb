@@ -102,6 +102,7 @@ class GameWorld
     arr << $zones.find_all{|s| s.include_any?([[x, y]]) }
     arr << $structures.find_all{|s| s.include_any?([[x, y]]) }
     arr << $characters_list.find_all{|char| char.x == x and char.y == y }
+    arr << $creatures_list.find_all{|creature| creature.x == x and creature.y == y }
     arr.flatten.compact
   end
 
@@ -136,7 +137,13 @@ class GameWorld
       end
 
       $creatures_list.each do |creature|
-        creature.chill unless creature.job
+        unless creature.has_action?
+          if creature.needs_own_action?
+            creature.set_own_action
+          end
+
+          creature.chill unless creature.job
+        end
         creature.update($seconds_per_tick)
       end
 

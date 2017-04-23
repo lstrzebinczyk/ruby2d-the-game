@@ -60,19 +60,19 @@ class Map
 
   def find_free_spot_near(position)
     search_path(position.x, position.y).find do |pos|
-      passable?(pos.x, pos.y) and $flood_map.available?(pos.x, pos.y)
+      passable?(pos.x, pos.y) and $flood_map.available?(pos.x, pos.y) and in_map?(pos.x, pos.y)
     end
   end
 
   def free_spots_near(position, count = 1)
     search_path(position.x, position.y).find_all do |pos|
-      self[pos.x, pos.y].nil? and $characters_list.none?{|c| c.x == pos.x && c.y == pos.y} and $flood_map.available?(pos.x, pos.y)
+      self[pos.x, pos.y].nil? and $characters_list.none?{|c| c.x == pos.x && c.y == pos.y} and $flood_map.available?(pos.x, pos.y) and in_map?(pos.x, pos.y)
     end.take(count)
   end
 
   def find_empty_spot_near(position)
     search_path(position.x, position.y).find do |pos|
-      self[pos.x, pos.y].nil? and $characters_list.none?{|c| c.x == pos.x && c.y == pos.y} and $flood_map.available?(pos.x, pos.y)
+      self[pos.x, pos.y].nil? and $characters_list.none?{|c| c.x == pos.x && c.y == pos.y} and $flood_map.available?(pos.x, pos.y) and in_map?(pos.x, pos.y)
     end
   end
 

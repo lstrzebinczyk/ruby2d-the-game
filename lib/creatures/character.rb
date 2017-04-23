@@ -22,9 +22,7 @@ class Character < Creature
   end
 
   attr_accessor :energy, :calories
-  attr_reader   :x, :y, :state, :name, :accepts_jobs, :type, :job, :action
-
-  MAX_CALORIES = 3000
+  attr_reader   :state, :name, :accepts_jobs, :type, :job, :action
 
   def initialize(opts)
     x     = opts[:x]
@@ -45,20 +43,10 @@ class Character < Creature
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 
     @state  = :working
-
-    @update_stats_every = 10
-    @till_update_stats = 0
   end
 
   def impassable?
     true
-  end
-
-  def job=(job)
-    @job = job
-    if job
-      self.action = job.action_for(self)
-    end
   end
 
   def pickable?
@@ -71,36 +59,6 @@ class Character < Creature
 
   def image_path
     "assets/characters/#{@type}.png"
-  end
-
-  def state=(state)
-    unless [:working, :sleeping].include?(state)
-      raise ArgumentError, "Incorrect character state"
-    end
-
-    @state = state
-
-    if state == :sleeping
-      indicator_x = x * PIXELS_PER_SQUARE + 11
-      indicator_y = y * PIXELS_PER_SQUARE - 7
-      @sleeping_indicator_1 = Text.new(indicator_x, indicator_y, "z", 10, "fonts/arial.ttf")
-
-      indicator_x = x * PIXELS_PER_SQUARE + 16
-      indicator_y = y * PIXELS_PER_SQUARE - 16
-      @sleeping_indicator_2 = Text.new(indicator_x, indicator_y, "z", 11, "fonts/arial.ttf")
-    end
-
-    if state == :working
-      @sleeping_indicator_1.remove
-      @sleeping_indicator_1 = nil
-
-      @sleeping_indicator_2.remove
-      @sleeping_indicator_2 = nil
-    end
-  end
-
-  def has_action?
-    !!@action
   end
 
   def carry
@@ -126,41 +84,16 @@ class Character < Creature
     item
   end
 
-  def x
-    @image.x / PIXELS_PER_SQUARE
-  end
-
-  def y
-    @image.y / PIXELS_PER_SQUARE
-  end
-
   # TODO: LET CHARACTER ABANDON THEIR TASKS WHEN THEY REALLY NEED TO SLEEP OR EAT OR SOMETHING
   #       AND GET TO IT LATER
-
-  # Temporarily update energy and calories only every @update_stats_every ticks
-  # We need to find a good solution to manage this
-  # probably
-  def update(seconds)
-    @till_update_stats += 1
-    if @till_update_stats == @update_stats_every
-      @till_update_stats = 0
-      update_energy(seconds * @update_stats_every)
-      update_calories(seconds * @update_stats_every)
-    end
-    # @update_stats_every = 10
-    # @till_update_stats = 0
-
-
-    @action && @action.update(seconds)
-  end
-
-  def needs_own_action?
-    hungry? || sleepy?
-  end
 
   def chill
     fireplace = $structures.find{|s| s.is_a? Fireplace }
     self.job = ChillJob.new(near: fireplace)
+  end
+
+  def needs_own_action?
+    hungry? || sleepy?
   end
 
   def set_own_action
@@ -223,82 +156,9 @@ class Character < Creature
     $structures.any?{|structure| structure.is_a? Fireplace }
   end
 
-  def update_position(x, y)
-    if ((self.x - x).abs > 1) or ((self.y - y).abs > 1)
-      raise ArgumentError, "Teleporting is not allowed!"
-    end
-
-    @image.x = x * PIXELS_PER_SQUARE
-    @image.y = y * PIXELS_PER_SQUARE
-  end
-
-  def rerender
-    @image.remove
-    @image.add
-  end
-
-  def action=(action)
-    @action = action
-    @action.start
-    nil
-  end
-
   # treat like meters per seconds
   def speed
     4
-  end
-
-  def finish
-    @action = nil
-    @job && @job.remove
-
-    @job = nil
-  end
-
-  private
-  # TODO: HAVE QUALITY OF WORK DEPEND ON ENERGY
-  #       When person really-really needs to sleep, he works slower
-  def update_energy(seconds)
-    # assume that:
-    # 8 hours of sleep is enough rest for 16 hours of being awake
-    # therefore energy goes from 1 to 0 in 16 hours
-    # and goes back when sleeping in 8 hours
-    # during one second energy decreases by 1 / (16*60*60)
-    # when sleeping energy increases by 3 times that amount
-    # TODO: MAKE REST SPEED DEPEND ON QUALITY OF BED
-    @energy -= seconds / 57600.0
-    if @energy < 0
-      @energy = 0
-    end
-  end
-
-  def update_calories(seconds)
-    @calories -= seconds * calories_loss_per_second
-  end
-
-  def calories_loss_per_second
-    if state == :sleeping
-      # 69 calories per hour
-      # 69.0 / (60 * 60) per second
-      0.019
-    elsif state == :working
-      # TODO
-      # https://www.fitnessblender.com/blog/calories-burned-by-occupation-how-many-calories-does-my-job-burn
-      # 102.5 cal/hour                 | calm work
-      # 127.5 calories burned per hour | moderate work
-      # 175 calories per hour          | heavy work
-      # for now only use moderate work
-      # so 127.5 / (60 * 60)
-      0.0354
-    end
-  end
-
-  def sleepy?
-    @energy < 0.15 and $day_and_night_cycle.time.night?
-  end
-
-  def hungry?
-    @calories < MAX_CALORIES * 0.5
   end
 end
 
