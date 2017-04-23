@@ -70,7 +70,8 @@ class Autoplayer
   def build_phase_one
     cut_trees(5)
     gather_plants(10)
-    set_storage
+    set_zone(StorageZone)
+    set_zone(PastureZone)
     set(Workshop)
     set(Kitchen)
     set(Fishery)
@@ -113,7 +114,7 @@ class Autoplayer
     build_workshop_game_mode.perform(spot.x, spot.y)
   end
 
-  def set_storage
+  def set_zone(zone_type)
     size = 6
     fireplace = $structures.find{|s| s.is_a? Fireplace }
 
@@ -128,7 +129,7 @@ class Autoplayer
     x_range = (spot.x..(spot.x + size - 1))
     y_range = (spot.y..(spot.y + size - 1))
 
-    SetZoneGameMode.new(StorageZone).perform(x_range, y_range)
+    SetZoneGameMode.new(zone_type).perform(x_range, y_range)
   end
 
   def cut_trees(count)

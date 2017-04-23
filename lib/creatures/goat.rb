@@ -10,6 +10,22 @@ class Goat < Creature
     @state  = :working
 
     @pasture = nil
+
+    @until_possible_to_milk = 24.hours
+  end
+
+  def update(seconds)
+    @until_possible_to_milk -= seconds
+    @until_possible_to_milk = 0 if @until_possible_to_milk <= 0
+    super(seconds)
+  end
+
+  def was_milked!
+    @until_possible_to_milk = 24.hours
+  end
+
+  def milkable?
+    @until_possible_to_milk == 0
   end
 
   def pasture=(pasture)

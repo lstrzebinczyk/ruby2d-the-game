@@ -51,7 +51,8 @@ class Creature
 
   def job=(job)
     @job = job
-    if job
+    if @job
+      @job.start if @job.respond_to?(:start)
       self.action = job.action_for(self)
     end
   end

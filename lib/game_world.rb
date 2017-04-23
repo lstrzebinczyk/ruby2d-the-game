@@ -10,6 +10,7 @@ require_relative "./items/crate"
 require_relative "./items/raw_fish"
 require_relative "./items/cleaned_fish"
 require_relative "./items/cooked_fish"
+require_relative "./items/bucket_of_milk"
 
 require_relative "./map_elements/tree"
 require_relative "./map_elements/berry_bush"
@@ -37,6 +38,8 @@ require_relative "./actions/chill_action"
 require_relative "./actions/get_action"
 require_relative "./actions/fish_action"
 require_relative "./actions/eat_grass_action"
+require_relative "./actions/being_milked_action"
+require_relative "./actions/milk_action"
 
 require_relative "./jobs/cut_tree_job"
 require_relative "./jobs/cut_berry_bush_job"
@@ -50,6 +53,8 @@ require_relative "./jobs/chill_job"
 require_relative "./jobs/gather_job"
 require_relative "./jobs/fishing_job"
 require_relative "./jobs/eat_grass_job"
+require_relative "./jobs/milk_animal_job"
+require_relative "./jobs/being_milked_job"
 
 require_relative "./structures/base"
 require_relative "./structures/_blueprint"
@@ -102,6 +107,7 @@ class GameWorld
   def self.things_at(x, y)
     arr = []
     arr << $map[x, y].content if $map[x, y]
+    arr << $map[x, y].terrain unless $map[x, y].terrain.passable?
     arr << $zones.find_all{|s| s.include_any?([[x, y]]) }
     arr << $structures.find_all{|s| s.include_any?([[x, y]]) }
     arr << $characters_list.find_all{|char| char.x == x and char.y == y }
