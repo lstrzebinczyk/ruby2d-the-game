@@ -81,6 +81,12 @@ class Map
     while @positions_to_check.any? or @positions_to_check_later.any?
       progress_availability
     end
+
+    (0..@width).each do |x|
+      (0..@height).each do |y|
+        self[x, y].available = nil if self[x, y].available == :checking
+      end
+    end
   end
 
   def [](x, y)
@@ -89,13 +95,13 @@ class Map
 
   def passable_spots_near(position)
     spots_near(position).find_all do |spot|
-      spot.passable?
+      spot.passable? and spot.available
     end
   end
 
   def free_spots_near(position)
     spots_near(position).find_all do |spot|
-      spot.content.nil?
+      spot.content.nil? and spot.available
     end
   end
 
@@ -121,7 +127,7 @@ class Map
       .drop(1)
       .flat_map { |radius| square_edge_coordinates(x, y, radius) }
       .take(2000) # So that we will not look for things forever
-      .reject { |spot| spot.nil? || !spot.available }
+      .reject { |spot| spot.nil? }
   end
 
   def odd_numbers
@@ -152,31 +158,32 @@ class Map
     if position
       x        = position.x
       y        = position.y
+      unless self[x, y].terrain.is_a?(River)
+        [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
+          x_delta = arr[0]
+          y_delta = arr[1]
 
-      [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
-        x_delta = arr[0]
-        y_delta = arr[1]
+          if self[x + x_delta, y + y_delta] and self[x + x_delta, y + y_delta].available == :ok and self[x + x_delta, y + y_delta].passable?
+            self[x, y].available = :ok
 
-        if self[x + x_delta, y + y_delta] and self[x + x_delta, y + y_delta].available == :ok and self[x + x_delta, y + y_delta].passable?
-          self[x, y].available = :ok unless self[x, y].terrain.is_a?(River)
+            [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
+              x_inner = x + arr[0]
+              y_inner = y + arr[1]
 
-          [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |arr|
-            x_inner = x + arr[0]
-            y_inner = y + arr[1]
-
-            if self[x_inner, y_inner] and self[x_inner, y_inner].available.nil?
-              @positions_to_check << self[x_inner, y_inner]
-              self[x_inner, y_inner].available = :checking
+              if self[x_inner, y_inner] and self[x_inner, y_inner].available.nil?
+                @positions_to_check << self[x_inner, y_inner]
+                self[x_inner, y_inner].available = :checking
+              end
             end
+
+            return
           end
-
-          return
         end
-      end
 
-      unless position.availability_checked_times >= 5
-        position.availability_checked_times += 1
-        @positions_to_check_later << position
+        unless position.availability_checked_times >= 5
+          position.availability_checked_times += 1
+          @positions_to_check_later << position
+        end
       end
     else
       if @positions_to_check_later.any?

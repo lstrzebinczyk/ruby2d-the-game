@@ -76,8 +76,26 @@ class MoveAction < Action::Base
     @path = PathFinder.new(@character, @to, $map).search
 
     if @path.empty?
+      x_from = @character.x * PIXELS_PER_SQUARE
+      y_from = @character.y * PIXELS_PER_SQUARE
+      @mask_from = Square.new(x_from, y_from, PIXELS_PER_SQUARE, "red")
+
+      @mask_from.remove
+      @mask_from.add
+
+      x_to = @to.x * PIXELS_PER_SQUARE
+      y_to = @to.y * PIXELS_PER_SQUARE
+      @mask_to = Square.new(x_to, y_to, PIXELS_PER_SQUARE, "blue")
+
+      @mask_to.remove
+      @mask_to.add
+
+
       puts "Will crash. Tried to get from (#{@character.x}, #{@character.y}) to (#{@to.x}, #{@to.y})"
-      raise ArgumentError, "No path: ("
+      puts "No path"
+      require "pry"
+      binding.pry
+      # raise ArgumentError, "No path: ("
     end
   end
 end

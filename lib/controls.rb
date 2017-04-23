@@ -53,9 +53,13 @@ on :key_down do |e|
       (0..SQUARES_WIDTH).each do |x|
         (0..SQUARES_HEIGHT).each do |y|
           map_spot = $map[x, y]
-          if map_spot.available
+          if map_spot.available == :ok
             rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
             rendered.color.opacity = 0.2
+            $flood_map_rendered << rendered
+          elsif map_spot.available
+            rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "fuchsia")
+            rendered.color.opacity = 0.8
             $flood_map_rendered << rendered
           end
         end
