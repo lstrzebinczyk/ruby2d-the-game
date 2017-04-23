@@ -71,7 +71,6 @@ require_relative "./utils/map_generator"
 require_relative "./utils/background"
 require_relative "./utils/day_and_night_cycle"
 require_relative "./utils/job_list"
-require_relative "./utils/flood_map"
 
 require_relative "./zones/storage_zone"
 
@@ -117,7 +116,8 @@ class GameWorld
     $job_list            = JobList.new
     $zones               = []
     $structures          = []
-    $flood_map           = FloodMap.new($map, $characters_list)
+
+    $map.calculate_availability($characters_list)
   end
 
   def update

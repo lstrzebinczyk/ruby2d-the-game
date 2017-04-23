@@ -19,7 +19,7 @@ class StoreJob
 
   def available?
     zone = available_zone
-    !!zone and $flood_map.available?(zone.x, zone.y)
+    !!zone and $map[zone.x, zone.y].available
   end
 
   def available_zone

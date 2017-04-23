@@ -25,6 +25,8 @@ on :mouse_down do |e|
   end
 end
 
+$flood_map_rendered = false
+
 on :key_down do |e|
   case e.key
   when "space"
@@ -43,7 +45,22 @@ on :key_down do |e|
     get(:window).clear
     start_game!
   when "z"
-    $flood_map && $flood_map.toggle
+    if $flood_map_rendered
+      $flood_map_rendered.each(&:remove)
+      $flood_map_rendered = nil
+    else
+      $flood_map_rendered = []
+      (0..SQUARES_WIDTH).each do |x|
+        (0..SQUARES_HEIGHT).each do |y|
+          map_spot = $map[x, y]
+          if map_spot.available
+            rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
+            rendered.color.opacity = 0.2
+            $flood_map_rendered << rendered
+          end
+        end
+      end
+    end
   when "1"
     $game_speed.set(1)
   when "2"
@@ -54,26 +71,6 @@ on :key_down do |e|
     $game_speed.set(250)
   when "5"
     $game_speed.set(1000)
-  end
-end
-
-on :key_down do |e|
-  if e.key == "l"
-    workshop = $structures.find{|s| s.is_a? Workshop }
-
-    if workshop
-      workshop.request(Table)
-      $inspection_menu.rerender_content
-    end
-  end
-
-  if e.key == "k"
-    workshop = $structures.find{|s| s.is_a? Workshop }
-
-    if workshop
-      workshop.request(Barrel)
-      $inspection_menu.rerender_content
-    end
   end
 end
 

@@ -134,7 +134,7 @@ class Autoplayer
     fireplace = $structures.find{|s| s.is_a? Fireplace }
     cut_game_mode = CutGameMode.new
 
-    trees_spots = $map.spots_near(fireplace) do |spot|
+    trees_spots = $map.spots_near(fireplace).find_all do |spot|
       spot.content.is_a? Tree
     end.take(count)
 
@@ -149,7 +149,7 @@ class Autoplayer
     fireplace = $structures.find{|s| s.is_a? Fireplace }
     gather_game_mode = GatherGameMode.new
 
-    bushes_spots = $map.spots_near(fireplace) do |spot|
+    bushes_spots = $map.spots_near(fireplace).find_all do |spot|
       spot.content.is_a? BerryBush
     end.take(count)
 

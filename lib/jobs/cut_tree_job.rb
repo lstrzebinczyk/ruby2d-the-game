@@ -12,7 +12,7 @@ class CutTreeJob
   end
 
   def available?
-    $flood_map.available?(@tree.x, @tree.y)
+    $map[@tree.x, @tree.y].available
   end
 
   def target

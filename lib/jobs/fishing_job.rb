@@ -4,9 +4,9 @@ class FishingJob
   end
 
   def action_for(character)
-    river_spot = $map.spots_near(character) do |spot|
+    river_spot = $map.spots_near(character).find do |spot|
       spot.terrain.is_a? River
-    end.first
+    end
 
     MoveAction.new(character: character, near: river_spot).then do
       FishAction.new(character)

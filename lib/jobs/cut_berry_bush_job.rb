@@ -12,7 +12,7 @@ class CutBerryBushJob
   end
 
   def available?
-    $flood_map.available?(@berry_bush.x, @berry_bush.y)
+    $map[@berry_bush.x, @berry_bush.y].available
   end
 
   def target
