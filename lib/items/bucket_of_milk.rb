@@ -2,15 +2,7 @@ class BucketOfMilk < Item
   def initialize(x, y)
     @x, @y = x, y
 
-    @image = Square.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      PIXELS_PER_SQUARE,
-      "white"
-    )
-    # @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/fish.png")
-    # @image.color = "#ff9999"
-
+    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/structures/bucket.png")
     @litres = 1.9
   end
 
