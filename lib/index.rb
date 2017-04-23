@@ -105,39 +105,27 @@ class Autoplayer
     fireplace = $structures.find{|s| s.is_a? Fireplace }
 
     build_workshop_game_mode = BuildGameMode.new(structure)
-    all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
+    spot = $map.spots_near(fireplace) do |free_spot|
+      build_workshop_game_mode.terrain_clear?(free_spot.x, free_spot.y)
+    end.first
 
-    free_spots = all_spots.keep_if do |arr|
-      build_workshop_game_mode.terrain_clear?(arr[0], arr[1])
-    end
-
-    free_spots.sort_by! do |a|
-      (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
-    end
-
-    spot = free_spots.first
-    build_workshop_game_mode.perform(spot[0], spot[1])
+    build_workshop_game_mode.perform(spot.x, spot.y)
   end
 
   def set_storage
     size = 6
     fireplace = $structures.find{|s| s.is_a? Fireplace }
 
-    all_spots = (0..SQUARES_WIDTH).to_a.product((0..SQUARES_HEIGHT).to_a)
-    free_spots = all_spots.find_all do |spot|
-      x = spot[0]
-      y = spot[1]
+    spot = $map.spots_near(fireplace) do |free_spot|
+      x = free_spot.x
+      y = free_spot.y
       (x..(x + size - 1)).to_a.product((y..(y + size - 1)).to_a).all? do |arr|
         !$map[arr[0], arr[1]].nil? and GameWorld.things_at(arr[0], arr[1]).empty?
       end
-    end
-
-    closest_to_fireplace_spot = free_spots.sort_by! do |a|
-      (a[0] - fireplace.x).abs + (a[1] - fireplace.y).abs
     end.first
 
-    x_range = (closest_to_fireplace_spot[0]..(closest_to_fireplace_spot[0] + size - 1))
-    y_range = (closest_to_fireplace_spot[1]..(closest_to_fireplace_spot[1] + size - 1))
+    x_range = (spot.x..(spot.x + size - 1))
+    y_range = (spot.y..(spot.y + size - 1))
 
     SetStorageGameMode.new.perform(x_range, y_range)
   end

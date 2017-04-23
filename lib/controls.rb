@@ -77,25 +77,29 @@ on :key_down do |e|
   end
 end
 
+def toggle_profiling_cpu
+  if $profiling
+    result = RubyProf.stop
+    printer = RubyProf::GraphHtmlPrinter.new(result)
+
+    Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
+      printer.print(file, {})
+    end
+    close
+  else
+    Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
+
+    require "ruby-prof"
+    require "pathname"
+
+    RubyProf.start
+    $profiling = true
+  end
+end
+
 on :key_down do |e|
   if e.key == "p"
-    if @profiling
-      result = RubyProf.stop
-      printer = RubyProf::GraphHtmlPrinter.new(result)
-
-      Pathname.new(FileUtils.pwd).join("./profiles/in-game.html").open("w+") do |file|
-        printer.print(file, {})
-      end
-      close
-    else
-      Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
-
-      require "ruby-prof"
-      require "pathname"
-
-      RubyProf.start
-      @profiling = true
-    end
+    toggle_profiling_cpu
   end
 end
 
