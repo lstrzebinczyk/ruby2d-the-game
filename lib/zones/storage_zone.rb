@@ -1,6 +1,6 @@
-class StorageZone
-  Position = Struct.new(:x, :y)
+require_relative "./base"
 
+class StorageZone < Zone::Base
   attr_reader :x, :y, :image
   attr_accessor :taken
 
@@ -24,27 +24,11 @@ class StorageZone
     @image.add
   end
 
-  def include_any?(fields)
-    fields.any? do |f|
-      self_fields.include?(f)
-    end
-  end
-
-  def self_fields
-    @self_fields ||= begin
-      @x_range.to_a.product(@y_range.to_a)
-    end
-  end
-
   def empty_spot
     spot = self_fields.find do |arr|
       $map[arr[0], arr[1]].content.nil?
     end
-    Position.new(spot[0], spot[1]) if spot
-  end
-
-  def contain?(object)
-    @x_range.cover?(object.x) and @y_range.cover?(object.y)
+    $map[spot[0], spot[1]] if spot
   end
 
   def get_job(job_type)
@@ -79,7 +63,7 @@ class StorageZone
             StoreJob.new(item, in: crate)
           else
             item = $map.spots_near(self).find do |spot|
-              spot.content.is_a? Item and $zones.none?{|zone| zone.contain?(spot.content) }
+              spot.content.is_a? Item and $zones.find_all{|z| z.is_a? StorageZone }.none?{|zone| zone.contain?(spot.content) }
             end
 
             StoreJob.new(item) if item

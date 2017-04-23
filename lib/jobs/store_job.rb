@@ -23,7 +23,7 @@ class StoreJob
   end
 
   def available_zone
-    $zones.each do |zone|
+    $zones.find_all{|z| z.is_a? StorageZone }.each do |zone|
       spot = zone.empty_spot
       return spot if spot
     end

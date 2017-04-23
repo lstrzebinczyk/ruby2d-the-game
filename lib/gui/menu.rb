@@ -48,11 +48,6 @@ class Menu
   def render
     render_menu_background
 
-    # Temporary solution, when we get nicer mouse events management
-    # Do expanded selects
-    # Poor mans implementation of buttons in rows
-
-
     # menu first row
 
     @menu_buttons_top_offset = 0
@@ -60,10 +55,10 @@ class Menu
     render_button("Inspect")
     render_button("Cut")
     render_button("Remove")
-    render_button("Set storage")
-    render_button("Build workshop", game_mode: BuildGameMode.new(Workshop) )
-    render_button("Build kitchen" , game_mode: BuildGameMode.new(Kitchen)  )
-    render_button("Build fishery" , game_mode: BuildGameMode.new(Fishery)  )
+    render_button("Set storage",    game_mode: SetZoneGameMode.new(StorageZone))
+    render_button("Build workshop", game_mode: BuildGameMode.new(Workshop)     )
+    render_button("Build kitchen" , game_mode: BuildGameMode.new(Kitchen)      )
+    render_button("Build fishery" , game_mode: BuildGameMode.new(Fishery)      )
 
     @menu_buttons_top_offset = 38
 

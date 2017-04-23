@@ -128,7 +128,7 @@ class Autoplayer
     x_range = (spot.x..(spot.x + size - 1))
     y_range = (spot.y..(spot.y + size - 1))
 
-    SetStorageGameMode.new.perform(x_range, y_range)
+    SetZoneGameMode.new(StorageZone).perform(x_range, y_range)
   end
 
   def cut_trees(count)

@@ -1,4 +1,9 @@
-class SetStorageGameMode < GameMode::Base::Area
+class SetZoneGameMode < GameMode::Base::Area
+  def initialize(zone_type)
+    @zone_type = zone_type
+    super()
+  end
+
   def hover(x, y)
     super(x, y)
 
@@ -18,7 +23,7 @@ class SetStorageGameMode < GameMode::Base::Area
 
   def perform(in_game_x_range, in_game_y_range)
     if terrain_clear?(in_game_x_range, in_game_y_range)
-      $zones << StorageZone.new(in_game_x_range, in_game_y_range)
+      $zones << @zone_type.new(in_game_x_range, in_game_y_range)
     end
   end
 end

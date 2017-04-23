@@ -45,14 +45,6 @@ class GameMode
         @mouse_background_drawer.remove
       end
 
-      # def warning!
-      #   @mouse_down_mask.color = "red"
-      # end
-
-      # def ok!
-      #   @mouse_down_mask.color = "white"
-      # end
-
       def terrain_clear?(x_range, y_range)
         fields = x_range.to_a.product(y_range.to_a)
 
