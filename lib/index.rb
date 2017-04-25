@@ -212,3 +212,13 @@ show
 
 # Observable based visual things? Sort of based on ember ?
 # This could help having menu reorganised only when needed
+
+
+# Next things:
+#   - removing events
+#   - change implementation of workshop inspection to remove events
+#   - z index
+#   - use z index for rendering and stop with the rerendering thing all over the code
+#   - some sort of autorequire that will work in all platforms!
+#   - drinking mechanism?
+#   - new menu with dropdown selects
