@@ -216,9 +216,17 @@ show
 
 # Next things:
 #   - removing events
+#   - drawing lines!
 #   - change implementation of workshop inspection to remove events
 #   - z index
 #   - use z index for rendering and stop with the rerendering thing all over the code
 #   - some sort of autorequire that will work in all platforms!
 #   - drinking mechanism?
 #   - new menu with dropdown selects
+
+
+# z index!
+
+# Cases we are interested in:
+#   - how fast we can add n squares
+#   - how fast we can add n squares and have them rendered in reverse order
