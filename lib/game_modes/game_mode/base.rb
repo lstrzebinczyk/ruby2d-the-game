@@ -1,4 +1,4 @@
-class GameMode
+module GameMode
   class Base
     class Point
       def initialize

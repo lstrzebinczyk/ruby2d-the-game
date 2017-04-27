@@ -1,93 +1,27 @@
 require 'ruby2d'
 require 'perlin_noise'
 
-require_relative "./items/item"
-require_relative "./items/log"
-require_relative "./items/berries"
-require_relative "./items/table"
-require_relative "./items/barrel"
-require_relative "./items/crate"
-require_relative "./items/raw_fish"
-require_relative "./items/cleaned_fish"
-require_relative "./items/cooked_fish"
-require_relative "./items/bucket_of_milk"
+require "active_support"
+require "active_support/dependencies"
 
-require_relative "./map_elements/tree"
-require_relative "./map_elements/berry_bush"
-require_relative "./map_elements/river"
-require_relative "./map_elements/ground"
-
-require_relative "./core_ext/time"
-require_relative "./core_ext/integer"
 require_relative "./core_ext/float"
+require_relative "./core_ext/integer"
 require_relative "./core_ext/string"
+require_relative "./core_ext/time"
 
-require_relative "./actions/action_base"
-require_relative "./actions/move_action"
-require_relative "./actions/cut_tree_action"
-require_relative "./actions/cut_berry_bush_action"
-require_relative "./actions/pick_action"
-require_relative "./actions/put_action"
-require_relative "./actions/sleep_action"
-require_relative "./actions/gather_action"
-require_relative "./actions/eat_action"
-require_relative "./actions/supply_action"
-require_relative "./actions/build_action"
-require_relative "./actions/produce_action"
-require_relative "./actions/chill_action"
-require_relative "./actions/get_action"
-require_relative "./actions/fish_action"
-require_relative "./actions/eat_grass_action"
-require_relative "./actions/being_milked_action"
-require_relative "./actions/milk_action"
+ActiveSupport::Dependencies.autoload_paths += %w[
+  lib/actions
+  lib/creatures
+  lib/game_modes
+  lib/gui
+  lib/items
+  lib/jobs
+  lib/map_elements
+  lib/structures
+  lib/utils
+  lib/zones
+]
 
-require_relative "./jobs/cut_tree_job"
-require_relative "./jobs/cut_berry_bush_job"
-require_relative "./jobs/eat_job"
-require_relative "./jobs/sleep_job"
-require_relative "./jobs/supply_job"
-require_relative "./jobs/build_job"
-require_relative "./jobs/produce_job"
-require_relative "./jobs/store_job"
-require_relative "./jobs/chill_job"
-require_relative "./jobs/gather_job"
-require_relative "./jobs/fishing_job"
-require_relative "./jobs/eat_grass_job"
-require_relative "./jobs/milk_animal_job"
-require_relative "./jobs/being_milked_job"
-
-require_relative "./structures/base"
-require_relative "./structures/_blueprint"
-require_relative "./structures/_construction"
-require_relative "./structures/kitchen"
-require_relative "./structures/fireplace"
-require_relative "./structures/workshop"
-require_relative "./structures/fishery"
-
-require_relative "./game_modes/_index"
-
-require_relative "./creatures/creature"
-require_relative "./creatures/goat"
-require_relative "./creatures/character"
-
-require_relative "./utils/pathfinder"
-require_relative "./utils/grid"
-require_relative "./utils/random_noise_generator"
-require_relative "./utils/map"
-require_relative "./utils/map_generator"
-require_relative "./utils/background"
-require_relative "./utils/day_and_night_cycle"
-require_relative "./utils/job_list"
-
-require_relative "./zones/storage_zone"
-require_relative "./zones/pasture_zone"
-
-require_relative "./gui/fps_drawer"
-require_relative "./gui/game_speed"
-require_relative "./gui/inspection_menu"
-require_relative "./gui/button"
-require_relative "./gui/menu"
-require_relative "./gui/mouse_background_drawer"
 
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16

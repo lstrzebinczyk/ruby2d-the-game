@@ -1,4 +1,4 @@
-class Action
+module Action
   class Base
     attr_accessor :next_action
 

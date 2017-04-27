@@ -1,4 +1,4 @@
-class Structure
+module Structure
   class Base
     attr_reader :x, :y, :jobs
 
