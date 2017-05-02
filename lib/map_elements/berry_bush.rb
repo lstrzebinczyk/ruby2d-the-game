@@ -18,13 +18,30 @@ class BerryBush
 
   def initialize(x, y, grams = nil)
     @x, @y = x, y
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/berrybush.png")
+    @offset_x = $map_position.offset_x
+    @offset_y = $map_position.offset_y
+
+    @image = Image.new(
+      x * PIXELS_PER_SQUARE + @offset_x,
+      y * PIXELS_PER_SQUARE + @offset_y,
+      "assets/nature/berrybush.png"
+    )
     @picked = false
     if grams
       @grams = grams
     else
       @grams = 2500 + (rand * 1000).to_i
     end
+
+    $map_position.add_observer(self, :update_offset)
+  end
+
+  def update_offset(offset_x, offset_y)
+    @offset_x = offset_x
+    @offset_y = offset_y
+
+    @image.x = @x * PIXELS_PER_SQUARE + @offset_x
+    @image.y = @y * PIXELS_PER_SQUARE + @offset_y
   end
 
   def render
@@ -64,13 +81,14 @@ class BerryBush
   end
 
   def rerender
-    remove
+    @image.remove
     @image.add
   end
 
   def remove
     @finished_mask && @finished_mask.remove
     @image.remove
+    $map_position.delete_observer(self)
   end
 
   private
