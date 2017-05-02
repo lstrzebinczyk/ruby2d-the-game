@@ -1,5 +1,3 @@
-require "observer"
-
 class MapPosition
   include Observable
 

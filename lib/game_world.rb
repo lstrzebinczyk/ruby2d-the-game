@@ -1,3 +1,5 @@
+require "observer"
+
 require 'ruby2d'
 require 'perlin_noise'
 

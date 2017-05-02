@@ -55,6 +55,7 @@ class Creature
       @job.start if @job.respond_to?(:start)
       self.action = job.action_for(self)
     end
+    $idlers_count.recalculate!
   end
 
   def has_action?

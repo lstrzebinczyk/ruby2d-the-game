@@ -14,6 +14,7 @@ set({
 
 def start_game!
   $map_position = MapPosition.new
+  $idlers_count = IdlersCount.new
 
   characters_list = [
     Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
@@ -37,7 +38,7 @@ def start_game!
   )
 
   $structures << Fireplace.new
-  $background   = Background.new
+  $background = Background.new
 
   $fps_drawer = FpsDrawer.new
   $menu = Menu.new
@@ -52,6 +53,7 @@ def start_game!
 
   fps = get(:fps)
   $fps_drawer.rerender(fps)
+  $idlers_count.rerender
 
   $inspection_menu.rerender
   $day_and_night_cycle.rerender
