@@ -13,6 +13,8 @@ set({
 # GAME SETUP
 
 def start_game!
+  $map_position = MapPosition.new
+
   characters_list = [
     Character.new(x: 30, y: 20, name: "Johann", type: :woodcutter),
     Character.new(x: 31, y: 20, name: "Franz", type: :fisherman),
@@ -35,8 +37,8 @@ def start_game!
   )
 
   $structures << Fireplace.new
+  $background   = Background.new
 
-  $background = Background.new
   $fps_drawer = FpsDrawer.new
   $menu = Menu.new
   $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
@@ -203,10 +205,7 @@ show
 # Prepare presentation about ruby2d and the game
   # - write simple space invader?
 
-# Write a PR with removing events!
 # I need this to provide nice menu for structures
-
-# Talk to Witold and Mike about AC sponsoring the next srug
 
 # Try creating initial version of warhammer?
 
