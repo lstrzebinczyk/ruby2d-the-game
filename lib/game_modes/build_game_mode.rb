@@ -1,14 +1,15 @@
 class BuildGameMode < GameMode::Base::Point
-  def initialize(structure_class)
+  def initialize(structure_class, opts = {})
     super()
-    @structure_class = structure_class
-    @size            = structure_class.size
+    @structure_class        = structure_class
+    @size                   = structure_class.size
+    @no_redirect_on_perform = opts[:no_redirect_on_perform]
   end
 
   def perform(in_game_x, in_game_y)
     if terrain_clear?(in_game_x, in_game_y)
       $structures << Blueprint.new(@structure_class, in_game_x, in_game_y)
-      if $menu
+      if $menu and !@no_redirect_on_perform
         $menu.set_game_mode(:inspect)
       end
       unhover

@@ -39,7 +39,7 @@ class SupplyJob
         PickAction.new(tile_with_item_cached, character, on_abandon: on_abandon)
       end
     end.then do
-      MoveAction.new(character: character, near: @to)
+      MoveAction.new(character: character, near: @to, log: true)
     end.then do
       SupplyAction.new(@to, character)
     end

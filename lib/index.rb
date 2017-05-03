@@ -72,7 +72,7 @@ class Autoplayer
   end
 
   def build_phase_one
-    cut_trees(5)
+    cut_trees(15)
     gather_plants(10)
     set_zone(StorageZone)
     set_zone(PastureZone)

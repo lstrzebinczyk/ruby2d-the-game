@@ -1,5 +1,6 @@
 class MoveAction < Action::Base
   def initialize(opts)
+    @log = opts[:log]
     @character  = opts[:character]
     if !@character.is_a? Creature
       raise ArgumentError, "MoveAction requires :character in input. Received '#{@character.inspect}'"
@@ -11,7 +12,9 @@ class MoveAction < Action::Base
     if @to and @near
       raise ArgumentError, "MoveAction accepts either :to or :near. You passed both"
     end
+  end
 
+  def start
     if @to.nil?
       # If you are already near that point, congratulations!
       if @near
@@ -21,7 +24,6 @@ class MoveAction < Action::Base
           @to = $map.passable_spots_near(@near).first
         end
       end
-
     end
 
     if @to.nil? and @already_there.nil?
@@ -29,9 +31,7 @@ class MoveAction < Action::Base
     end
 
     @ticks_left = 16 / @character.speed
-  end
 
-  def start
     if @already_there
       @path = []
     else
