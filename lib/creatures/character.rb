@@ -120,8 +120,10 @@ class Character < Creature
 
         # If there is no stored food anywhere, find any berries spot and gather it
         # from hunger
-        berries_spot.content.will_get_picked!
-        self.job = GatherJob.new(berries_spot)
+        if berries_spot
+          berries_spot.content.will_get_picked!
+          self.job = GatherJob.new(berries_spot)
+        end
       end
     elsif sleepy?
       if has_own_bed?
