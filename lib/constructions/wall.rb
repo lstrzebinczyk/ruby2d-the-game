@@ -1,5 +1,49 @@
+module HasWallImage
+  def wall_image(x, y)
+    wall_pathname = "wall"
+
+    # NORTH
+    north_construction = $structures.find{|construction| construction_matches?(construction, @x, @y - 1) }
+    if north_construction
+      wall_pathname += "-north"
+    end
+
+    # SOUTH
+    south_construction = $structures.find{|construction| construction_matches?(construction, @x, @y + 1) }
+    if south_construction
+      wall_pathname += "-south"
+    end
+
+    # WEST
+    west_construction = $structures.find{|construction| construction_matches?(construction, @x - 1, @y) }
+    if west_construction
+      wall_pathname += "-west"
+    end
+
+    # EAST
+    east_construction = $structures.find{|construction| construction_matches?(construction, @x + 1, @y) }
+    if east_construction
+      wall_pathname += "-east"
+    end
+
+    Image.new(
+      x * PIXELS_PER_SQUARE,
+      y * PIXELS_PER_SQUARE,
+      "assets/constructions/wall/#{wall_pathname}.png"
+    )
+  end
+
+  private
+
+  def construction_matches?(construction, x, y)
+    construction.is_a?(HasWallImage) and construction.x == x and construction.y == y
+  end
+end
+
 class Wall
   class Blueprint < Structure::Base
+    include HasWallImage
+
     def self.size
       1
     end
@@ -43,37 +87,7 @@ class Wall
     end
 
     def render_image
-      wall_pathname = "wall"
-
-      # NORTH
-      north_construction = $constructions.find{|construction| construction_matches?(construction, @x, @y - 1) }
-      if north_construction
-        wall_pathname += "-north"
-      end
-
-      # SOUTH
-      south_construction = $constructions.find{|construction| construction_matches?(construction, @x, @y + 1) }
-      if south_construction
-        wall_pathname += "-south"
-      end
-
-      # WEST
-      west_construction = $constructions.find{|construction| construction_matches?(construction, @x - 1, @y) }
-      if west_construction
-        wall_pathname += "-west"
-      end
-
-      # EAST
-      east_construction = $constructions.find{|construction| construction_matches?(construction, @x + 1, @y) }
-      if east_construction
-        wall_pathname += "-east"
-      end
-
-      @image = Image.new(
-        x * PIXELS_PER_SQUARE,
-        y * PIXELS_PER_SQUARE,
-        "assets/constructions/wall/#{wall_pathname}.png"
-      )
+      @image = wall_image(@x, @y)
       @image.color = "blue"
       @image.color.opacity = 0.4
     end
@@ -82,15 +96,11 @@ class Wall
       @image.remove
       render_image
     end
-
-    private
-
-    def construction_matches?(construction, x, y)
-      construction.is_a?(Wall::Blueprint) and construction.x == x and construction.y == y
-    end
   end
 
   class Construction < Structure::Base
+    include HasWallImage
+
     def self.size
       1
     end
@@ -126,37 +136,7 @@ class Wall
     end
 
     def render_image
-      wall_pathname = "wall"
-
-      # NORTH
-      north_construction = $constructions.find{|construction| construction_matches?(construction, @x, @y - 1) }
-      if north_construction
-        wall_pathname += "-north"
-      end
-
-      # SOUTH
-      south_construction = $constructions.find{|construction| construction_matches?(construction, @x, @y + 1) }
-      if south_construction
-        wall_pathname += "-south"
-      end
-
-      # WEST
-      west_construction = $constructions.find{|construction| construction_matches?(construction, @x - 1, @y) }
-      if west_construction
-        wall_pathname += "-west"
-      end
-
-      # EAST
-      east_construction = $constructions.find{|construction| construction_matches?(construction, @x + 1, @y) }
-      if east_construction
-        wall_pathname += "-east"
-      end
-
-      @image = Image.new(
-        x * PIXELS_PER_SQUARE,
-        y * PIXELS_PER_SQUARE,
-        "assets/constructions/wall/#{wall_pathname}.png"
-      )
+      @image = wall_image(@x, @y)
       @image.color = "gray"
       @image.color.opacity = 0.4
     end
@@ -165,13 +145,9 @@ class Wall
       @image.remove
       render_image
     end
-
-    private
-
-    def construction_matches?(construction, x, y)
-      construction.is_a?(Wall::Blueprint) and construction.x == x and construction.y == y
-    end
   end
+
+  include HasWallImage
 
   def self.structure_requirements
     [Log]
@@ -201,39 +177,8 @@ class Wall
   end
 
   def render_image
-    wall_pathname = "wall"
-
-    # NORTH
-    north_construction = $constructions.find{|construction| construction_matches?(construction, @x, @y - 1) }
-    if north_construction
-      wall_pathname += "-north"
-    end
-
-    # SOUTH
-    south_construction = $constructions.find{|construction| construction_matches?(construction, @x, @y + 1) }
-    if south_construction
-      wall_pathname += "-south"
-    end
-
-    # WEST
-    west_construction = $constructions.find{|construction| construction_matches?(construction, @x - 1, @y) }
-    if west_construction
-      wall_pathname += "-west"
-    end
-
-    # EAST
-    east_construction = $constructions.find{|construction| construction_matches?(construction, @x + 1, @y) }
-    if east_construction
-      wall_pathname += "-east"
-    end
-
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/constructions/wall/#{wall_pathname}.png"
-    )
+    @image = wall_image(@x, @y)
     @image.color = "brown"
-    @image.color.opacity = 0.4
   end
 
   def x=(x)
