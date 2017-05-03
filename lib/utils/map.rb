@@ -57,6 +57,14 @@ class Map
     end
   end
 
+  def recalculate_availability(characters)
+    @grid.each do |spot|
+      spot.available = nil
+    end
+
+    calculate_availability(characters)
+  end
+
   def calculate_availability(characters)
     @positions_to_check = []
     @positions_to_check_later = []

@@ -4,7 +4,11 @@ class GatherAction < Action::Base
   def initialize(character, target)
     @character = character
     @target    = target
-    @time_left = @target.gathering_time
+    if @target.respond_to? :gathering_time
+      @time_left = @target.gathering_time
+    else
+      abandon_action
+    end
   end
 
   def update(seconds)
