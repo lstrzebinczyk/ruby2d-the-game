@@ -96,6 +96,9 @@ class Autoplayer
         3.times do
           workshop.request(Crate)
         end
+        2.times do
+          workshop.request(Door)
+        end
         @phase += 1
       end
     end

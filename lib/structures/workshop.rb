@@ -59,7 +59,7 @@ class Workshop < Structure::Base
   end
 
   def self.buildable_items
-    [Table, Barrel, Crate]
+    [Table, Barrel, Crate, Door]
   end
 
   def initialize(x, y)
