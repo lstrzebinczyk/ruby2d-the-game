@@ -39,11 +39,6 @@ class Construction < Structure::Base
   def finished_building!
     self.remove
     $structures.delete(self)
-
-    if @structure_class.ancestors.include?(Structure::Base)
-      $structures << @structure_class.new(@x, @y)
-    else
-      $map[@x, @y].content = @structure_class.new(@x, @y)
-    end
+    $structures << @structure_class.new(@x, @y)
   end
 end

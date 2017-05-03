@@ -64,7 +64,7 @@ class Menu
 
     render_button("Gather", left: PIXELS_PER_SQUARE)
     render_button("Set pasture", game_mode: SetZoneGameMode.new(PastureZone))
-    render_button("Build wall", game_mode: BuildGameMode.new(Wall, no_redirect_on_perform: true))
+    render_button("Build wall", game_mode: ConstructWall.new)
   end
 
   def unhover
