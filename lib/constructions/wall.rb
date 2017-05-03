@@ -196,6 +196,10 @@ class Wall
     render_image
   end
 
+  def impassable?
+    true
+  end
+
   def render_image
     wall_pathname = "wall"
 
