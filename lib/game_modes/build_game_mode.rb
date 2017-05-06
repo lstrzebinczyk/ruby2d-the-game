@@ -21,7 +21,7 @@ class BuildGameMode < GameMode::Base::Point
   end
 
   def hover(x, y)
-    @mask = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, @size * PIXELS_PER_SQUARE)
+    @mask = MapRenderer.square(x, y, @size)
     if terrain_clear?(x, y)
       @mask.color = "brown"
     else

@@ -5,10 +5,11 @@ class Fireplace < Structure::Base
 
   def initialize
     @position = $map.passable_spots_near($characters_list.first).first
-    x = @position.x * PIXELS_PER_SQUARE
-    y = @position.y * PIXELS_PER_SQUARE
-    @image_burning  = Image.new(x, y, "assets/structures/campfire.png", ZIndex::STRUCTURE)
-    @image_extinguished  = Image.new(x, y, "assets/structures/campfireextunguished.png", ZIndex::STRUCTURE)
+
+
+    @image_burning = MapRenderer.image(@position.x, @position.y, "assets/structures/campfire.png", ZIndex::STRUCTURE)
+    @image_extinguished = MapRenderer.image(@position.x, @position.y, "assets/structures/campfireextunguished.png", ZIndex::STRUCTURE)
+
     @image_extinguished.remove
     @burning = true
 

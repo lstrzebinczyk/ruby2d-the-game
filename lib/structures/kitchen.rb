@@ -41,13 +41,13 @@ class Kitchen < Structure::Base
     )
     @mask.color.opacity = 0.6
 
-    @table = Image.new(
-      (x + 1) * PIXELS_PER_SQUARE,
-      (y + 1) * PIXELS_PER_SQUARE,
+    @table = MapRenderer.image(
+      x + 1,
+      y + 1,
       "assets/structures/table.png",
-      ZIndex::STRUCTURE + 0.1
+      ZIndex::STRUCTURE + 0.1,
+      "brown"
     )
-    @table.color = "brown"
 
     @jobs     = []
     @supplies = []

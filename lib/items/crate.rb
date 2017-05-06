@@ -22,14 +22,7 @@ class Crate < Container
   def initialize(x, y)
     @x, @y = x, y
 
-    @background = Square.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      PIXELS_PER_SQUARE,
-      "brown",
-      z_index
-    )
-
+    @background = MapRenderer.square(x, y, 1, "brown", z_index)
     @image = MapRenderer.image(x, y, "assets/structures/crate.png", z_index, "black")
   end
 

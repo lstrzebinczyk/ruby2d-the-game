@@ -3,12 +3,7 @@ class Tree
 
   def initialize(x, y)
     @x, @y = x, y
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/nature/pinetree.png",
-      ZIndex::MAP_ELEMENT
-    )
+    @image = MapRenderer.image(x, y, "assets/nature/pinetree.png", ZIndex::MAP_ELEMENT)
   end
 
   def impassable?

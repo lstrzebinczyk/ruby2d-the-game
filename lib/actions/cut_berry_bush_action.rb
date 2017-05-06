@@ -12,10 +12,7 @@ class CutBerryBushAction < Action::Base
     @seconds_left = 20.minutes
     @animation_time_left = 0
 
-    x = berry_bush.x * PIXELS_PER_SQUARE
-    y = berry_bush.y * PIXELS_PER_SQUARE
-
-    @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
+    @mask = MapRenderer.square(berry_bush.x, berry_bush.y, 1, [1, 0, 0, 0.2])
     @mask.remove
     @parent = parent
   end

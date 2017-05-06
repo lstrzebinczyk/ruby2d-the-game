@@ -29,14 +29,6 @@ class BerryBush
     end
   end
 
-  def update_offset(offset_x, offset_y)
-    @offset_x = offset_x
-    @offset_y = offset_y
-
-    @image.x = @x * PIXELS_PER_SQUARE + @offset_x
-    @image.y = @y * PIXELS_PER_SQUARE + @offset_y
-  end
-
   def gathering_time
     @grams / gathered_grams_per_second
   end

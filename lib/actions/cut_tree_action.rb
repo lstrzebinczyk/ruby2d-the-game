@@ -15,10 +15,7 @@ class CutTreeAction < Action::Base
     @seconds_left = 15.minutes
     @animation_time_left = 0
 
-    x = tree.x * PIXELS_PER_SQUARE
-    y = tree.y * PIXELS_PER_SQUARE
-
-    @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
+    @mask = MapRenderer.square(tree.x, tree.y, 1, [1, 0, 0, 0.2])
     @mask.remove
     @parent = parent
   end

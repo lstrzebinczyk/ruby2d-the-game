@@ -1,13 +1,10 @@
 class CutBerryBushJob
   def initialize(berry_bush)
     @berry_bush = berry_bush
-    x = berry_bush.x * PIXELS_PER_SQUARE
-    y = berry_bush.y * PIXELS_PER_SQUARE
-
-    @mask = Square.new(
-      x,
-      y,
-      PIXELS_PER_SQUARE,
+    @mask = MapRenderer.square(
+      berry_bush.x,
+      berry_bush.y,
+      1,
       [1, 0, 0, 0.2],
       ZIndex::MAP_ELEMENT_OVERLAY
     )
@@ -27,7 +24,7 @@ class CutBerryBushJob
 
   def action_for(character)
     MoveAction.new(character: character, near: @berry_bush).then do
-       CutBerryBushAction.new(@berry_bush, character)
+      CutBerryBushAction.new(@berry_bush, character)
     end
   end
 
