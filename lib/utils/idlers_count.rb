@@ -1,12 +1,7 @@
 class IdlersCount
   def initialize
     @count = 0
-    @text = Text.new(15, 55, "Idlers: 0", 40, "fonts/arial.ttf")
-  end
-
-  def rerender
-    @text.remove
-    @text.add
+    @text = Text.new(15, 55, "Idlers: 0", 40, "fonts/arial.ttf", "white", ZIndex::GAME_WORLD_TEXT)
   end
 
   def recalculate!
