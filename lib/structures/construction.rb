@@ -18,13 +18,7 @@ class Construction < Structure::Base
     @size            = structure_class.size
     @x, @y = x, y
 
-    @mask = Square.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      @size * PIXELS_PER_SQUARE,
-      "gray",
-      ZIndex::STRUCTURE
-    )
+    @mask = MapRenderer.square(x, y, @size, "gray", ZIndex::STRUCTURE)
     @mask.color.opacity = 0.8
 
     @jobs  = [BuildJob.new(structure: self)]

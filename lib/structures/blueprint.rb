@@ -22,13 +22,7 @@ class Blueprint < Structure::Base
     @size            = structure_class.size
     @x, @y = x, y
 
-    @mask = Square.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      @size * PIXELS_PER_SQUARE,
-      "blue",
-      ZIndex::STRUCTURE
-    )
+    @mask = MapRenderer.square(x, y, @size, "blue", ZIndex::STRUCTURE)
     @mask.color.opacity = 0.4
 
     @needs = []

@@ -1,6 +1,6 @@
 class MouseBackgroundDrawer
   def initialize
-    @image = Square.new(0, 0, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+    @image = MapRenderer.square(0, 0, 1, [1, 1, 1, 0.2])
     @rendered = true
   end
 

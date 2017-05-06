@@ -37,13 +37,7 @@ class Fishery < Structure::Base
     @x, @y = x, y
     @size  = self.class.size
 
-    @mask = Square.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      @size * PIXELS_PER_SQUARE,
-      "purple",
-      ZIndex::STRUCTURE
-      )
+    @mask = MapRenderer.square(x, y, @size, "purple", ZIndex::STRUCTURE)
     @mask.color.opacity = 0.6
 
     @supplies = []

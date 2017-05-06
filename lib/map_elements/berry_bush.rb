@@ -53,10 +53,10 @@ class BerryBush
   def was_picked!
     @picked = true
     unless @finished_mask
-      @finished_mask = Square.new(
-        @x * PIXELS_PER_SQUARE,
-        @y * PIXELS_PER_SQUARE,
-        PIXELS_PER_SQUARE,
+      @finished_mask = MapRenderer.square(
+        @x,
+        @y,
+        1,
         [1, 1, 1, 0.2],
         ZIndex::MAP_ELEMENT
       )

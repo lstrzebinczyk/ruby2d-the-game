@@ -1,13 +1,10 @@
 class CutTreeJob
   def initialize(tree)
     @tree = tree
-    x = tree.x * PIXELS_PER_SQUARE
-    y = tree.y * PIXELS_PER_SQUARE
-
-    @mask = Square.new(
-      x,
-      y,
-      PIXELS_PER_SQUARE,
+    @mask = MapRenderer.square(
+      tree.x,
+      tree.y,
+      1,
       [1, 0, 0, 0.2],
       ZIndex::MAP_ELEMENT_OVERLAY
     )

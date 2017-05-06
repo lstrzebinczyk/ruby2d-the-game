@@ -9,7 +9,7 @@ class Ground
   def grass_eaten!
     @grass_eaten_times += 1
     @mask && @mask.remove
-    @mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "yellow")
+    @mask = MapRenderer.square(@x, @y, 1, "yellow")
     @mask.color.opacity = 0.09 * @grass_eaten_times
   end
 

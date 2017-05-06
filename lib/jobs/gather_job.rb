@@ -1,13 +1,10 @@
 class GatherJob
   def initialize(target)
     @target = target
-    x = target.x * PIXELS_PER_SQUARE
-    y = target.y * PIXELS_PER_SQUARE
-
-    @mask = Square.new(
-      x,
-      y,
-      PIXELS_PER_SQUARE,
+    @mask = MapRenderer.square(
+      target.x,
+      target.y,
+      1,
       [1, 0, 0, 0.2],
       ZIndex::MAP_ELEMENT_OVERLAY
     )

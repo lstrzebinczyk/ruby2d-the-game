@@ -15,13 +15,21 @@ class Fireplace < Structure::Base
 
     @opacity = 0.08
 
-    inner_x = (@position.x - 1) * PIXELS_PER_SQUARE
-    inner_y = (@position.y - 1) * PIXELS_PER_SQUARE
-    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::FIREPLACE_LIGHT)
+    @inner_square = MapRenderer.square(
+      @position.x - 1,
+      @position.y - 1,
+      3,
+      [1, 1, 0, @opacity],
+      ZIndex::FIREPLACE_LIGHT
+    )
 
-    outer_x = (@position.x - 2) * PIXELS_PER_SQUARE
-    outer_y = (@position.y - 2) * PIXELS_PER_SQUARE
-    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::FIREPLACE_LIGHT)
+    @outer_square = MapRenderer.square(
+      @position.x - 2,
+      @position.y - 2,
+      5,
+      [1, 1, 0, @opacity],
+      ZIndex::FIREPLACE_LIGHT
+    )
   end
 
   def x

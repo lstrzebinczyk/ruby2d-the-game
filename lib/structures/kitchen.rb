@@ -32,13 +32,7 @@ class Kitchen < Structure::Base
     @x, @y = x, y
     @size  = self.class.size
 
-    @mask = Square.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      3 * PIXELS_PER_SQUARE,
-      "brown",
-      ZIndex::STRUCTURE
-    )
+    @mask = MapRenderer.square(x, y, 3, "brown", ZIndex::STRUCTURE)
     @mask.color.opacity = 0.6
 
     @table = MapRenderer.image(
