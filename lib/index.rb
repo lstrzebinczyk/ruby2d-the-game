@@ -44,9 +44,6 @@ def start_game!
   $menu = Menu.new
   $inspection_menu = InspectionMenu.new(INSPECTION_MENU_WIDTH, INSPECTION_MENU_HEIGHT, WORLD_WIDTH)
 
-  $characters_list.each(&:rerender)
-  $creatures_list.each(&:rerender)
-  $structures.each(&:rerender)
   $menu.rerender
 
   fps = get(:fps)

@@ -3,7 +3,12 @@ class Goat < Creature
   attr_accessor :energy, :hunger, :calories
 
   def initialize(x, y)
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, image_path)
+    @image = Image.new(
+      x * PIXELS_PER_SQUARE,
+      y * PIXELS_PER_SQUARE,
+      image_path,
+      ZIndex::CREATURE
+    )
     @energy = 0.6 + rand / 3
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
 

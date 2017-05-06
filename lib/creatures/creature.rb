@@ -71,11 +71,6 @@ class Creature
     @image.y = y * PIXELS_PER_SQUARE
   end
 
-  def rerender
-    @image.remove
-    @image.add
-  end
-
   def update(seconds)
     update_energy(seconds)
     update_calories(seconds)

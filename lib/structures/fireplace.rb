@@ -16,11 +16,11 @@ class Fireplace < Structure::Base
 
     inner_x = (@position.x - 1) * PIXELS_PER_SQUARE
     inner_y = (@position.y - 1) * PIXELS_PER_SQUARE
-    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::STRUCTURE + 0.1)
+    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::FIREPLACE_LIGHT)
 
     outer_x = (@position.x - 2) * PIXELS_PER_SQUARE
     outer_y = (@position.y - 2) * PIXELS_PER_SQUARE
-    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::STRUCTURE + 0.1)
+    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::FIREPLACE_LIGHT)
   end
 
   def x
@@ -33,17 +33,6 @@ class Fireplace < Structure::Base
 
   def impassable?
     true
-  end
-
-  def rerender
-    @image_burning.remove
-    @image_burning.add
-
-    @inner_square.remove
-    @inner_square.add
-
-    @outer_square.remove
-    @outer_square.add
   end
 
   def update(current_time)
@@ -64,7 +53,6 @@ class Fireplace < Structure::Base
         if rand < 0.2 / $game_speed.value
           @outer_square.color.opacity = @opacity + rand / 20
         end
-        rerender
       else
         @image_burning.add
         @inner_square.add

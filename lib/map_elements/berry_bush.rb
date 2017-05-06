@@ -83,6 +83,10 @@ class BerryBush
     @picked
   end
 
+  def render
+    @image.add
+  end
+
   def rerender
     @image.remove
     @image.add
