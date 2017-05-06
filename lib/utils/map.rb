@@ -43,8 +43,8 @@ class Map
     @height = opts[:height]
     @grid   = Grid.new
 
-    (0..@width).each do |x|
-      (0..@height).each do |y|
+    (0...@width).each do |x|
+      (0...@height).each do |y|
         @grid[x, y] = Spot.new(x: x, y: y)
       end
     end
@@ -83,8 +83,8 @@ class Map
       progress_availability
     end
 
-    (0..@width).each do |x|
-      (0..@height).each do |y|
+    (0...@width).each do |x|
+      (0...@height).each do |y|
         self[x, y].available = nil if self[x, y].available == :checking
       end
     end

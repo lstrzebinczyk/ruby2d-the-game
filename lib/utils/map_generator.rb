@@ -11,8 +11,8 @@ class MapGenerator
   end
 
   def fill_river
-    (0..@width).each do |x|
-      (0..@height).each do |y|
+    (0...@width).each do |x|
+      (0...@height).each do |y|
         if in_river?(x, y)
           @map[x, y].terrain = River.new(x, y)
         else
@@ -47,8 +47,8 @@ class MapGenerator
   end
 
   def fill_trees_and_bushes
-    (0..@width).each do |x|
-      (0..@height).each do |y|
+    (0...@width).each do |x|
+      (0...@height).each do |y|
         unless @map[x, y].terrain.is_a? River
           if set_tree?(x, y)
             @map[x, y].content = Tree.new(x, y)

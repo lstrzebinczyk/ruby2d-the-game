@@ -50,8 +50,8 @@ on :key_down do |e|
       $flood_map_rendered = nil
     else
       $flood_map_rendered = []
-      (0..SQUARES_WIDTH).each do |x|
-        (0..SQUARES_HEIGHT).each do |y|
+      (0...SQUARES_WIDTH).each do |x|
+        (0...SQUARES_HEIGHT).each do |y|
           map_spot = $map[x, y]
           if map_spot.available == :ok
             rendered = Square.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, "green")
