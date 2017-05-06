@@ -18,23 +18,15 @@ class BerryBush
 
   def initialize(x, y, grams = nil)
     @x, @y = x, y
-    @offset_x = $map_position.offset_x
-    @offset_y = $map_position.offset_y
 
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE + @offset_x,
-      y * PIXELS_PER_SQUARE + @offset_y,
-      "assets/nature/berrybush.png",
-      ZIndex::MAP_ELEMENT
-    )
+    @image = MapRenderer.image(x, y, "assets/nature/berrybush.png", ZIndex::MAP_ELEMENT)
+
     @picked = false
     if grams
       @grams = grams
     else
       @grams = 2500 + (rand * 1000).to_i
     end
-
-    $map_position.add_observer(self, :update_offset)
   end
 
   def update_offset(offset_x, offset_y)

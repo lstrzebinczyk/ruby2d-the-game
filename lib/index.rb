@@ -217,3 +217,9 @@ show
 # Decouple x and y from things image data. Those 2 are separate!
 # Introduce some sort of renderable module to make rendering bit more readable
 # fix that fucking annoying infinite walking loop
+
+
+# Remove all mapposition observers from anywhere else
+
+# PERFECT!!!!
+# Now all the MapRenderer::Image and MapRenderer::Square can watch offset changes!
