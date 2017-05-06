@@ -1,9 +1,3 @@
-PATH
-  remote: ../ruby2d
-  specs:
-    ruby2d (0.3.0)
-      opal (~> 0.10)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -45,6 +39,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    ruby2d (0.3.0)
+      opal (~> 0.10)
     simplecov (0.14.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -68,7 +64,7 @@ DEPENDENCIES
   perlin_noise
   pry
   rspec
-  ruby2d!
+  ruby2d
   simplecov
 
 RUBY VERSION
