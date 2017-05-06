@@ -22,11 +22,6 @@ class Button
     @text_element.add
   end
 
-  def rerender
-    remove
-    add
-  end
-
   def contains?(mouse_x, mouse_y)
     x      = @background.x
     y      = @background.y
@@ -79,7 +74,11 @@ class Button
     @text_element = Text.new(
       x + @side_padding,
       y + @top_and_bottom_padding,
-      @text, @text_size, "fonts/arial.ttf"
+      @text,
+      @text_size,
+      "fonts/arial.ttf",
+      "white",
+      ZIndex::MENU_BUTTON_TEXT
     )
 
     @background = Rectangle.new(
@@ -87,7 +86,8 @@ class Button
       y,
       @text_element.width + 2 * @side_padding,
       @text_element.height + 2 * @top_and_bottom_padding,
-      color
+      color,
+      ZIndex::MENU_BUTTON
     )
   end
 end

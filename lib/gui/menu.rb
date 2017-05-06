@@ -35,16 +35,6 @@ class Menu
     y > @menu_y_start
   end
 
-  def rerender
-    @menu_background.remove
-    @menu_background.add
-
-    @buttons.each do |button|
-      button.remove
-      button.add
-    end
-  end
-
   def render
     render_menu_background
 
@@ -130,6 +120,12 @@ class Menu
   end
 
   def render_menu_background
-    @menu_background = Rectangle.new(0, @menu_y_start, WIDTH, height, "black")
+    @menu_background = Rectangle.new(
+      0,
+      @menu_y_start,
+      WIDTH,
+      height,
+      "black",
+      ZIndex::MENU_BACKGROUND)
   end
 end

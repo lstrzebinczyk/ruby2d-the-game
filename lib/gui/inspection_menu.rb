@@ -188,14 +188,4 @@ class InspectionMenu
   def rerender_content
     @active_tab.rerender
   end
-
-  def rerender
-    @background.remove
-    @background.add
-
-    @tab_buttons.each(&:rerender)
-    @active_tab.render
-
-    rerender_content
-  end
 end
