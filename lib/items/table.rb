@@ -5,13 +5,7 @@ class Table < Item
 
   def initialize(x, y)
     @x, @y = x, y
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/structures/table.png",
-      z_index
-    )
-    @image.color = "brown"
+    @image = MapRenderer.image(x, y, "assets/structures/table.png", z_index, "brown")
   end
 
   def category

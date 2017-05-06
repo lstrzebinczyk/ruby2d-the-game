@@ -29,13 +29,8 @@ class Crate < Container
       "brown",
       z_index
     )
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/structures/crate.png",
-      z_index
-    )
-    @image.color = "black"
+
+    @image = MapRenderer.image(x, y, "assets/structures/crate.png", z_index, "black")
   end
 
   def x=(x)

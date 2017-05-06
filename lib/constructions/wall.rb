@@ -26,11 +26,7 @@ module HasWallImage
       wall_pathname += "-east"
     end
 
-    Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/constructions/wall/#{wall_pathname}.png"
-    )
+    MapRenderer.image(x, y, "assets/constructions/wall/#{wall_pathname}.png")
   end
 
   private

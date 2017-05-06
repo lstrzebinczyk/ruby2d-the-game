@@ -3,13 +3,7 @@ class Berries < Item
     @x, @y = x, y
     @grams = grams
 
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/nature/berries.png",
-      z_index
-    )
-    @image.color = "purple"
+    @image = MapRenderer.image(x, y, "assets/nature/berries.png", z_index, "purple")
   end
 
   def inspect

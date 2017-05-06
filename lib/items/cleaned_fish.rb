@@ -6,13 +6,7 @@ class CleanedFish < Item
   def initialize(x, y)
     @x, @y = x, y
 
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/nature/fish.png",
-      z_index
-    )
-    @image.color = "#F3EFE0"
+    @image = MapRenderer.image(x, y, "assets/nature/fish.png", z_index, "#F3EFE0")
   end
 
   def inspect

@@ -36,12 +36,7 @@ class Character < Creature
       fisherman: [:fish_cleaning, :fishing, :haul]
     }[@type]
 
-    @image  = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      image_path,
-      ZIndex::CREATURE
-    )
+    @image = MapRenderer.image(x, y, image_path, ZIndex::CREATURE)
     @action = nil
 
     @energy = 0.6 + rand / 3

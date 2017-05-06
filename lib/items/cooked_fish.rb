@@ -5,15 +5,7 @@ class CookedFish < Item
 
   def initialize(x, y)
     @x, @y = x, y
-
-    @image = Image.new(
-      x * PIXELS_PER_SQUARE,
-      y * PIXELS_PER_SQUARE,
-      "assets/nature/fish.png",
-      z_index
-    )
-    @image.color = "#ff9999"
-
+    @image = MapRenderer.image(x, y, "assets/nature/fish.png", z_index, "#ff9999")
     @grams = 800 + rand(200)
   end
 
