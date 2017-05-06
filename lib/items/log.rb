@@ -3,7 +3,12 @@
 class Log < Item
   def initialize(x, y)
     @x, @y = x, y
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/nature/log.png")
+    @image = Image.new(
+      x * PIXELS_PER_SQUARE,
+      y * PIXELS_PER_SQUARE,
+      "assets/nature/log.png",
+      z_index
+    )
     @image.color = "brown"
   end
 

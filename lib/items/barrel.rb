@@ -26,9 +26,15 @@ class Barrel < Container
       x * PIXELS_PER_SQUARE,
       y * PIXELS_PER_SQUARE,
       PIXELS_PER_SQUARE,
-      "brown"
+      "brown",
+      z_index
     )
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/structures/barrel.png")
+    @image = Image.new(
+      x * PIXELS_PER_SQUARE,
+      y * PIXELS_PER_SQUARE,
+      "assets/structures/barrel.png",
+      z_index + 0.1
+    )
     @image.color = "black"
   end
 

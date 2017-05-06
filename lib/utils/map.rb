@@ -34,13 +34,6 @@ class Map
       @content = nil
       nil
     end
-
-    def rerender
-      @terrain.remove
-      @content.remove if @content
-      @terrain.render
-      @content.render if @content
-    end
   end
 
   attr_reader :width, :height
@@ -115,10 +108,6 @@ class Map
 
   def spots_near(position)
     search_path(position.x, position.y)
-  end
-
-  def rerender
-    @grid.each(&:rerender)
   end
 
   private

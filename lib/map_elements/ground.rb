@@ -6,12 +6,6 @@ class Ground
     @grass_eaten_times = 0
   end
 
-  def remove
-  end
-
-  def render
-  end
-
   def grass_eaten!
     @grass_eaten_times += 1
     @mask && @mask.remove

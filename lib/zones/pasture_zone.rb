@@ -30,7 +30,8 @@ class PastureZone < Zone::Base
       @y * PIXELS_PER_SQUARE,
       @width * PIXELS_PER_SQUARE,
       @height * PIXELS_PER_SQUARE,
-      "yellow"
+      "yellow",
+      ZIndex::ZONE
     )
     @image.color.opacity = 0.07
 

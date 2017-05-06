@@ -4,7 +4,13 @@ class GatherJob
     x = target.x * PIXELS_PER_SQUARE
     y = target.y * PIXELS_PER_SQUARE
 
-    @mask = Square.new(x, y, PIXELS_PER_SQUARE, [1, 0, 0, 0.2])
+    @mask = Square.new(
+      x,
+      y,
+      PIXELS_PER_SQUARE,
+      [1, 0, 0, 0.2],
+      ZIndex::MAP_ELEMENT_OVERLAY
+    )
   end
 
   def type

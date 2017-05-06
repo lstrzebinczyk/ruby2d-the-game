@@ -17,7 +17,8 @@ class StorageZone < Zone::Base
       @y * PIXELS_PER_SQUARE,
       @width * PIXELS_PER_SQUARE,
       @height * PIXELS_PER_SQUARE,
-      [1, 1, 1, 0.2]
+      [1, 1, 1, 0.2],
+      ZIndex::ZONE
     )
 
     @image.remove

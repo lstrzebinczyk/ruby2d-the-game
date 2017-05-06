@@ -8,7 +8,8 @@ class River
     @image  = Image.new(
       @x * PIXELS_PER_SQUARE + @offset_x,
       @y * PIXELS_PER_SQUARE + @offset_y,
-      "assets/nature/river.png"
+      "assets/nature/river.png",
+      ZIndex::GROUND_OBJECT
     )
     $map_position.add_observer(self, :update_offset)
   end
@@ -19,14 +20,6 @@ class River
 
     @image.x = @x * PIXELS_PER_SQUARE + @offset_x
     @image.y = @y * PIXELS_PER_SQUARE + @offset_y
-  end
-
-  def remove
-    @image.remove
-  end
-
-  def render
-    @image.add
   end
 
   def passable?

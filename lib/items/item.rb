@@ -18,4 +18,8 @@ class Item
   def render
     @image.add
   end
+
+  def z_index
+    ZIndex::ITEM
+  end
 end

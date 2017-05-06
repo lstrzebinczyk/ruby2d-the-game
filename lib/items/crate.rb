@@ -26,9 +26,15 @@ class Crate < Container
       x * PIXELS_PER_SQUARE,
       y * PIXELS_PER_SQUARE,
       PIXELS_PER_SQUARE,
-      "brown"
+      "brown",
+      z_index
     )
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/structures/crate.png")
+    @image = Image.new(
+      x * PIXELS_PER_SQUARE,
+      y * PIXELS_PER_SQUARE,
+      "assets/structures/crate.png",
+      z_index
+    )
     @image.color = "black"
   end
 

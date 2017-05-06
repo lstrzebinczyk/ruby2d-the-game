@@ -5,7 +5,12 @@ class Door < Item
 
   def initialize(x, y)
     @x, @y = x, y
-    @image = Image.new(x * PIXELS_PER_SQUARE, y * PIXELS_PER_SQUARE, "assets/structures/door.png")
+    @image = Image.new(
+      x * PIXELS_PER_SQUARE,
+      y * PIXELS_PER_SQUARE,
+      "assets/structures/door.png",
+      z_index
+    )
     @image.color = "brown"
   end
 

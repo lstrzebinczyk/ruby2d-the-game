@@ -24,7 +24,8 @@ class BerryBush
     @image = Image.new(
       x * PIXELS_PER_SQUARE + @offset_x,
       y * PIXELS_PER_SQUARE + @offset_y,
-      "assets/nature/berrybush.png"
+      "assets/nature/berrybush.png",
+      ZIndex::MAP_ELEMENT
     )
     @picked = false
     if grams
@@ -42,10 +43,6 @@ class BerryBush
 
     @image.x = @x * PIXELS_PER_SQUARE + @offset_x
     @image.y = @y * PIXELS_PER_SQUARE + @offset_y
-  end
-
-  def render
-    @image.add
   end
 
   def gathering_time
@@ -72,7 +69,13 @@ class BerryBush
   def was_picked!
     @picked = true
     unless @finished_mask
-      @finished_mask = Square.new(@x * PIXELS_PER_SQUARE, @y * PIXELS_PER_SQUARE, PIXELS_PER_SQUARE, [1, 1, 1, 0.2])
+      @finished_mask = Square.new(
+        @x * PIXELS_PER_SQUARE,
+        @y * PIXELS_PER_SQUARE,
+        PIXELS_PER_SQUARE,
+        [1, 1, 1, 0.2],
+        ZIndex::MAP_ELEMENT
+      )
     end
   end
 

@@ -7,8 +7,8 @@ class Fireplace < Structure::Base
     @position = $map.passable_spots_near($characters_list.first).first
     x = @position.x * PIXELS_PER_SQUARE
     y = @position.y * PIXELS_PER_SQUARE
-    @image_burning  = Image.new(x, y, "assets/structures/campfire.png")
-    @image_extinguished  = Image.new(x, y, "assets/structures/campfireextunguished.png")
+    @image_burning  = Image.new(x, y, "assets/structures/campfire.png", ZIndex::STRUCTURE)
+    @image_extinguished  = Image.new(x, y, "assets/structures/campfireextunguished.png", ZIndex::STRUCTURE)
     @image_extinguished.remove
     @burning = true
 
@@ -16,11 +16,11 @@ class Fireplace < Structure::Base
 
     inner_x = (@position.x - 1) * PIXELS_PER_SQUARE
     inner_y = (@position.y - 1) * PIXELS_PER_SQUARE
-    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
+    @inner_square = Square.new(inner_x, inner_y, 3 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::STRUCTURE + 0.1)
 
     outer_x = (@position.x - 2) * PIXELS_PER_SQUARE
     outer_y = (@position.y - 2) * PIXELS_PER_SQUARE
-    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity])
+    @outer_square = Square.new(outer_x, outer_y, 5 * PIXELS_PER_SQUARE, [1, 1, 0, @opacity], ZIndex::STRUCTURE + 0.1)
   end
 
   def x

@@ -46,7 +46,6 @@ def start_game!
 
   $characters_list.each(&:rerender)
   $creatures_list.each(&:rerender)
-  $map.rerender
   $structures.each(&:rerender)
   $menu.rerender
 
