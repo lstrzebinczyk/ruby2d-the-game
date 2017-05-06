@@ -34,8 +34,6 @@ class Workshop < Structure::Base
         end
         @buttons << button
       end
-
-      @buttons.each(&:rerender)
     end
 
     def remove
