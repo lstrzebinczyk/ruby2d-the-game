@@ -25,7 +25,7 @@ def start_game!
   creatures_list = [
     Goat.new(34, 20)
   ]
-  map = MapGenerator.new(SQUARES_WIDTH, SQUARES_HEIGHT).generate
+  map = MapGenerator.new(WORLD_SQUARES_WIDTH, WORLD_SQUARES_HEIGHT).generate
 
   characters_list.each do |character|
     map[character.x, character.y].clear_content
