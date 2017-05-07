@@ -1,7 +1,10 @@
 on :mouse_move do |e|
   $menu.game_mode.unhover
   if e.x < WORLD_WIDTH and e.y < WORLD_HEIGHT
-    $menu.game_mode.hover(e.x / PIXELS_PER_SQUARE, e.y / PIXELS_PER_SQUARE)
+    $menu.game_mode.hover(
+      e.x / PIXELS_PER_SQUARE - $map_position.offset_x / PIXELS_PER_SQUARE,
+      e.y / PIXELS_PER_SQUARE - $map_position.offset_y / PIXELS_PER_SQUARE,
+    )
   else
     $menu.game_mode.abort
   end
@@ -9,13 +12,19 @@ end
 
 on :mouse_down do |e|
   if e.x < WORLD_WIDTH and e.y < WORLD_HEIGHT and e.button == :left
-    $menu.game_mode.mouse_down(e.x, e.y)
+    $menu.game_mode.mouse_down(
+      e.x - $map_position.offset_x,
+      e.y - $map_position.offset_y
+    )
   end
 end
 
 on :mouse_up do |e|
   if e.x < WORLD_WIDTH and e.y < WORLD_HEIGHT and e.button == :left
-    $menu.game_mode.mouse_up(e.x, e.y)
+    $menu.game_mode.mouse_up(
+      e.x - $map_position.offset_x,
+      e.y - $map_position.offset_y
+    )
   end
 end
 

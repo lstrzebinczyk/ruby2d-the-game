@@ -95,7 +95,7 @@ class InspectionMenu
           @texts << c.class::Inspection.new(c, x: x, y: y)
         else
           msg = c.class
-          t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
+          t = Text.new(x, y, msg, 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON_TEXT)
           @texts << t
         end
       end
