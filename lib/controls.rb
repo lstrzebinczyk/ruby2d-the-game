@@ -103,6 +103,26 @@ on :key_held do |e|
   end
 end
 
+$moving_map_by_mouse = false
+
+on :mouse_down do |e|
+  if e.button == :middle
+    $moving_map_by_mouse = true
+  end
+end
+
+on :mouse_up do |e|
+  if e.button == :middle
+    $moving_map_by_mouse = false
+  end
+end
+
+on :mouse_move do |e|
+  if $moving_map_by_mouse
+    $map_position.update_offset(e.delta_x, e.delta_y)
+  end
+end
+
 def toggle_profiling_cpu
   if $profiling
     result = RubyProf.stop
