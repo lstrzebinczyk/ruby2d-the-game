@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 on :mouse_move do |e|
   $menu.game_mode.unhover
   if e.x < WORLD_WIDTH and e.y < WORLD_HEIGHT
