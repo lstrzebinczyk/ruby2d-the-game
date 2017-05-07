@@ -51,26 +51,26 @@ module MapRenderer
 
   class MapImage < MapRenderable
     def initialize(x, y, path, z)
+      super(x, y)
       @content = Image.new(
-        x * PIXELS_PER_SQUARE,
-        y * PIXELS_PER_SQUARE,
+        x * PIXELS_PER_SQUARE + @x_offset,
+        y * PIXELS_PER_SQUARE + @y_offset,
         path,
         z
       )
-      super(x, y)
     end
   end
 
   class MapSquare < MapRenderable
     def initialize(x, y, size, color, z)
+      super(x, y)
       @content = Square.new(
-        x * PIXELS_PER_SQUARE,
-        y * PIXELS_PER_SQUARE,
+        x * PIXELS_PER_SQUARE + @x_offset,
+        y * PIXELS_PER_SQUARE + @y_offset,
         size * PIXELS_PER_SQUARE,
         color,
         z
       )
-      super(x, y)
     end
   end
 

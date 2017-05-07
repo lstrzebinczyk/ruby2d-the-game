@@ -76,13 +76,13 @@ on :key_down do |e|
   when "5"
     $game_speed.set(1000)
   when "w"
-    $map_position.offset_y -= 4 * PIXELS_PER_SQUARE
-  when "s"
     $map_position.offset_y += 4 * PIXELS_PER_SQUARE
+  when "s"
+    $map_position.offset_y -= 4 * PIXELS_PER_SQUARE
   when "a"
-    $map_position.offset_x -= 4 * PIXELS_PER_SQUARE
-  when "d"
     $map_position.offset_x += 4 * PIXELS_PER_SQUARE
+  when "d"
+    $map_position.offset_x -= 4 * PIXELS_PER_SQUARE
   end
 end
 
