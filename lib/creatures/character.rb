@@ -25,8 +25,8 @@ class Character < Creature
   attr_reader   :state, :name, :accepts_jobs, :type, :job, :action
 
   def initialize(opts)
-    x     = opts[:x]
-    y     = opts[:y]
+    @x     = opts[:x]
+    @y     = opts[:y]
     @name = opts[:name]
     @type = opts[:type]
     @accepts_jobs = {
@@ -36,7 +36,7 @@ class Character < Creature
       fisherman: [:fish_cleaning, :fishing, :haul]
     }[@type]
 
-    @image = MapRenderer.image(x, y, image_path, ZIndex::CREATURE)
+    @image = MapRenderer.image(@x, @y, image_path, ZIndex::CREATURE)
     @action = nil
 
     @energy = 0.6 + rand / 3

@@ -228,3 +228,5 @@ show
 # instead of producing actions, we should only have jobs and update jobs
 # this way we can, for example, add something to the beginning of queue if something happens
 # And we avoid doing all of the action chaining
+
+# Maybe have some cave crawling game? Labirynth crawler with fight?

@@ -179,12 +179,11 @@ class Wall
 
   def x=(x)
     @x = x
-    @image.x = x * PIXELS_PER_SQUARE
+    @image.x = x
   end
 
   def y=(y)
     @y = y
-    @image.y = y * PIXELS_PER_SQUARE
+    @image.y = y
   end
-
 end

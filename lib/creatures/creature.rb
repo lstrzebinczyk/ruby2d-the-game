@@ -1,14 +1,6 @@
 class Creature
-  attr_reader :job
+  attr_reader :job, :x, :y
   MAX_CALORIES = 3000
-
-  def x
-    @image.x / PIXELS_PER_SQUARE
-  end
-
-  def y
-    @image.y / PIXELS_PER_SQUARE
-  end
 
   def action=(action)
     @action = action
@@ -67,8 +59,11 @@ class Creature
       raise ArgumentError, "Teleporting is not allowed! #{self.class} #{self.name} tried to get from (#{self.x}, #{self.y}) to (#{x}, #{y})"
     end
 
-    @image.x = x * PIXELS_PER_SQUARE
-    @image.y = y * PIXELS_PER_SQUARE
+    @x = x
+    @y = y
+
+    @image.x = x
+    @image.y = y
   end
 
   def update(seconds)

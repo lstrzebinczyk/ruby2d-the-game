@@ -31,6 +31,7 @@ module GameMode
       end
 
       def hover(x, y)
+        @mouse_background_drawer.add
         @mouse_background_drawer.render(x, y)
       end
     end
@@ -75,6 +76,7 @@ module GameMode
             [1, 1, 1, 0.2]
           )
         else
+          @mouse_background_drawer.add
           @mouse_background_drawer.render(x, y)
         end
       end

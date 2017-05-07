@@ -3,6 +3,7 @@ class Goat < Creature
   attr_accessor :energy, :hunger, :calories
 
   def initialize(x, y)
+    @x, @y = x, y
     @image = MapRenderer.image(x, y, image_path, ZIndex::CREATURE)
     @energy = 0.6 + rand / 3
     @calories = MAX_CALORIES * (0.7 + 0.3 * rand)
