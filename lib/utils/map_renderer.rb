@@ -76,15 +76,30 @@ module MapRenderer
 
   class MapRectangle < MapRenderable
     def initialize(x, y, width, height, color, z)
+      super(x, y)
       @content = Rectangle.new(
-        x * PIXELS_PER_SQUARE,
-        y * PIXELS_PER_SQUARE,
+        x * PIXELS_PER_SQUARE + @x_offset,
+        y * PIXELS_PER_SQUARE + @y_offset,
         width * PIXELS_PER_SQUARE,
         height * PIXELS_PER_SQUARE,
         color,
         z
       )
+    end
+  end
+
+  class MapText < MapRenderable
+    def initialize(x, y, text, font_size, font, z)
       super(x, y)
+      @content = Text.new(x + @x_offset, y + @y_offset, text, font_size, font, "white", z)
+    end
+
+    def update_offset(x_offset, y_offset)
+      @x_offset = x_offset
+      @y_offset = y_offset
+
+      @content.x = @x + @x_offset
+      @content.y = @y + @y_offset
     end
   end
 
@@ -100,5 +115,9 @@ module MapRenderer
 
   def self.rectangle(x, y, width, height, color = "black", z = 0)
     MapRectangle.new(x, y, width, height, color, z)
+  end
+
+  def self.text(x, y, text, font_size, font, z = 0)
+    MapText.new(x, y, text, font_size, font, z)
   end
 end

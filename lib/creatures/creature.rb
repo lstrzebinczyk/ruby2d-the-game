@@ -18,11 +18,25 @@ class Creature
     if state == :sleeping
       indicator_x = x * PIXELS_PER_SQUARE + 11
       indicator_y = y * PIXELS_PER_SQUARE - 7
-      @sleeping_indicator_1 = Text.new(indicator_x, indicator_y, "z", 10, "fonts/arial.ttf")
+      @sleeping_indicator_1 = MapRenderer.text(
+        indicator_x,
+        indicator_y,
+        "z",
+        10,
+        "fonts/arial.ttf",
+        ZIndex::CREATURE + 0.1
+      )
 
       indicator_x = x * PIXELS_PER_SQUARE + 16
       indicator_y = y * PIXELS_PER_SQUARE - 16
-      @sleeping_indicator_2 = Text.new(indicator_x, indicator_y, "z", 11, "fonts/arial.ttf")
+      @sleeping_indicator_2 = MapRenderer.text(
+        indicator_x,
+        indicator_y,
+        "z",
+        11,
+        "fonts/arial.ttf",
+        ZIndex::CREATURE + 0.1
+      )
     end
 
     if state == :working
