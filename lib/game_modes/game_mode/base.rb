@@ -63,12 +63,12 @@ module GameMode
           @mouse_down_mask.remove
           @mouse_down_mask = nil
 
-          rect_x      = @x_arr.first * PIXELS_PER_SQUARE
-          rect_y      = @y_arr.first * PIXELS_PER_SQUARE
-          rect_width  = (@x_arr.last - @x_arr.first + 1) * PIXELS_PER_SQUARE
-          rect_height = (@y_arr.last - @y_arr.first + 1) * PIXELS_PER_SQUARE
+          rect_x      = @x_arr.first
+          rect_y      = @y_arr.first
+          rect_width  = (@x_arr.last - @x_arr.first + 1)
+          rect_height = (@y_arr.last - @y_arr.first + 1)
 
-          @mouse_down_mask = Rectangle.new(
+          @mouse_down_mask = MapRenderer.rectangle(
             rect_x,
             rect_y,
             rect_width,
