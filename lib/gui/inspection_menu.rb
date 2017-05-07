@@ -9,15 +9,20 @@ class InspectionMenu
 
         @char_portrait_x = @x
         @char_portrait_y = @y_offset
-        @char_image  = Image.new(@char_portrait_x, @char_portrait_y, @character.image_path)
-        @char_name   = Text.new(@char_portrait_x + 25, @char_portrait_y, @character.name, 16, "fonts/arial.ttf")
-        @food_text   = Text.new(@char_portrait_x, @char_portrait_y + 25, "food:", 16, "fonts/arial.ttf")
-        @sleep_text  = Text.new(@char_portrait_x, @char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf")
+        @char_image  = Image.new(
+          @char_portrait_x,
+          @char_portrait_y,
+          @character.image_path,
+          ZIndex::MENU_BUTTON
+        )
+        @char_name   = Text.new(@char_portrait_x + 25, @char_portrait_y, @character.name, 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
+        @food_text   = Text.new(@char_portrait_x, @char_portrait_y + 25, "food:", 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
+        @sleep_text  = Text.new(@char_portrait_x, @char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
 
-        @food_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 25, 120, 20, "black")
-        @sleep_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 50, 120, 20, "black")
-        @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, PROGRESS_BAR_BASE, 20 - 6, "red")
-        @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, PROGRESS_BAR_BASE, 20 - 6, "red")
+        @food_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 25, 120, 20, "black", ZIndex::MENU_BUTTON)
+        @sleep_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 50, 120, 20, "black", ZIndex::MENU_BUTTON)
+        @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, PROGRESS_BAR_BASE, 20 - 6, "red", ZIndex::MENU_BUTTON)
+        @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, PROGRESS_BAR_BASE, 20 - 6, "red", ZIndex::MENU_BUTTON)
       end
 
       # TODO: Don't be so clever and remove them by hand
@@ -117,7 +122,7 @@ class InspectionMenu
     @tab_buttons    = []
     @active_tab     = nil
 
-    @background     = Rectangle.new(@x, 0, @width, @height, "brown")
+    @background     = Rectangle.new(@x, 0, @width, @height, "brown", ZIndex::MENU_BACKGROUND)
     render_tabs
 
     @tab_buttons.first.on_click.call
