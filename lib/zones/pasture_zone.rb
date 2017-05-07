@@ -25,14 +25,7 @@ class PastureZone < Zone::Base
     @width  = x_range.last - x_range.first + 1
     @height = y_range.last - y_range.first + 1
 
-    @image = Rectangle.new(
-      @x * PIXELS_PER_SQUARE,
-      @y * PIXELS_PER_SQUARE,
-      @width * PIXELS_PER_SQUARE,
-      @height * PIXELS_PER_SQUARE,
-      "yellow",
-      ZIndex::ZONE
-    )
+    @image = MapRenderer.rectangle(@x, @y, @width, @height, "yellow", ZIndex::ZONE)
     @image.color.opacity = 0.07
 
     # TODO: There should be a menu for assigning animals

@@ -9,6 +9,9 @@ module MapRenderer
     end
 
     def add
+      @x_offset = $map_position.offset_x
+      @y_offset = $map_position.offset_y
+      $map_position.add_observer(self, :update_offset)
       @content.x = @x * PIXELS_PER_SQUARE + @x_offset
       @content.y = @y * PIXELS_PER_SQUARE + @y_offset
       @content.add
@@ -31,6 +34,10 @@ module MapRenderer
 
     def color=(color)
       @content.color = color
+    end
+
+    def color
+      @content.color
     end
 
     def update_offset(x_offset, y_offset)
@@ -65,9 +72,19 @@ module MapRenderer
       )
       super(x, y)
     end
+  end
 
-    def color
-      @content.color
+  class MapRectangle < MapRenderable
+    def initialize(x, y, width, height, color, z)
+      @content = Rectangle.new(
+        x * PIXELS_PER_SQUARE,
+        y * PIXELS_PER_SQUARE,
+        width * PIXELS_PER_SQUARE,
+        height * PIXELS_PER_SQUARE,
+        color,
+        z
+      )
+      super(x, y)
     end
   end
 
@@ -79,5 +96,9 @@ module MapRenderer
 
   def self.square(x, y, size, color = "black", z = 0)
     MapSquare.new(x, y, size, color, z)
+  end
+
+  def self.rectangle(x, y, width, height, color = "black", z = 0)
+    MapRectangle.new(x, y, width, height, color, z)
   end
 end

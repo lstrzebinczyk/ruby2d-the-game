@@ -12,14 +12,7 @@ class StorageZone < Zone::Base
     @width  = x_range.last - x_range.first + 1
     @height = y_range.last - y_range.first + 1
 
-    @image = Rectangle.new(
-      @x * PIXELS_PER_SQUARE,
-      @y * PIXELS_PER_SQUARE,
-      @width * PIXELS_PER_SQUARE,
-      @height * PIXELS_PER_SQUARE,
-      [1, 1, 1, 0.2],
-      ZIndex::ZONE
-    )
+    @image = MapRenderer.rectangle(@x, @y, @width, @height, [1, 1, 1, 0.2], ZIndex::ZONE)
   end
 
   def empty_spot
