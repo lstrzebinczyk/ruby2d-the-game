@@ -28,8 +28,8 @@ ActiveSupport::Dependencies.autoload_paths += %w[
 # http://www.ruby2d.com/learn/reference/
 PIXELS_PER_SQUARE = 16
 
-WORLD_SQUARES_WIDTH  = 100
-WORLD_SQUARES_HEIGHT = 100
+WORLD_SQUARES_WIDTH  = 120
+WORLD_SQUARES_HEIGHT = 120
 
 SQUARES_WIDTH     = 60
 SQUARES_HEIGHT    = 40
