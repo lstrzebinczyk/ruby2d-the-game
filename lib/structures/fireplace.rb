@@ -3,41 +3,38 @@ class Fireplace < Structure::Base
     1
   end
 
+  attr_reader :fireplace
+
   def initialize
-    @position = $map.passable_spots_near($characters_list.first).first
+    position = $map.passable_spots_near($characters_list.first).first
+    @x = position.x
+    @y = position.y
 
+    @image_burning = MapRenderer.image(@x, @y, "assets/structures/campfire.png", ZIndex::STRUCTURE)
+    @image_extinguished = MapRenderer.image(@x, @y, "assets/structures/campfireextunguished.png", ZIndex::STRUCTURE)
 
-    @image_burning = MapRenderer.image(@position.x, @position.y, "assets/structures/campfire.png", ZIndex::STRUCTURE)
-    @image_extinguished = MapRenderer.image(@position.x, @position.y, "assets/structures/campfireextunguished.png", ZIndex::STRUCTURE)
-
-    @image_extinguished.remove
-    @burning = true
+    @image_burning.remove
+    @burning = false
 
     @opacity = 0.08
 
     @inner_square = MapRenderer.square(
-      @position.x - 1,
-      @position.y - 1,
+      @x - 1,
+      @y - 1,
       3,
       [1, 1, 0, @opacity],
       ZIndex::FIREPLACE_LIGHT
     )
+    @inner_square.remove
 
     @outer_square = MapRenderer.square(
-      @position.x - 2,
-      @position.y - 2,
+      @x - 2,
+      @y - 2,
       5,
       [1, 1, 0, @opacity],
       ZIndex::FIREPLACE_LIGHT
     )
-  end
-
-  def x
-    @position.x
-  end
-
-  def y
-    @position.y
+    @outer_square.remove
   end
 
   def impassable?

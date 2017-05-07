@@ -20,9 +20,6 @@ class StorageZone < Zone::Base
       [1, 1, 1, 0.2],
       ZIndex::ZONE
     )
-
-    @image.remove
-    @image.add
   end
 
   def empty_spot

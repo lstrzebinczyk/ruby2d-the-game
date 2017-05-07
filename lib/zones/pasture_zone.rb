@@ -35,9 +35,6 @@ class PastureZone < Zone::Base
     )
     @image.color.opacity = 0.07
 
-    @image.remove
-    @image.add
-
     # TODO: There should be a menu for assigning animals
     # TODO: To pastures
 
