@@ -1,7 +1,6 @@
 class InspectionMenu
   class CharsTab
     class CharacterWindow
-      PROGRESS_BAR_BASE = (120 - 6)
       def initialize(character, y_offset, x)
         @character = character
         @y_offset  = y_offset
@@ -19,10 +18,21 @@ class InspectionMenu
         @food_text   = Text.new(@char_portrait_x, @char_portrait_y + 25, "food:", 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
         @sleep_text  = Text.new(@char_portrait_x, @char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
 
-        @food_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 25, 120, 20, "black", ZIndex::MENU_BUTTON)
-        @sleep_progress_bar_background = Rectangle.new(@char_portrait_x + 45, @char_portrait_y + 50, 120, 20, "black", ZIndex::MENU_BUTTON)
-        @food_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 25 + 3, PROGRESS_BAR_BASE, 20 - 6, "red", ZIndex::MENU_BUTTON)
-        @sleep_progress_bar = Rectangle.new(@char_portrait_x + 45 + 3, @char_portrait_y + 50  + 3, PROGRESS_BAR_BASE, 20 - 6, "red", ZIndex::MENU_BUTTON)
+        @food_progress_bar = ProgressBar.new({
+          x: @char_portrait_x + 45,
+          y: @char_portrait_y + 25,
+          width: 120,
+          z: ZIndex::MENU_BUTTON,
+          progress: @character.hunger * 100
+        })
+
+        @sleep_progress_bar = ProgressBar.new({
+          x: @char_portrait_x + 45,
+          y: @char_portrait_y + 50,
+          width: 120,
+          z: ZIndex::MENU_BUTTON,
+          progress: @character.energy * 100
+        })
       end
 
       # TODO: Don't be so clever and remove them by hand
@@ -33,10 +43,8 @@ class InspectionMenu
       end
 
       def rerender
-        food_width  = PROGRESS_BAR_BASE * @character.hunger
-        sleep_width = PROGRESS_BAR_BASE * @character.energy
-        @food_progress_bar.width = food_width
-        @sleep_progress_bar.width = sleep_width
+        @food_progress_bar.progress  = @character.hunger * 100
+        @sleep_progress_bar.progress = @character.energy * 100
       end
     end
     attr_writer :characters

@@ -209,20 +209,11 @@ show
 
 # Next things:
 #   - change implementation of workshop inspection to remove events
-#   - use z index for rendering and stop with the rerendering thing all over the code
 #   - some sort of autorequire that will work in all platforms!
 #   - drinking mechanism?
 #   - new menu with dropdown selects
 
-# Decouple x and y from things image data. Those 2 are separate!
-# Introduce some sort of renderable module to make rendering bit more readable
 # fix that fucking annoying infinite walking loop
-
-
-# Remove all mapposition observers from anywhere else
-
-# PERFECT!!!!
-# Now all the MapRenderer::Image and MapRenderer::Square can watch offset changes!
 
 
 # instead of producing actions, we should only have jobs and update jobs
