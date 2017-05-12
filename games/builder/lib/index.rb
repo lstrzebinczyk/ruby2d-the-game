@@ -221,3 +221,8 @@ show
 # And we avoid doing all of the action chaining
 
 # Maybe have some cave crawling game? Labirynth crawler with fight?
+# https://gamedevelopment.tutsplus.com/tutorials/generate-random-cave-levels-using-cellular-automata--gamedev-9664
+# http://www.roguebasin.com/index.php?title=Main_Page
+# http://www.roguebasin.com/index.php?title=Random_Walk_Cave_Generation
+# http://www.roguebasin.com/index.php?title=Dynamically_Sized_Maze
+# http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels
