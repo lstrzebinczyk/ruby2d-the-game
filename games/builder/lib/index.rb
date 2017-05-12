@@ -1,3 +1,8 @@
+require "pathname"
+
+engine_path = Pathname.new("./../../").realpath.to_s
+$LOAD_PATH.unshift(engine_path)
+
 require_relative "./game_world"
 require_relative "./controls"
 require_relative "./update"
