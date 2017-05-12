@@ -85,15 +85,13 @@ GENERATE_FLOORS = (MAP_WIDTH * MAP_HEIGHT * 0.3).to_i
 
 $generated_floors = 1
 
-update do
-  if $generated_floors < GENERATE_FLOORS
-    active_map_point.deactivate!
-    active_map_point = active_map_point.random_neighbor
-    active_map_point.activate!
-    if active_map_point.filled
-      active_map_point.empty
-      $generated_floors += 1
-    end
+while  $generated_floors < GENERATE_FLOORS
+  active_map_point.deactivate!
+  active_map_point = active_map_point.random_neighbor
+  active_map_point.activate!
+  if active_map_point.filled
+    active_map_point.empty
+    $generated_floors += 1
   end
 end
 
