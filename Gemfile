@@ -7,5 +7,3 @@ gem "perlin_noise"
 gem "activesupport", "5.0.0"
 
 gem "pry"
-gem "rspec"
-gem 'simplecov', :require => false
