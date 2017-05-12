@@ -10,17 +10,18 @@ require "ruby2d"
 require "pry"
 
 MAP_WIDTH = 60
-MAP_HEIGHT = 40
+MAP_HEIGHT = 60
 
-ENTRY_POINT_X = rand(MAP_WIDTH)
-ENTRY_POINT_Y = MAP_HEIGHT - 1
+ENTRY_POINT_X = MAP_WIDTH  / 2
+ENTRY_POINT_Y = MAP_HEIGHT / 2
 
-PIXELS_PER_SQUARE = 12
+PIXELS_PER_SQUARE = 10
 
 set({
   title: "The Cave Crawler",
   width: MAP_WIDTH * PIXELS_PER_SQUARE,
   height: MAP_HEIGHT * PIXELS_PER_SQUARE,
+  background: "brown"
   # diagnostics: true
 })
 
@@ -39,17 +40,28 @@ class MapPoint
     )
   end
 
+  def remove
+    @mask.remove
+  end
+
   def empty
     @filled = false
-    @mask.color = "gray"
+    @mask.color = "gray" unless @entry_point
+  end
+
+  def set_as_entry_point!
+    @entry_point = true
+    @mask.color = "blue"
   end
 
   def activate!
-    @mask.color = "red"
+    @mask.color = "red" unless @entry_point
   end
 
   def deactivate!
-    if @filled
+    if @entry_point
+      @mask.color = "blue"
+    elsif @filled
       @mask.color = "brown"
     else
       @mask.color = "gray"
@@ -57,41 +69,83 @@ class MapPoint
   end
 
   def random_neighbor
-    [
-      @parent[@x-1, @y],
-      @parent[@x+1, @y],
-      @parent[@x, @y+1],
-      @parent[@x, @y-1]
-    ].compact.sample
+    directions = [
+      [@x-1, @y],
+      [@x+1, @y],
+      [@x, @y+1],
+      [@x, @y-1]
+    ]
+    direction = directions.sample
+
+    neighbor = @parent[direction[0], direction[1]]
+    if neighbor
+      neighbor
+    else
+      new_map_point = MapPoint.new(direction[0], direction[1], @parent)
+      @parent[direction[0], direction[1]] = new_map_point
+      new_map_point
+    end
+    # [
+    # ].compact.sample
   end
 end
-
-$grid = Grid.new
-
-MAP_WIDTH.times do |x|
-  MAP_HEIGHT.times do |y|
-    $grid[x, y] = MapPoint.new(x, y, $grid)
-  end
-end
-
 # binding.pry
+def generate_map
+  time = Time.now
 
-active_map_point = $grid[ENTRY_POINT_X, ENTRY_POINT_Y]
+  grid = Grid.new
 
-active_map_point.activate!
-active_map_point.empty
+  # MAP_WIDTH.times do |x|
+  #   MAP_HEIGHT.times do |y|
+  #     grid[x, y] = MapPoint.new(x, y, grid)
+  #   end
+  # end
 
-GENERATE_FLOORS = (MAP_WIDTH * MAP_HEIGHT * 0.3).to_i
+  active_map_point = MapPoint.new(ENTRY_POINT_X, ENTRY_POINT_Y, grid)
 
-$generated_floors = 1
-
-while  $generated_floors < GENERATE_FLOORS
-  active_map_point.deactivate!
-  active_map_point = active_map_point.random_neighbor
+  grid[ENTRY_POINT_X, ENTRY_POINT_Y] = active_map_point
+  active_map_point.set_as_entry_point!
   active_map_point.activate!
-  if active_map_point.filled
-    active_map_point.empty
-    $generated_floors += 1
+  active_map_point.empty
+  generated_floors = 1
+
+  while generated_floors < GENERATE_FLOORS
+    active_map_point.deactivate!
+    active_map_point = active_map_point.random_neighbor
+    active_map_point.activate!
+    if active_map_point.filled
+      active_map_point.empty
+      generated_floors += 1
+    end
+  end
+
+  puts "Generation time: #{Time.now - time}"
+
+  grid
+end
+
+GENERATE_FLOORS = 500
+$grid = generate_map
+
+
+
+# while  $generated_floors < GENERATE_FLOORS
+#   active_map_point.deactivate!
+#   active_map_point = active_map_point.random_neighbor
+#   active_map_point.activate!
+#   if active_map_point.filled
+#     active_map_point.empty
+#     $generated_floors += 1
+#   end
+# end
+
+on :key_down do |e|
+  if e.key == "r"
+    $grid.each do |map_point|
+      map_point.remove
+    end
+
+    $grid = generate_map
   end
 end
 
