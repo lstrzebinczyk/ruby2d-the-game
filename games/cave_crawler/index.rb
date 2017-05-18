@@ -214,4 +214,42 @@ on :key_held do |e|
 end
 
 
+class MousePointer
+  def initialize
+    @x, @y = 0, 0
+    @mask = Square.new(20, 20, PIXELS_PER_SQUARE, [0, 0, 0, 0.4])
+  end
+
+  def color=(color)
+    @mask.color = color
+    @mask.color.opacity = 0.4
+  end
+
+  def x=(x)
+    @x = x
+    @mask.x = @x * PIXELS_PER_SQUARE
+  end
+
+  def y=(y)
+    @y = y
+    @mask.y = @y * PIXELS_PER_SQUARE
+  end
+end
+
+$mouse_pointer = MousePointer.new
+
+on :mouse_move do |e|
+  selected_x = e.x / PIXELS_PER_SQUARE
+  selected_y = e.y / PIXELS_PER_SQUARE
+
+  $mouse_pointer.x = selected_x
+  $mouse_pointer.y = selected_y
+
+  if $grid[selected_x, selected_y]
+    $mouse_pointer.color = "black"
+  else
+    $mouse_pointer.color = "red"
+  end
+end
+
 show
