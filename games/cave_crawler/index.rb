@@ -9,13 +9,13 @@ require "ruby2d"
 
 require "pry"
 
-MAP_WIDTH = 60
-MAP_HEIGHT = 60
+MAP_WIDTH = 40
+MAP_HEIGHT = 40
 
 ENTRY_POINT_X = MAP_WIDTH  / 2
 ENTRY_POINT_Y = MAP_HEIGHT / 2
 
-PIXELS_PER_SQUARE = 10
+PIXELS_PER_SQUARE = 16
 
 set({
   title: "The Cave Crawler",
@@ -26,7 +26,7 @@ set({
 })
 
 class MapPoint
-  attr_reader :filled
+  attr_reader :filled, :x, :y
 
   def initialize(x, y, parent)
     @x, @y = x, y
@@ -52,6 +52,11 @@ class MapPoint
   def set_as_entry_point!
     @entry_point = true
     @mask.color = "blue"
+  end
+
+  def set_as_outro_point!
+    @outro_point = true
+    @mask.color = "fuchsia"
   end
 
   def activate!
@@ -85,23 +90,17 @@ class MapPoint
       @parent[direction[0], direction[1]] = new_map_point
       new_map_point
     end
-    # [
-    # ].compact.sample
   end
 end
-# binding.pry
+
 def generate_map
   time = Time.now
 
   grid = Grid.new
 
-  # MAP_WIDTH.times do |x|
-  #   MAP_HEIGHT.times do |y|
-  #     grid[x, y] = MapPoint.new(x, y, grid)
-  #   end
-  # end
-
   active_map_point = MapPoint.new(ENTRY_POINT_X, ENTRY_POINT_Y, grid)
+  entry_point = active_map_point
+
 
   grid[ENTRY_POINT_X, ENTRY_POINT_Y] = active_map_point
   active_map_point.set_as_entry_point!
@@ -119,14 +118,44 @@ def generate_map
     end
   end
 
+  outro_point = grid.sort_by do |a|
+    (a.x - entry_point.x).abs + (a.y - entry_point.y).abs
+  end.last
+
+  outro_point.set_as_outro_point!
+
   puts "Generation time: #{Time.now - time}"
 
   grid
 end
 
-GENERATE_FLOORS = 500
+GENERATE_FLOORS = 2000
 $grid = generate_map
 
+class Character
+  attr_reader :x, :y
+
+  def initialize(x, y)
+    @x, @y = x, y
+    @image = Image.new(
+      @x * PIXELS_PER_SQUARE,
+      @y * PIXELS_PER_SQUARE,
+      "assets/character.png"
+    )
+  end
+
+  def x=(x)
+    @x = x
+    @image.x = @x * PIXELS_PER_SQUARE
+  end
+
+  def y=(y)
+    @y = y
+    @image.y = @y * PIXELS_PER_SQUARE
+  end
+end
+
+$character = Character.new(ENTRY_POINT_X, ENTRY_POINT_Y)
 
 
 # while  $generated_floors < GENERATE_FLOORS
@@ -146,6 +175,18 @@ on :key_down do |e|
     end
 
     $grid = generate_map
+  end
+end
+
+on :key_down do |e|
+  if e.key == "w"
+    $character.y -= 1 if $grid[$character.x, $character.y - 1]
+  elsif e.key == "s"
+    $character.y += 1 if $grid[$character.x, $character.y + 1]
+  elsif e.key == "a"
+    $character.x -= 1 if $grid[$character.x - 1, $character.y]
+  elsif e.key == "d"
+    $character.x += 1 if $grid[$character.x + 1, $character.y]
   end
 end
 
