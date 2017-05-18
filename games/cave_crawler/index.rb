@@ -26,10 +26,12 @@ set({
 })
 
 class MapPoint
-  attr_reader :filled, :x, :y
+  attr_reader :filled, :x, :y, :outro_point
 
   def initialize(x, y, parent)
     @x, @y = x, y
+    @x_offset = 0
+    @y_offset = 0
     @filled = true
     @parent = parent
     @mask = Square.new(
@@ -38,6 +40,16 @@ class MapPoint
       PIXELS_PER_SQUARE,
       "brown"
     )
+  end
+
+  def x_offset=(x_offset)
+    @x_offset = x_offset
+    @mask.x = (@x + @x_offset) * PIXELS_PER_SQUARE
+  end
+
+  def y_offset=(y_offset)
+    @y_offset = y_offset
+    @mask.y = (@y + @y_offset) * PIXELS_PER_SQUARE
   end
 
   def remove
@@ -144,29 +156,26 @@ class Character
     )
   end
 
+  def remove
+    @image.remove
+  end
+
   def x=(x)
     @x = x
-    @image.x = @x * PIXELS_PER_SQUARE
+    $grid.each do |elem|
+      elem.x_offset = ENTRY_POINT_X - @x
+    end
   end
 
   def y=(y)
     @y = y
-    @image.y = @y * PIXELS_PER_SQUARE
+    $grid.each do |elem|
+      elem.y_offset = ENTRY_POINT_Y - @y
+    end
   end
 end
 
 $character = Character.new(ENTRY_POINT_X, ENTRY_POINT_Y)
-
-
-# while  $generated_floors < GENERATE_FLOORS
-#   active_map_point.deactivate!
-#   active_map_point = active_map_point.random_neighbor
-#   active_map_point.activate!
-#   if active_map_point.filled
-#     active_map_point.empty
-#     $generated_floors += 1
-#   end
-# end
 
 on :key_down do |e|
   if e.key == "r"
@@ -178,15 +187,29 @@ on :key_down do |e|
   end
 end
 
-on :key_down do |e|
-  if e.key == "w"
-    $character.y -= 1 if $grid[$character.x, $character.y - 1]
-  elsif e.key == "s"
-    $character.y += 1 if $grid[$character.x, $character.y + 1]
-  elsif e.key == "a"
-    $character.x -= 1 if $grid[$character.x - 1, $character.y]
-  elsif e.key == "d"
-    $character.x += 1 if $grid[$character.x + 1, $character.y]
+$move_counter = 0
+
+on :key_held do |e|
+  $move_counter += 1
+  if $move_counter == 3
+    $move_counter = 0
+    if e.key == "w"
+      $character.y -= 1 if $grid[$character.x, $character.y - 1]
+    elsif e.key == "s"
+      $character.y += 1 if $grid[$character.x, $character.y + 1]
+    elsif e.key == "a"
+      $character.x -= 1 if $grid[$character.x - 1, $character.y]
+    elsif e.key == "d"
+      $character.x += 1 if $grid[$character.x + 1, $character.y]
+    end
+
+    if $grid[$character.x, $character.y].outro_point
+      $grid.each(&:remove)
+      $character.remove
+
+      $grid = generate_map
+      $character = Character.new(ENTRY_POINT_X, ENTRY_POINT_Y)
+    end
   end
 end
 
