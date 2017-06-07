@@ -53,10 +53,10 @@ module MapRenderer
     def initialize(x, y, path, z)
       super(x, y)
       @content = Image.new(
-        x * PIXELS_PER_SQUARE + @x_offset,
-        y * PIXELS_PER_SQUARE + @y_offset,
-        path,
-        z
+        x: x * PIXELS_PER_SQUARE + @x_offset,
+        y: y * PIXELS_PER_SQUARE + @y_offset,
+        path: path,
+        z: z
       )
     end
   end
@@ -65,11 +65,11 @@ module MapRenderer
     def initialize(x, y, size, color, z)
       super(x, y)
       @content = Square.new(
-        x * PIXELS_PER_SQUARE + @x_offset,
-        y * PIXELS_PER_SQUARE + @y_offset,
-        size * PIXELS_PER_SQUARE,
-        color,
-        z
+        x: x * PIXELS_PER_SQUARE + @x_offset,
+        y: y * PIXELS_PER_SQUARE + @y_offset,
+        size: size * PIXELS_PER_SQUARE,
+        color: color,
+        z: z
       )
     end
   end
@@ -78,12 +78,12 @@ module MapRenderer
     def initialize(x, y, width, height, color, z)
       super(x, y)
       @content = Rectangle.new(
-        x * PIXELS_PER_SQUARE + @x_offset,
-        y * PIXELS_PER_SQUARE + @y_offset,
-        width * PIXELS_PER_SQUARE,
-        height * PIXELS_PER_SQUARE,
-        color,
-        z
+        x: x * PIXELS_PER_SQUARE + @x_offset,
+        y: y * PIXELS_PER_SQUARE + @y_offset,
+        width: width * PIXELS_PER_SQUARE,
+        height: height * PIXELS_PER_SQUARE,
+        color: color,
+        z: z
       )
     end
   end
@@ -91,7 +91,14 @@ module MapRenderer
   class MapText < MapRenderable
     def initialize(x, y, text, font_size, font, z)
       super(x, y)
-      @content = Text.new(x + @x_offset, y + @y_offset, text, font_size, font, "white", z)
+      @content = Text.new(
+        x: x + @x_offset,
+        y: y + @y_offset,
+        text: text,
+        size: font_size,
+        font: font,
+        z: z
+      )
     end
 
     def update_offset(x_offset, y_offset)

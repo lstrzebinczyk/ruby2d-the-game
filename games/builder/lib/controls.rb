@@ -133,7 +133,7 @@ def toggle_profiling_cpu
     end
     close
   else
-    Text.new(200, 15, "PROFILING CPU", 40, "fonts/arial.ttf")
+    Text.new(x: 200, y: 15, text: "PROFILING CPU", size: 40, font: "fonts/arial.ttf")
 
     require "ruby-prof"
     require "pathname"
@@ -160,7 +160,8 @@ on :key_down do |e|
       end
       close
     else
-      Text.new(200, 15, "PROFILING MEMORY", 40, "fonts/arial.ttf")
+      Text.new(x: 200, y: 15, text: "PROFILING MEMORY", size: 40, font: "fonts/arial.ttf")
+
       require "ruby-prof"
       require "pathname"
 

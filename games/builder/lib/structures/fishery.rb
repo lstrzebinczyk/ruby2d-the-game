@@ -4,10 +4,10 @@ class Fishery < Structure::Base
       x = opts[:x]
       y = opts[:y]
       @texts = []
-      @texts << Text.new(x, y, "Fishery", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 20, "Continuous fishing:  on", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 40, "Continuous cleaning: on", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 60, "Raw fishes: #{kitchen.supplies.count}", 16, "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y,      text: "Fishery",                               size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 20, text: "Continuous fishing:  on",               size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 40, text: "Continuous cleaning: on",               size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 60, text: "Raw fishes: #{kitchen.supplies.count}", size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

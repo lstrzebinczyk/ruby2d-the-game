@@ -115,11 +115,11 @@ module GameMode
         rect_height = (@y_arr.last - @y_arr.first + 1) * PIXELS_PER_SQUARE
 
         @mouse_down_mask = Rectangle.new(
-          rect_x,
-          rect_y,
-          rect_width,
-          rect_height,
-          [1, 1, 1, 0.2]
+          x: rect_x,
+          y: rect_y,
+          width: rect_width,
+          height: rect_height,
+          color: [1, 1, 1, 0.2]
         )
       end
 

@@ -9,14 +9,20 @@ class Workshop < Structure::Base
       y = opts[:y]
       @buttons = []
       @texts = []
-      @texts << Text.new(x, y, "Workshop", 16, "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y, text: "Workshop", size: 16, font: "fonts/arial.ttf")
 
       padding = workshop.class.buildable_items.map{|item_class| item_class.name.size }.max
 
       workshop.class.buildable_items.each_with_index do |item_class, index|
         count = workshop.jobs.count{|j| j.is_a? ProduceJob and j.item_class == item_class }
         message = "#{item_class.name.ljust(padding)}: #{count}"
-        @texts << Text.new(x, y + 20 * (index + 1), message, 16, "fonts/arial.ttf")
+        @texts << Text.new(
+          x: x,
+          y: y + 20 * (index + 1),
+          text: message,
+          size: 16,
+          font: "fonts/arial.ttf"
+        )
 
         button = Button.new("+",
           side_padding: 4,

@@ -4,10 +4,9 @@ class Blueprint < Structure::Base
       x = opts[:x]
       y = opts[:y]
       @texts = []
-      @texts << Text.new(x, y, "Blueprint (#{blueprint.structure_class})", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 20, "Needs #{blueprint.needs}", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 40, "Jobs: #{blueprint.jobs.map(&:class)}", 16, "fonts/arial.ttf")
-
+      @texts << Text.new(x: x, y: y,      text: "Blueprint (#{blueprint.structure_class})", size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 20, text: "Needs #{blueprint.needs}",                 size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 40, text: "Jobs: #{blueprint.jobs.map(&:class)}",     size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

@@ -9,14 +9,14 @@ class InspectionMenu
         @char_portrait_x = @x
         @char_portrait_y = @y_offset
         @char_image  = Image.new(
-          @char_portrait_x,
-          @char_portrait_y,
-          @character.image_path,
-          ZIndex::MENU_BUTTON
+          x: @char_portrait_x,
+          y: @char_portrait_y,
+          path: @character.image_path,
+          z: ZIndex::MENU_BUTTON
         )
-        @char_name   = Text.new(@char_portrait_x + 25, @char_portrait_y, @character.name, 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
-        @food_text   = Text.new(@char_portrait_x, @char_portrait_y + 25, "food:", 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
-        @sleep_text  = Text.new(@char_portrait_x, @char_portrait_y + 50, "sleep:", 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON)
+        @char_name   = Text.new(x: @char_portrait_x + 25, y: @char_portrait_y,      text: @character.name, size: 16, font: "fonts/arial.ttf", z: ZIndex::MENU_BUTTON)
+        @food_text   = Text.new(x: @char_portrait_x,      y: @char_portrait_y + 25, text: "food:",         size: 16, font: "fonts/arial.ttf", z: ZIndex::MENU_BUTTON)
+        @sleep_text  = Text.new(x: @char_portrait_x,      y: @char_portrait_y + 50, text: "sleep:",        size: 16, font: "fonts/arial.ttf", z: ZIndex::MENU_BUTTON)
 
         @food_progress_bar = ProgressBar.new({
           x: @char_portrait_x + 45,
@@ -103,7 +103,14 @@ class InspectionMenu
           @texts << c.class::Inspection.new(c, x: x, y: y)
         else
           msg = c.class
-          t = Text.new(x, y, msg, 16, "fonts/arial.ttf", "white", ZIndex::MENU_BUTTON_TEXT)
+          t = Text.new(
+            x: x,
+            y: y,
+            text: msg,
+            size: 16,
+            font: "fonts/arial.ttf",
+            z: ZIndex::MENU_BUTTON_TEXT
+          )
           @texts << t
         end
       end
@@ -130,7 +137,14 @@ class InspectionMenu
     @tab_buttons    = []
     @active_tab     = nil
 
-    @background     = Rectangle.new(@x, 0, @width, @height, "brown", ZIndex::MENU_BACKGROUND)
+    @background     = Rectangle.new(
+      x: @x,
+      y: 0,
+      width: @width,
+      height: @height,
+      color: "brown",
+      z: ZIndex::MENU_BACKGROUND
+    )
     render_tabs
 
     @tab_buttons.first.on_click.call

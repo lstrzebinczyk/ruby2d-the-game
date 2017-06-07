@@ -5,7 +5,7 @@ class BerryBush
       msg = "Berry Bush, #{kgs} kgs of berries"
       x = opts[:x]
       y = opts[:y]
-      @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
+      @t = Text.new(x: x, y: y, text: msg, size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

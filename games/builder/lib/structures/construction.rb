@@ -3,7 +3,7 @@ class Construction < Structure::Base
     def initialize(construction, opts = {})
       x = opts[:x]
       y = opts[:y]
-      @text = Text.new(x, y, "Construction (#{construction.structure_class})", 16, "fonts/arial.ttf")
+      @text = Text.new(x: x, y: y, text: "Construction (#{construction.structure_class})", size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

@@ -121,11 +121,11 @@ class Menu
 
   def render_menu_background
     @menu_background = Rectangle.new(
-      0,
-      @menu_y_start,
-      WIDTH,
-      height,
-      "black",
-      ZIndex::MENU_BACKGROUND)
+      y: @menu_y_start,
+      width: WIDTH,
+      height: height,
+      color: "black",
+      z: ZIndex::MENU_BACKGROUND
+    )
   end
 end

@@ -14,21 +14,21 @@ class ProgressBar
     @progress = opts[:progress] || 0
 
     @background = Rectangle.new(
-      @x,
-      @y,
-      @width,
-      @height,
-      @background_color,
-      @z
+      x: @x,
+      y: @y,
+      width: @width,
+      height: @height,
+      color: @background_color,
+      z: @z
     )
 
     @progress_mark = Rectangle.new(
-      @x + @border,
-      @y + @border,
-      (@progress / @total) * (@width - 2 * @border),
-      @height - 2 * @border,
-      @color,
-      @z + 0.01
+      x: @x + @border,
+      y: @y + @border,
+      width: (@progress / @total) * (@width - 2 * @border),
+      height: @height - 2 * @border,
+      color: @color,
+      z: @z + 0.01
     )
   end
 

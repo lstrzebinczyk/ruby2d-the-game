@@ -7,10 +7,10 @@ class Character < Creature
       msg = "#{character.name}, a #{character.type}"
       x = opts[:x]
       y = opts[:y]
-      @t = Text.new(x, y, msg, 16, "fonts/arial.ttf")
-      @t1 = Text.new(x, y + 20, "Job: #{character.job.class}", 16, "fonts/arial.ttf")
-      @t2 = Text.new(x, y + 40, "Action: #{character.action.class}", 16, "fonts/arial.ttf")
-      @t3 = Text.new(x, y + 60, "Carries: #{character.carry.class}", 16, "fonts/arial.ttf")
+      @t  = Text.new(x: x, y: y,      text: msg,                                 size: 16, font: "fonts/arial.ttf")
+      @t1 = Text.new(x: x, y: y + 20, text: "Job: #{character.job.class}",       size: 16, font: "fonts/arial.ttf")
+      @t2 = Text.new(x: x, y: y + 40, text: "Action: #{character.action.class}", size: 16, font: "fonts/arial.ttf")
+      @t3 = Text.new(x: x, y: y + 60, text: "Carries: #{character.carry.class}", size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

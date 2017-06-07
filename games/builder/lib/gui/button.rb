@@ -72,22 +72,21 @@ class Button
 
   def render(x, y)
     @text_element = Text.new(
-      x + @side_padding,
-      y + @top_and_bottom_padding,
-      @text,
-      @text_size,
-      "fonts/arial.ttf",
-      "white",
-      ZIndex::MENU_BUTTON_TEXT
+      x: x + @side_padding,
+      y: y + @top_and_bottom_padding,
+      text: @text,
+      size: @text_size,
+      font: "fonts/arial.ttf",
+      z: ZIndex::MENU_BUTTON_TEXT
     )
 
     @background = Rectangle.new(
-      x,
-      y,
-      @text_element.width + 2 * @side_padding,
-      @text_element.height + 2 * @top_and_bottom_padding,
-      color,
-      ZIndex::MENU_BUTTON
+      x: x,
+      y: y,
+      width: @text_element.width + 2 * @side_padding,
+      height: @text_element.height + 2 * @top_and_bottom_padding,
+      color: color,
+      z: ZIndex::MENU_BUTTON
     )
   end
 end

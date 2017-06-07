@@ -6,8 +6,8 @@ class PastureZone < Zone::Base
       x = opts[:x]
       y = opts[:y]
       @texts = []
-      @texts << Text.new(x, y, "Pasture", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 20, "Continuous milking: on", 16, "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y,      text: "Pasture",                size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 20, text: "Continuous milking: on", size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

@@ -4,14 +4,12 @@ class DayAndNightCycle
 
   def initialize(height, width)
     @time = Time.new(1, 1, 1, 12, 0) # start at 12:00 of the first day ever in history
-    @text = Text.new(820, 12, "12:00", 40, "fonts/arial.ttf", "white", ZIndex::GAME_WORLD_TEXT)
+    @text = Text.new(x: 820, y: 12, text: "12:00", size: 40, font: "fonts/arial.ttf", z: ZIndex::GAME_WORLD_TEXT)
     @sun_shining_mask = Rectangle.new(
-      0,
-      0,
-      width,
-      height,
-      [0, 33.0 / 255, 115.0 / 255, 0],
-      ZIndex::NIGHT_MASK
+      width: width,
+      height: height,
+      color: [0, 33.0 / 255, 115.0 / 255, 0],
+      z: ZIndex::NIGHT_MASK
     )
     @old_hour = @time.hour
 

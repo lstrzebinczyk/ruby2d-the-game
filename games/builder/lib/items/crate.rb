@@ -4,9 +4,21 @@ class Crate < Container
       @x = opts[:x]
       @y = opts[:y]
       @texts = []
-      @texts << Text.new(@x, @y, "Crate, stored:", 16, "fonts/arial.ttf")
+      @texts << Text.new(
+        x: @x,
+        y: @y,
+        text: "Crate, stored:",
+        size: 16,
+        font: "fonts/arial.ttf"
+      )
       crate.storage.each_with_index do |thing, index|
-        @texts << Text.new(@x + 10, @y + 20 * (1 + index), thing.inspect, 16, "fonts/arial.ttf")
+        @texts << Text.new(
+          x: @x + 10,
+          y: @y + 20 * (1 + index),
+          text: thing.inspect,
+          size: 16,
+          font: "fonts/arial.ttf"
+        )
       end
     end
 

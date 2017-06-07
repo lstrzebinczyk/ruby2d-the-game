@@ -4,9 +4,9 @@ class Kitchen < Structure::Base
       x = opts[:x]
       y = opts[:y]
       @texts = []
-      @texts << Text.new(x, y, "Kitchen", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 20, "Continuous cooking: on", 16, "fonts/arial.ttf")
-      @texts << Text.new(x, y + 40, "Cleaned fishes: #{kitchen.supplies.count}", 16, "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y,      text: "Kitchen",                                   size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 20, text: "Continuous cooking: on",                    size: 16, font: "fonts/arial.ttf")
+      @texts << Text.new(x: x, y: y + 40, text: "Cleaned fishes: #{kitchen.supplies.count}", size: 16, font: "fonts/arial.ttf")
     end
 
     def remove

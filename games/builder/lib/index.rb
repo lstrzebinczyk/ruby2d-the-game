@@ -164,7 +164,7 @@ class Autoplayer
   end
 end
 
-@autoplay = true
+# @autoplay = true
 if @autoplay
   $autoplayer = Autoplayer.new
   $autoplayer.build_phase_one

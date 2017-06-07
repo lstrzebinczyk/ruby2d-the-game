@@ -10,7 +10,14 @@ class GameSpeed
     @text && @text.remove
     @text = nil
     unless number == 1
-      @text = Text.new(610, 52, "Game speed: x#{number}", 40, "fonts/arial.ttf", "white", ZIndex::GAME_WORLD_TEXT)
+      @text = Text.new(
+        x: 610,
+        y: 52,
+        text: "Game speed: x#{number}",
+        size: 40,
+        font: "fonts/arial.ttf",
+        z: ZIndex::GAME_WORLD_TEXT
+      )
     end
   end
 end
